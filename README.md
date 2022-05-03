@@ -1,3 +1,5 @@
+![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2022/Office-Booker)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Office-Booker)
 # OfficeBooker
 
 ## Team
