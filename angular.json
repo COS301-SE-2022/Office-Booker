@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "office-booker": "apps/office-booker",
+    "office-booker-e2e": "apps/office-booker-e2e"
+  }
+}
