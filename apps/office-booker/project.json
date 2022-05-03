@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "root": "apps/office-booker",
+  "sourceRoot": "apps/office-booker/src",
+  "prefix": "office-booker",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/office-booker",
+        "index": "apps/office-booker/src/index.html",
+        "main": "apps/office-booker/src/main.ts",
+        "polyfills": "apps/office-booker/src/polyfills.ts",
+        "tsConfig": "apps/office-booker/tsconfig.app.json",
+        "assets": [
+          "apps/office-booker/src/favicon.ico",
+          "apps/office-booker/src/assets"
+        ],
+        "styles": ["apps/office-booker/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/office-booker/src/environments/environment.ts",
+              "with": "apps/office-booker/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "office-booker:build:production"
+        },
+        "development": {
+          "browserTarget": "office-booker:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/office-booker/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "office-booker:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/office-booker/**/*.ts",
+          "apps/office-booker/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/office-booker"],
+      "options": {
+        "jestConfig": "apps/office-booker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
