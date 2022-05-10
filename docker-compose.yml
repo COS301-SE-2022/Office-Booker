@@ -1,16 +1,13 @@
 version: '3'
 services:
-  mongodb:
-    image: mongo:latest
-    volumes:
-      - db-data:/data/db
-      - mongo-config:/data/configdb
-    ports:
-      - 27017:27017
+  postgres14:
+    image: postgres:14
+    restart: always
+    command: postgres -c 'max_connections=1000'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-
-volumes:
-  db-data:
-  mongo-config:
+      POSTGRES_USER: "prisma"
+      POSTGRES_PASSWORD: "prisma"
+      POSTGRES_HOST_AUTH_METHOD: "md5"
+      POSTGRES_INITDB_ARGS: "--auth-host=md5"
+    ports:
+      - "5432:5432"
