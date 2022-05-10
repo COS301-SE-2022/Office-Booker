@@ -23,7 +23,7 @@ model Desk {
   facilities Facility[]
   Room       Room       @relation(fields: [roomId], references: [id])
   roomId     Int
-  Bookings    Booking[]
+  Bookings   Booking[]
 }
 
 model Facility {
@@ -37,10 +37,10 @@ model Facility {
 // models related to bookings
 
 model Booking {
-  id     Int  @id @default(autoincrement())
-  Desk   Desk @relation(fields: [deskId], references: [id])
-  deskId Int
+  id        Int      @id @default(autoincrement())
+  Desk      Desk     @relation(fields: [deskId], references: [id])
+  deskId    Int
   createdAt DateTime @default(now())
-  startsAt DateTime
-  endsAt DateTime
+  startsAt  DateTime
+  endsAt    DateTime
 }
