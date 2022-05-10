@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ApiSharedServicesPrismaDataAccessService } from './api-shared-services-prisma-data-access.service';
+import { PrismaService } from './api-shared-services-prisma-data-access.service';
 
 @Module({
   controllers: [],
-  providers: [ApiSharedServicesPrismaDataAccessService],
-  exports: [ApiSharedServicesPrismaDataAccessService],
+  providers: [PrismaService],
+  exports: [PrismaService],
 })
 export class ApiSharedServicesPrismaDataAccessModule {}

@@ -1,15 +1,15 @@
 import { Test } from '@nestjs/testing';
-import { ApiSharedServicesPrismaDataAccessService } from './api-shared-services-prisma-data-access.service';
+import { PrismaService } from './api-shared-services-prisma-data-access.service';
 
-describe('ApiSharedServicesPrismaDataAccessService', () => {
-  let service: ApiSharedServicesPrismaDataAccessService;
+describe('PrismaService', () => {
+  let service: PrismaService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [ApiSharedServicesPrismaDataAccessService],
+      providers: [PrismaService],
     }).compile();
 
-    service = module.get(ApiSharedServicesPrismaDataAccessService);
+    service = module.get(PrismaService);
   });
 
   it('should be defined', () => {
