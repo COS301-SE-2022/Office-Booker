@@ -1,0 +1,56 @@
+---
+name: CI Tests
+
+on: 
+  pull_request:
+    branches: [ main, develop ]
+  #manual github action trigger with choices to run individual tests
+  workflow_dispatch:
+    inputs:
+      testchoice:
+        type: choice
+        description: 'Test Type'
+        required: true
+        options:
+        - full
+        - lint
+        - build
+        - unit
+        - e2e
+        - all
+
+#jobs in the workflow with passed in parameters
+jobs:
+  test-affected-lint:
+    if: ${{ github.event.inputs.testchoice == 'lint' || github.event.inputs.testchoice == 'full' || github.event.inputs.testchoice == ''}}
+    uses: ./.github/workflows/nxtest.yml
+    with:
+      test: 'affected'
+      testtype: 'lint'
+
+  test-affected-build:
+    uses: ./.github/workflows/nxtest.yml
+    if: ${{ github.event.inputs.testchoice == 'build' || github.event.inputs.testchoice == 'full' || github.event.inputs.testchoice == ''}}
+    with:
+      test: 'affected'
+      testtype: 'build'
+  
+  test-affected-unit:
+    uses: ./.github/workflows/nxtest.yml
+    if: ${{ github.event.inputs.testchoice == 'unit' || github.event.inputs.testchoice == 'full'|| github.event.inputs.testchoice == ''}}
+    with:
+      test: 'affected'
+      testtype: 'unit'
+
+  test-affected-e2e:
+    uses: ./.github/workflows/nxtest.yml
+    if: ${{ github.event.inputs.testchoice == 'e2e' || github.event.inputs.testchoice == 'full'|| github.event.inputs.testchoice == ''}}
+    with:
+      test: 'affected'
+      testtype: 'e2e'
+
+  test-all:
+    uses: ./.github/workflows/nxtest.yml
+    if: ${{ github.event.inputs.testchoice == 'all'}}
+    with:
+      test: 'all'
