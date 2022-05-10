@@ -1,0 +1,47 @@
+---
+name: 'Meta Test'
+
+on: 
+  pull_request:
+    types: [ opened, reopened, labeled ]
+
+jobs:
+  label-check:
+    name: Checks if labels are used
+    runs-on: ubuntu-latest
+    steps: 
+        #Checking out to the develop branch
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Has atleast one priority label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: 'Priority: High, Priority: Low, Priority: Medium'
+
+      - name: Has atleast one type label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: 'Type: Bug, Type: Change, Type: Chore, Type: Cosmetic, Type: Documentation, Type: Enhance, Type: Feature, Type: Fix, Type: Refactor, Type: Test'
+
+      - name: Has atleast one status label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: 'Status: Needs-info, Status: Needs-tests, Status: Not-ready, Status: On-hold, Status: Ready'
+
+  milestone-check:
+    name: Checks if milestone is used
+    runs-on: ubuntu-latest
+    steps:       
+      - name: Has milestone check
+        if: github.event.pull_request.milestone == null
+        run: |
+          echo "you don't have a milestone"
+          exit 1
