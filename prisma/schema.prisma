@@ -6,6 +6,26 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model Room {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  desks Desk[]
+}
+
+model Desk {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  facilities Facility[]
+  Room       Room       @relation(fields: [roomId], references: [id])
+  roomId     String     @db.ObjectId
+}
+
+model Facility {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String //this can be enum later
+  count  Int
+  Desk   Desk   @relation(fields: [deskId], references: [id])
+  deskId String @db.ObjectId
 }
