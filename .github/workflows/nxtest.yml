@@ -1,0 +1,90 @@
+---
+name: 'Default Test'
+
+#Reusable workflow with input parameters to choose a type of test
+on:
+  workflow_call:
+    inputs:
+      test:
+        description: 'Type of test being run'
+        required: true
+        type: string
+      testtype:
+        description: 'Type of test (lint, build, test)'
+        required: false
+        type: string
+
+jobs:
+  build:
+    name: Generate cache
+    runs-on: ubuntu-latest
+    steps:
+        #Checking out to the develop branch
+      - name: Checkout develop
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+        #Generates the hashes for the comparison between the origin branch and the upstream development branch
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'develop'
+
+        #Installs node.js
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+        #installs yarn
+      - name: Install yarn
+        run: npm install yarn -g
+
+      - name: Cache Yarn Packages
+        id: cache-yarn-packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache
+          key: yarn-packages-${{ hashFiles('**/yarn.lock') }}
+
+        #installs the yarn lockfile
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Lint test affected
+        if: inputs.testtype == 'lint' && inputs.test == 'affected'
+        run: yarn nx affected:lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} 
+
+      - name: Build test affected
+        if: inputs.testtype == 'build' && inputs.test == 'affected'
+        run: yarn nx affected:build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+
+      - name: Unit test affected
+        if: inputs.testtype == 'unit' && inputs.test == 'affected'
+        run: yarn nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+
+      - name: E2E test affected
+        if: inputs.testtype == 'e2e' && inputs.test == 'affected'
+        run: yarn nx affected:e2e --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+
+        #run tests on the entire repository
+      - name: Test all
+        if: inputs.test == 'all' 
+        run: |
+          yarn nx run-many --target=lint --all --skip-nx-cache --parallel
+          yarn nx run-many --target=build --all --skip-nx-cache --parallel
+          yarn nx run-many --target=test --all --skip-nx-cache --parallel --coverage
+          yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
+          
+      #- name: Merge coverage reports
+      #  if: inputs.test == 'all'   
+      #  run: node ./tools/scripts/merge-reports.js
+
+      #- uses: codecov/codecov-action@v2
+      #  if: inputs.test == 'all' 
+      #  with:
+      #    # Organization codecov token to be placed below
+      #    token: ${{ secrets.CODECOV_TOKEN }}
+      #    files: ./coverage/lcov.info
+      #    name: cypress-jest # optional
