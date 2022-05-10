@@ -1,0 +1,24 @@
+{
+  "root": "libs/api/shared/services/prisma/data-access",
+  "sourceRoot": "libs/api/shared/services/prisma/data-access/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/shared/services/prisma/data-access/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/shared/services/prisma/data-access"],
+      "options": {
+        "jestConfig": "libs/api/shared/services/prisma/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
