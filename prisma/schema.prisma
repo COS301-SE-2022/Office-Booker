@@ -9,3 +9,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Room {
+  id    Int    @id @default(autoincrement())
+  name  String
+  desks Desk[]
+}
+
+model Desk {
+  id         Int        @id @default(autoincrement()) @map("_id")
+  facilities Facility[]
+  Room       Room       @relation(fields: [roomId], references: [id])
+  roomId     Int
+}
+
+model Facility {
+  id     Int    @id @default(autoincrement()) @map("_id")
+  name   String //this can be enum later
+  count  Int
+  Desk   Desk   @relation(fields: [deskId], references: [id])
+  deskId Int
+}
