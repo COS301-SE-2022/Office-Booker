@@ -2,7 +2,9 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
     "api-interfaces": "libs/api-interfaces",
+    "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
     "office-booker": "apps/office-booker",
     "office-booker-e2e": "apps/office-booker-e2e"
   }
