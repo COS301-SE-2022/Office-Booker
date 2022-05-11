@@ -5,6 +5,7 @@
     "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
     "api-desks-api": "libs/api/desks/api",
     "api-desks-repository-data-access": "libs/api/desks/repository/data-access",
+    "api-facilities-api": "libs/api/facilities/api",
     "api-facilities-repository-data-access": "libs/api/facilities/repository/data-access",
     "api-interfaces": "libs/api-interfaces",
     "api-rooms-api": "libs/api/rooms/api",
