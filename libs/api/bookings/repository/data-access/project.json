@@ -4,14 +4,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/api/bookings/repository/data-access/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/api/bookings/repository/data-access/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api/bookings/repository/data-access"],
+      "outputs": [
+        "coverage/libs/api/bookings/repository/data-access"
+      ],
       "options": {
         "jestConfig": "libs/api/bookings/repository/data-access/jest.config.ts",
         "passWithNoTests": true
