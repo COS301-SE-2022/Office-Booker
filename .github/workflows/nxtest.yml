@@ -78,13 +78,14 @@ jobs:
           yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
           
       - name: Merge coverage reports
-        if: inputs.test == 'all'   
-        run: node ./tools/scripts/merge-reports.js
+        if: inputs.test == 'all'
+        run: node ./tools/scripts/merge-report.js
+
 
       - uses: codecov/codecov-action@v2
         if: inputs.test == 'all' 
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./lcov.info
+          files: ./coverage/lcov.info
           #name: cypress-jest # optional

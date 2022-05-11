@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 
 @Injectable()
@@ -11,10 +11,10 @@ export class ApiDesksRepositoryDataAccessService {
     }
 
     // get all desks in a room
-    async getDesksInRoom(@Param() roomId: number) {
+    async getDesksInRoom(roomId: number) {
         return this.prisma.desk.findMany({
             where: {
-                roomId,
+                roomId: roomId,
             }, 
         });
     }

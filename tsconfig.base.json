@@ -16,15 +16,21 @@
     "baseUrl": ".",
     "paths": {
       "@office-booker/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@office-booker/api/bookings/api": ["libs/api/bookings/api/src/index.ts"],
       "@office-booker/api/bookings/repository/data-access": [
         "libs/api/bookings/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/desks/api": ["libs/api/desks/api/src/index.ts"],
       "@office-booker/api/desks/repository/data-access": [
         "libs/api/desks/repository/data-access/src/index.ts"
+      ],
+      "@office-booker/api/facilities/api": [
+        "libs/api/facilities/api/src/index.ts"
       ],
       "@office-booker/api/facilities/repository/data-access": [
         "libs/api/facilities/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/rooms/api": ["libs/api/rooms/api/src/index.ts"],
       "@office-booker/api/rooms/repository/data-access": [
         "libs/api/rooms/repository/data-access/src/index.ts"
       ],
