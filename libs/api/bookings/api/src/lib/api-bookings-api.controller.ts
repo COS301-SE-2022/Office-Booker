@@ -1,5 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
+import { IsDate } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class CreateBookingDto {
+    @IsDate()
+    @Type(() => Date)
+    startsAt: Date;
+
+    @IsDate()
+    @Type(() => Date)
+    endsAt: Date;
+}
 
 @Controller('bookings')
 export class ApiBookingsApiController {
@@ -26,7 +38,7 @@ export class ApiBookingsApiController {
     }
 
     @Post('/desk/:deskId')
-    async createBooking(@Param('deskId') deskId: string, @Body() postData: { startsAt: string, endsAt: string }) {
+    async createBooking(@Param('deskId') deskId: string, @Body() postData: CreateBookingDto) {
         const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
