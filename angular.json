@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "api-bookings-api": "libs/api/bookings/api",
     "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
     "api-desks-api": "libs/api/desks/api",
     "api-desks-repository-data-access": "libs/api/desks/repository/data-access",
