@@ -3,6 +3,7 @@
   "projects": {
     "api": "apps/api",
     "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
+    "api-desks-repository-data-access": "libs/api/desks/repository/data-access",
     "api-interfaces": "libs/api-interfaces",
     "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
     "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",

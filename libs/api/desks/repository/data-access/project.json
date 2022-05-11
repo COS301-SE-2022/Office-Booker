@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/desks/repository/data-access",
+  "sourceRoot": "libs/api/desks/repository/data-access/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/desks/repository/data-access/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/desks/repository/data-access"],
+      "options": {
+        "jestConfig": "libs/api/desks/repository/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
