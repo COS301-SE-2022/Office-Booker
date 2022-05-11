@@ -1,0 +1,12 @@
+.grid-container {
+    width:30%;
+    height:auto;
+    padding-left: 5rem;
+}
+mat-grid-tile {
+    border: 1px solid black;
+}
+
+.row1 .col2 {
+    background-color: aqua;
+}
