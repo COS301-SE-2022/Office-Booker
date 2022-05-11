@@ -1,4 +1,5 @@
 import { Test } from '@nestjs/testing';
+import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
 import { ApiDesksApiController } from './api-desks-api.controller';
 
 describe('ApiDesksApiController', () => {
@@ -7,7 +8,7 @@ describe('ApiDesksApiController', () => {
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [],
-      controllers: [ApiDesksApiController],
+      controllers: [ApiDesksApiController, ApiDesksRepositoryDataAccessService],
     }).compile();
 
     controller = module.get(ApiDesksApiController);
