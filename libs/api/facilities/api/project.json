@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/facilities/api",
+  "sourceRoot": "libs/api/facilities/api/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/facilities/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/facilities/api"],
+      "options": {
+        "jestConfig": "libs/api/facilities/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
