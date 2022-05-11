@@ -14,7 +14,7 @@ export class ApiDesksRepositoryDataAccessService {
     async getDesksInRoom(@Param() roomId: number) {
         return this.prisma.desk.findMany({
             where: {
-                roomId,
+                roomId: roomId,
             }, 
         });
     }
