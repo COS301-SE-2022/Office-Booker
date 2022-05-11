@@ -1,5 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiBookingsRepositoryDataAccessService {
@@ -38,6 +39,21 @@ export class ApiBookingsRepositoryDataAccessService {
 
     // TODO: create a booking
     // should we have entities?
+    async createBooking(@Param() booking: Prisma.BookingCreateInput) {
+        return this.prisma.booking.create({
+            data: booking,
+        });
+    }
+
+
+    // delete a booking
+    async deleteBooking(@Param() bookingId: number) {
+        return this.prisma.booking.delete({
+            where: {
+                id: bookingId,
+            },
+        });
+    }
 
     // TODO: modify bookings?
 

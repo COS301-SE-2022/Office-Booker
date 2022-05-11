@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/bookings/api",
+  "sourceRoot": "libs/api/bookings/api/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/bookings/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/bookings/api"],
+      "options": {
+        "jestConfig": "libs/api/bookings/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
