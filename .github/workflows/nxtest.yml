@@ -86,5 +86,5 @@ jobs:
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./lcov.info
+          files: ./coverage/lcov.info
           #name: cypress-jest # optional
