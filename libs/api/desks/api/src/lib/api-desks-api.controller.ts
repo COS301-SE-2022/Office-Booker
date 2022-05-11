@@ -10,8 +10,8 @@ export class ApiDesksApiController {
         return await this.deskService.getDesks();
     }
 
-    @Get('/:roomId')
-    async getDesksInRoom(@Param('roomId') roomId: number) {
-        return await this.deskService.getDesksInRoom(roomId);
+    @Get('/room/:roomId')
+    async getDesksInRoom(@Param('roomId') roomId: string) {
+        return await this.deskService.getDesksInRoom(Number(roomId));
     }
 }
