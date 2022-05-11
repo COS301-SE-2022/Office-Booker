@@ -4,6 +4,8 @@ services:
     image: postgres:14
     restart: always
     command: postgres -c 'max_connections=1000'
+    volumes:
+      - pg_data:/var/lib/postgresql
     environment:
       POSTGRES_USER: "prisma"
       POSTGRES_PASSWORD: "prisma"
@@ -11,3 +13,7 @@ services:
       POSTGRES_INITDB_ARGS: "--auth-host=md5"
     ports:
       - "5432:5432"
+
+volumes:
+  pg_data:
+    external: false
