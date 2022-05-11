@@ -2,6 +2,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Office-Booker)
 [![](https://github.com/COS301-SE-2022/Office-Booker/actions/workflows/index.yml/badge.svg)](https://github.com/COS301-SE-2022/Office-Booker/actions/workflows/index.yml)
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/Office-Booker">
+<img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791717149-2a2cfca481cd111b335e6c78">
 # OfficeBooker
 
 ## Team
