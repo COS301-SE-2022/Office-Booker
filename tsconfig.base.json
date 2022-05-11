@@ -22,6 +22,9 @@
       "@office-booker/api/desks/repository/data-access": [
         "libs/api/desks/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/facilities/repository/data-access": [
+        "libs/api/facilities/repository/data-access/src/index.ts"
+      ],
       "@office-booker/api/rooms/repository/data-access": [
         "libs/api/rooms/repository/data-access/src/index.ts"
       ],
