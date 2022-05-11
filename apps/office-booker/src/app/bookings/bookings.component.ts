@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 
 @Component({
   selector: 'office-booker-bookings',
@@ -6,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bookings.component.css'],
 })
 export class BookingsComponent{
-  //constructor() {}
+
+  constructor(public dialog: MatDialog) {}
 
   //ngOnInit(): void { }
+
+  openDialog($event: any): void {
+    console.log($event.currentTarget.id);
+    this.dialog.open(BookingDialogComponent, {data: {deskId: $event.currentTarget.id}});
+  }
 }
