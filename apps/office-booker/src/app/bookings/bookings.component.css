@@ -1,8 +1,9 @@
 .grid-container {
-    width:30%;
-    height:auto;
+    width: 30%;
+    height: auto;
     padding-left: 5rem;
 }
+
 mat-grid-tile {
     border: 1px solid black;
 }

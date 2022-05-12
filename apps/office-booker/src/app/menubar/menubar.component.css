@@ -7,7 +7,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(63, 63, 63);
 }
 
 li a {
@@ -19,7 +19,7 @@ li a {
 }
 
 li a:hover {
-    background-color: rgb(77, 77, 77);
+    background-color: rgb(83, 83, 83);
 }
 
 .active {
