@@ -6,6 +6,13 @@ export interface Room {
   name: string;
 }
 
+export interface Desk {
+  id: number,
+  roomId: number,
+  LocationRow: number,
+  LocationCol: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +32,7 @@ export class BookingServiceService {
 
   getDesksByRoomId( roomId:number) {
     const url = 'http://localhost:3333/api/desks/room/' + roomId;
-    return this.http.get(`${url}`);
+    return this.http.get<Desk[]>(`${url}`);
   }
 
   getAllDesks() {

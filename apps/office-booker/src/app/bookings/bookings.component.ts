@@ -1,7 +1,8 @@
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
-import { BookingServiceService, Room } from '../services/booking-service.service';
+import { BookingServiceService, Room, Desk } from '../services/booking-service.service';
 
 
 @Component({
@@ -11,17 +12,30 @@ import { BookingServiceService, Room } from '../services/booking-service.service
 })
 export class BookingsComponent{
   //gridLayout: Array<Array<object>>[];
-  //roomName: string;
+  roomName: string;
   rooms: Room[];
+  desks: Desk[];
   constructor(private bookingService: BookingServiceService, public dialog: MatDialog) {
     this.rooms = [];
+    this.desks = [];
+    this.roomName = "";
     this.getRooms();
-    console.log(this.rooms);
-    //this.gridLayout = [];
-    //console.log(this.showRoomById(1));
-    //this.roomName = this.showRoomById(1);
+    this.getRoomById(1);
+    this.getDesksByRoomId(1);
   }
 
+  generateGrid() {
+    const el = '<mat-grid-tile></mat-grid-tile>'
+    for(let i = 0; i < 12; i++){
+      for(let j = 0; j < 12; j++){
+        this.desks.forEach(desk => {
+          if(desk.LocationRow == i && desk.LocationCol == j){
+            //
+          }
+        });
+      }
+    }
+  }
 
   getRooms() {
     this.bookingService.getAllRooms().subscribe(res => {
@@ -33,17 +47,19 @@ export class BookingsComponent{
 
   getRoomById(roomId: number) {
     this.bookingService.getRoomByID(roomId).subscribe(res => {
-      return res;
-    })
+       this.roomName = res.name;
+    });
   }
 
   getDesksByRoomId(roomId: number) {
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
-      return res;
+      res.forEach(desk => {
+        this.desks.push(desk);
+      });
     })
   }
 
-  showDesks() {
+  getDesks() {
     this.bookingService.getAllDesks().subscribe(res => {
       return res;
     })
