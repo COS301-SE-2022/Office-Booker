@@ -1,6 +1,9 @@
 {
   "name": "office-booker",
   "version": "0.0.0",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -66,7 +69,7 @@
     "nx": "14.0.5",
     "prettier": "^2.5.1",
     "ts-jest": "27.1.4",
-    "ts-node": "9.1.1",
+    "ts-node": "^10.7.0",
     "typescript": "~4.6.2"
   }
 }
