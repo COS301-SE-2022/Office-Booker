@@ -34,7 +34,7 @@ jobs:
         with:
           mode: minimum
           count: 1
-          labels: 'Status: Needs-info, Status: Needs-tests, Status: Not-ready, Status: On-hold, Status: Ready'
+          labels: 'Status: Needs-info, Status: Needs-tests, Status: Not-ready, Status: On-hold, Status: Ready, Status: Busy'
 
   milestone-check:
     name: Checks if milestone is used
