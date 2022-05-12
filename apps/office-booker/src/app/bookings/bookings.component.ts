@@ -1,39 +1,39 @@
-import { keyframes } from '@angular/animations';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
-import { BookingServiceService } from '../services/booking-service.service';
+import { BookingServiceService, Room } from '../services/booking-service.service';
+
 
 @Component({
   selector: 'office-booker-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.css'],
 })
-
 export class BookingsComponent{
   //gridLayout: Array<Array<object>>[];
-  rooms: object[];
   //roomName: string;
+  rooms: Room[];
   constructor(private bookingService: BookingServiceService, public dialog: MatDialog) {
-    //this.gridLayout = [];
     this.rooms = [];
-    console.log(this.showRooms());
+    this.getRooms();
+    console.log(this.rooms);
+    //this.gridLayout = [];
     //console.log(this.showRoomById(1));
     //this.roomName = this.showRoomById(1);
   }
 
- 
 
-  showRooms() {
+  getRooms() {
     this.bookingService.getAllRooms().subscribe(res => {
-      return res;
+      res.forEach(room => {
+        this.rooms.push(room);
+      });
     })
   }
 
-  showRoomById(roomId: number) {
+  getRoomById(roomId: number) {
     this.bookingService.getRoomByID(roomId).subscribe(res => {
-      console.log(res);
+      return res;
     })
   }
 

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+export interface Room {
+  id: number;
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,12 +15,12 @@ export class BookingServiceService {
 
   getAllRooms() {
     const url = 'http://localhost:3333/api/rooms';
-    return this.http.get(`${url}`);
+    return this.http.get<Room[]>(`${url}`);
   }
   
   getRoomByID(roomId: number){
     const url = 'http://localhost:3333/api/rooms/' + roomId;
-    return this.http.get(`${url}`);
+    return this.http.get<Room>(`${url}`);
   }
 
   getDesksByRoomId( roomId:number) {
