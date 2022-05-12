@@ -8,14 +8,14 @@
             <mat-grid-tile
             class="booked"
             id="{{ getDeskIdAtLocation(i, j) }}"
-            (click)="openDialog($event)"
+            (click)="toggleBooking(i, j)"
           ></mat-grid-tile>
           </ng-container>
           <ng-template #elseBlock2>
               <mat-grid-tile
                 class="exists"
                 id="{{ getDeskIdAtLocation(i, j) }}"
-                (click)="openDialog($event)"
+                (click)="toggleBooking(i, j)"
               ></mat-grid-tile>
           </ng-template>
         </ng-container>

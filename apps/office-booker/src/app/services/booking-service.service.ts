@@ -21,6 +21,11 @@ export interface Booking {
   endTime: string
 }
 
+export interface BookingDto {
+  startTime: string,
+  endTime: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,13 +73,17 @@ export class BookingServiceService {
     return this.http.get(`${url}`);
   }
 
-  /*deleteBooking(bookingId: number){
+  deleteBooking(bookingId: number){
     const url = 'http://localhost:3333/api/bookings/' + bookingId;
     return this.http.delete(`${url}`);
-  }*/
+  }
 
-  /*setDesk(deskId: number){
-    const url = 'http://localhost:3333/api/desk/' + deskId;
-    return this.http.post(`${url}`, deskId);
-  }*/
+  createBooking(deskId: number, startDate: string, endDate: string){
+    const url = 'http://localhost:3333/api/bookings/desk/' + deskId;
+    const body = {
+      startsAt: startDate,
+      endsAt: endDate
+    }
+    return this.http.post<Booking>(`${url}`, body);
+  }
 }
