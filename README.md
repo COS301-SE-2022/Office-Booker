@@ -8,11 +8,27 @@
 
 ## Team
 
-### Yinghao Li - Team Leader, CI
+### [Yinghao Li](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
+
+
 ### Arul Agrawal - DevOps, API, Database
-### Damian Vermeulen - Frontend, Business Analyst
-### Grant Bursnall - UX/UI, Database
-### Brett Du Plessis - Backend, API
+
+
+### [Damian Vermeulen](www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
+
+
+### [Grant Bursnall](https://www.linkedin.com/in/grant-bursnall-6238a2238) - UX/UI, Database
+
+
+### [Brett Du Plessis](https://www.linkedin.com/in/brettduplessis) - Backend, API
+
+
+
+## System Documentation
+[Demo1_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8676465/Demo1_SRS.pdf)
+
+
+## Auto Generated Documentation
 
 This project was generated using [Nx](https://nx.dev).
 
