@@ -1,171 +1,28 @@
-<h2>{{roomName}}</h2>
+<h2>{{ roomName }}</h2>
 <div class="grid-container">
-    <mat-grid-list cols="12" rowHeight="1:1" class="row1">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2" id="152" (click)="openDialog($event)"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
+  <ng-template ngFor let-item [ngForOf]="deskGrid" let-i="index">
+    <mat-grid-list cols="12" rowHeight="1:1">
+      <ng-template ngFor let-item [ngForOf]="deskGrid[i]" let-j="index">
+        <ng-container *ngIf="deskGrid[i][j]; else elseBlock">
+          <ng-container *ngIf="bookedGrid[i][j]; else elseBlock2">
+            <mat-grid-tile
+            class="booked"
+            id="{{ getDeskIdAtLocation(i, j) }}"
+            (click)="openDialog($event)"
+          ></mat-grid-tile>
+          </ng-container>
+          <ng-template #elseBlock2>
+              <mat-grid-tile
+                class="exists"
+                id="{{ getDeskIdAtLocation(i, j) }}"
+                (click)="openDialog($event)"
+              ></mat-grid-tile>
+          </ng-template>
+        </ng-container>
+        <ng-template #elseBlock>
+          <mat-grid-tile class="notexists"></mat-grid-tile>
+        </ng-template>
+      </ng-template>
     </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row2">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row3">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row4">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row5">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row6">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row7">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row8">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row9">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row10">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row11">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="12" rowHeight="1:1" class="row12">
-        <mat-grid-tile class="col1"></mat-grid-tile>
-        <mat-grid-tile class="col2"></mat-grid-tile>
-        <mat-grid-tile class="col3"></mat-grid-tile>
-        <mat-grid-tile class="col4"></mat-grid-tile>
-        <mat-grid-tile class="col5"></mat-grid-tile>
-        <mat-grid-tile class="col6"></mat-grid-tile>
-        <mat-grid-tile class="col7"></mat-grid-tile>
-        <mat-grid-tile class="col8"></mat-grid-tile>
-        <mat-grid-tile class="col9"></mat-grid-tile>
-        <mat-grid-tile class="col10"></mat-grid-tile>
-        <mat-grid-tile class="col11"></mat-grid-tile>
-        <mat-grid-tile class="col12"></mat-grid-tile>
-    </mat-grid-list>
+  </ng-template>
 </div>

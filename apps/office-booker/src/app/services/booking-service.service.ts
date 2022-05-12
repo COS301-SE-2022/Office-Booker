@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Room {
   id: number;
@@ -13,6 +14,13 @@ export interface Desk {
   LocationCol: number
 }
 
+export interface Booking {
+  id: number,
+  deskId: number,
+  startTime: string,
+  endTime: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +28,7 @@ export class BookingServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllRooms() {
+  getAllRooms(): Observable<Room[]> {
     const url = 'http://localhost:3333/api/rooms';
     return this.http.get<Room[]>(`${url}`);
   }
@@ -47,7 +55,7 @@ export class BookingServiceService {
 
   getBookingsByDeskId(deskId: number){
     const url = 'http://localhost:3333/api/bookings/desk/' + deskId;
-    return this.http.get(`${url}`);
+    return this.http.get<Booking[]>(`${url}`);
   }
 
   getBookingByBookingId(bookingId: number){
