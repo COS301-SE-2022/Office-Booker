@@ -18,7 +18,7 @@ I am the group leader and have had success in the past leading the team in past 
 Arul is the API/Database engineer and the DevOps member of the group. He handles the database design and its related API functions as well as DevOps functions like hosting and cloud functionality.
 
 
-### Damian Vermeulen [Linkedin](www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
+### Damian Vermeulen [Linkedin](https://www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
 <img src="https://user-images.githubusercontent.com/93526910/168092473-1bfb0b5c-2cc3-4d4c-976d-bf621358b38b.jpg" width="400" height="600"/>
 
 Damian is the business analysts and frontend designer of the group. He handles most documentation and helps with designing and implementing the frontend of the project.
