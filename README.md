@@ -8,11 +8,30 @@
 
 ## Team
 
-### Yinghao Li - Team Leader, CI
-### Arul Agrawal - DevOps, API, Database
-### Damian Vermeulen - Frontend, Business Analyst
-### Grant Bursnall - UX/UI, Database
-### Brett Du Plessis - Backend, API
+### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
+
+
+### Arul Agrawal [Linkedin](https://www.linkedin.com/in/arul-agrawal-67264123a) - DevOps, API, Database
+
+
+### Damian Vermeulen [Linkedin](www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
+Damian is the business analysts and frontend designer of the group. He handles most documentation and helps with designing and implementing the frontend of the project.
+
+### Grant Bursnall [Linkedin](https://www.linkedin.com/in/grant-bursnall-6238a2238) - UX/UI, Database
+
+
+### Brett Du Plessis [Linkedin](https://www.linkedin.com/in/brettduplessis) - Backend, API
+
+## Kryptos Kode - Office Booker - Project Description
+The Office Booker is a program designed to help employees with booking a slot for a specific date in their office. Employees were used to working from home due to covid and such they need a program to assist with organising who uses the office and when they use the office, as they have not been using in person facilities for quite some time. This will allow employees to ensure they have a space to work in the office beforehand and that no other employee will try to take their slot away.
+
+
+## System Documentation
+[Demo1_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8676724/Demo1_SRS.pdf)
+
+
+
+## Auto Generated Documentation
 
 This project was generated using [Nx](https://nx.dev).
 
