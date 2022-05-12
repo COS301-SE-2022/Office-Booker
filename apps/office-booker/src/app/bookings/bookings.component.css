@@ -10,7 +10,17 @@ mat-grid-tile {
     border: 1px dotted rgba(109, 109, 109, 0.233);
 }
 
-.row1 .col2 {
+.exists {
+    background-color: #dd8d8d;
+    border-radius: 15%;
+}
+
+.notexists {
+    background-color: #4e85a1;
+    border-radius: 15%;
+}
+
+.booked {
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
