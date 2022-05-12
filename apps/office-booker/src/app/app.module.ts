@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BookingsComponent } from './bookings/bookings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 
 @NgModule({
@@ -15,12 +17,15 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     NxWelcomeComponent,
     BookingsComponent,
     MenuBarComponent,
+    BookingDialogComponent,
   ],
+  entryComponents: [BookingDialogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
