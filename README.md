@@ -11,7 +11,7 @@
 ### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
 
 
-### Arul Agrawal - DevOps, API, Database
+### Arul Agrawal [Linkedin](https://www.linkedin.com/in/arul-agrawal-67264123a) - DevOps, API, Database
 
 
 ### Damian Vermeulen [Linkedin](www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
