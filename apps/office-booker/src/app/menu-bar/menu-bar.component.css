@@ -25,3 +25,8 @@ li a:hover {
 .active {
     background-color: #287bda;
 }
+
+#menu > li:last-child
+{
+    float:right;
+}
