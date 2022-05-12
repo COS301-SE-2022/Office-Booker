@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookingsComponent } from './bookings.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatGridListModule } from '@angular/material/grid-list';
 
 describe('BookingsComponent', () => {
   let component: BookingsComponent;
@@ -8,7 +10,7 @@ describe('BookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule],
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule],
       declarations: [BookingsComponent],
     }).compileComponents();
   });
