@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     BookingsComponent,
     MenuBarComponent,
     BookingDialogComponent,
+    LoginComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
