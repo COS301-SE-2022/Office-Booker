@@ -38,11 +38,13 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatGridListModule,
     MatDialogModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    RouterModule
     
     
   ],
   providers: [],
+  exports : [RouterModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
