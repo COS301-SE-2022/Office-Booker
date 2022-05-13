@@ -31,16 +31,10 @@ describe('BookingsComponent', () => {
     jest.spyOn(component, "generateGrid");
     component.generateGrid();
     for (let i = 0; i < 12; i++) {
-      //component.deskGrid.push([]);
-      //component.bookedGrid.push([]);
-      //component.bookingIDGrid.push([]);
       for (let j = 0; j < 12; j++) {
         expect(component.deskGrid[i][j]).toEqual(false);
-        //component.deskGrid[i].push(false);
         expect(component.bookedGrid[i][j]).toEqual(false);
-        //component.bookedGrid[i].push(false);
         expect(component.bookingIDGrid[i][j]).toEqual(-1);
-        //component.bookingIDGrid[i].push(-1);
       }
     }
   });
@@ -52,7 +46,7 @@ describe('BookingsComponent', () => {
 
   it('should return desk when desk at location', () => {
     jest.spyOn(component, "getDeskIdAtLocation");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 5,
@@ -111,25 +105,25 @@ describe('BookingsComponent', () => {
 
   it('should add correct ID in bookingIDGrid', () => {
     jest.spyOn(component, "addBooking");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -157,25 +151,25 @@ describe('BookingsComponent', () => {
 
   it('should remove correct ID from bookingIDGrid', () => {
     jest.spyOn(component, "removeBooking");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -203,25 +197,25 @@ describe('BookingsComponent', () => {
 
   it('should get correct bookingID', () => {
     jest.spyOn(component, "getBookingID");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -250,25 +244,25 @@ describe('BookingsComponent', () => {
 
   it('should get return -1 if desk is not booked', () => {
     jest.spyOn(component, "getBookingID");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -297,25 +291,25 @@ describe('BookingsComponent', () => {
 
   it('shouldunmark the correct grid', () => {
     jest.spyOn(component, "unMarkBooking");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -344,25 +338,25 @@ describe('BookingsComponent', () => {
 
   it('should return true if booked', () => {
     jest.spyOn(component, "isBooked");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
@@ -391,25 +385,25 @@ describe('BookingsComponent', () => {
 
   it('should return false if not booked', () => {
     jest.spyOn(component, "isBooked");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
