@@ -11,9 +11,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { LoginComponent } from './login/login.component';
-import { appRoutingModule } from './app.routing';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'bookings', component: BookingsComponent },
+  { path: 'login', component: LoginComponent},
+
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+];
+
+
+//export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +38,7 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     MatGridListModule,
     MatDialogModule,
-    appRoutingModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot(routes)
     
     
   ],
