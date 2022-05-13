@@ -3,7 +3,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookingsComponent } from './bookings.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatGridListModule } from '@angular/material/grid-list';
-//import { BookingServiceService } from '../services/booking-service.service';
 import { BookingServiceService, Room, Desk } from '../services/booking-service.service';
 
 describe('BookingsComponent', () => {
