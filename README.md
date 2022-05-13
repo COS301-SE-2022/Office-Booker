@@ -4,6 +4,9 @@
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/Office-Booker">
 <img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791717149-2a2cfca481cd111b335e6c78">
 [![codecov](https://codecov.io/gh/COS301-SE-2022/Office-Booker/branch/develop/graph/badge.svg)](https://codecov.io/gh/COS301-SE-2022/Office-Booker/)
+
+Demo 1: https://drive.google.com/drive/folders/1LMWiUeVbseF6iQV0pY3MOf2jIRsHL7-C?usp=sharing
+
 # OfficeBooker
 
 ## Team
