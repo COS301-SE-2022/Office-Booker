@@ -5,6 +5,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
