@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { LoginComponent } from './login/login.component';
+import { appRoutingModule } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,9 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     MatGridListModule,
     MatDialogModule,
+    appRoutingModule,
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
