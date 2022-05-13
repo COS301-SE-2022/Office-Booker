@@ -12,6 +12,7 @@ import { BookingDialogComponent } from './booking-dialog/booking-dialog.componen
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { LoginComponent } from './login/login.component';
 import { appRoutingModule } from './app.routing';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { appRoutingModule } from './app.routing';
     MatGridListModule,
     MatDialogModule,
     appRoutingModule,
+    RouterModule.forRoot([])
     
     
   ],
