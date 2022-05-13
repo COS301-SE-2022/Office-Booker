@@ -58,25 +58,25 @@ describe('BookingsComponent', () => {
 
   it('should mark correct coords in bookedGrid', () => {
     jest.spyOn(component, "markBooking");
-    let desk: Desk = {
+    const desk: Desk = {
       roomId: 1,
       id: 2,
       LocationRow: 3,
       LocationCol: 5    
     }
-    let desk2: Desk = {
+    const desk2: Desk = {
       roomId: 1,
       id: 1,
       LocationRow: 2,
       LocationCol: 2    
     }
-    let desk3: Desk = {
+    const desk3: Desk = {
       roomId: 1,
       id: 3,
       LocationRow: 1,
       LocationCol: 4    
     }
-    let desk4: Desk = {
+    const desk4: Desk = {
       roomId: 1,
       id: 4,
       LocationRow: 8,
