@@ -6,11 +6,12 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatDialogModule, MatGridListModule],
+      imports: [HttpClientModule, MatDialogModule, MatGridListModule, RouterModule, RouterTestingModule],
       declarations: [AppComponent, MenuBarComponent, BookingsComponent],
     }).compileComponents();
   });
