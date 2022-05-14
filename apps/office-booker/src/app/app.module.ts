@@ -10,7 +10,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'bookings', component: BookingsComponent },
+  { path: 'login', component: LoginComponent},
+
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+];
+
+
+//export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +29,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     BookingsComponent,
     MenuBarComponent,
     BookingDialogComponent,
+    LoginComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -26,8 +38,13 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     BrowserAnimationsModule,
     MatGridListModule,
     MatDialogModule,
+    RouterModule.forRoot(routes),
+    RouterModule
+    
+    
   ],
   providers: [],
+  exports : [RouterModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
