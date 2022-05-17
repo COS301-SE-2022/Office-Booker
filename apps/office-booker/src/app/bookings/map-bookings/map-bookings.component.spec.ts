@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MapBookingsComponent } from './map-bookings.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BookingsComponent } from './bookings.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Desk } from '../services/booking-service.service';
+import { Desk } from '../../services/booking-service.service';
 
 describe('BookingsComponent', () => {
-  let component: BookingsComponent;
-  let fixture: ComponentFixture<BookingsComponent>;
+  let component: MapBookingsComponent;
+  let fixture: ComponentFixture<MapBookingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule],
-      declarations: [BookingsComponent],
+      declarations: [MapBookingsComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookingsComponent);
+    fixture = TestBed.createComponent(MapBookingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
