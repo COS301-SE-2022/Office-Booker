@@ -11,7 +11,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, MatDialogModule, MatGridListModule, RouterModule, RouterTestingModule],
-      declarations: [AppComponent, MenuBarComponent, BookingsComponent],
+      declarations: [AppComponent, MenuBarComponent],
     }).compileComponents();
   });
 
