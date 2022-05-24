@@ -5,31 +5,32 @@ import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { BookingsComponent } from './bookings/bookings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
-import { MenuBarComponent } from './menu-bar/menu-bar.component';
-import { LoginComponent } from './login/login.component';
+import { BookingDialogComponent } from './bookings/booking-dialog/booking-dialog.component';
+import { MenuBarComponent } from './shared/menu-bar/menu-bar.component';
+import { LoginComponent } from './authentication/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
+import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
+import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
 
 const routes: Routes = [
-  { path: 'bookings', component: BookingsComponent },
-  { path: 'login', component: LoginComponent},
+  { path: 'bookings', component: MapBookingsComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
-
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
     AppComponent,
     NxWelcomeComponent,
-    BookingsComponent,
     MenuBarComponent,
     BookingDialogComponent,
     LoginComponent,
+    PersonalBookingsComponent,
+    MapBookingsComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -39,12 +40,10 @@ const routes: Routes = [
     MatGridListModule,
     MatDialogModule,
     RouterModule.forRoot(routes),
-    RouterModule
-    
-    
+    RouterModule,
   ],
   providers: [],
-  exports : [RouterModule],
+  exports: [RouterModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
