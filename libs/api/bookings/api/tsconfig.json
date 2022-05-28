@@ -12,5 +12,6 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "strictNullChecks": true
 }
