@@ -13,6 +13,7 @@
     "api-rooms-api": "libs/api/rooms/api",
     "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
     "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
+    "api-users-repository-data-access": "libs/api/users/repository/data-access",
     "office-booker": "apps/office-booker",
     "office-booker-e2e": "apps/office-booker-e2e"
   }
