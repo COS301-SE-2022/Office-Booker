@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './booking-card.component.html',
   styleUrls: ['./booking-card.component.css'],
 })
-export class BookingCardComponent implements OnInit {
+export class BookingCardComponent{
   constructor() {}
 
-  ngOnInit(): void {}
+  //ngOnInit(): void {}
 }
