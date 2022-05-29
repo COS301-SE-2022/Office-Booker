@@ -26,14 +26,6 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
-    async getBookingsByUserId(@Param() userId: number) {
-        return this.prisma.booking.findMany({
-            where: {
-                employeeId: userId,
-            },
-        });
-    }
-
     async createUser(user: Prisma.EmployeeCreateInput) {
         return this.prisma.employee.create({
             data: user,
