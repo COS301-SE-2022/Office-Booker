@@ -22,6 +22,11 @@ export class ApiBookingsApiController {
         return await this.bookingService.getBookingsForDesk(Number(deskId));
     }
 
+    @Get('/user/:userId')
+    async getBookingsForUser(@Param('userId') userId: string) {
+        return await this.bookingService.getBookingsByUserId(Number(userId));
+    }
+
     @Get('/:bookingId')
     async getBookingById(@Param('bookingId') bookingId: string) {
         return await this.bookingService.getBookingById(Number(bookingId));
