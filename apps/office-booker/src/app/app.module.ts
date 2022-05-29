@@ -17,6 +17,7 @@ import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.compo
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'personal-bookings', component: PersonalBookingsComponent},
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];

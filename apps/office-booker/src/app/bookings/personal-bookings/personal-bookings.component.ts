@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'office-booker-personal-bookings',
@@ -6,7 +7,7 @@ import { Component} from '@angular/core';
   styleUrls: ['./personal-bookings.component.css'],
 })
 export class PersonalBookingsComponent{
-  constructor() {
+  constructor(private router: Router,) {
     //
   }
 
