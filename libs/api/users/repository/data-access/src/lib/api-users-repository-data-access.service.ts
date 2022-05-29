@@ -1,5 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiUsersRepositoryDataAccessService {
@@ -32,4 +33,19 @@ export class ApiUsersRepositoryDataAccessService {
             },
         });
     }
+
+    async createUser(user: Prisma.EmployeeCreateInput) {
+        return this.prisma.employee.create({
+            data: user,
+        });
+    }
+
+    async deleteUser(@Param() userId: number) {
+        return this.prisma.employee.delete({
+            where: {
+                id: userId,
+            },
+        });
+    }
+
 }
