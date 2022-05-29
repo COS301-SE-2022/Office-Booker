@@ -10,12 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model the structure of the office
+// companies
+model Company {
+  id       Int     @id @default(autoincrement())
+  name     String     @unique
+  Rooms    Room[]
+  Employee Employee[]
+}
 
+model Employee {
+  id        Int    @id @default(autoincrement())
+  name      String    @unique
+  company   Company   @relation(fields: [companyId], references: [id])
+  Bookings  Booking[]
+  companyId Int
+}
+
+// model the structure of the office
 model Room {
-  id    Int    @id @default(autoincrement())
-  name  String
-  desks Desk[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  desks     Desk[]
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId Int?
 }
 
 model Desk {
@@ -39,16 +56,12 @@ model Facility {
 // models related to bookings
 
 model Booking {
-  id        Int      @id @default(autoincrement())
-  Desk      Desk     @relation(fields: [deskId], references: [id])
-  deskId    Int
-  createdAt DateTime @default(now())
-  startsAt  DateTime
-  endsAt    DateTime
-}
-
-model user {
-  email    String   @id @unique
-  name     String  
-  password String
+  id         Int       @id @default(autoincrement())
+  Desk       Desk      @relation(fields: [deskId], references: [id])
+  deskId     Int
+  createdAt  DateTime  @default(now())
+  startsAt   DateTime
+  endsAt     DateTime
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId Int?
 }

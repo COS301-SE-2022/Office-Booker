@@ -22,6 +22,11 @@ export class ApiBookingsApiController {
         return await this.bookingService.getBookingsForDesk(Number(deskId));
     }
 
+    @Get('/user/:userId')
+    async getBookingsForUser(@Param('userId') userId: string) {
+        return await this.bookingService.getBookingsByUserId(Number(userId));
+    }
+
     @Get('/:bookingId')
     async getBookingById(@Param('bookingId') bookingId: string) {
         return await this.bookingService.getBookingById(Number(bookingId));
@@ -37,14 +42,17 @@ export class ApiBookingsApiController {
         return await this.bookingService.deleteBooking(Number(bookingId));
     }
 
-    @Post('/desk/:deskId')
-    async createBooking(@Param('deskId') deskId: string, @Body() postData: CreateBookingDto) {
+    @Post('/:deskId/:userId')
+    async createBooking(@Param('deskId') deskId: string, @Param('userID') userId: string, @Body() postData: CreateBookingDto) {
         const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
             endsAt: endsAt,
             Desk: {
                 connect: { id: Number(deskId) },
+            },
+            Employee: {
+                connect: { id: Number(userId) },
             }
         });
     }

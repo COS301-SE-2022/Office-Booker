@@ -55,6 +55,14 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
+    async getBookingsByUserId(@Param() userId: number) {
+        return this.prisma.booking.findMany({
+            where: {
+                employeeId: userId,
+            },
+        });
+    }
+
     // TODO: modify bookings?
 
 }
