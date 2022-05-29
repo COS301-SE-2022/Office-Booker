@@ -14,12 +14,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'personal-bookings', component: PersonalBookingsComponent},
+  { path: 'personal-bookings', component: PersonalBookingsComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
@@ -34,6 +35,7 @@ const routes: Routes = [
     LoginComponent,
     PersonalBookingsComponent,
     MapBookingsComponent,
+    BookingCardComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
