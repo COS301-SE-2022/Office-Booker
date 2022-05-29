@@ -20,6 +20,9 @@
       "@office-booker/api/bookings/repository/data-access": [
         "libs/api/bookings/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/companies/api": [
+        "libs/api/companies/api/src/index.ts"
+      ],
       "@office-booker/api/companies/repository/data-access": [
         "libs/api/companies/repository/data-access/src/index.ts"
       ],
