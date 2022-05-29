@@ -46,3 +46,9 @@ model Booking {
   startsAt  DateTime
   endsAt    DateTime
 }
+
+model user {
+  email    String   @id @unique
+  name     String  
+  password String
+}
