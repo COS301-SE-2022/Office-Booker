@@ -12,14 +12,14 @@ import { BookingDialogComponent } from './booking-dialog/booking-dialog.componen
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
   { path: 'bookings', component: BookingsComponent },
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
-
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
@@ -30,6 +30,7 @@ const routes: Routes = [
     MenuBarComponent,
     BookingDialogComponent,
     LoginComponent,
+    RegistrationComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -39,12 +40,10 @@ const routes: Routes = [
     MatGridListModule,
     MatDialogModule,
     RouterModule.forRoot(routes),
-    RouterModule
-    
-    
+    RouterModule,
   ],
   providers: [],
-  exports : [RouterModule],
+  exports: [RouterModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
