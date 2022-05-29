@@ -42,14 +42,17 @@ export class ApiBookingsApiController {
         return await this.bookingService.deleteBooking(Number(bookingId));
     }
 
-    @Post('/desk/:deskId')
-    async createBooking(@Param('deskId') deskId: string, @Body() postData: CreateBookingDto) {
+    @Post('/:deskId/:userId')
+    async createBooking(@Param('deskId') deskId: string, @Param('userID') userId: string, @Body() postData: CreateBookingDto) {
         const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
             endsAt: endsAt,
             Desk: {
                 connect: { id: Number(deskId) },
+            },
+            Employee: {
+                connect: { id: Number(userId) },
             }
         });
     }
