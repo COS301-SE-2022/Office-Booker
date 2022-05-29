@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'office-booker-booking-card',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booking-card.component.css'],
 })
 export class BookingCardComponent{
-  constructor() {}
+  constructor() {
+  //
+  }
 
-  //ngOnInit(): void {}
 }
