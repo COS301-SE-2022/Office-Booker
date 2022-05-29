@@ -11,8 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class RegistrationComponent /*implements OnInit */ {
   constructor() {
-
+    return;
   }
 
   //ngOnInit(): void {}
+
+  register(): void {
+    return;
+  }
 }
