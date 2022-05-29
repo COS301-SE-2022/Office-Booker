@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "projects": {
     "api": "apps/api",
     "api-bookings-api": "libs/api/bookings/api",
