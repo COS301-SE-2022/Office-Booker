@@ -26,7 +26,7 @@ import { BookingCardComponent } from './bookings/personal-bookings/booking-card/
 
 
 const routes: Routes = [
-  { path: 'bookings', component: BookingsComponent },
+  { path: 'bookings', component: MapBookingsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent},
   { path: 'personal-bookings', component: PersonalBookingsComponent },
