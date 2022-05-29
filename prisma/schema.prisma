@@ -12,18 +12,18 @@ datasource db {
 
 // companies
 model Company {
-  id       String     @id @default(cuid())
+  id       Int     @id @default(autoincrement())
   name     String     @unique
   Rooms    Room[]
   Employee Employee[]
 }
 
 model Employee {
-  id        String    @id @default(cuid())
+  id        Int    @id @default(autoincrement())
   name      String    @unique
   company   Company   @relation(fields: [companyId], references: [id])
   Bookings  Booking[]
-  companyId String
+  companyId Int
 }
 
 // model the structure of the office
@@ -32,7 +32,7 @@ model Room {
   name      String
   desks     Desk[]
   Company   Company? @relation(fields: [companyId], references: [id])
-  companyId String?
+  companyId Int?
 }
 
 model Desk {
@@ -63,7 +63,7 @@ model Booking {
   startsAt   DateTime
   endsAt     DateTime
   Employee   Employee? @relation(fields: [employeeId], references: [id])
-  employeeId String?
+  employeeId Int?
 }
 
 model user {
