@@ -13,10 +13,14 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatToolbarModule } from '@angular/material/toolbar'
+
+
 
 const routes: Routes = [
   { path: 'bookings', component: BookingsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent},
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
@@ -41,6 +45,7 @@ const routes: Routes = [
     MatDialogModule,
     RouterModule.forRoot(routes),
     RouterModule,
+    MatToolbarModule,
   ],
   providers: [],
   exports: [RouterModule],
