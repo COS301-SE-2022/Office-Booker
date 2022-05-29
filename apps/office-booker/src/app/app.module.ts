@@ -5,13 +5,13 @@ import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { BookingsComponent } from './bookings/bookings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
-import { MenuBarComponent } from './menu-bar/menu-bar.component';
-import { LoginComponent } from './login/login.component';
+import { BookingDialogComponent } from './bookings/booking-dialog/booking-dialog.component';
+import { MenuBarComponent } from './shared/menu-bar/menu-bar.component';
+import { LoginComponent } from './authentication/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
+
 import { RegistrationComponent } from './registration/registration.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatCardModule } from '@angular/material/card'
@@ -19,14 +19,20 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
+import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
+import { MatButtonModule } from '@angular/material/button';
+import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
+
 
 
 const routes: Routes = [
   { path: 'bookings', component: BookingsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent},
+  { path: 'personal-bookings', component: PersonalBookingsComponent },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
 ];
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
@@ -34,11 +40,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NxWelcomeComponent,
-    BookingsComponent,
     MenuBarComponent,
     BookingDialogComponent,
     LoginComponent,
     RegistrationComponent,
+    PersonalBookingsComponent,
+    MapBookingsComponent,
+    BookingCardComponent,
+    
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -48,9 +57,10 @@ const routes: Routes = [
     MatGridListModule,
     MatDialogModule,
     RouterModule.forRoot(routes),
-    RouterModule,
-    MatToolbarModule,
+    RouterModule,    
     MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,

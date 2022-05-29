@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { MenuBarComponent } from './menu-bar/menu-bar.component';
-import { BookingsComponent } from './bookings/bookings.component';
+import { MenuBarComponent } from './shared/menu-bar/menu-bar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
@@ -12,7 +11,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, MatDialogModule, MatGridListModule, RouterModule, RouterTestingModule],
-      declarations: [AppComponent, MenuBarComponent, BookingsComponent],
+      declarations: [AppComponent, MenuBarComponent],
     }).compileComponents();
   });
 
