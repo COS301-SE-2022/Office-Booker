@@ -13,6 +13,8 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button'
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -42,6 +44,8 @@ const routes: Routes = [
     MatDialogModule,
     RouterModule.forRoot(routes),
     RouterModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [],
   exports: [RouterModule],
