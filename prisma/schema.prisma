@@ -65,9 +65,3 @@ model Booking {
   Employee   Employee? @relation(fields: [employeeId], references: [id])
   employeeId Int?
 }
-
-model user {
-  email    String @id @unique
-  name     String
-  password String
-}

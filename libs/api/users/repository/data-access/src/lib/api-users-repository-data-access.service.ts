@@ -18,7 +18,7 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
-    async getUserByCompanyId(@Param() companyId: number) {
+    async getUsersByCompanyId(@Param() companyId: number) {
         return this.prisma.employee.findMany({
             where: {
                 companyId,
