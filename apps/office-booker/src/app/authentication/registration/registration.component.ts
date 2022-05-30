@@ -23,29 +23,27 @@ export class RegistrationComponent {
 }
 
 public signUp(): void {
-      this.loading = true;
-      this.cognitoService.signUp(this.user)
-      .then(() => {
-    
-        this.loading = false;
-        this.isConfirm = true;
-        alert("worked!!!!!!!!!!!!!!!!!!!!!!!");
+  this.loading = true;
+  this.cognitoService.signUp(this.user)
+  .then(() => {
+  this.loading = false;
+  this.isConfirm = true;
+  
 
-      }).catch(() => {
-        this.loading = false;
-        alert("not worked");
-      });
+  }).catch(() => {
+  this.loading = false;
+  });
 }
 
 public confirmSignUp(): void {
-        this.loading = true;
-        this.cognitoService.confirmSignUp(this.user)
-        .then(() => {
-        this.router.navigate(['/login']);
-        }).catch(() => {
-        this.loading = false;
-        this.router.navigate(['/login'])
-        });
+  this.loading = true;
+  this.cognitoService.confirmSignUp(this.user)
+  .then(() => {
+  this.router.navigate(['/login']);
+  }).catch(() => {
+  this.loading = false;
+  this.router.navigate(['/login'])
+  });
 }
 
 }

@@ -9,6 +9,7 @@ export interface IUser {
   password: string;
   showPassword: boolean;
   code: string;
+  name: string;
 }
 
 @Injectable({
@@ -27,13 +28,10 @@ export class CognitoService {
   }
 
   public signUp(user: IUser): Promise<any> {
-    alert(user.email);
-    alert(user.password);
-
+    alert("hello");
     return Auth.signUp({
       username: user.email,
       password: user.password,
-      
       
     });
     
@@ -41,13 +39,8 @@ export class CognitoService {
   }
 
   public confirmSignUp(user: IUser): Promise<any> {
-    alert("confirm sign up");
     return Auth.confirmSignUp(user.email, user.code);
   }
-
-
-
-
 
   public signIn(user: IUser): Promise<any> {
     return Auth.signIn(user.email, user.password)
