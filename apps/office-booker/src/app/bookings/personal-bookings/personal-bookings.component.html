@@ -9,13 +9,14 @@
           You have a booking coming up.
         </mat-card-subtitle>
       </mat-card-header>
-      
       <mat-card-content>
-        <p>
-          
-        </p>
-      </mat-card-content>
-  
+        <ng-template ngFor let-booking [ngForOf]="userBookings" let-i="index">
+     
+      <office-booker-booking-card [booking]="booking">
+
+      </office-booker-booking-card>
+    </ng-template>
+  </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="accent">Cancel Booking</button>
 
