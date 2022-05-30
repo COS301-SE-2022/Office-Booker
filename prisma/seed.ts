@@ -2,10 +2,33 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+    // create a company
+    const company = await prisma.company.create({
+        data: {
+            name: 'Apple',
+        },
+    })
+
+    const employee1 = await prisma.employee.create({
+        data: {
+            name: 'Steve Jobs',
+            company: { connect: { id: company.id } },
+        },
+    })
+
+    const employee2 = await prisma.employee.create({
+        data: {
+            name: 'Bill Gates',
+            company: { connect: { id: company.id } },
+        },
+    })
+
+
     // create a room
     const room = await prisma.room.create({
         data: {
             name: 'Main Room',
+            Company: { connect: { id: company.id } },
         },
     })
 

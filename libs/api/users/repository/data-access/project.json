@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/users/repository/data-access",
+  "sourceRoot": "libs/api/users/repository/data-access/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/users/repository/data-access/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/users/repository/data-access"],
+      "options": {
+        "jestConfig": "libs/api/users/repository/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
