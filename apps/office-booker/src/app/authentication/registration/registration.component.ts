@@ -24,23 +24,29 @@ export class RegistrationComponent {
 
 public signUp(): void {
   this.loading = true;
+  
   this.cognitoService.signUp(this.user)
+
   .then(() => {
+    alert("worked")
   this.loading = false;
   this.isConfirm = true;
   
 
-  }).catch(() => {
+  }).catch((e) => {
+    alert(e)
   this.loading = false;
   });
 }
 
 public confirmSignUp(): void {
+  alert("Entered confirmSignUp")
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
   this.router.navigate(['/login']);
-  }).catch(() => {
+  }).catch((e) => {
+    alert(e)
   this.loading = false;
   this.router.navigate(['/login'])
   });
