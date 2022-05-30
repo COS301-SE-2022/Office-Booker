@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +21,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
-import { MatButtonModule } from '@angular/material/button';
 import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
 
 
@@ -59,7 +59,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     RouterModule,    
     MatCardModule,
-    MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
