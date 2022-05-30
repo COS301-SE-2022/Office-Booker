@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card'
 
 @Component({
   selector: 'office-booker-personal-bookings',

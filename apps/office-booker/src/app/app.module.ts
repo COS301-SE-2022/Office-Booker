@@ -12,7 +12,7 @@ import { MenuBarComponent } from './shared/menu-bar/menu-bar.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from './authentication/registration/registration.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
