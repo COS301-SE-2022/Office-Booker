@@ -17,6 +17,8 @@ export class LoginComponent /*implements OnInit*/ {
   
   //ngOnInit(): void {}
   moveToRegister() : void {
+    console.log("Hi")
+
     this.router.navigate(['/registration']);
 
   }

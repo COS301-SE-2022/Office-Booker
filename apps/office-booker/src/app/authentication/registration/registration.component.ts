@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 import { IUser, CognitoService } from '../../cognito.service';
 
 @Component({
@@ -27,6 +28,8 @@ public signUp(): void {
   .then(() => {
   this.loading = false;
   this.isConfirm = true;
+  
+
   }).catch(() => {
   this.loading = false;
   });
@@ -39,6 +42,7 @@ public confirmSignUp(): void {
   this.router.navigate(['/login']);
   }).catch(() => {
   this.loading = false;
+  this.router.navigate(['/login'])
   });
 }
 

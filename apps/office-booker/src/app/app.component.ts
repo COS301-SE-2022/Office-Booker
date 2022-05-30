@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@office-booker/api-interfaces';
 import { RouterModule } from '@angular/router';
-import { cognito } from '../environments/environment';
+import { environment } from '../environments/environment';
 
 
 @Component({

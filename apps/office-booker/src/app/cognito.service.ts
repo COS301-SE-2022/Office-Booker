@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import Amplify, { Auth } from 'aws-amplify';
-import { cognito } from '../environments/environment';
 
-//import { environment } from '../environments/environment';
+import { environment } from '../environments/environment';
 
 export interface IUser {
   email: string;
@@ -22,17 +21,21 @@ export class CognitoService {
 
   constructor() {
     Amplify.configure({
-      Auth: cognito,
+      Auth: environment.cognito,
     });
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
   public signUp(user: IUser): Promise<any> {
+    alert("hello");
     return Auth.signUp({
       username: user.email,
       password: user.password,
+      
     });
+    
+    
   }
 
   public confirmSignUp(user: IUser): Promise<any> {
