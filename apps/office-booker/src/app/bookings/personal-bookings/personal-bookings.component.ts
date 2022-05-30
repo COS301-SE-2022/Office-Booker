@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 
@@ -7,14 +7,47 @@ import { MatCardModule } from '@angular/material/card'
   templateUrl: './personal-bookings.component.html',
   styleUrls: ['./personal-bookings.component.css'],
 })
-export class PersonalBookingsComponent{
 
-  userBookings: object[] = [];
+export class PersonalBookingsComponent implements OnInit {
+
+  
+  userBookings: { startDate: Date; endDate: Date; roomName: string; employee: string; desk: string; }[] = [];
+  // startDate: Date[] = [];
+  // endDate: Date[] = [];
+  // roomName: string[] = [];
+  // employee: string[] = [];
+  // desk: string[] = [];
 
   constructor(private router: Router,) {
-    this.userBookings = this.getBookings();
+    
     console.log(this.userBookings);
   }
+
+  ngOnInit(){
+    this.userBookings = this.getBookings();
+
+  }
+
+  // getStartDate(){
+  //   return [{
+  //     Date(2018, 11, 24, 8, 33, 30, 0),  
+  //   }]
+  // }
+
+  // getEndDate(){
+
+  // }
+  // getRoomName(){
+
+  // }
+
+  // getEmployeeName(){
+
+  // }
+
+  // getDesk(){
+
+  // }
 
   getBookings(){
     return [{
