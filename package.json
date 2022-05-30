@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nrwl/angular": "14.0.5",
     "@prisma/client": "3.14.0",
+    "amazon-cognito-identity-js": "^5.2.9",
     "aws-amplify": "^4.3.24",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
