@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
     "api": "apps/api",
     "api-bookings-api": "libs/api/bookings/api",
@@ -13,6 +13,6 @@
     "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
     "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
     "office-booker": "apps/office-booker",
-    "office-booker-e2e": "apps/office-booker-e2e"
+    "office-booker-e2e": "apps/office-booker-e2e" 
   }
 }

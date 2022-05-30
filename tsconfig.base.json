@@ -37,6 +37,7 @@
       "@office-booker/api/shared/services/prisma/data-access": [
         "libs/api/shared/services/prisma/data-access/src/index.ts"
       ]
+     
     }
   },
   "exclude": ["node_modules", "tmp"]
