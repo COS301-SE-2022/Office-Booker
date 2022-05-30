@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PersonalBookingsComponent } from './personal-bookings.component';
 import { RouterTestingModule } from '@angular/router/testing'; 
+import { MatCardModule } from '@angular/material/card'
+
 
 describe('PersonalBookingsComponent', () => {
   let component: PersonalBookingsComponent;
@@ -9,7 +11,7 @@ describe('PersonalBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PersonalBookingsComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, MatCardModule],
     }).compileComponents();
   });
 
