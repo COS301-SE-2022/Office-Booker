@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User, Room, Desk } from '../../services/booking-service.service';
+import { UserServiceService, User } from '../../services/user-service.service';
 
 
 import { IUser, CognitoService } from '../../cognito.service';
@@ -16,12 +16,15 @@ export class RegistrationComponent {
   loading: boolean;
   isConfirm: boolean;
   user: IUser;
+  userId : string;
 
   constructor(private router: Router,
-    private cognitoService: CognitoService) {
+    private cognitoService: CognitoService, 
+    private userService: UserServiceService) {
   this.loading = false;
   this.isConfirm = false;
   this.user = {} as IUser;
+  this.userId = '';
 }
 
 public signUp(): void {
@@ -46,7 +49,8 @@ public confirmSignUp(): void {
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
-    this.bookingService.createBooking(deskId, startsAt, endsAt).subscribe(booking => {
+    this.userId = user
+    this.userService.createUser(deskId, startsAt, endsAt).subscribe(user => {
       this.addBooking(booking.deskId, booking.id);
     });
   this.router.navigate(['/login']);
