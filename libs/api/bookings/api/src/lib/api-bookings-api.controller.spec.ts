@@ -49,7 +49,7 @@ describe('ApiBookingsApiController', () => {
     expect(service.deleteBooking).toHaveBeenCalledWith(Number(bookingId));
   })
 
-  it("calling createBooking method", () => {
+  /*it("calling createBooking method", () => {
     const deskId = "1";
     //const dto = new CreateBookingDto();
     const postData = {
@@ -64,5 +64,5 @@ describe('ApiBookingsApiController', () => {
       endsAt: postData.endsAt,
       startsAt: postData.startsAt,
     });
-  })
+  })*/
 });
