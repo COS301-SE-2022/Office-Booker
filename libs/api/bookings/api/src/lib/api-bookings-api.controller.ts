@@ -43,7 +43,7 @@ export class ApiBookingsApiController {
     }
 
     @Post('/:deskId/:userId')
-    async createBooking(@Param('deskId') deskId: string, @Param('userID') userId: string, @Body() postData: CreateBookingDto) {
+    async createBooking(@Param('deskId') deskId: string, @Param('userId') userId: string, @Body() postData: CreateBookingDto) {
         const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
