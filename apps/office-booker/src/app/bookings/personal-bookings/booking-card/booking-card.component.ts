@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -12,7 +13,7 @@ export class BookingCardComponent{
 
   constructor() {
   //
-  console.log(this.booking);
+  //console.log(this.booking);
   }
 
 
