@@ -34,6 +34,7 @@ export class AppComponent implements OnInit
   }
 
   public signOut(): void {
+    alert('Logs out')
     this.cognitoService.signOut()
     .then(() => {
       this.router.navigate(['/signIn']);

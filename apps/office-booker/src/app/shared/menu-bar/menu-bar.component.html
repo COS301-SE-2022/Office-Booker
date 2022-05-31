@@ -16,7 +16,7 @@
         </li>
         <li> <a href="#"><i class='fa fa-phone' routerLinkActive="active" *ngIf="!isAuthenticated"></i> Contact Us</a>
         </li>
-        <li> <a href="#" routerLink="/sign-in" *ngIf="isAuthenticated"><i class='fa fa-sign-out'></i> Logout</a>
+        <li> <a href="#" routerLink="/sign-out"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
         </li>
     </ul>
 </nav>
