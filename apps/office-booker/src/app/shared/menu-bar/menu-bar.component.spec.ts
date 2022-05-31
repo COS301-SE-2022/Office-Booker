@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from '../../app.component';
 
 import { MenuBarComponent } from './menu-bar.component';
+
+
 
 describe('MenuBarComponent', () => {
   let component: MenuBarComponent;
@@ -8,7 +11,7 @@ describe('MenuBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MenuBarComponent],
+      declarations: [MenuBarComponent, AppComponent],
     }).compileComponents();
   });
 

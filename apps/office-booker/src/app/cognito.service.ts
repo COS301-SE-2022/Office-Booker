@@ -18,6 +18,8 @@ export interface IUser {
 export class CognitoService {
 
   private authenticationSubject: BehaviorSubject<any>;
+  
+  
 
   constructor() {
     Amplify.configure({
@@ -75,7 +77,15 @@ export class CognitoService {
   }
 
   public getUser(): Promise<any> {
+
+    //alert(Auth.userAttributes)
+    //alert(Auth.currentAuthenticatedUser)
+    //alert(Auth.userAttributes)
+    //alert(Auth.userAttributes)
+    //alert(Auth.userAttributes)
+
     return Auth.currentUserInfo();
+    
   }
 
   public updateUser(user: IUser): Promise<any> {
@@ -83,6 +93,10 @@ export class CognitoService {
     .then((cognitoUser: any) => {
       return Auth.updateUserAttributes(cognitoUser, user);
     });
+  }
+
+  public getEmail() : Promise<string> {
+    return Auth.currentUserInfo();
   }
 
 }

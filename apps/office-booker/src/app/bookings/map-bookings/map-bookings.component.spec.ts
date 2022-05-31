@@ -5,13 +5,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Desk } from '../../services/booking-service.service';
 
+import { CognitoService } from '../../cognito.service';
+
+
 describe('BookingsComponent', () => {
   let component: MapBookingsComponent;
   let fixture: ComponentFixture<MapBookingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule],
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, CognitoService],
       declarations: [MapBookingsComponent],
     }).compileComponents();
   });
