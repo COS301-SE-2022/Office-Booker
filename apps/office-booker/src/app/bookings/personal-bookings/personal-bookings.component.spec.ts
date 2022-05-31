@@ -4,9 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
 import { BookingCardComponent } from './booking-card/booking-card.component';
 
-
-
-
 describe('PersonalBookingsComponent', () => {
   let component: PersonalBookingsComponent;
   let fixture: ComponentFixture<PersonalBookingsComponent>;
