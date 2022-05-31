@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { User, Room, Desk } from '../../services/booking-service.service';
 
 
 import { IUser, CognitoService } from '../../cognito.service';
@@ -45,6 +46,9 @@ public confirmSignUp(): void {
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
+    this.bookingService.createBooking(deskId, startsAt, endsAt).subscribe(booking => {
+      this.addBooking(booking.deskId, booking.id);
+    });
   this.router.navigate(['/login']);
   }).catch((e) => {
     alert(e)
