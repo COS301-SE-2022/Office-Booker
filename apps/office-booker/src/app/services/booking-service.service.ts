@@ -12,14 +12,17 @@ export interface Desk {
   roomId: number,
   LocationRow: number,
   LocationCol: number,
-  booking: boolean
+  booking: boolean,
+  bookings: Booking[]
 }
 
 export interface Booking {
   id: number,
   deskId: number,
-  startTime: string,
-  endTime: string
+  employeeId: number,
+  startsAt: string,
+  endsAt: string,
+  createdAt: string
 }
 
 export interface BookingDto {
@@ -79,8 +82,8 @@ export class BookingServiceService {
     return this.http.delete(`${url}`);
   }
 
-  createBooking(deskId: number, startDate: string, endDate: string){
-    const url = 'http://localhost:3333/api/bookings/desk/' + deskId;
+  createBooking(deskId: number, userId: number, startDate: string, endDate: string){
+    const url = 'http://localhost:3333/api/bookings/' + deskId + '/'+ userId;
     const body = {
       startsAt: startDate,
       endsAt: endDate

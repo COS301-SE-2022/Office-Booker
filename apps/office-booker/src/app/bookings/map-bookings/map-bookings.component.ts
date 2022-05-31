@@ -1,6 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Room, Desk} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking} from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-map-bookings',
@@ -9,9 +9,16 @@ import { BookingServiceService, Room, Desk} from '../../services/booking-service
 })
 export class MapBookingsComponent{
   desks: Array<Desk> = [];
-    roomId = 1;
+  roomId = 1;
+  selected = false;
+  selectedItemName = "";
+  selectedItemType = "";
+  selectedItemId: number;
+  selectedItemFacilities = [];
+  selectedItemBookings: Array<Booking> = [];
   constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) { 
     changeDetection.detach();
+    this.selectedItemId = 0;
   }
   ngOnInit() {
     this.getDesksByRoomId(1);
@@ -26,11 +33,11 @@ export class MapBookingsComponent{
         newDesk.LocationCol = desk.LocationCol;
         newDesk.LocationRow = desk.LocationRow;
         newDesk.roomId = desk.roomId;
+        newDesk.bookings = [];
         this.getBookingsByDeskId(desk.id);
 
         this.desks.push(newDesk);
         
-        console.log(this.desks);
         this.changeDetection.detectChanges();
       });
     })
@@ -39,21 +46,86 @@ export class MapBookingsComponent{
 
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;
-       this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
-         res.forEach(booking => {
-           if(booking){
-            bookingReturn = true;
-           }
-           for(let i = 0; i < this.desks.length; i++)
-           {
-             if(this.desks[i].id == deskId){
-               this.desks[i].booking = bookingReturn;
-             }
-           }
-          this.changeDetection.detectChanges();
-         });
-       })
-     }
+    
+    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
+      res.forEach(booking => {
+        if(booking){
+          bookingReturn = true;
+        }
+        for(let i = 0; i < this.desks.length; i++)
+        {
+          if(this.desks[i].id == deskId){
+            this.desks[i].booking = bookingReturn;
+            this.desks[i].bookings.push(booking);
+          }
+        }
+      this.changeDetection.detectChanges();
+      });
+    })
+  }
+
+  selectToBook(itemId: number, itemType: string){
+    this.selectedItemBookings = [];
+    this.selected = true;
+    this.selectedItemName = itemType + " " + itemId.toString();
+    this.selectedItemId = itemId;
+    this.selectedItemType = itemType;
+    this.desks.forEach(desk => {
+      if(desk.id == itemId){
+        this.selectedItemBookings = desk.bookings;
+      }
+    })
+    this.changeDetection.detectChanges();
+  }
+
+  bookItem(itemId: number, itemType: string){
+    if(itemType == 'desk'){
+      this.makeADeskBooking(itemId);
+    }
+    this.changeDetection.detectChanges();
+  }
+
+  makeADeskBooking(deskId: number) {
+    //get the current date time and add 2 hours
+    const userId = 1;
+    const today = new Date();
+    today.setHours(today.getHours() + 2);
+    const future = new Date(today.getTime());
+    future.setHours(today.getHours() + 2);
+
+    const startsAt = today.toISOString();
+    const endsAt = future.toISOString();
+    this.bookingService.createBooking(deskId, userId, startsAt, endsAt).subscribe(booking => {
+      for(let i = 0; i < this.desks.length; i++){
+        if(this.desks[i].id == deskId){
+          this.desks[i].bookings.push(booking);
+        }
+      }
+      this.changeDetection.detectChanges();
+    });
+  }
+
+  deleteBooking(itemId: number, itemType: string){
+    if(itemType == 'desk'){
+      this.deleteADeskBooking(itemId);
+    }
+    this.changeDetection.detectChanges();
+  }
+
+  deleteADeskBooking(bookingId: number) {
+    this.bookingService.deleteBooking(bookingId).subscribe(res => {
+      return res;
+    });
+    this.desks.forEach(desk => {
+      for(let d = 0; d < desk.bookings.length; d++){
+        if(desk.bookings[d].id == bookingId){
+          desk.bookings.splice(d,1);
+        }
+      }
+    })
+    
+    this.changeDetection.detectChanges();
+  }
 
 
 
