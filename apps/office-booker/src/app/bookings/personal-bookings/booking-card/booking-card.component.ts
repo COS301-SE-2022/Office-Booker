@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'office-booker-booking-card',
