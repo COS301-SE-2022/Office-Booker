@@ -51,11 +51,12 @@ describe('ApiBookingsApiController', () => {
 
   it("calling createBooking method", () => {
     const deskId = "1";
+    const userId = "2";
     const postData = {
       startsAt: new Date(),
       endsAt: new Date(),
     }
-    controller.createBooking(deskId, postData);
+    controller.createBooking(deskId, userId, postData);
     expect(service.createBooking).toHaveBeenCalledWith({
       startsAt: postData.startsAt,
       endsAt: postData.endsAt,
