@@ -1,21 +1,68 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiBookingsApiController } from './api-bookings-api.controller';
 
 describe('ApiBookingsApiController', () => {
   let controller: ApiBookingsApiController;
-
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiBookingsRepositoryDataAccessService, PrismaService],
+  let service: ApiBookingsRepositoryDataAccessService;
+  beforeAll(async () => {
+    const ApiServiceProvider = {
+      provide: ApiBookingsRepositoryDataAccessService,
+      useFactory: () => ({
+        getBookingsForDesk: jest.fn(() => []),
+        getBookingById: jest.fn(() => ({})),
+        getCurrentBookingsForDesk: jest.fn(() => []),
+        deleteBooking: jest.fn(() => ({})),
+        createBooking: jest.fn(() => ({})),
+      })
+    }
+    const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiBookingsApiController],
+      providers: [ApiBookingsRepositoryDataAccessService, ApiServiceProvider],
     }).compile();
-
-    controller = module.get(ApiBookingsApiController);
+    controller = app.get<ApiBookingsApiController>(ApiBookingsApiController);
+    service = app.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });
+  it("calling getBookingsForDesk method", () => {
+    const deskId = "1";
+    controller.getBookingsForDesk(deskId);
+    expect(service.getBookingsForDesk).toHaveBeenCalledWith(Number(deskId));
+  })
+
+  it("calling getBookingById method", () => {
+    const bookingId = "1";
+    controller.getBookingById(bookingId);
+    expect(service.getBookingById).toHaveBeenCalledWith(Number(bookingId));
+  })
+
+  it("calling getCurrentBookingsForDesk method", () => {
+    const deskId = "1";
+    controller.getCurrentBookingsForDesk(deskId);
+    expect(service.getCurrentBookingsForDesk).toHaveBeenCalledWith(Number(deskId));
+  })
+
+  it("calling deleteBooking method", () => {
+    const bookingId = "1";
+    controller.deleteBooking(bookingId);
+    expect(service.deleteBooking).toHaveBeenCalledWith(Number(bookingId));
+  })
+
+  /*it("calling createBooking method", () => {
+    const deskId = "1";
+    //const dto = new CreateBookingDto();
+    const postData = {
+      startsAt: new Date(),
+      endsAt: new Date(),
+    }
+    controller.createBooking(deskId, postData);
+    expect(service.createBooking).toHaveBeenCalledWith({
+      Desk: {
+        connect: { id: Number(deskId) },
+      },
+      endsAt: postData.endsAt,
+      startsAt: postData.startsAt,
+    });
+  })*/
 });
