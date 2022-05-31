@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
+import { BookingCardComponent} from './booking-card/booking-card.component';
 
 @Component({
   selector: 'office-booker-personal-bookings',
@@ -20,7 +21,7 @@ export class PersonalBookingsComponent implements OnInit {
 
   constructor(private router: Router,) {
     
-    console.log(this.userBookings);
+    //console.log(this.userBookings);
   }
 
   ngOnInit(){
