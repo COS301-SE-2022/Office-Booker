@@ -21,6 +21,7 @@ mat-grid-tile {
 }
 
 .booked {
+    fill: red;
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }

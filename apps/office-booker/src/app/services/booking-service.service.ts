@@ -11,7 +11,8 @@ export interface Desk {
   id: number,
   roomId: number,
   LocationRow: number,
-  LocationCol: number
+  LocationCol: number,
+  booking: boolean
 }
 
 export interface Booking {
