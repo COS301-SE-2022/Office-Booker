@@ -1,5 +1,33 @@
-<h2>{{ roomName }}</h2>
-<div class="grid-container">
+<!--<h2>{{ roomName }}</h2>-->
+<div class="map-container">
+  <svg x="20" y="20" width="800" height="800" style="border:1px solid black">
+    <g *ngFor="let desk of desks">
+        <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.booked]="desk.booking" width="10" height="10" (click)="selectToBook(desk.id, 'desk')"></rect>
+    </g>
+  </svg>
+</div>
+
+<div class="side-container">
+  <div class="office-floor-container">
+
+  </div>
+  <div class="date-time-container">
+
+  </div>
+  <div class="booking-item-info-container">
+    <div class="info-to-display-container" *ngIf="selected">
+      <p>Item Name: {{this.selectedItemName | titlecase}}</p>
+      <p>Item Facilities: </p>
+      <div *ngFor="let booking of selectedItemBookings">
+        <p>Booking for {{booking.startsAt | date: 'medium'}} ending at {{booking.endsAt | date: 'medium'}}</p>
+        <button (click)="deleteBooking(booking.id, selectedItemType)">Cancel Booking</button>
+      </div>
+      <button (click)="bookItem(selectedItemId, selectedItemType)">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
+    </div>
+  </div>
+</div>
+
+<!--<div class="grid-container">
   <ng-template ngFor let-item [ngForOf]="deskGrid" let-i="index">
     <mat-grid-list cols="12" rowHeight="1:1">
       <ng-template ngFor let-item [ngForOf]="deskGrid[i]" let-j="index">
@@ -25,5 +53,5 @@
       </ng-template>
     </mat-grid-list>
   </ng-template>
-</div>
+</div>-->
 
