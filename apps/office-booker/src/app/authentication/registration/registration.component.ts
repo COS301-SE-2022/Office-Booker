@@ -17,6 +17,7 @@ export class RegistrationComponent {
   isConfirm: boolean;
   user: IUser;
   userId : string;
+  userName : string;
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
@@ -25,6 +26,7 @@ export class RegistrationComponent {
   this.isConfirm = false;
   this.user = {} as IUser;
   this.userId = '';
+  this.userName = '';
 }
 
 public signUp(): void {
@@ -49,6 +51,7 @@ public confirmSignUp(): void {
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
     this.userId = this.user.email
+    this.userName = this.user.name
     //this.userService.createUser(this.userId).subscribe(user => {
       //this.addBooking(booking.deskId, booking.id);
     });

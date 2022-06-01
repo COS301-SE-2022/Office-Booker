@@ -14,7 +14,6 @@ export class MenuBarComponent /*implements OnInit*/ {
   //ngOnInit(): void {}
 
   signOut(): void {
-    alert('Sign out menu bar')
     this.cognitoService.signOut();
     this.app.signOut();
   }

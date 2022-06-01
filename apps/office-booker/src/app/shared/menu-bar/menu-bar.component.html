@@ -3,20 +3,20 @@
 <nav>
     <ul id ="menu">
         <li>
-            <a class="active" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-home"></i> Home</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-home"></i> Home</a>
         </li>
         <li>
             <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-bars"></i> Create Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/personal-bookings"><i class="fa fa-bars" routerLinkActive="active" *ngIf="isAuthenticated"></i> Manage your bookings</a>
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active"><i class="fa fa-bars" *ngIf="isAuthenticated"></i> Manage your bookings</a>
         </li>
         <li>
-            <a href="#"><i class='fa fa-laptop' routerLinkActive="active" *ngIf="!isAuthenticated"></i> Support</a>
+            <a href="#" routerLinkActive="active"><i class='fa fa-laptop' *ngIf="!isAuthenticated"></i> Support</a>
         </li>
-        <li> <a href="#"><i class='fa fa-phone' routerLinkActive="active" *ngIf="!isAuthenticated"></i> Contact Us</a>
+        <li> <a href="#" routerLinkActive="active"><i class='fa fa-phone'*ngIf="!isAuthenticated"></i> Contact Us</a>
         </li>
-        <li> <a href="#" routerLink="/sign-out"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
+        <li> <a href="#" routerLink="/sign-out" routerLinkActive="active"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
         </li>
     </ul>
 </nav>
