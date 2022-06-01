@@ -5,6 +5,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import { environment } from '../environments/environment';
 
 export interface IUser {
+  username: string
   email: string;
   password: string;
   showPassword: boolean;
@@ -32,9 +33,14 @@ export class CognitoService {
   public signUp(user: IUser): Promise<any> {
     alert(user.email)
     alert(user.password)
+    alert(user.name)
     return Auth.signUp({
       username: user.email,
-      password: user.password,
+      password: user.password,  
+      attributes : {
+        email: user.email,
+
+      }    
       
     });
     

@@ -18,12 +18,34 @@ export class MapBookingsComponent{
   selectedItemId: number;
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
-  constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) { 
+  constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
+              private cognitoService: CognitoService) { 
     changeDetection.detach();
     this.selectedItemId = 0;
   }
   ngOnInit() {
     this.getDesksByRoomId(1);
+    alert( (this.cognitoService.isAuthenticated()) )
+    alert( (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData")) ) )
+
+    const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData"))
+
+    if (userData != null){
+      alert ("User Data != null")
+      const evalUserData = eval(userData)
+
+      
+      //alert (evalUserData)
+
+      const myObj = JSON.parse(evalUserData)
+      
+      alert( myObj)
+      
+    }
+
+    
+    //let user = JSON.parse( localStorage.user );
+
     this.changeDetection.detectChanges();
   }
 

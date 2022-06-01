@@ -33,7 +33,6 @@ public signUp(): void {
   this.cognitoService.signUp(this.user)
 
   .then(() => {
-    alert("worked")
   this.loading = false;
   this.isConfirm = true;
   
@@ -49,16 +48,16 @@ public confirmSignUp(): void {
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
-    this.userId = user
-    this.userService.createUser(deskId, startsAt, endsAt).subscribe(user => {
-      this.addBooking(booking.deskId, booking.id);
+    this.userId = this.user.email
+    //this.userService.createUser(this.userId).subscribe(user => {
+      //this.addBooking(booking.deskId, booking.id);
     });
   this.router.navigate(['/login']);
-  }).catch((e) => {
-    alert(e)
+  //}).catch((e) => {
+  //  alert(e)
   this.loading = false;
   this.router.navigate(['/login'])
-  });
+ // });
 }
 
 }

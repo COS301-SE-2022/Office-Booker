@@ -4,12 +4,28 @@
   <div class="col-4">
     <div class="card">
       <div class="card-body" *ngIf="!isConfirm">
+
+        <div class="row">
+          <div class="col mb-2">
+            <label for="username" class="form-label">Username:</label>
+            <input type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
+          </div>
+        </div>
+
         <div class="row">
           <div class="col mb-2">
             <label for="email" class="form-label">Email:</label>
             <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
           </div>
         </div>
+
+        <div class="row">
+          <div class="col mb-2">
+            <label for="name" class="form-label">Name:</label>
+            <input type="name" id="name" name="name" #email="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
+          </div>
+        </div>
+        
         <div class="row">
           <div class="col mb-2">
             <label for="password" class="form-label">Password:</label>
