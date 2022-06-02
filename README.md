@@ -11,28 +11,28 @@ Demo 1: https://drive.google.com/drive/folders/1LMWiUeVbseF6iQV0pY3MOf2jIRsHL7-C
 
 ## Team
 ### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
-<img src="https://user-images.githubusercontent.com/93526910/168092215-e57dc66c-cf3b-4c6f-85cd-bdf18ba7b292.png" width="500" height="400"/>
+<img src="https://user-images.githubusercontent.com/93526910/168092215-e57dc66c-cf3b-4c6f-85cd-bdf18ba7b292.png" width="300" height="200"/>
 
 I am the group leader and have had success in the past leading the team in past projects to positive results. I am a third year computer science student with an interest in Artificial Intellegence.
 
 ### Arul Agrawal [Linkedin](https://www.linkedin.com/in/arul-agrawal-67264123a) - DevOps, API, Database
-<img src="https://user-images.githubusercontent.com/93526910/168092981-e2b4d398-e713-40ba-9e06-fcf2fb50ca41.jpg" width="400" height="600"/>
+<img src="https://user-images.githubusercontent.com/93526910/168092981-e2b4d398-e713-40ba-9e06-fcf2fb50ca41.jpg" width="200" height="300"/>
 
 Arul is the API/Database engineer and the DevOps member of the group. He handles the database design and its related API functions as well as DevOps functions like hosting and cloud functionality.
 
 
 ### Damian Vermeulen [Linkedin](https://www.linkedin.com/in/damian-vermeulen-a8750423a) - Frontend, Business Analyst
-<img src="https://user-images.githubusercontent.com/93526910/168092473-1bfb0b5c-2cc3-4d4c-976d-bf621358b38b.jpg" width="400" height="600"/>
+<img src="https://user-images.githubusercontent.com/93526910/168092473-1bfb0b5c-2cc3-4d4c-976d-bf621358b38b.jpg" width="200" height="300"/>
 
 Damian is the business analysts and frontend designer of the group. He handles most documentation and helps with designing and implementing the frontend of the project.
 
 ### Grant Bursnall [Linkedin](https://www.linkedin.com/in/grant-bursnall-6238a2238) - UX/UI, Database
-<img src="https://user-images.githubusercontent.com/93526910/168092438-b1d9a561-380e-447a-9e86-0514db05ae27.jpeg" width="400" height="600"/>
+<img src="https://user-images.githubusercontent.com/93526910/168092438-b1d9a561-380e-447a-9e86-0514db05ae27.jpeg" width="200" height="300"/>
 
 Grant handles the UI of the system as well as how it communicates with the database.
 
 ### Brett Du Plessis [Linkedin](https://www.linkedin.com/in/brettduplessis) - Backend, API
-<img src="https://user-images.githubusercontent.com/93526910/168096437-eee24d03-5bd3-418c-a086-9b8d05de9011.jpg" width="400" height="600"/>
+<img src="https://user-images.githubusercontent.com/93526910/168096437-eee24d03-5bd3-418c-a086-9b8d05de9011.jpg" width="200" height="300"/>
 
 Brett helps with the backend and the API and has also contributed to the documentation.
 
