@@ -26,7 +26,7 @@ export class MapBookingsComponent{
   ngOnInit() {
     this.getDesksByRoomId(1);
 
-    const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData"))
+    //const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData"))
 
     this.changeDetection.detectChanges();
   }

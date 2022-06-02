@@ -31,9 +31,9 @@ export class CognitoService {
   }
 
   public signUp(user: IUser): Promise<any> {
-    alert(user.email)
-    alert(user.password)
-    alert(user.name)
+    //alert(user.email)
+    //alert(user.password)
+    //alert(user.name)
     return Auth.signUp({
       username: user.email,
       password: user.password,  
@@ -59,7 +59,7 @@ export class CognitoService {
   }
 
   public signOut(): Promise<any> {
-    alert('Sign out');
+    //alert('Sign out');
 
     return Auth.signOut()
     .then(() => {

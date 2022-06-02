@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserServiceService, User } from '../../services/user-service.service';
-
-
 import { IUser, CognitoService } from '../../cognito.service';
 
 @Component({
@@ -21,7 +18,7 @@ export class RegistrationComponent {
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
-    private userService: UserServiceService) {
+    ) {
   this.loading = false;
   this.isConfirm = false;
   this.user = {} as IUser;
