@@ -10,6 +10,7 @@ CREATE TABLE "Company" (
 CREATE TABLE "Employee" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "companyId" INTEGER NOT NULL,
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
@@ -56,23 +57,11 @@ CREATE TABLE "Booking" (
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "user" (
-    "email" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-
-    CONSTRAINT "user_pkey" PRIMARY KEY ("email")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Company_name_key" ON "Company"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Employee_name_key" ON "Employee"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
+CREATE UNIQUE INDEX "Employee_email_key" ON "Employee"("email");
 
 -- AddForeignKey
 ALTER TABLE "Employee" ADD CONSTRAINT "Employee_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
