@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { BookingServiceService, Room, Desk, Booking} from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-booking-card',
