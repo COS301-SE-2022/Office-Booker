@@ -49,6 +49,7 @@ describe('ApiUsersApiController', () => {
     const postData = {
       name: 'ying',
       companyId: 2,
+      email: 'email'
     }
     controller.createUser(postData);
     expect(service.createUser).toHaveBeenCalledWith({
@@ -57,7 +58,8 @@ describe('ApiUsersApiController', () => {
         connect: {
           id: 2,
         }
-      }
+      },
+      email: 'email'
     });
   })
 
