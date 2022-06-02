@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../../app.component';
+import { CognitoService } from '../../cognito.service';
 
 @Component({
   selector: 'office-booker-menu-bar',
@@ -6,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-bar.component.css'],
 })
 export class MenuBarComponent /*implements OnInit*/ {
-  //constructor() {}
+  constructor(private app: AppComponent,
+    private cognitoService: CognitoService) { }
 
   //ngOnInit(): void {}
+
+  signOut(): void {
+    this.cognitoService.signOut();
+    this.app.signOut();
+  }
+  isAuthenticated() : void {
+    this.app.ngOnInit();
+  }
 }
+
+
