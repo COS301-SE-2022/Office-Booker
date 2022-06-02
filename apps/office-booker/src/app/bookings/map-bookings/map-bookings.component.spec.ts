@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Desk } from '../../services/booking-service.service';
 import { BookingCardComponent } from '../personal-bookings/booking-card/booking-card.component';
+import { MatCardModule } from '@angular/material/card'
 
 import { CognitoService } from '../../cognito.service';
 
@@ -15,8 +16,9 @@ describe('BookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, CognitoService],
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule],
       declarations: [MapBookingsComponent],
+      providers: [CognitoService]
     }).compileComponents();
   });
 
