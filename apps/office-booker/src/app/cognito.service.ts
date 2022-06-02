@@ -5,6 +5,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import { environment } from '../environments/environment';
 
 export interface IUser {
+  username: string
   email: string;
   password: string;
   showPassword: boolean;
@@ -18,6 +19,8 @@ export interface IUser {
 export class CognitoService {
 
   private authenticationSubject: BehaviorSubject<any>;
+  
+  
 
   constructor() {
     Amplify.configure({
@@ -28,11 +31,16 @@ export class CognitoService {
   }
 
   public signUp(user: IUser): Promise<any> {
-    alert(user.email)
-    alert(user.password)
+    //alert(user.email)
+    //alert(user.password)
+    //alert(user.name)
     return Auth.signUp({
       username: user.email,
-      password: user.password,
+      password: user.password,  
+      attributes : {
+        email: user.email,
+
+      }    
       
     });
     
@@ -51,6 +59,8 @@ export class CognitoService {
   }
 
   public signOut(): Promise<any> {
+    //alert('Sign out');
+
     return Auth.signOut()
     .then(() => {
       this.authenticationSubject.next(false);
@@ -75,7 +85,15 @@ export class CognitoService {
   }
 
   public getUser(): Promise<any> {
+
+    //alert(Auth.userAttributes)
+    //alert(Auth.currentAuthenticatedUser)
+    //alert(Auth.userAttributes)
+    //alert(Auth.userAttributes)
+    //alert(Auth.userAttributes)
+
     return Auth.currentUserInfo();
+    
   }
 
   public updateUser(user: IUser): Promise<any> {
@@ -83,6 +101,10 @@ export class CognitoService {
     .then((cognitoUser: any) => {
       return Auth.updateUserAttributes(cognitoUser, user);
     });
+  }
+
+  public getEmail() : Promise<string> {
+    return Auth.currentUserInfo();
   }
 
 }

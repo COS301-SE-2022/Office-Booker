@@ -10,8 +10,9 @@ describe('PersonalBookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PersonalBookingsComponent],
+      declarations: [PersonalBookingsComponent, BookingCardComponent],
       imports: [RouterTestingModule, MatCardModule],
+      providers: [BookingCardComponent]
     }).compileComponents();
   });
 

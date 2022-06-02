@@ -1,6 +1,8 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { BookingServiceService, Room, Desk, Booking} from '../../services/booking-service.service';
+import { CognitoService } from '../../cognito.service';
 
 @Component({
   selector: 'office-booker-map-bookings',
@@ -16,12 +18,16 @@ export class MapBookingsComponent{
   selectedItemId: number;
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
-  constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) { 
+  constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
+              private cognitoService: CognitoService) { 
     changeDetection.detach();
     this.selectedItemId = 0;
   }
   ngOnInit() {
     this.getDesksByRoomId(1);
+
+    //const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData"))
+
     this.changeDetection.detectChanges();
   }
 
@@ -137,7 +143,7 @@ export class MapBookingsComponent{
 //  bookedGrid: boolean[][];
 //  bookingIDGrid: number[][];
 //  constructor(private bookingService: BookingServiceService, public dialog: MatDialog, private changeDetection: ChangeDetectorRef) {
-//    changeDetection.detach();
+//    changeDetection.detach(), private cognitoService: CognitoService;
 //    this.rooms = [];
 //    this.desks = [];
 //    this.deskGrid = [];
@@ -156,6 +162,11 @@ export class MapBookingsComponent{
 //    this.generateGrid();
 //    this.getRooms();
 
+   //alert( (this.cognitoService.isAuthenticated()) )
+   //alert( (localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.LastAuthUser")) )
+   
+   //const json = localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData")
+   //const obj = JSON.parse(json);
 //    console.log("my rooms are ");
 //    console.log(this.rooms);
 //    console.log(this.rooms[0]);

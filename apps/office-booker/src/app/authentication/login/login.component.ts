@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IUser, CognitoService } from '../../cognito.service';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({

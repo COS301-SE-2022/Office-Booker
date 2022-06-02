@@ -4,11 +4,12 @@ import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/re
 class createUserDto {
     name: string;
     companyId: number;
+    email: string;
 }
 
-@Controller('api-users-api')
+@Controller('users')
 export class ApiUsersApiController {
-    constructor(private userService: ApiUsersRepositoryDataAccessService) {}
+    constructor(private userService: ApiUsersRepositoryDataAccessService) { }
 
     @Get("/")
     async getUsers() {
@@ -27,13 +28,15 @@ export class ApiUsersApiController {
 
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
+        const { name , companyId, email } = postData;
         return await this.userService.createUser({
-            name: postData.name,
+            name: name,
             company: {
                 connect: {
-                    id: postData.companyId,
+                    id: companyId,
                 },
-            }
+            },
+            email: email,
         });
     }
 

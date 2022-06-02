@@ -13,26 +13,24 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RegistrationComponent } from './authentication/registration/registration.component';
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatCardModule } from '@angular/material/card'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
 import { MatButtonModule } from '@angular/material/button';
 import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
-
-
+import { SignOutComponent } from './authentication/sign-out/sign-out.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent},
+  { path: 'registration', component: RegistrationComponent },
   { path: 'personal-bookings', component: PersonalBookingsComponent },
-  { path: '', component: LoginComponent},
-
-
+  { path: 'sign-out', component: SignOutComponent },
+  { path: '', component: LoginComponent },
 ];
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
@@ -47,7 +45,7 @@ const routes: Routes = [
     PersonalBookingsComponent,
     MapBookingsComponent,
     BookingCardComponent,
-    
+    SignOutComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -57,7 +55,7 @@ const routes: Routes = [
     MatGridListModule,
     MatDialogModule,
     RouterModule.forRoot(routes),
-    RouterModule,    
+    RouterModule,
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
