@@ -13,6 +13,7 @@ async function main() {
         data: {
             name: 'Steve Jobs',
             company: { connect: { id: company.id } },
+            email: 'stevejobs@apple.com',
         },
     })
 
@@ -20,6 +21,7 @@ async function main() {
         data: {
             name: 'Bill Gates',
             company: { connect: { id: company.id } },
+            email: 'billgates@apple.com',
         },
     })
 

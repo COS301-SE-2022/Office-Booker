@@ -20,7 +20,8 @@ model Company {
 
 model Employee {
   id        Int    @id @default(autoincrement())
-  name      String    @unique
+  name      String
+  email     String    @unique
   company   Company   @relation(fields: [companyId], references: [id])
   Bookings  Booking[]
   companyId Int
