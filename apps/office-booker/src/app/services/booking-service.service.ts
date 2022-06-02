@@ -33,6 +33,7 @@ export interface BookingDto {
 @Injectable({
   providedIn: 'root'
 })
+
 export class BookingServiceService {
 
   constructor(private http: HttpClient) { }
@@ -90,4 +91,14 @@ export class BookingServiceService {
     }
     return this.http.post<Booking>(`${url}`, body);
   }
+
+  getBookingByEmployee(userId: number){
+    const url = 'http://localhost:3333/api/bookings/user/' + userId;
+    return this.http.get<Booking[]>(`${url}`);
+  }
+
+  // getEmployeeByEmployeeId(userId: number){
+  //   const url = 'http://localhost:3333/api/api-users-api/' + userId;
+  //   return this.http.get(`${url}`);
+  // }
 }
