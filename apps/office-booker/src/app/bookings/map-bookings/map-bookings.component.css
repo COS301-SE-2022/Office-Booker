@@ -1,9 +1,15 @@
-.grid-container {
+.map-container {
+    width: 800px;
+    height: auto;
+    margin: 0px;
+}
+
+.side-container {
     width: 50rem;
     height: auto;
+    float: right;
     margin-top: 5rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin-right:5rem;
 }
 
 mat-grid-tile {
@@ -21,6 +27,7 @@ mat-grid-tile {
 }
 
 .booked {
+    fill: red;
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
