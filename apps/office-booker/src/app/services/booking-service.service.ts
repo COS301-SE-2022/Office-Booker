@@ -30,6 +30,13 @@ export interface BookingDto {
   endTime: string
 }
 
+export interface employee {
+  id: number,
+  name: string,
+  companyId: number
+
+}
+
 @Injectable({
   providedIn: 'root'
 })
