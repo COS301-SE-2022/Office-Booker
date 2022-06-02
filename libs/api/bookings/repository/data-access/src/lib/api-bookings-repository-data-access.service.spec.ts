@@ -54,7 +54,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 
 	describe('createBooking', () => {
 		const bookingItem = [
-			{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
+			{id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
 		]
 		it('should create a booking', async () => {
 			prisma.booking.create = jest.fn().mockReturnValueOnce([
