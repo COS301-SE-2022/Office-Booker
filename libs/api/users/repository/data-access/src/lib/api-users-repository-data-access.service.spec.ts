@@ -38,7 +38,7 @@ describe('ApiUsersRepositoryDataAccessService', () => {
           companyId: 1,
         },
       ];
-      prisma.user.findMany = jest.fn().mockReturnValue(users);
+      prisma.employee.findMany = jest.fn().mockReturnValue(users);
       const result = await service.getUsers();
       expect(result).toEqual(users);
     });
@@ -47,12 +47,12 @@ describe('ApiUsersRepositoryDataAccessService', () => {
   describe('getUserById', () => {
     it('should return a user', async () => {
       const user = {
-        id: 1,
         name: 'test',
         email: 'test@gmail.com',
+        id: 1,
         companyId: 2,
       };
-      prisma.user.findOne = jest.fn().mockReturnValue(user);
+      prisma.employee.findUnique = jest.fn().mockReturnValue(user);
       const result = await service.getUserById(1);
       expect(result).toEqual(user);
     });
@@ -80,7 +80,7 @@ describe('ApiUsersRepositoryDataAccessService', () => {
           companyId: 1,
         },
       ];
-      prisma.user.findMany = jest.fn().mockReturnValue(users);
+      prisma.employee.findMany = jest.fn().mockReturnValue(users);
       const result = await service.getUsersByCompanyId(2);
       expect(result).toEqual(users);
     });
@@ -92,8 +92,9 @@ describe('ApiUsersRepositoryDataAccessService', () => {
         name: 'test',
         company: null,
         Bookings: null,
+        email: 'test'
       };
-      prisma.user.create = jest.fn().mockReturnValueOnce(user);
+      prisma.employee.create = jest.fn().mockReturnValueOnce(user);
       expect(await service.createUser(user)).toEqual(user);
     });
   });
