@@ -2,8 +2,29 @@
 <p>You can check the bookings you have made as well as remove them.</p>
 
 
-        <ng-template ngFor let-booking [ngForOf]="userBookings" let-i="index">
-      <office-booker-booking-card [booking]="booking">
+        <!-- <ng-template *ngFor="let booking of userBookings">
+      <office-booker-booking-card>
         
-      </office-booker-booking-card>
-    </ng-template>
+      </office-booker-booking-card> -->
+    <!-- </ng-template> -->
+
+    <div class="card-wrapper" *ngFor="let booking of userBookings">
+      <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title> Booking </mat-card-title>
+            <mat-card-subtitle>
+              You have a booking coming up.
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>User: {{booking.employeeId}}</div> 
+            <div>Seating: {{booking.deskId}} </div>  
+            <div>Start Date: {{booking.startsAt}} </div>  
+            <div>End Date: {{booking.endsAt}} </div>  
+        </mat-card-content>
+          <mat-card-actions>
+            <button (click)="deleteADeskBooking(booking.deskId) "mat-raised-button color="accent">Cancel Booking</button>
+          </mat-card-actions>
+        </mat-card>
+
+    </div>

@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PersonalBookingsComponent } from './personal-bookings.component';
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
-import { BookingCardComponent } from './booking-card/booking-card.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+
+
 
 describe('PersonalBookingsComponent', () => {
   let component: PersonalBookingsComponent;
@@ -10,9 +12,8 @@ describe('PersonalBookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PersonalBookingsComponent, BookingCardComponent],
-      imports: [RouterTestingModule, MatCardModule],
-      providers: [BookingCardComponent]
+      declarations: [PersonalBookingsComponent],
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule]
     }).compileComponents();
   });
 
