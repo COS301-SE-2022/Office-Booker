@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookingCardComponent } from './booking-card.component';
+import { MatCardModule } from '@angular/material/card';
+
 
 describe('BookingCardComponent', () => {
   let component: BookingCardComponent;

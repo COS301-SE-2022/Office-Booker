@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { timeout } from 'rxjs';
 import { CognitoService } from '../../cognito.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
   selector: 'office-booker-sign-out',
