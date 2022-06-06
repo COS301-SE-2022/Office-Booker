@@ -18,6 +18,10 @@ export class MapBookingsComponent{
   selectedItemId: number;
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
+
+  grabbedStartDate = "";
+  grabbedEndDate = "";
+
   constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
               private cognitoService: CognitoService) { 
     changeDetection.detach();
@@ -85,25 +89,41 @@ export class MapBookingsComponent{
   }
 
   bookItem(itemId: number, itemType: string){
+    const splitTimeDateStart = this.grabbedStartDate.split('-');
+    const splitTimeDateEnd = this.grabbedEndDate.split('-');
+
+    const newYearStart = Number(splitTimeDateStart[0]);
+    const newMonthStart = Number(splitTimeDateStart[1]);
+    const newYearEnd = Number(splitTimeDateEnd[0]);
+    const newMonthEnd = Number(splitTimeDateEnd[1]);
+
+    const splitDateAndSecStart = splitTimeDateStart[2].split('T');
+    const splitTimeStart = splitDateAndSecStart[1].split(':');
+    const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');
+    const splitTimeEnd = splitDateAndSecEnd[1].split(':');
+
+    const newWholeDateStart = new Date(newYearStart, newMonthStart-1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]), Number(splitTimeStart[1]));
+    const newWholeDateEnd = new Date(newYearEnd, newMonthEnd-1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]), Number(splitTimeEnd[1]));
     if(itemType == 'desk'){
-      this.makeADeskBooking(itemId);
+      this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);
     }
     this.changeDetection.detectChanges();
   }
 
-  makeADeskBooking(deskId: number) {
+  makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
     //get the current date time and add 2 hours
     const userId = 1;
-    const today = new Date();
-    today.setHours(today.getHours() + 2);
-    const future = new Date(today.getTime());
-    future.setHours(today.getHours() + 2);
+    // const today = new Date();
+    // today.setHours(today.getHours() + 2);
+    // const future = new Date(today.getTime());
+    // future.setHours(today.getHours() + 2);
 
-    const startsAt = today.toISOString();
-    const endsAt = future.toISOString();
+    const startsAt = startDate.toISOString();
+    const endsAt = endDate.toISOString();
     this.bookingService.createBooking(deskId, userId, startsAt, endsAt).subscribe(booking => {
       for(let i = 0; i < this.desks.length; i++){
         if(this.desks[i].id == deskId){
+          this.desks[i].booking = true;
           this.desks[i].bookings.push(booking);
         }
       }
@@ -126,6 +146,9 @@ export class MapBookingsComponent{
       for(let d = 0; d < desk.bookings.length; d++){
         if(desk.bookings[d].id == bookingId){
           desk.bookings.splice(d,1);
+        }
+        if(desk.bookings.length < 1){
+          desk.booking = false;
         }
       }
     })
