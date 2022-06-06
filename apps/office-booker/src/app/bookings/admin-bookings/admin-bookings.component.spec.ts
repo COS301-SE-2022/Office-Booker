@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { MatCardModule } from '@angular/material/card'
 import { AdminBookingsComponent } from './admin-bookings.component';
 
 describe('AdminBookingsComponent', () => {
@@ -9,6 +11,7 @@ describe('AdminBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminBookingsComponent],
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule]
     }).compileComponents();
   });
 
