@@ -24,11 +24,15 @@ export class PersonalBookingsComponent implements OnInit {
   ngOnInit(){
     this.getDesksByRoomId(1);
     
-    this.getCurrentUser();
+    //this.getCurrentUser();
     
     // this.changeDetection.detectChanges();
     // this.getCurrentUser();
     // this.getBookings(this.userNumb);
+  }
+
+  getDisplay(){
+    this.getCurrentUser();
   }
 
   getUsers(){
@@ -108,8 +112,8 @@ export class PersonalBookingsComponent implements OnInit {
  getCurrentUser(){
    const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
    console.log(userData);
-   this.bookingService.getEmployeeByEmail(userData).subscribe(res => {
-      //console.log(res);
+   this.bookingService.getEmployeeByEmail("u20538945@tuks.co.za").subscribe(res => {
+      console.log(res);
       const newUser = {} as employee;
       newUser.name = res[0].name;
       newUser.id = res[0].id;

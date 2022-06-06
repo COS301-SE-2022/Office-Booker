@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '@prisma/client';
+import { stringify } from 'querystring';
 
 export interface Room {
   id: number;
@@ -38,6 +39,8 @@ export interface employee {
   name: string,
   companyId: number
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -118,6 +121,9 @@ export class BookingServiceService {
   
   getEmployeeByEmail(email: string){
     const url = 'http://localhost:3333/api/users/' + email;
-    return this.http.get<employee[]>(`${url}`);
+    const body = {
+      email: email
+    }
+    return this.http.post<employee[]>(`${url}`, body);
   }
 }
