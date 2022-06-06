@@ -109,19 +109,18 @@ export class PersonalBookingsComponent implements OnInit {
    const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
    console.log(userData);
    this.bookingService.getEmployeeByEmail(userData).subscribe(res => {
-    res.forEach(user => {
-      console.log(user);
+      //console.log(res);
       const newUser = {} as employee;
-      newUser.name = user.name;
-      newUser.id = user.id;
-      newUser.email = user.email;
-      newUser.companyId = user.companyId;
+      newUser.name = res[0].name;
+      newUser.id = res[0].id;
+      newUser.email = res[0].email;
+      newUser.companyId = res[0].companyId;
       this.Users.push(newUser);
       this.userNumb = newUser.id;
+      this.employeeName = newUser.name;
       this.changeDetection.detectChanges();
-     });
-     this.getBookings(this.userNumb);
-     this.changeDetection.detectChanges();
+      this.getBookings(this.userNumb);
+      this.changeDetection.detectChanges();
    }) 
 }
 
