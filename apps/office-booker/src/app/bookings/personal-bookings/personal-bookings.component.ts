@@ -25,13 +25,6 @@ export class PersonalBookingsComponent{
   ngOnInit(){
     this.getDesksByRoomId(1);
     this.getCurrentUser();
-    this.getBookings(this.currentUser.id);
-
-    //this.getCurrentUser();
-    
-    //this.changeDetection.detectChanges();
-    // this.getCurrentUser();
-    //this.getBookings(this.userNumb);
   }
 
   getUsers(){
@@ -44,9 +37,6 @@ export class PersonalBookingsComponent{
         this.changeDetection.detectChanges();
         }
       });
-      
-      
-      
     })
   }
 
@@ -72,7 +62,7 @@ export class PersonalBookingsComponent{
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;
     
-    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
+    this.bookingService.getBookingsByDeskId(this.currentUser.id).subscribe(res => {
       res.forEach(booking => {
         if(booking){
           bookingReturn = true;
@@ -91,7 +81,7 @@ export class PersonalBookingsComponent{
 
   getBookings(userId: number){
 
-    this.bookingService.getBookingByEmployee(3).subscribe(res => {
+    this.bookingService.getBookingByEmployee(userId).subscribe(res => {
        res.forEach(booking => {
          console.log(booking);
          const newBooking = {} as Booking;
@@ -113,6 +103,9 @@ export class PersonalBookingsComponent{
    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       console.log(res);
       this.currentUser = res;
+      //console.log(this.currentUser.id);
+      this.userNumb = this.currentUser.id;
+      this.getBookings(this.currentUser.id);
       this.changeDetection.detectChanges();
       
    }) 
