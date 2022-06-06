@@ -3,20 +3,31 @@
 <nav>
     <ul id ="menu">
         <li>
-            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-home"></i> Home</a>
+            <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-sign-in"></i> Login</a>
         </li>
+
         <li>
-            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated"><i class="fa fa-bars"></i> Create Bookings</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="!isAuthenticated"><i class="fa fa-home"></i> Home</a>
         </li>
+        
         <li>
-            <a href="#" routerLink="/personal-bookings" routerLinkActive="active"><i class="fa fa-bars" *ngIf="isAuthenticated"></i> Manage your bookings</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="!isAuthenticated"><i class="fa fa-bars"></i> Create Bookings</a>
         </li>
+        
         <li>
-            <a href="#" routerLinkActive="active"><i class='fa fa-laptop' *ngIf="!isAuthenticated"></i> Support</a>
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="!isAuthenticated"><i class="fa fa-bars" ></i> Manage your bookings</a>
         </li>
-        <li> <a href="#" routerLinkActive="active"><i class='fa fa-phone'*ngIf="!isAuthenticated"></i> Contact Us</a>
+        
+        <li>
+            <a href="#" routerLinkActive="active" ><i class='fa fa-laptop' ></i> Support</a>
         </li>
-        <li> <a href="#" routerLink="/sign-out" routerLinkActive="active"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
+        
+        <li> 
+            <a href="#" routerLinkActive="active" ><i class='fa fa-phone'></i> Contact Us</a>
+        </li>
+        
+        <li> 
+            <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="!isAuthenticated"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
         </li>
     </ul>
 </nav>
