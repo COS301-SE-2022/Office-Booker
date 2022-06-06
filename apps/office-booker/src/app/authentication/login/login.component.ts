@@ -32,10 +32,7 @@ export class LoginComponent {
   }
       
   moveToRegister() : void {
-    console.log("Hi")
-
     this.router.navigate(['/registration']);
-
   }
 
 
