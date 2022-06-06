@@ -12,7 +12,12 @@
 
   </div>
   <div class="date-time-container">
-
+    <form>
+      <p>Start Date: </p>
+      <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">
+      <p>End Date: </p>
+      <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+  </form>
   </div>
   <div class="booking-item-info-container">
     <div class="info-to-display-container" *ngIf="selected">
