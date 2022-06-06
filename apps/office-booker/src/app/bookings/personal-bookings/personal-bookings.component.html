@@ -1,6 +1,5 @@
 <h1>Manage your bookings here</h1>
 <p>You can check the bookings you have made as well as remove them.</p>
-<button (click)="getDisplay() "mat-raised-button color="accent">Show bookings</button>
 
         <!-- <ng-template *ngFor="let booking of userBookings">
       <office-booker-booking-card>
@@ -17,7 +16,7 @@
             </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <div>User: {{employeeName}}</div> 
+            <div>User: {{currentUser.name}}</div> 
             <div>Seating: {{booking.deskId}} </div>  
             <div>Start Date: {{booking.startsAt}} </div>  
             <div>End Date: {{booking.endsAt}} </div>  

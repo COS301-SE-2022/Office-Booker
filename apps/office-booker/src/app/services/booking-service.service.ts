@@ -124,6 +124,6 @@ export class BookingServiceService {
     const body = {
       email: email
     }
-    return this.http.post<employee[]>(`${url}`, body);
+    return this.http.post<employee>(`${url}`, body);
   }
 }

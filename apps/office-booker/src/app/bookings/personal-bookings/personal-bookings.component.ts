@@ -15,7 +15,8 @@ export class PersonalBookingsComponent{
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
-
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1};
+  
   constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
     changeDetection.detach();
     //console.log(this.userBookings);
@@ -24,23 +25,13 @@ export class PersonalBookingsComponent{
   ngOnInit(){
     this.getDesksByRoomId(1);
     this.getCurrentUser();
+    this.getBookings(this.currentUser.id);
+
     //this.getCurrentUser();
     
-    // this.changeDetection.detectChanges();
+    //this.changeDetection.detectChanges();
     // this.getCurrentUser();
     //this.getBookings(this.userNumb);
-  }
-
-  
-
-  getDisplay(){
-    console.log(this.Users);
-    this.changeDetection.detectChanges();
-  }
-
-  getnewDisplay(){
-    this.getBookings(this.Users[0].id);
-    this.changeDetection.detectChanges();
   }
 
   getUsers(){
@@ -119,14 +110,9 @@ export class PersonalBookingsComponent{
 
  getCurrentUser(){
    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-   console.log(userData);
-   this.bookingService.getEmployeeByEmail("u20538945@tuks.co.za").subscribe(res => {
+   this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       console.log(res);
-      //const newUser = res[0];
-      //console.log(newUser);
-      this.Users.push(res[0]);
-      // this.userNumb = res[0].id;
-      // this.employeeName = res[0].name;
+      this.currentUser = res;
       this.changeDetection.detectChanges();
       
    }) 
