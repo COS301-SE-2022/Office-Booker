@@ -20,17 +20,18 @@ export class AppComponent implements OnInit
     private router: Router,
     private cognitoService: CognitoService) 
     {
-        alert("AppComponent not authenticated");
-        this.isAuthenticated = true;
+        //alert("AppComponent not authenticated");
+        this.isAuthenticated = false;
     }
 
 
   isAuthenticated: boolean;
 
   public ngOnInit(): void {
-    if (this.cognitoService.isAuthenticated() ){
-      //alert("AppComponent is authenticated")
-      this.isAuthenticated = true; }
+    this.cognitoService.isAuthenticatedCheck()
+    .then((success: boolean) => {
+      this.isAuthenticated = success;
+    });
   };
   
 

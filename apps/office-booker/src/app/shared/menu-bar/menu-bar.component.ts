@@ -22,8 +22,8 @@ export class MenuBarComponent /*implements OnInit*/ {
     //return true;
     const auth = this.cognitoService.isAuthenticated()
 
-    if (auth) return true;
-    else return false;
+    if (auth) return false;
+    else return true;
         
     //this.app.ngOnInit();
   }

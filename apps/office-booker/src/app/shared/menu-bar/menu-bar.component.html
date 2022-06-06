@@ -15,10 +15,10 @@
             <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="!isAuthenticated()"><i class="fa fa-bars" ></i> Manage your bookings</a>
         </li>
         <li>
-            <a href="#" routerLinkActive="active" ><i class='fa fa-laptop' ></i> Support</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" ><i class='fa fa-laptop' ></i> Support</a>
         </li>
         <li> 
-            <a href="#" routerLinkActive="active" ><i class='fa fa-phone'></i> Contact Us</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" ><i class='fa fa-phone'></i> Contact Us</a>
         </li>
         <li> 
             <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="!isAuthenticated()"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>

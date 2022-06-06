@@ -58,12 +58,15 @@ export class CognitoService {
     });
   }
 
+  
+  //function to sign a user out of cognito
   public signOut(): Promise<any> {
     //alert('Sign out');
 
     return Auth.signOut()
     .then(() => {
       this.authenticationSubject.next(false);
+      //alert("Suc sign out")
     });
   }
 
@@ -74,6 +77,24 @@ export class CognitoService {
     }
     else
       return false;
+  }
+
+  public isAuthenticatedCheck(): Promise<boolean> {
+    if (this.authenticationSubject.value) {
+      return Promise.resolve(true);
+    } else {
+      return this.getUser()
+      .then((user: any) => {
+        if (user) {
+          return true;
+        } else {
+          return false;
+        }
+      }).catch(() => {
+        return false;
+      });
+    }
+  }
     /*if (this.authenticationSubject.value) {
       return Promise.resolve(true);
     } else {
@@ -88,7 +109,7 @@ export class CognitoService {
         return false;
       });
     }*/
-  }
+  
 
   public getUser(): Promise<any> {
 
