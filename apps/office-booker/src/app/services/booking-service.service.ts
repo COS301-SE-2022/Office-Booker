@@ -26,6 +26,7 @@ export interface Booking {
   endsAt: string,
   createdAt: string
   employee: employee,
+  employeeName: string
 }
 
 export interface BookingDto {

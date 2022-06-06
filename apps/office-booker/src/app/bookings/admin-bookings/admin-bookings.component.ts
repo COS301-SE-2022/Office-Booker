@@ -23,13 +23,14 @@ export class AdminBookingsComponent{
 
   ngOnInit(){
     this.getDesksByRoomId(1);
-    this.getCurrentUser();
+    this.getUsers();
   }
 
   getUsers(){
     this.bookingService.getAllEmployees().subscribe( res => {
       res.forEach(user => {
         this.Users.push(user);
+        this.getBookings(user.id, user.name);
         //this.changeDetection.detectChanges();
       
       });
@@ -75,7 +76,7 @@ export class AdminBookingsComponent{
     })
   }
 
-  getBookings(userId: number){
+  getBookings(userId: number, name: string){
 
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
        res.forEach(booking => {
@@ -86,6 +87,7 @@ export class AdminBookingsComponent{
          newBooking.startsAt = booking.startsAt;
          newBooking.endsAt = booking.endsAt;
          newBooking.employeeId = booking.employeeId;
+         newBooking.employeeName = name;
          this.userBookings.push(newBooking);
          //this.changeDetection.detectChanges();
         });
@@ -94,18 +96,18 @@ export class AdminBookingsComponent{
  }
 
 
- getCurrentUser(){
-   const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-   this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      console.log(res);
-      this.currentUser = res;
-      //console.log(this.currentUser.id);
-      this.userNumb = this.currentUser.id;
-      this.getBookings(this.currentUser.id);
-      //this.changeDetection.detectChanges();
+//  getCurrentUser(){
+//    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+//    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+//       console.log(res);
+//       this.currentUser = res;
+//       //console.log(this.currentUser.id);
+//       this.userNumb = this.currentUser.id;
+//       this.getBookings(this.currentUser.id);
+//       //this.changeDetection.detectChanges();
       
-   }) 
-}
+//    }) 
+// }
 
 //  getUsers(){
 //   this.bookingService.getAllEmployees().subscribe(res => {
