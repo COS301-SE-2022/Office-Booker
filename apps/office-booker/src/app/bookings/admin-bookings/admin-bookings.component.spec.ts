@@ -11,6 +11,7 @@ describe('AdminBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminBookingsComponent],
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule]
     }).compileComponents();
   });
 
