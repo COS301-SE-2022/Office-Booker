@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Employee } from '@prisma/client';
+import { stringify } from 'querystring';
 
 export interface Room {
   id: number;
@@ -23,6 +25,7 @@ export interface Booking {
   startsAt: string,
   endsAt: string,
   createdAt: string
+  employee: employee,
 }
 
 export interface BookingDto {
@@ -32,10 +35,12 @@ export interface BookingDto {
 
 export interface employee {
   id: number,
+  email: string,
   name: string,
   companyId: number
-
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -99,13 +104,26 @@ export class BookingServiceService {
     return this.http.post<Booking>(`${url}`, body);
   }
 
+  getAllEmployees(){
+    const url = 'http://localhost:3333/api/users';
+    return this.http.get<employee[]>(`${url}`);
+  }
+
   getBookingByEmployee(userId: number){
     const url = 'http://localhost:3333/api/bookings/user/' + userId;
     return this.http.get<Booking[]>(`${url}`);
   }
 
-  // getEmployeeByEmployeeId(userId: number){
-  //   const url = 'http://localhost:3333/api/api-users-api/' + userId;
-  //   return this.http.get(`${url}`);
-  // }
+  getEmployeeById(userId: number){
+    const url = 'http://localhost:3333/api/users/' + userId;
+    return this.http.get<employee[]>(`${url}`);
+  }
+  
+  getEmployeeByEmail(email: string){
+    const url = 'http://localhost:3333/api/users/' + email;
+    const body = {
+      email: email
+    }
+    return this.http.post<employee>(`${url}`, body);
+  }
 }

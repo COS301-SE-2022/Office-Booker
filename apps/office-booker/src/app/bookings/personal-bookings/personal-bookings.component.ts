@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-personal-bookings',
@@ -9,31 +9,37 @@ import { BookingServiceService, Room, Desk, Booking} from '../../services/bookin
   styleUrls: ['./personal-bookings.component.css'],
 })
 
-export class PersonalBookingsComponent implements OnInit {
+export class PersonalBookingsComponent{
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
+  Users: Array<employee> = [];
   employeeName = "";
-
-
-  constructor(private router: Router, private bookingService: BookingServiceService) {
-    
+  userNumb = -1;
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1};
+  
+  constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
+    changeDetection.detach();
     //console.log(this.userBookings);
   }
 
   ngOnInit(){
     this.getDesksByRoomId(1);
-    this.getBookings(1);
-    // this.employeeName = this.getEmployee(1);
+    this.getCurrentUser();
   }
 
-  // getEmployee(userId: number){
-  //   this.bookingService.getEmployeeByEmployeeId(userId).subscribe(res => {
-  //     console.log(res);
-  //     res.forEach(employee=> {
+  getUsers(){
+    this.bookingService.getAllEmployees().subscribe( res => {
+      res.forEach(user => {
+        this.Users.push(user);
+        this.changeDetection.detectChanges();
+        if(this.Users.length == 3){
+        this.getCurrentUser();
+        this.changeDetection.detectChanges();
+        }
+      });
+    })
+  }
 
-  //     });
-  //   })
-  // }
 
   getDesksByRoomId(roomId: number){
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
@@ -47,7 +53,7 @@ export class PersonalBookingsComponent implements OnInit {
         this.getBookingsByDeskId(desk.id);
 
         this.desks.push(newDesk);
-        
+        this.changeDetection.detectChanges();
       });
     })
     
@@ -56,7 +62,7 @@ export class PersonalBookingsComponent implements OnInit {
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;
     
-    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
+    this.bookingService.getBookingsByDeskId(this.currentUser.id).subscribe(res => {
       res.forEach(booking => {
         if(booking){
           bookingReturn = true;
@@ -68,6 +74,7 @@ export class PersonalBookingsComponent implements OnInit {
             this.desks[i].bookings.push(booking);
           }
         }
+        this.changeDetection.detectChanges();
       });
     })
   }
@@ -75,7 +82,6 @@ export class PersonalBookingsComponent implements OnInit {
   getBookings(userId: number){
 
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
-       console.log(res);
        res.forEach(booking => {
          console.log(booking);
          const newBooking = {} as Booking;
@@ -85,12 +91,39 @@ export class PersonalBookingsComponent implements OnInit {
          newBooking.endsAt = booking.endsAt;
          newBooking.employeeId = booking.employeeId;
          this.userBookings.push(newBooking);
+         this.changeDetection.detectChanges();
         });
-      })
-
-      
+        this.changeDetection.detectChanges();
+      })   
  }
- 
+
+
+ getCurrentUser(){
+   const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+   this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      console.log(res);
+      this.currentUser = res;
+      //console.log(this.currentUser.id);
+      this.userNumb = this.currentUser.id;
+      this.getBookings(this.currentUser.id);
+      this.changeDetection.detectChanges();
+      
+   }) 
+}
+
+//  getUsers(){
+//   this.bookingService.getAllEmployees().subscribe(res => {
+//     res.forEach(user => {
+//       const newUser = {} as employee;
+//       newUser.id = user.id;
+//       newUser.name = user.name;
+//       newUser.email = user.email;
+//       newUser.companyId = user.companyId;
+//       this.Users.push(newUser);
+//     });
+//   })
+// }
+
  deleteADeskBooking(bookingId: number) {
   this.bookingService.deleteBooking(bookingId).subscribe(res => {
     return res;

@@ -30,7 +30,9 @@ export class ApiUsersApiController {
         return await this.userService.getUsersByCompanyId(companyId);
     }
 
-    @Post("/email")
+
+    @Post("/:email")
+
     async getUserByEmail(@Body() emailDto: emailDto) {
         const { email } = emailDto;
         return await this.userService.getUserByEmail(email);
