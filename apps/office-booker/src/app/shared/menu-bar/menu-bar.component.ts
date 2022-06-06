@@ -17,9 +17,17 @@ export class MenuBarComponent /*implements OnInit*/ {
     this.cognitoService.signOut();
     this.app.signOut();
   }
-  isAuthenticated() : void {
-    this.app.ngOnInit();
+
+  isAuthenticated() : boolean {  
+    //return true;
+    const auth = this.cognitoService.isAuthenticated()
+
+    if (auth) return false;
+    else return true;
+        
+    //this.app.ngOnInit();
   }
+
 }
 
 
