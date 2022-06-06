@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'personal-bookings', component: PersonalBookingsComponent },
   { path: 'sign-out', component: SignOutComponent },
+  { path: 'admin-bookings', component: AdminBookingsComponent},
   { path: '', component: LoginComponent },
 ];
 

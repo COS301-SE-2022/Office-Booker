@@ -16,8 +16,8 @@ export class AdminBookingsComponent{
   userNumb = -1;
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1};
   
-  constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
-    changeDetection.detach();
+  constructor(private router: Router, private bookingService: BookingServiceService) {
+    //changeDetection.detach();
     //console.log(this.userBookings);
   }
 
@@ -30,11 +30,8 @@ export class AdminBookingsComponent{
     this.bookingService.getAllEmployees().subscribe( res => {
       res.forEach(user => {
         this.Users.push(user);
-        this.changeDetection.detectChanges();
-        if(this.Users.length == 3){
-        this.getCurrentUser();
-        this.changeDetection.detectChanges();
-        }
+        //this.changeDetection.detectChanges();
+      
       });
     })
   }
@@ -52,7 +49,7 @@ export class AdminBookingsComponent{
         this.getBookingsByDeskId(desk.id);
 
         this.desks.push(newDesk);
-        this.changeDetection.detectChanges();
+        //this.changeDetection.detectChanges();
       });
     })
     
@@ -73,7 +70,7 @@ export class AdminBookingsComponent{
             this.desks[i].bookings.push(booking);
           }
         }
-        this.changeDetection.detectChanges();
+        //this.changeDetection.detectChanges();
       });
     })
   }
@@ -90,9 +87,9 @@ export class AdminBookingsComponent{
          newBooking.endsAt = booking.endsAt;
          newBooking.employeeId = booking.employeeId;
          this.userBookings.push(newBooking);
-         this.changeDetection.detectChanges();
+         //this.changeDetection.detectChanges();
         });
-        this.changeDetection.detectChanges();
+        //this.changeDetection.detectChanges();
       })   
  }
 
@@ -105,7 +102,7 @@ export class AdminBookingsComponent{
       //console.log(this.currentUser.id);
       this.userNumb = this.currentUser.id;
       this.getBookings(this.currentUser.id);
-      this.changeDetection.detectChanges();
+      //this.changeDetection.detectChanges();
       
    }) 
 }
