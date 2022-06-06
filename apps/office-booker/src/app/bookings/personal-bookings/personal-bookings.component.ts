@@ -9,7 +9,7 @@ import { BookingServiceService, Room, Desk, Booking, employee} from '../../servi
   styleUrls: ['./personal-bookings.component.css'],
 })
 
-export class PersonalBookingsComponent implements OnInit {
+export class PersonalBookingsComponent{
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
   Users: Array<employee> = [];
@@ -23,16 +23,24 @@ export class PersonalBookingsComponent implements OnInit {
 
   ngOnInit(){
     this.getDesksByRoomId(1);
-    
+    this.getCurrentUser();
     //this.getCurrentUser();
     
     // this.changeDetection.detectChanges();
     // this.getCurrentUser();
-    // this.getBookings(this.userNumb);
+    //this.getBookings(this.userNumb);
   }
 
+  
+
   getDisplay(){
-    this.getCurrentUser();
+    console.log(this.Users);
+    this.changeDetection.detectChanges();
+  }
+
+  getnewDisplay(){
+    this.getBookings(this.Users[0].id);
+    this.changeDetection.detectChanges();
   }
 
   getUsers(){
@@ -42,7 +50,7 @@ export class PersonalBookingsComponent implements OnInit {
         this.changeDetection.detectChanges();
         if(this.Users.length == 3){
         this.getCurrentUser();
-
+        this.changeDetection.detectChanges();
         }
       });
       
@@ -92,7 +100,7 @@ export class PersonalBookingsComponent implements OnInit {
 
   getBookings(userId: number){
 
-    this.bookingService.getBookingByEmployee(userId).subscribe(res => {
+    this.bookingService.getBookingByEmployee(3).subscribe(res => {
        res.forEach(booking => {
          console.log(booking);
          const newBooking = {} as Booking;
@@ -110,21 +118,17 @@ export class PersonalBookingsComponent implements OnInit {
 
 
  getCurrentUser(){
-   const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+   const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
    console.log(userData);
    this.bookingService.getEmployeeByEmail("u20538945@tuks.co.za").subscribe(res => {
       console.log(res);
-      const newUser = {} as employee;
-      newUser.name = res[0].name;
-      newUser.id = res[0].id;
-      newUser.email = res[0].email;
-      newUser.companyId = res[0].companyId;
-      this.Users.push(newUser);
-      this.userNumb = newUser.id;
-      this.employeeName = newUser.name;
+      //const newUser = res[0];
+      //console.log(newUser);
+      this.Users.push(res[0]);
+      // this.userNumb = res[0].id;
+      // this.employeeName = res[0].name;
       this.changeDetection.detectChanges();
-      this.getBookings(this.userNumb);
-      this.changeDetection.detectChanges();
+      
    }) 
 }
 
