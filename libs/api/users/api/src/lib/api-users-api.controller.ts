@@ -7,6 +7,10 @@ class createUserDto {
     email: string;
 }
 
+class emailDto {
+    email: string;
+}
+
 @Controller('users')
 export class ApiUsersApiController {
     constructor(private userService: ApiUsersRepositoryDataAccessService) { }
@@ -24,6 +28,12 @@ export class ApiUsersApiController {
     @Get("/company/:companyId")
     async getUsersByCompanyId(@Param('companyId') companyId: number) {
         return await this.userService.getUsersByCompanyId(companyId);
+    }
+
+    @Get("/email")
+    async getUserByEmail(@Body() emailDto: emailDto) {
+        const { email } = emailDto;
+        return await this.userService.getUserByEmail(email);
     }
 
     @Post('/')

@@ -18,6 +18,14 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
+    async getUserByEmail(@Param() email: string) {
+        return this.prisma.employee.findUnique({
+            where: {
+                email,
+            },
+        });
+    }
+
     async getUsersByCompanyId(@Param() companyId: number) {
         return this.prisma.employee.findMany({
             where: {
