@@ -23,6 +23,7 @@ import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.compo
 import { MatButtonModule } from '@angular/material/button';
 import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
 import { SignOutComponent } from './authentication/sign-out/sign-out.component';
+import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
     MapBookingsComponent,
     BookingCardComponent,
     SignOutComponent,
+    AdminBookingsComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
