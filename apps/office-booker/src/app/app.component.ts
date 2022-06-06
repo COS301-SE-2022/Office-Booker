@@ -13,7 +13,7 @@ import { CognitoService } from './cognito.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent //implements OnInit 
+export class AppComponent implements OnInit 
 {
   hello$ = this.http.get<Message>('/api/hello');
   constructor(private http: HttpClient, 
@@ -21,20 +21,18 @@ export class AppComponent //implements OnInit
     private cognitoService: CognitoService) 
     {
         alert("AppComponent not authenticated");
-        this.isAuthenticated = false;
+        this.isAuthenticated = true;
     }
 
 
   isAuthenticated: boolean;
 
-  //public ngOnInit(): void {
-    // this.cognitoService.isAuthenticated()
-    // .then((success: boolean) => {
-    //   alert("AppComponent is authenticated")
-    //   this.isAuthenticated = success;
-
-    //});
-  //}
+  public ngOnInit(): void {
+    if (this.cognitoService.isAuthenticated() ){
+      //alert("AppComponent is authenticated")
+      this.isAuthenticated = true; }
+  };
+  
 
   public signOut(): void {
     //alert('does this work?')

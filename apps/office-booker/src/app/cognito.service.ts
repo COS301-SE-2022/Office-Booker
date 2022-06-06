@@ -67,8 +67,14 @@ export class CognitoService {
     });
   }
 
-  public isAuthenticated(): Promise<boolean> {
-    if (this.authenticationSubject.value) {
+  public isAuthenticated(): boolean {
+    if ( (localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")) )
+    {
+      return true;
+    }
+    else
+      return false;
+    /*if (this.authenticationSubject.value) {
       return Promise.resolve(true);
     } else {
       return this.getUser()
@@ -81,7 +87,7 @@ export class CognitoService {
       }).catch(() => {
         return false;
       });
-    }
+    }*/
   }
 
   public getUser(): Promise<any> {

@@ -17,19 +17,17 @@ export class MenuBarComponent /*implements OnInit*/ {
     this.cognitoService.signOut();
     this.app.signOut();
   }
-  async isAuthenticated() : Promise<boolean> {
-    alert("RouteGuard")
-    if (await this.cognitoService.isAuthenticated()){
-      alert("Returned true for routeGuard")
-      return true;
-    }
-    else{
-      alert("Returned false for routeGuard");
-      return false;
-    }
-      
+
+  isAuthenticated() : boolean {  
+    //return true;
+    const auth = this.cognitoService.isAuthenticated()
+
+    if (auth) return true;
+    else return false;
+        
     //this.app.ngOnInit();
   }
+
 }
 
 
