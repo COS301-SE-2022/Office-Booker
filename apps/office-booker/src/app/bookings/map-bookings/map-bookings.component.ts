@@ -56,7 +56,6 @@ export class MapBookingsComponent{
 
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;
-  
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
       res.forEach(booking => {
         if(booking){
@@ -86,6 +85,69 @@ export class MapBookingsComponent{
       }
     })
     this.changeDetection.detectChanges();
+  }
+
+  filterBookings(){
+    if(this.grabbedStartDate !="" && this.grabbedEndDate ==""){
+      this.desks.forEach(desk => {
+        if(desk.booking){
+          desk.booking = false;
+          for(let i = 0; i < desk.bookings.length; i++){
+            if(desk.bookings[i].endsAt > this.grabbedStartDate){
+              desk.booking = true;
+            }
+          }
+        }
+        if(!desk.booking){
+          for(let i = 0; i < desk.bookings.length; i++){
+            if(desk.bookings[i].endsAt > this.grabbedStartDate){
+              desk.booking = true;
+            }
+          }
+        }
+        this.changeDetection.detectChanges();
+      })
+    }
+    else if(this.grabbedEndDate !="" && this.grabbedStartDate ==""){
+      this.desks.forEach(desk => {
+        if(desk.booking){
+          desk.booking = false;
+          for(let i = 0; i < desk.bookings.length; i++){
+            if(desk.bookings[i].startsAt > this.grabbedEndDate){
+              desk.booking = true;
+            }
+          }
+          if(!desk.booking){
+            for(let i = 0; i < desk.bookings.length; i++){
+              if(desk.bookings[i].startsAt > this.grabbedEndDate){
+                desk.booking = true;
+              }
+            }
+          }
+        }
+        this.changeDetection.detectChanges();
+      })
+    }
+    else if (this.grabbedStartDate != "" && this.grabbedEndDate != ""){
+      this.desks.forEach(desk => {
+        if(desk.booking){
+          desk.booking = false;
+          for(let i = 0; i < desk.bookings.length; i++){
+            if(desk.bookings[i].startsAt < this.grabbedStartDate && desk.bookings[i].endsAt > this.grabbedEndDate){
+              desk.booking = true;
+            }
+          }
+        }
+        if(!desk.booking){
+          for(let i = 0; i < desk.bookings.length; i++){
+            if(desk.bookings[i].startsAt < this.grabbedEndDate && desk.bookings[i].endsAt > this.grabbedStartDate){
+              desk.booking = true;
+            }
+          }
+        }
+        this.changeDetection.detectChanges();
+      })
+    }
   }
 
   bookItem(itemId: number, itemType: string){

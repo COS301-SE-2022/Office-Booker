@@ -15,8 +15,12 @@
     justify-content: center;
 }
 
-.office-floor-container {
-
+.booking-container {
+    border: black 2px solid;
+    border-radius: 25px;
+    padding: 1.5rem;
+    width: 10rem;
+    margin: 2rem;
 }
 
 .date-time-container {
@@ -40,6 +44,8 @@
     padding-left:20rem;
     padding-right:20rem;
     width: 10rem;
+    display: inline-block;
+    justify-content: center;
 }
 
 .booking-item-info-container {
