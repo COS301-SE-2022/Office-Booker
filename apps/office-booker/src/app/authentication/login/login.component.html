@@ -16,8 +16,9 @@
               <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
                 
               <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="bi" [ngClass]="{'fa-eye': !user.showPassword, 'fa-eye-slash': user.showPassword}"></i>
+                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
               </button>
+              
           </p>
         </div>
         
