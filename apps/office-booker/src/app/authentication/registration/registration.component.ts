@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee} from '../../services/booking-service.service';
+import { BookingServiceService, employee, company} from '../../services/booking-service.service';
 
 import { IUser, CognitoService } from '../../cognito.service';
 
@@ -17,6 +17,8 @@ export class RegistrationComponent {
   userId : string;
   userName : string;
   companyId : number;
+  companies: Array<company> = [];
+  option: string;
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
@@ -28,6 +30,24 @@ export class RegistrationComponent {
   this.userId = '';
   this.userName = '';
   this.companyId = 1;
+  this.option = '';
+}
+
+ngOnInit(){
+  this.getCompanies();
+}
+
+getCompanies(){
+  this.bookingService.getCompanies().subscribe( res => {
+    res.forEach(comp=> {
+      const newComp = {} as company;
+      newComp.id = comp.id;
+      newComp.name = comp.name;
+      this.companies.push(newComp);
+      //this.changeDetection.detectChanges();
+    
+    });
+  })
 }
 
 public signUp(): void {
@@ -39,7 +59,13 @@ public signUp(): void {
     
   this.loading = false;
   this.isConfirm = true;
-  
+  this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+    for(let i = 0; i < this.companies.length; i++)
+        {
+          if(this.companies[i].name == this.option){
+           this.companyId = this.companies[i].id;
+          }
+        }
 
   }).catch((e) => {
     alert(e)
@@ -55,7 +81,8 @@ public confirmSignUp(): void {
     
     this.userId = this.user.email
     this.userName = this.user.name
-    this.companyId - this.companyId;
+    
+      console.log(this.companyId);
     this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
       return res;
      
