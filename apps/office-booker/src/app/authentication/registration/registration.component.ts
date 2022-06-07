@@ -36,14 +36,7 @@ public signUp(): void {
   this.cognitoService.signUp(this.user)
 
   .then(() => {
-    this.userId = this.user.email
-    this.userName = this.user.name
-    this.companyId - this.companyId;
-
-    this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
-      return res;
-     
-    });
+    
   this.loading = false;
   this.isConfirm = true;
   
@@ -59,14 +52,14 @@ public confirmSignUp(): void {
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {
-    // this.userId = this.user.email
-    // this.userName = this.user.name
-    // this.companyId - this.companyId;
-
-    // this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
-    //   return res;
+    
+    this.userId = this.user.email
+    this.userName = this.user.name
+    this.companyId - this.companyId;
+    this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
+      return res;
      
-    // });
+    });
     
       
     });
