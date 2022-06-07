@@ -41,6 +41,10 @@ export interface employee {
   companyId: number
 }
 
+export interface company {
+  id: number,
+  name: string,
+}
 
 
 @Injectable({
@@ -127,4 +131,10 @@ export class BookingServiceService {
     }
     return this.http.post<employee>(`${url}`, body);
   }
+
+  getCompanies(){
+    const url = 'http://localhost:3333/api/companies';
+    return this.http.get<company[]>(`${url}`);
+  }
+
 }
