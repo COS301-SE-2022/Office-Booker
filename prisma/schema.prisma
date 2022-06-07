@@ -25,6 +25,7 @@ model Employee {
   company   Company   @relation(fields: [companyId], references: [id])
   Bookings  Booking[]
   companyId Int
+  admin     Boolean
 }
 
 // model the structure of the office

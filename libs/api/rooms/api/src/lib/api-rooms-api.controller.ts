@@ -14,4 +14,9 @@ export class ApiRoomsApiController {
     async getRoomById(@Param('id') id: string) {
         return await this.roomService.getRoomById(Number(id));
     }
+
+    @Get('/company/:companyId')
+    async getRoomsByCompanyId(@Param('companyId') companyId: string) {
+        return await this.roomService.getRoomsByCompanyId(Number(companyId));
+    }
 }
