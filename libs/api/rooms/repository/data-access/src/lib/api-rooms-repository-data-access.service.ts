@@ -18,4 +18,12 @@ export class ApiRoomsRepositoryDataAccessService {
             },
         });
     }
+
+    async getRoomsByCompanyId(companyId: number) {
+        return this.prisma.room.findMany({
+            where: {
+                companyId: companyId,
+            },
+        });
+    }
 }

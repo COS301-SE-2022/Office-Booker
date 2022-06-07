@@ -48,6 +48,7 @@ export class ApiUsersApiController {
                 },
             },
             email: email,
+            admin: false,
         });
     }
 

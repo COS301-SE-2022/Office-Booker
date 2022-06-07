@@ -11,17 +11,19 @@ async function main() {
 
     const employee1 = await prisma.employee.create({
         data: {
-            name: 'Steve Jobs',
+            name: 'Kryptos Kode',
             company: { connect: { id: company.id } },
-            email: 'stevejobs@apple.com',
+            email: 'kryptoskode301@gmail.com',
+            admin: true,
         },
     })
 
     const employee2 = await prisma.employee.create({
         data: {
-            name: 'Bill Gates',
+            name: 'Brett du Plessis',
             company: { connect: { id: company.id } },
-            email: 'billgates@apple.com',
+            email: 'duplessisbrett@icloud.com',
+            admin: false,
         },
     })
 

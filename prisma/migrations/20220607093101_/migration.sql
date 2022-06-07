@@ -12,6 +12,7 @@ CREATE TABLE "Employee" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "companyId" INTEGER NOT NULL,
+    "admin" BOOLEAN NOT NULL,
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
 );
