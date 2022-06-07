@@ -18,6 +18,7 @@ export class RegistrationComponent {
   userName : string;
   companyId : number;
   companies: Array<company> = [];
+  option: string;
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
@@ -29,6 +30,7 @@ export class RegistrationComponent {
   this.userId = '';
   this.userName = '';
   this.companyId = 1;
+  this.option = '';
 }
 
 ngOnInit(){
@@ -41,7 +43,6 @@ getCompanies(){
       const newComp = {} as company;
       newComp.id = comp.id;
       newComp.name = comp.name;
-      console.log(newComp);
       this.companies.push(newComp);
       //this.changeDetection.detectChanges();
     
@@ -74,7 +75,14 @@ public confirmSignUp(): void {
     
     this.userId = this.user.email
     this.userName = this.user.name
-    this.companyId - this.companyId;
+    this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+    for(let i = 0; i < this.companies.length; i++)
+        {
+          if(this.companies[i].name == this.option){
+           this.companyId = this.companies[i].id;
+          }
+        }
+      console.log(this.companyId);
     this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
       return res;
      

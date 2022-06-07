@@ -11,10 +11,11 @@
             <input type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
           </div>
         </div>
+
         <div class="row">
           <div class="col mb-2">
             <label for="companies" class="form-label">Company:</label>
-            <select name="company" > 
+            <select id="company" name="company" > 
               <option *ngFor="let comp of companies"> {{comp.name}} </option>
             </select>
             
