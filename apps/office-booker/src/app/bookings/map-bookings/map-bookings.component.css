@@ -1,7 +1,7 @@
 .map-container {
     width: 800px;
     height: auto;
-    margin: 0px;
+    margin: 2rem;
     float:left;
 }
 
@@ -11,10 +11,39 @@
     float: right;
     margin-top: 5rem;
     margin-right:5rem;
+    display: inline-block;
+    justify-content: center;
 }
 
-mat-grid-tile {
-    border: 1px dotted rgba(109, 109, 109, 0.233);
+.office-floor-container {
+
+}
+
+.date-time-container {
+    margin:1rem;
+    border-top: black 2px solid;
+    border-bottom:black 2px solid;
+    border-radius: 25px;
+    padding-top:2rem;
+    padding-bottom:2rem;
+    padding-left:20rem;
+    padding-right:20rem;
+}
+
+.info-to-display-container {
+    margin:1rem;
+    border-top: black 2px solid;
+    border-bottom:black 2px solid;
+    border-radius: 25px;
+    padding-top:2rem;
+    padding-bottom:2rem;
+    padding-left:20rem;
+    padding-right:20rem;
+    width: 10rem;
+}
+
+.booking-item-info-container {
+   
 }
 
 .exists {
@@ -28,7 +57,7 @@ mat-grid-tile {
 }
 
 .booked {
-    fill: red;
+    fill: #dd8d8d;
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
