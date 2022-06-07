@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee} from '../../services/booking-service.service';
+import { BookingServiceService, employee, company} from '../../services/booking-service.service';
 
 import { IUser, CognitoService } from '../../cognito.service';
 
@@ -17,6 +17,7 @@ export class RegistrationComponent {
   userId : string;
   userName : string;
   companyId : number;
+  companies: Array<company> = [];
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
@@ -28,6 +29,24 @@ export class RegistrationComponent {
   this.userId = '';
   this.userName = '';
   this.companyId = 1;
+}
+
+ngOnInit(){
+  this.getCompanies();
+}
+
+getCompanies(){
+  this.bookingService.getCompanies().subscribe( res => {
+    res.forEach(comp=> {
+      const newComp = {} as company;
+      newComp.id = comp.id;
+      newComp.name = comp.name;
+      console.log(newComp);
+      this.companies.push(newComp);
+      //this.changeDetection.detectChanges();
+    
+    });
+  })
 }
 
 public signUp(): void {
