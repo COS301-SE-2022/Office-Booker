@@ -127,4 +127,14 @@ export class BookingServiceService {
     }
     return this.http.post<employee>(`${url}`, body);
   }
+
+  createUser(name: string, companyId: number, email: string) {
+    const url = 'http://localhost:3333/api/users/' + name + email + companyId;
+    const body = {
+      id: companyId
+    } 
+    return this.http.post<employee>(`${url}`, body);
+  }
+
+  
 }
