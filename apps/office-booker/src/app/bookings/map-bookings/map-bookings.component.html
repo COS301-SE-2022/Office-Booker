@@ -24,21 +24,30 @@
       <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">
       <p>End Date: </p>
       <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+      <br>
+      <br>
+      <br>
+      <mat-card-actions>
+        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
+      </mat-card-actions>
   </form>
   </div>
   <div class="booking-item-info-container">
     <div class="info-to-display-container" *ngIf="selected">
       <p>Item Name: {{this.selectedItemName | titlecase}}</p>
       <p>Item Facilities: </p>
-      <div *ngFor="let booking of selectedItemBookings">
-        <p>Booking for {{booking.startsAt | date: 'medium'}} ending at {{booking.endsAt | date: 'medium'}}</p>
+      <mat-card-actions>
+        <button (click)="bookItem(selectedItemId, selectedItemType)" mat-raised-button color="primary">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
+      </mat-card-actions>
+      <div class="booking-container" *ngFor="let booking of selectedItemBookings">
+        <p>Booking for {{booking.startsAt | date: 'medium'}} </p>
+        <p>Ending at {{booking.endsAt | date: 'medium'}}</p>
         <mat-card-actions>
           <button (click)="deleteBooking(booking.id, selectedItemType)" mat-raised-button color="warn">Cancel Booking</button>
         </mat-card-actions>
       </div>
-      <mat-card-actions>
-        <button (click)="bookItem(selectedItemId, selectedItemType)" mat-raised-button color="primary">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
-      </mat-card-actions>
+      <br>
+      
     </div>
   </div>
 </div>
