@@ -49,7 +49,8 @@ describe('ApiUsersApiController', () => {
     const postData = {
       name: 'ying',
       companyId: 2,
-      email: 'email'
+      email: 'email',
+      admin: false
     }
     controller.createUser(postData);
     expect(service.createUser).toHaveBeenCalledWith({
@@ -59,7 +60,8 @@ describe('ApiUsersApiController', () => {
           id: 2,
         }
       },
-      email: 'email'
+      email: 'email',
+      admin: false
     });
   })
 
