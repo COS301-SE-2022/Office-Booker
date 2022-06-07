@@ -1,5 +1,5 @@
-<h1>Manage all bookings here</h1>
-<p>You can check the bookings of Users and remove them here.</p>
+<h1 class="heading">Manage all bookings here</h1>
+<p class="text">You can check the bookings of Users and remove them here.</p>
 
         <!-- <ng-template *ngFor="let booking of userBookings">
       <office-booker-booking-card>
@@ -7,10 +7,10 @@
       </office-booker-booking-card> -->
     <!-- </ng-template> -->
 
-    <div class="card-wrapper" *ngFor="let booking of userBookings">
+    <div class="card-wrapper md-margin" *ngFor="let booking of userBookings">
       <mat-card class="example-card">
         <mat-card-header>
-            <mat-card-title> Booking </mat-card-title>
+            <mat-card-title> Booking {{booking.id}}</mat-card-title>
             <mat-card-subtitle>
               This user has a booking coming up.
             </mat-card-subtitle>
@@ -22,7 +22,7 @@
             <div>End Date: {{booking.endsAt}} </div>  
         </mat-card-content>
           <mat-card-actions>
-            <button (click)="deleteADeskBooking(booking.deskId) "mat-raised-button color="accent">Cancel Booking</button>
+            <button class="clicker" (click)="deleteADeskBooking(booking.id) "mat-raised-button color="accent">Cancel Booking</button>
           </mat-card-actions>
         </mat-card>
 
