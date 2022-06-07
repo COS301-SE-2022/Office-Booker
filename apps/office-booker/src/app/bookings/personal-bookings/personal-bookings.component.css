@@ -1,3 +1,20 @@
-.Title{
-  padding-left: 2rem;
+mat-card{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding: 1.5rem;
+  background-color: rgb(221, 221, 221);
+}
+
+.clicker{
+  background : rgb(204, 26, 70);
+}
+
+.heading{
+padding-left: 1rem;
+}
+
+.text{
+  padding-left: 1rem;
 }

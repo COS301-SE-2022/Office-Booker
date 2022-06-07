@@ -121,7 +121,7 @@ export class BookingServiceService {
   }
   
   getEmployeeByEmail(email: string){
-    const url = 'http://localhost:3333/api/users/' + email;
+    const url = 'http://localhost:3333/api/users/email';
     const body = {
       email: email
     }
