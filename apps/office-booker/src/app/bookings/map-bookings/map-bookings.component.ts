@@ -56,7 +56,7 @@ export class MapBookingsComponent{
 
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;
-    
+  
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
       res.forEach(booking => {
         if(booking){
@@ -89,23 +89,29 @@ export class MapBookingsComponent{
   }
 
   bookItem(itemId: number, itemType: string){
-    const splitTimeDateStart = this.grabbedStartDate.split('-');
-    const splitTimeDateEnd = this.grabbedEndDate.split('-');
-
-    const newYearStart = Number(splitTimeDateStart[0]);
-    const newMonthStart = Number(splitTimeDateStart[1]);
-    const newYearEnd = Number(splitTimeDateEnd[0]);
-    const newMonthEnd = Number(splitTimeDateEnd[1]);
-
-    const splitDateAndSecStart = splitTimeDateStart[2].split('T');
-    const splitTimeStart = splitDateAndSecStart[1].split(':');
-    const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');
-    const splitTimeEnd = splitDateAndSecEnd[1].split(':');
-
-    const newWholeDateStart = new Date(newYearStart, newMonthStart-1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]), Number(splitTimeStart[1]));
-    const newWholeDateEnd = new Date(newYearEnd, newMonthEnd-1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]), Number(splitTimeEnd[1]));
-    if(itemType == 'desk'){
-      this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);
+    if(this.grabbedStartDate != "" && this.grabbedEndDate != "")
+    {
+      const splitTimeDateStart = this.grabbedStartDate.split('-');
+      const splitTimeDateEnd = this.grabbedEndDate.split('-');
+  
+      const newYearStart = Number(splitTimeDateStart[0]);
+      const newMonthStart = Number(splitTimeDateStart[1]);
+      const newYearEnd = Number(splitTimeDateEnd[0]);
+      const newMonthEnd = Number(splitTimeDateEnd[1]);
+  
+      const splitDateAndSecStart = splitTimeDateStart[2].split('T');
+      const splitTimeStart = splitDateAndSecStart[1].split(':');
+      const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');
+      const splitTimeEnd = splitDateAndSecEnd[1].split(':');
+  
+      const newWholeDateStart = new Date(newYearStart, newMonthStart-1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]), Number(splitTimeStart[1]));
+      const newWholeDateEnd = new Date(newYearEnd, newMonthEnd-1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]), Number(splitTimeEnd[1]));
+      if(itemType == 'desk'){
+        this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);
+      }
+    }
+    else{
+      alert("No date chosen");
     }
     this.changeDetection.detectChanges();
   }

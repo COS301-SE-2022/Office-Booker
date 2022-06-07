@@ -38,8 +38,8 @@ async function main() {
 
     const desk_1 = await prisma.desk.create({
         data: {
-            LocationCol: 1,
-            LocationRow: 1,
+            LocationCol: 10,
+            LocationRow: 10,
             Room: {
                 connect: {
                     id: room.id,
@@ -50,8 +50,44 @@ async function main() {
 
     const desk_2 = await prisma.desk.create({
         data: {
-            LocationCol: 2,
-            LocationRow: 2,
+            LocationCol: 10,
+            LocationRow: 70,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_3 = await prisma.desk.create({
+        data: {
+            LocationCol: 400,
+            LocationRow: 300,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_4 = await prisma.desk.create({
+        data: {
+            LocationCol: 400,
+            LocationRow: 360,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_5 = await prisma.desk.create({
+        data: {
+            LocationCol: 400,
+            LocationRow: 420,
             Room: {
                 connect: {
                     id: room.id,
