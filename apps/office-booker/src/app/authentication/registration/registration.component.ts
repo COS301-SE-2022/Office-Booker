@@ -59,7 +59,13 @@ public signUp(): void {
     
   this.loading = false;
   this.isConfirm = true;
-  
+  this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+    for(let i = 0; i < this.companies.length; i++)
+        {
+          if(this.companies[i].name == this.option){
+           this.companyId = this.companies[i].id;
+          }
+        }
 
   }).catch((e) => {
     alert(e)
@@ -75,13 +81,7 @@ public confirmSignUp(): void {
     
     this.userId = this.user.email
     this.userName = this.user.name
-    this.option = (<HTMLSelectElement>document.getElementById('company')).value;
-    for(let i = 0; i < this.companies.length; i++)
-        {
-          if(this.companies[i].name == this.option){
-           this.companyId = this.companies[i].id;
-          }
-        }
+    
       console.log(this.companyId);
     this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
       return res;
