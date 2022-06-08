@@ -17,7 +17,7 @@ describe('BookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule],
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule],
       declarations: [MapBookingsComponent],
       providers: [CognitoService]
     }).compileComponents();
