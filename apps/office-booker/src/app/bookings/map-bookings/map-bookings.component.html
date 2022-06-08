@@ -1,4 +1,3 @@
-<!--<h2>{{ roomName }}</h2>-->
 <div class="map-container">
   <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(206, 204, 204)">
     <g *ngFor="let desk of desks">
@@ -51,32 +50,3 @@
     </div>
   </div>
 </div>
-
-<!--<div class="grid-container">
-  <ng-template ngFor let-item [ngForOf]="deskGrid" let-i="index">
-    <mat-grid-list cols="12" rowHeight="1:1">
-      <ng-template ngFor let-item [ngForOf]="deskGrid[i]" let-j="index">
-        <ng-container *ngIf="deskGrid[i][j]; else elseBlock">
-          <ng-container *ngIf="bookedGrid[i][j]; else elseBlock2">
-            <mat-grid-tile
-            class="booked"
-            id="{{ getDeskIdAtLocation(i, j) }}"
-            (click)="toggleBooking(i, j)"
-          ></mat-grid-tile>
-          </ng-container>
-          <ng-template #elseBlock2>
-              <mat-grid-tile
-                class="exists"
-                id="{{ getDeskIdAtLocation(i, j) }}"
-                (click)="toggleBooking(i, j)"
-              ></mat-grid-tile>
-          </ng-template>
-        </ng-container>
-        <ng-template #elseBlock>
-          <mat-grid-tile class="notexists"></mat-grid-tile>
-        </ng-template>
-      </ng-template>
-    </mat-grid-list>
-  </ng-template>
-</div>-->
-
