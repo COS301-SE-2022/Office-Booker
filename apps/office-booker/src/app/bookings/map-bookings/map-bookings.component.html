@@ -40,8 +40,8 @@
         <button (click)="bookItem(selectedItemId, selectedItemType)" mat-raised-button color="primary">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
       </mat-card-actions>
       <div class="booking-container" *ngFor="let booking of selectedItemBookings">
-        <p>Booking for {{booking.startsAt | date: 'medium'}} </p>
-        <p>Ending at {{booking.endsAt | date: 'medium'}}</p>
+        <p>Booking for {{booking.startsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </p>
+        <p>Ending at {{booking.endsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}}</p>
         <mat-card-actions>
           <button (click)="deleteBooking(booking.id, selectedItemType)" mat-raised-button color="warn">Cancel Booking</button>
         </mat-card-actions>
