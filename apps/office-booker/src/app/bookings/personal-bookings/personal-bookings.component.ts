@@ -15,7 +15,7 @@ export class PersonalBookingsComponent{
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
-  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1};
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false};
   
   constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
     changeDetection.detach();

@@ -3,6 +3,8 @@ import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing'; 
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+
 
 
 
@@ -13,7 +15,7 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [RouterTestingModule, FormsModule, MatCardModule],
+      imports: [RouterTestingModule, FormsModule, MatCardModule, HttpClientTestingModule],
     }).compileComponents();
   });
 

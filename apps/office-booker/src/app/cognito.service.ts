@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import Amplify, { Auth } from 'aws-amplify';
 
 import { environment } from '../environments/environment';
+import { BookingServiceService } from './services/booking-service.service';
 
 export interface IUser {
   username: string
@@ -18,14 +19,19 @@ export interface IUser {
 })
 export class CognitoService {
 
+  isAuthenticate: boolean;
+  isAdmin: boolean;
   private authenticationSubject: BehaviorSubject<any>;
 
 
 
-  constructor() {
+  constructor(private bookingService: BookingServiceService) {
     Amplify.configure({
       Auth: environment.cognito,
     });
+    this.isAuthenticate = false;
+    this.isAdmin = false;
+    
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
@@ -70,12 +76,14 @@ export class CognitoService {
       });
   }
 
-  public isAuthenticated(): boolean {
-    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
-      return true;
+  public isAuthenticated(): void {
+    if ( (localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")) )
+    {
+      this.isAuthenticate = true;
+
     }
     else
-      return false;
+      this.isAuthenticate = false;
   }
 
   public isAuthenticatedCheck(): Promise<boolean> {
@@ -94,21 +102,6 @@ export class CognitoService {
         });
     }
   }
-  /*if (this.authenticationSubject.value) {
-    return Promise.resolve(true);
-  } else {
-    return this.getUser()
-    .then((user: any) => {
-      if (user) {
-        return true;
-      } else {
-        return false;
-      }
-    }).catch(() => {
-      return false;
-    });
-  }*/
-
 
   public getUser(): Promise<any> {
 
@@ -132,5 +125,33 @@ export class CognitoService {
   public getEmail(): Promise<string> {
     return Auth.currentUserInfo();
   }
+
+  public hasAdmin() : void {
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+    console.log("checks admin")
+
+    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      console.log(res);
+      this.isAdmin = res.admin;
+   }) 
+  
+  }
+
+  public admin(): boolean {
+    return this.isAdmin;
+  }
+
+  public authenticated(): boolean {
+    return this.isAuthenticate;
+  }
+
+  public setAdmin(value : boolean): void { 
+    this.isAdmin = value;
+  }
+
+  public setAuthenticated(value : boolean): void {
+    this.isAuthenticate = value;
+  }
+  
 
 }
