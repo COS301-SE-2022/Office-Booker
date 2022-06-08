@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component'
 
 import { IUser, CognitoService } from '../../cognito.service';
@@ -20,7 +19,6 @@ export class LoginComponent {
 
   constructor(private router: Router,
               private cognitoService: CognitoService,
-              private app: AppComponent
               ) {
     this.loading = false;
     this.user = {} as IUser;
