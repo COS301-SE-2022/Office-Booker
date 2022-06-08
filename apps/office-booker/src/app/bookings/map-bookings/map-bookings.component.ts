@@ -166,8 +166,8 @@ export class MapBookingsComponent{
       const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');
       const splitTimeEnd = splitDateAndSecEnd[1].split(':');
   
-      const newWholeDateStart = new Date(newYearStart, newMonthStart-1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]), Number(splitTimeStart[1]));
-      const newWholeDateEnd = new Date(newYearEnd, newMonthEnd-1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]), Number(splitTimeEnd[1]));
+      const newWholeDateStart = new Date(newYearStart, newMonthStart-1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0])+2, Number(splitTimeStart[1]));
+      const newWholeDateEnd = new Date(newYearEnd, newMonthEnd-1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0])+2, Number(splitTimeEnd[1]));
       if(itemType == 'desk'){
         this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);
       }
