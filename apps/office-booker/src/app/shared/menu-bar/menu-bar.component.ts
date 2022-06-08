@@ -26,9 +26,9 @@ export class MenuBarComponent {
     this.admin = this.cognitoService.authenticated();
     this.authenticated = this.cognitoService.admin();
 
-    console.log(this.admin);
-    console.log(this.authenticated);
-    console.log("Test")
+    //console.log(this.admin);
+    //console.log(this.authenticated);
+    //console.log("Test")
 
     
   }
