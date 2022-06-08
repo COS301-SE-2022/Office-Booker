@@ -6,6 +6,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { Desk } from '../../services/booking-service.service';
 import { BookingCardComponent } from '../personal-bookings/booking-card/booking-card.component';
 import { MatCardModule } from '@angular/material/card'
+import { FormsModule } from '@angular/forms'
 
 import { CognitoService } from '../../cognito.service';
 
