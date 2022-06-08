@@ -1,7 +1,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingServiceService, Room, Desk, Booking} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 
 @Component({
@@ -22,6 +22,8 @@ export class MapBookingsComponent{
   grabbedStartDate = "";
   grabbedEndDate = "";
 
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false};
+
   constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
               private cognitoService: CognitoService) { 
     changeDetection.detach();
@@ -29,7 +31,7 @@ export class MapBookingsComponent{
   }
   ngOnInit() {
     this.getDesksByRoomId(1);
-
+    this.getCurrentUser();
     //const userData = JSON.stringify( localStorage.getItem("CognitoIdentityServiceProvider.4njope4fv0qg2shjcr799qvdh9.80ee73a9-12e7-42c2-acac-685ce10a71e6.userData"))
 
     this.changeDetection.detectChanges();
@@ -180,7 +182,7 @@ export class MapBookingsComponent{
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
     //get the current date time and add 2 hours
-    const userId = 1;
+    //const userId = 1;
     // const today = new Date();
     // today.setHours(today.getHours() + 2);
     // const future = new Date(today.getTime());
@@ -188,7 +190,7 @@ export class MapBookingsComponent{
 
     const startsAt = startDate.toISOString();
     const endsAt = endDate.toISOString();
-    this.bookingService.createBooking(deskId, userId, startsAt, endsAt).subscribe(booking => {
+    this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {
       for(let i = 0; i < this.desks.length; i++){
         if(this.desks[i].id == deskId){
           this.desks[i].booking = true;
@@ -224,6 +226,14 @@ export class MapBookingsComponent{
     this.changeDetection.detectChanges();
   }
 
+getCurrentUser(){
+  const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+  this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      this.currentUser = res;
+      this.changeDetection.detectChanges();    
+  }) 
+}
+ 
 
 
  //gridLayout: Array<Array<object>>[];
