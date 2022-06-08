@@ -187,18 +187,40 @@ export class MapBookingsComponent{
     // today.setHours(today.getHours() + 2);
     // const future = new Date(today.getTime());
     // future.setHours(today.getHours() + 2);
-
-    const startsAt = startDate.toISOString();
-    const endsAt = endDate.toISOString();
-    this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {
-      for(let i = 0; i < this.desks.length; i++){
-        if(this.desks[i].id == deskId){
-          this.desks[i].booking = true;
-          this.desks[i].bookings.push(booking);
-        }
-      }
-      this.changeDetection.detectChanges();
+    const currentDesk = this.desks.filter((desk) => {
+      return desk.id == deskId;
     });
+    let bookingClash = false;
+    currentDesk[0].bookings.forEach(booking => {
+      const endDateCheck = new Date(booking.endsAt);
+      const startDateCheck = new Date(booking.startsAt);
+      if(endDateCheck > startDate && startDateCheck < startDate){
+        bookingClash = true;
+      }
+      else if(startDateCheck < endDate && endDateCheck > endDate){
+        bookingClash = true;
+      }
+      else if (startDate < startDateCheck && endDate > endDateCheck){
+        bookingClash = true;
+      }
+    })
+
+    if(!bookingClash){
+      const startsAt = startDate.toISOString();
+      const endsAt = endDate.toISOString();
+      this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {
+        for(let i = 0; i < this.desks.length; i++){
+          if(this.desks[i].id == deskId){
+            this.desks[i].booking = true;
+            this.desks[i].bookings.push(booking);
+          }
+        }
+        this.changeDetection.detectChanges();
+      });
+    }
+    else {
+      alert("Can't overlap bookings");
+    }
   }
 
   deleteBooking(itemId: number, itemType: string){
