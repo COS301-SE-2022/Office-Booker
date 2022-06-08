@@ -96,6 +96,210 @@ async function main() {
         },
     })
 
+    const desk_6 = await prisma.desk.create({
+        data: {
+            LocationCol: 740,
+            LocationRow: 510,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_7 = await prisma.desk.create({
+        data: {
+            LocationCol: 680,
+            LocationRow: 510,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_8 = await prisma.desk.create({
+        data: {
+            LocationCol: 620,
+            LocationRow: 510,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_9 = await prisma.desk.create({
+        data: {
+            LocationCol: 740,
+            LocationRow: 460,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_10 = await prisma.desk.create({
+        data: {
+            LocationCol: 680,
+            LocationRow: 460,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_11 = await prisma.desk.create({
+        data: {
+            LocationCol: 620,
+            LocationRow: 460,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_12 = await prisma.desk.create({
+        data: {
+            LocationCol: 740,
+            LocationRow: 760,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_13 = await prisma.desk.create({
+        data: {
+            LocationCol: 680,
+            LocationRow: 760,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_14 = await prisma.desk.create({
+        data: {
+            LocationCol: 620,
+            LocationRow: 760,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_15 = await prisma.desk.create({
+        data: {
+            LocationCol: 300,
+            LocationRow: 360,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_16 = await prisma.desk.create({
+        data: {
+            LocationCol: 360,
+            LocationRow: 360,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_17 = await prisma.desk.create({
+        data: {
+            LocationCol: 10,
+            LocationRow: 760,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_18 = await prisma.desk.create({
+        data: {
+            LocationCol: 70,
+            LocationRow: 760,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_19 = await prisma.desk.create({
+        data: {
+            LocationCol: 420,
+            LocationRow: 360,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_20 = await prisma.desk.create({
+        data: {
+            LocationCol: 420,
+            LocationRow: 10,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_21 = await prisma.desk.create({
+        data: {
+            LocationCol: 480,
+            LocationRow: 10,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
+    const desk_22 = await prisma.desk.create({
+        data: {
+            LocationCol: 540,
+            LocationRow: 10,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+        },
+    })
+
     const facility_1 = await prisma.facility.create({
         data: {
             name: "Plug",
