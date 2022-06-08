@@ -92,7 +92,8 @@ describe('ApiUsersRepositoryDataAccessService', () => {
         name: 'test',
         company: null,
         Bookings: null,
-        email: 'test'
+        email: 'test',
+        admin: false
       };
       prisma.employee.create = jest.fn().mockReturnValueOnce(user);
       expect(await service.createUser(user)).toEqual(user);

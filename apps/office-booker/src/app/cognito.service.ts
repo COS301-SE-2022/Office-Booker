@@ -19,8 +19,8 @@ export interface IUser {
 export class CognitoService {
 
   private authenticationSubject: BehaviorSubject<any>;
-  
-  
+
+
 
   constructor() {
     Amplify.configure({
@@ -36,15 +36,15 @@ export class CognitoService {
     //alert(user.name)
     return Auth.signUp({
       username: user.email,
-      password: user.password,  
-      attributes : {
+      password: user.password,
+      attributes: {
         email: user.email,
 
-      }    
-      
+      }
+
     });
-    
-    
+
+
   }
 
   public confirmSignUp(user: IUser): Promise<any> {
@@ -53,26 +53,25 @@ export class CognitoService {
 
   public signIn(user: IUser): Promise<any> {
     return Auth.signIn(user.email, user.password)
-    .then(() => {
-      this.authenticationSubject.next(true);
-    });
+      .then(() => {
+        this.authenticationSubject.next(true);
+      });
   }
 
-  
+
   //function to sign a user out of cognito
   public signOut(): Promise<any> {
     //alert('Sign out');
 
     return Auth.signOut()
-    .then(() => {
-      this.authenticationSubject.next(false);
-      //alert("Suc sign out")
-    });
+      .then(() => {
+        this.authenticationSubject.next(false);
+        //alert("Suc sign out")
+      });
   }
 
   public isAuthenticated(): boolean {
-    if ( (localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")) )
-    {
+    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       return true;
     }
     else
@@ -84,32 +83,32 @@ export class CognitoService {
       return Promise.resolve(true);
     } else {
       return this.getUser()
-      .then((user: any) => {
-        if (user) {
-          return true;
-        } else {
+        .then((user: any) => {
+          if (user) {
+            return true;
+          } else {
+            return false;
+          }
+        }).catch(() => {
           return false;
-        }
-      }).catch(() => {
-        return false;
-      });
+        });
     }
   }
-    /*if (this.authenticationSubject.value) {
-      return Promise.resolve(true);
-    } else {
-      return this.getUser()
-      .then((user: any) => {
-        if (user) {
-          return true;
-        } else {
-          return false;
-        }
-      }).catch(() => {
+  /*if (this.authenticationSubject.value) {
+    return Promise.resolve(true);
+  } else {
+    return this.getUser()
+    .then((user: any) => {
+      if (user) {
+        return true;
+      } else {
         return false;
-      });
-    }*/
-  
+      }
+    }).catch(() => {
+      return false;
+    });
+  }*/
+
 
   public getUser(): Promise<any> {
 
@@ -120,17 +119,17 @@ export class CognitoService {
     //alert(Auth.userAttributes)
 
     return Auth.currentUserInfo();
-    
+
   }
 
   public updateUser(user: IUser): Promise<any> {
     return Auth.currentUserPoolUser()
-    .then((cognitoUser: any) => {
-      return Auth.updateUserAttributes(cognitoUser, user);
-    });
+      .then((cognitoUser: any) => {
+        return Auth.updateUserAttributes(cognitoUser, user);
+      });
   }
 
-  public getEmail() : Promise<string> {
+  public getEmail(): Promise<string> {
     return Auth.currentUserInfo();
   }
 

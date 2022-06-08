@@ -1,6 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiFacilitiesRepositoryDataAccessService } from '@office-booker/api/facilities/repository/data-access';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('facilities')
 export class ApiFacilitiesApiController {
     constructor(private facilityService: ApiFacilitiesRepositoryDataAccessService) {}
