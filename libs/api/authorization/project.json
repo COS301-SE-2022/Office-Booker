@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/authorization",
+  "sourceRoot": "libs/api/authorization/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/authorization/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/authorization"],
+      "options": {
+        "jestConfig": "libs/api/authorization/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -126,13 +126,14 @@ export class AdminBookingsComponent{
   this.bookingService.deleteBooking(bookingId).subscribe(res => {
     return res;
   });
-  this.desks.forEach(desk => {
-    for(let d = 0; d < desk.bookings.length; d++){
-      if(desk.bookings[d].id == bookingId){
-        desk.bookings.splice(d,1);
+  this.userBookings.forEach(user => {
+    for(let d = 0; d < this.userBookings.length; d++){
+      if(this.userBookings[d].id == bookingId){
+        this.userBookings.splice(d,1);
       }
     }
-  })
+    //this.changeDetection.detectChanges();
+  });
   
 }
 

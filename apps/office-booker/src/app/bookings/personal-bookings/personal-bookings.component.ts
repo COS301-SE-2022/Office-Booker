@@ -83,7 +83,6 @@ export class PersonalBookingsComponent{
 
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
        res.forEach(booking => {
-         console.log(booking);
          const newBooking = {} as Booking;
          newBooking.id = booking.id;
          newBooking.deskId = booking.deskId;
@@ -101,9 +100,7 @@ export class PersonalBookingsComponent{
  getCurrentUser(){
    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      console.log(res);
       this.currentUser = res;
-      //console.log(this.currentUser.id);
       this.userNumb = this.currentUser.id;
       this.getBookings(this.currentUser.id);
       this.changeDetection.detectChanges();
@@ -128,13 +125,14 @@ export class PersonalBookingsComponent{
   this.bookingService.deleteBooking(bookingId).subscribe(res => {
     return res;
   });
-  this.desks.forEach(desk => {
-    for(let d = 0; d < desk.bookings.length; d++){
-      if(desk.bookings[d].id == bookingId){
-        desk.bookings.splice(d,1);
+  this.userBookings.forEach(user => {
+    for(let d = 0; d < this.userBookings.length; d++){
+      if(this.userBookings[d].id == bookingId){
+        this.userBookings.splice(d,1);
       }
     }
-  })
+    this.changeDetection.detectChanges();
+  });
   
 }
 

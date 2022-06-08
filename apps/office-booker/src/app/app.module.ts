@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { JwtModule } from "@auth0/angular-jwt";
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,11 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
 ];
 
+export function tokenGetter() {
+  const user = localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")
+  return localStorage.getItem('CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.' + user + '.accessToken');
+}
+
 //export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
   declarations: [
@@ -65,6 +71,14 @@ const routes: Routes = [
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+          tokenGetter: tokenGetter,
+          allowedDomains: ['localhost:3333', 'example.com'],
+          // disallowedRoutes: ["http://example.com/examplebadroute/"],
+          authScheme: "Bearer " // Default value
+      }
+  })
   ],
   providers: [],
   exports: [RouterModule],

@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@office-booker/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@office-booker/api/authorization": [
+        "libs/api/authorization/src/index.ts"
+      ],
       "@office-booker/api/bookings/api": ["libs/api/bookings/api/src/index.ts"],
       "@office-booker/api/bookings/repository/data-access": [
         "libs/api/bookings/repository/data-access/src/index.ts"

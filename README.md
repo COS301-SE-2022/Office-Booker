@@ -9,6 +9,15 @@ Demo 1: https://drive.google.com/drive/folders/1LMWiUeVbseF6iQV0pY3MOf2jIRsHL7-C
 
 # OfficeBooker
 
+## Kryptos Kode - Office Booker - Project Description
+The Office Booker is a program designed to help employees with booking a slot for a specific date in their office. Employees were used to working from home due to covid and such they need a program to assist with organising who uses the office and when they use the office, as they have not been using in person facilities for quite some time. This will allow employees to ensure they have a space to work in the office beforehand and that no other employee will try to take their slot away.
+
+
+## System Documentation
+[Demo1_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8679647/Demo1_SRS.pdf)
+
+[Project Board](https://github.com/COS301-SE-2022/Office-Booker/projects/1)
+
 ## Team
 ### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
 <img src="https://user-images.githubusercontent.com/93526910/168092215-e57dc66c-cf3b-4c6f-85cd-bdf18ba7b292.png" width="300" height="200"/>
@@ -35,15 +44,6 @@ Grant handles the UI of the system as well as how it communicates with the datab
 <img src="https://user-images.githubusercontent.com/93526910/168096437-eee24d03-5bd3-418c-a086-9b8d05de9011.jpg" width="200" height="300"/>
 
 Brett helps with the backend and the API and has also contributed to the documentation.
-
-## Kryptos Kode - Office Booker - Project Description
-The Office Booker is a program designed to help employees with booking a slot for a specific date in their office. Employees were used to working from home due to covid and such they need a program to assist with organising who uses the office and when they use the office, as they have not been using in person facilities for quite some time. This will allow employees to ensure they have a space to work in the office beforehand and that no other employee will try to take their slot away.
-
-
-## System Documentation
-[Demo1_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8679647/Demo1_SRS.pdf)
-
-[Project Board](https://github.com/COS301-SE-2022/Office-Booker/projects/1)
 
 ## Auto Generated Documentation
 

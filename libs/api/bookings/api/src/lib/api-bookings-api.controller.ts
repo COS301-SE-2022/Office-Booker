@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
+import { AuthGuard } from '@nestjs/passport';
 
 class CreateBookingDto {
     @IsDate()
@@ -13,6 +14,7 @@ class CreateBookingDto {
     endsAt: Date;
 }
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService) { }
