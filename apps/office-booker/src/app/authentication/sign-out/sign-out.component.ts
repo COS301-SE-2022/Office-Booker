@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { timeout } from 'rxjs';
 import { CognitoService } from '../../cognito.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'office-booker-sign-out',
@@ -11,10 +13,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 })
 export class SignOutComponent implements OnInit {
   constructor(private router: Router, 
-              private cognitoService: CognitoService) {}
+              private cognitoService: CognitoService,
+              private app: AppComponent) {}
 
   ngOnInit(): void {
     this.cognitoService.signOut();
+    this.cognitoService.setAuthenticated(false);
+    this.cognitoService.setAdmin(false);
+      
+    //const comp = new MenuBarComponent(this.app, this.cognitoService);
+    //comp.ngOnInit();
     this.router.navigate(['login'])
   }
 }

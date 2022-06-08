@@ -38,7 +38,8 @@ export interface employee {
   id: number,
   email: string,
   name: string,
-  companyId: number
+  companyId: number,
+  admin: boolean
 }
 
 export interface company {
