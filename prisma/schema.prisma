@@ -33,8 +33,8 @@ model Room {
   id        Int      @id @default(autoincrement())
   name      String
   desks     Desk[]
-  Company   Company? @relation(fields: [companyId], references: [id])
-  companyId Int?
+  Company   Company @relation(fields: [companyId], references: [id])
+  companyId Int
 }
 
 model Desk {
@@ -64,6 +64,6 @@ model Booking {
   createdAt  DateTime  @default(now())
   startsAt   DateTime
   endsAt     DateTime
-  Employee   Employee? @relation(fields: [employeeId], references: [id])
-  employeeId Int?
+  Employee   Employee @relation(fields: [employeeId], references: [id])
+  employeeId Int
 }

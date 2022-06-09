@@ -12,6 +12,7 @@
     "api-facilities-api": "libs/api/facilities/api",
     "api-facilities-repository-data-access": "libs/api/facilities/repository/data-access",
     "api-interfaces": "libs/api-interfaces",
+    "api-permissions": "libs/api/permissions/",
     "api-rooms-api": "libs/api/rooms/api",
     "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
     "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",

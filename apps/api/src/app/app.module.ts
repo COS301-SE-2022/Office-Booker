@@ -17,12 +17,13 @@ import { AppService } from './app.service';
 import { ApiCompaniesRepositoryDataAccessService } from '@office-booker/api/companies/repository/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiAuthorizationModule } from '@office-booker/api/authorization';
+import { ApiPermissionsService } from '@office-booker/api/permissions';
 
 @Module({
   imports: [ApiAuthorizationModule, ConfigModule.forRoot({
     isGlobal: true,
   })],
   controllers: [AppController, ApiRoomsApiController, ApiDesksApiController, ApiFacilitiesApiController, ApiBookingsApiController, ApiCompaniesApiController, ApiUsersApiController],
-  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService],
+  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, ApiPermissionsService],
 })
 export class AppModule {}
