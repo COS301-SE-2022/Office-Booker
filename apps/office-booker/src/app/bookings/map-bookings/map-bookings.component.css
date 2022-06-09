@@ -10,8 +10,8 @@
     height: auto;
     float: right;
     font-weight: bold;
-    margin-top: 5rem;
-    margin-right:5rem;
+    margin-top: 1rem;
+    margin-right:1rem;
     justify-content: center;
     position: relative;
     
@@ -93,7 +93,7 @@
 
 .mat-card{
     width: 500px;
-    margin: 2rem;
+    margin: 1rem;
     background-color: rgba(172, 172, 172, 0.664);
     text-align: center;
     
