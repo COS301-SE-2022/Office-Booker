@@ -18,4 +18,13 @@ export class ApiDesksRepositoryDataAccessService {
             }, 
         });
     }
+
+    // get a specific desk by its id
+    async getDeskById(deskId: number) {
+        return this.prisma.desk.findUnique({
+            where: {
+                id: deskId,
+            },
+        });
+    }
 }
