@@ -1,8 +1,11 @@
+
+<div class="bg-image"></div>
+
 <div class="card-wrapper">
     <mat-card class="example-card">
-      <mat-card-header>Login to Office Booker!</mat-card-header>
+      <mat-card-header>Welcome to Office Booker!</mat-card-header>
       <mat-card-subtitle>
-        Please enter your details
+        Please enter your details to login
       </mat-card-subtitle>
       <mat-card-content>
         <div>
@@ -16,7 +19,7 @@
               <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
                 
               <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
+                <i class="bi" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
               </button>
               
           </p>
@@ -34,6 +37,7 @@
   </mat-card>
 </div>
 
+<div class="card-wrapper2">
   <mat-card class="example-card">
     <mat-card-subtitle>
       Need to register an account?
@@ -41,3 +45,4 @@
 
     <button mat-raised-button color="accent" [routerLink]="'/registration'"  class="btn-block">Register</button>
   </mat-card>
+</div>

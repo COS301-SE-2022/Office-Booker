@@ -17,6 +17,7 @@ import { RegistrationComponent } from './authentication/registration/registratio
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
@@ -66,6 +67,7 @@ export function tokenGetter() {
     RouterModule.forRoot(routes),
     RouterModule,
     MatCardModule,
+    MatIconModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,

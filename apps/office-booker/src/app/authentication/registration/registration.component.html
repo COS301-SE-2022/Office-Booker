@@ -1,78 +1,38 @@
-<br>
 
-<div class="row justify-content-center my-5">
-  <div class="col-4">
-    <div class="card">
-      <div class="card-body" *ngIf="!isConfirm">
+<div class="bg-image"></div>
 
-        <div class="row">
-          <div class="col mb-2">
-            <label for="username" class="form-label">Username:</label>
-            <input type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
-          </div>
+<div class="card-wrapper">
+    <mat-card class="example-card">
+      <mat-card-header>Welcome to Office Booker!</mat-card-header>
+      <mat-card-subtitle>
+        Please enter your details to login
+      </mat-card-subtitle>
+      <mat-card-content>
+        <div>
+          <p>
+          <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
+         </p>
         </div>
 
-        <div class="row">
-          <div class="col mb-2">
-            <label for="companies" class="form-label">Company:</label>
-            <select id="company" name="company" > 
-              <option *ngFor="let comp of companies"> {{comp.name}} </option>
-            </select>
-            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col mb-2">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col mb-2">
-            <label for="name" class="form-label">Name:</label>
-            <input type="name" id="name" name="name" #email="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
-          </div>
+        <div>
+          <p>
+              <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+                
+              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+                <i class="bi" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
+              </button>
+              
+          </p>
         </div>
         
-        <div class="row">
-          <div class="col mb-2">
-            <label for="password" class="form-label">Password:</label>
-            <div class="input-group input-group-sm">
-              <input [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
-              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
+        </mat-card-content>
+         
+        <mat-card-actions>
+              <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+                Sign in
               </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col d-grid">
-            <button type="button" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-              Sign up
-            </button>
-          </div>
-        </div>
-      </div>
+        </mat-card-actions>
       
-      <div class="card-body" *ngIf="isConfirm">
-        <div class="row">
-          <div class="col mb-2">
-            <label for="code" class="form-label">Code:</label>
-            <input type="text" id="code" name="code" #code="ngModel" [(ngModel)]="user.code" class="form-control form-control-sm">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col d-grid">
-            <button type="button" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-              Confirm
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </mat-card>
 </div>
