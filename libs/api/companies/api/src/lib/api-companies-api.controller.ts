@@ -2,7 +2,7 @@ import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCompaniesRepositoryDataAccessService } from '@office-booker/api/companies/repository/data-access';
 
-@UseGuards(AuthGuard('jwt'))
+//@UseGuards(AuthGuard('jwt'))
 @Controller('companies')
 export class ApiCompaniesApiController {
     constructor(private companyService: ApiCompaniesRepositoryDataAccessService) {}

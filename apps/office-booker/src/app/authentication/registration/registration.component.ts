@@ -29,7 +29,7 @@ export class RegistrationComponent {
   this.user = {} as IUser;
   this.userId = '';
   this.userName = '';
-  this.companyId = 1;
+  this.companyId = -1;
   this.option = '';
 }
 
@@ -51,9 +51,18 @@ getCompanies(){
 }
 
 public signUp(): void {
-  this.loading = true;
   
-  this.cognitoService.signUp(this.user)
+
+  this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+  console.log(this.option);
+  if (this.option == ''){
+    alert('Please select a company')
+    
+  }
+  else {
+    this.loading = true;
+    this.cognitoService.signUp(this.user)
+    
 
   .then(() => {
     
@@ -71,10 +80,11 @@ public signUp(): void {
     alert(e)
   this.loading = false;
   });
+   }
+  
 }
 
 public confirmSignUp(): void {
-  alert("Entered confirmSignUp")
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
   .then(() => {

@@ -1,38 +1,86 @@
 
-<div class="bg-image"></div>
 
 <div class="card-wrapper">
-    <mat-card class="example-card">
+    <mat-card class="example-card" *ngIf="!isConfirm">
       <mat-card-header>Welcome to Office Booker!</mat-card-header>
       <mat-card-subtitle>
-        Please enter your details to login
+        Please enter your details to register for an account
       </mat-card-subtitle>
       <mat-card-content>
+
+        <div>
+        <p>
+          <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
+        </p>
+        </div>
+
+        <div>
+          <p>
+          <!-- <label for="companies" class="form-label">Company:</label> -->
+            <select value="Company" id="company" name="company" > 
+              <option value="" disabled selected>Select your company</option>
+              <option *ngFor="let comp of companies"> {{comp.name}} </option>
+            </select>
+          </p>  
+        </div>
+        
         <div>
           <p>
           <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
-         </p>
+          </p>
         </div>
+
 
         <div>
           <p>
-              <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
-                
-              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="bi" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
-              </button>
-              
+            <input placeholder="Name" type="name" id="name" name="name" #email="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
           </p>
         </div>
-        
+
+
+        <div>
+            <div class="input-group input-group-sm">
+              <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
+              </button>
+            </div>
+        </div>
+
+
         </mat-card-content>
          
         <mat-card-actions>
               <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Sign in
+                Register
               </button>
         </mat-card-actions>
       
   </mat-card>
+</div>
+
+<div class="card-wrapper" *ngIf="isConfirm">
+  <mat-card class="example-card">
+    <mat-card-header>Verification code</mat-card-header>
+    <mat-card-subtitle>
+      Please enter the verifcation code recieved via email
+    </mat-card-subtitle>
+    
+    <mat-card-content>
+      <div>
+        <p>
+          <input placeholder="Verification Code" type="text" id="code" name="code" #code="ngModel" [(ngModel)]="user.code" class="form-control form-control-sm">
+       </p>
+      </div>
+      
+      </mat-card-content>
+      <mat-card-actions>
+            <button mat-raised-button color="accent" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+              Confirm
+            </button>
+      </mat-card-actions>
+    
+</mat-card>
 </div>

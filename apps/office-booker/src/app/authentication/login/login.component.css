@@ -76,7 +76,7 @@
   
 .bg-image {
     /* The image used */
-    background-image: url("background-image.jpg");
+    background-image: url("../../../assets/background-image.jpg");
   
     /* Add the blur effect */
     filter: blur(8px);
@@ -89,4 +89,16 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .btn.btn-sm.btn-success{
+    background : rgb(204, 26, 70);
+  }
+
+  .btn-block{
+    background : rgb(204, 26, 70);
+  }
+
+  body{
+    overflow: hidden;
   }
