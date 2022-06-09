@@ -3,16 +3,17 @@
 <div class="card-wrapper">
     <mat-card class="example-card" *ngIf="!isConfirm">
       <mat-card-header>Welcome to Office Booker!</mat-card-header>
+      <p></p>
       <mat-card-subtitle>
         Please enter your details to register for an account
       </mat-card-subtitle>
       <mat-card-content>
 
-        <div>
+        <!-- <div>
         <p>
           <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
         </p>
-        </div>
+        </div> -->
 
         <div>
           <p>
@@ -26,14 +27,14 @@
         
         <div>
           <p>
-          <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
+          <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.username" class="form-control form-control-sm">
           </p>
         </div>
 
 
         <div>
           <p>
-            <input placeholder="Name" type="name" id="name" name="name" #email="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
+            <input placeholder="Name" type="name" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
           </p>
         </div>
 

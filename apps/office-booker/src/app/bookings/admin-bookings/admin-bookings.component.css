@@ -4,7 +4,7 @@ mat-card{
     margin-left: 2rem;
     margin-right: 2rem;
     padding: 1.5rem;
-    background-color: rgb(221, 221, 221);
+    background-color: rgba(172, 172, 172, 0.664);
 }
 
 .clicker{
@@ -17,4 +17,15 @@ mat-card{
 
 .text{
     padding-left: 1rem;
+}
+
+.mat-card-header{
+    color: rgb(1, 24, 67);
+    text-align: left;
+    display: inline-block;
+}
+
+.mat-card-subtitle{
+    color: rgb(1, 24, 67);
+    text-align: left;
 }

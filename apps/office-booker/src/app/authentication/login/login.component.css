@@ -10,7 +10,7 @@
     font-weight: bold;
     /* border: 3px solid #f1f1f1; */
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
@@ -43,17 +43,15 @@
 
 .btn.btn-outline-secondary {
     position: absolute;
+    
 }
-
-
-
 
 
 .card-wrapper2{
     margin:0 auto;
     width: 500px;
     padding-top: 25px ;
-    top: 68%;
+    top: 60%;
     left: 50%;
 
     

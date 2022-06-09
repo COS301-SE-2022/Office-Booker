@@ -29,7 +29,7 @@ export class RegistrationComponent {
   this.user = {} as IUser;
   this.userId = '';
   this.userName = '';
-  this.companyId = -1;
+  this.companyId = 1;
   this.option = '';
 }
 

@@ -37,10 +37,12 @@ export class LoginComponent {
 
 
       this.router.navigate(['/personal-bookings']);
-    }).catch(() => {
-      this.loading = false;
+    }).catch((e) => {
+      alert(e)
+    this.loading = false;
     });
   }
+  
       
   moveToRegister() : void {
     this.router.navigate(['/registration']);
@@ -57,6 +59,9 @@ export class LoginComponent {
        }
   }
 
+  showPassword() : void { 
+   "user.showPassword = !user.showPassword"
+  }
 
 
 }

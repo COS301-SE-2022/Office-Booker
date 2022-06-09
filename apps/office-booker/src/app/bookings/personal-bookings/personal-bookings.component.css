@@ -1,10 +1,23 @@
-mat-card{
+.mat-card{
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 2rem;
   margin-right: 2rem;
   padding: 1.5rem;
-  background-color: rgb(221, 221, 221);
+  background-color: rgba(172, 172, 172, 0.664);
+  text-align: left;
+}
+
+.mat-card-header{
+  color: rgb(1, 24, 67);
+  text-align: left;
+  display: inline-block;
+  position: left;
+}
+
+.mat-card-subtitle{
+  color: rgb(1, 24, 67);
+  text-align: left;
 }
 
 .clicker{
@@ -18,3 +31,4 @@ padding-left: 1rem;
 .text{
   padding-left: 1rem;
 }
+
