@@ -36,13 +36,20 @@
     justify-content: center; 
 }
 
-.info-to-display-container {
+.scrollable-section {
+    height: 300px;
     overflow-y: scroll;
-    margin:1rem;
-    /* overflow: hidden; */
-    margin:1rem;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.info-to-display-container {
+    /* overflow-y: scroll;
+    margin:1rem; */
+    /* overflow: hidden; */
+    margin:1rem;
+    /*-ms-overflow-style: none;  IE and Edge
+    scrollbar-width: none;  Firefox/*
     /* border-top: black 2px solid;
     border-bottom:black 2px solid;
     border-radius: 25px; */
@@ -50,12 +57,12 @@
     padding-bottom:2rem;
     /* padding-left:20rem;
     padding-right:20rem; */
-    height: 400px;
+    height: 410px;
     width: 10rem;
     justify-content: center; 
     /* display: inline-block; */
 }
-.info-to-display-container::-webkit-scrollbar { 
+.scrollable-section::-webkit-scrollbar { 
     height: 2px;            /*need something to be edited otherwise wont hide scroll bar*/
     width: 0 !important 
 }
