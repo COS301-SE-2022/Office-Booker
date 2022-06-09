@@ -5,13 +5,19 @@
 <img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791717149-2a2cfca481cd111b335e6c78">
 [![codecov](https://codecov.io/gh/COS301-SE-2022/Office-Booker/branch/develop/graph/badge.svg)](https://codecov.io/gh/COS301-SE-2022/Office-Booker/)
 
-Demo 1: https://drive.google.com/drive/folders/1LMWiUeVbseF6iQV0pY3MOf2jIRsHL7-C?usp=sharing
+
+
 
 # OfficeBooker
 
 ## Kryptos Kode - Office Booker - Project Description
 The Office Booker is a program designed to help employees with booking a slot for a specific date in their office. Employees were used to working from home due to covid and such they need a program to assist with organising who uses the office and when they use the office, as they have not been using in person facilities for quite some time. This will allow employees to ensure they have a space to work in the office beforehand and that no other employee will try to take their slot away.
 
+##Demo Recordings
+
+Demo 1: https://drive.google.com/drive/folders/1LMWiUeVbseF6iQV0pY3MOf2jIRsHL7-C?usp=sharing
+
+Demo 2: https://drive.google.com/drive/folders/1qwbQtu3nPAFzys4PPZLHR6MGGvSAa-Ds?usp=sharing
 
 ## System Documentation
 ### Demo 1
