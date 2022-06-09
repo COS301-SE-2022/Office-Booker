@@ -25,6 +25,16 @@ The Office Booker is a program designed to help employees with booking a slot fo
 [Demo2 architecture.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868073/Demo2.architecture.pdf)
 
 
+## Technologies Used
+
+![angular](https://user-images.githubusercontent.com/93526910/172848957-33ef5e27-4e3c-461d-ae20-9da83d6f095c.png)
+
+![nest](https://user-images.githubusercontent.com/93526910/172848970-61469e3f-d01d-4501-86fd-82fe004cafff.png)
+
+![Post](https://user-images.githubusercontent.com/93526910/172848975-40bc58cc-77d6-4b41-9639-01580beeae8d.png)
+
+![aws](https://user-images.githubusercontent.com/93526910/172848966-30d47cbf-3dd2-491a-ad40-57581c70e34a.png)
+
 ## Team
 ### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
 <img src="https://user-images.githubusercontent.com/93526910/168092215-e57dc66c-cf3b-4c6f-85cd-bdf18ba7b292.png" width="300" height="200"/>
