@@ -14,9 +14,16 @@ The Office Booker is a program designed to help employees with booking a slot fo
 
 
 ## System Documentation
+### Demo 1
 [Demo1_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8679647/Demo1_SRS.pdf)
 
 [Project Board](https://github.com/COS301-SE-2022/Office-Booker/projects/1)
+
+### Demo 2
+[Demo2 SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868072/Demo2.SRS.pdf)
+
+[Demo2 architecture.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868073/Demo2.architecture.pdf)
+
 
 ## Team
 ### Yinghao Li [Linkedin](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
