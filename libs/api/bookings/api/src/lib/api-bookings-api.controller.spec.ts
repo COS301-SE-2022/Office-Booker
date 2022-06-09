@@ -1,6 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
+import { ApiCompaniesRepositoryDataAccessService } from '@office-booker/api/companies/repository/data-access';
+import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
+import { ApiPermissionsService } from '@office-booker/api/permissions';
+import { ApiRoomsRepositoryDataAccessService } from '@office-booker/api/rooms/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiBookingsApiController } from './api-bookings-api.controller';
 
 describe('ApiBookingsApiController', () => {
@@ -8,7 +13,7 @@ describe('ApiBookingsApiController', () => {
   let service: ApiBookingsRepositoryDataAccessService;
   beforeAll(async () => {
     const ApiServiceProvider = {
-      provide: ApiBookingsRepositoryDataAccessService,
+      provide: ApiBookingsRepositoryDataAccessService, ApiPermissionsService, ApiDesksRepositoryDataAccessService, ApiRoomsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService,
       useFactory: () => ({
         getBookingsForDesk: jest.fn(() => []),
         getBookingById: jest.fn(() => ({})),
@@ -19,7 +24,7 @@ describe('ApiBookingsApiController', () => {
     }
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiBookingsApiController],
-      providers: [ApiBookingsRepositoryDataAccessService, ApiServiceProvider],
+      providers: [ApiBookingsRepositoryDataAccessService, ApiServiceProvider, ApiPermissionsService, ApiDesksRepositoryDataAccessService, ApiRoomsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
     }).compile();
     controller = app.get<ApiBookingsApiController>(ApiBookingsApiController);
     service = app.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
