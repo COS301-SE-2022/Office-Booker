@@ -3,14 +3,14 @@
     margin:0 auto;
     width: 500px;
     padding-top: 200px;
-    top: 50%;
+    top: 40%;
     left: 50%;
 
     
     font-weight: bold;
     /* border: 3px solid #f1f1f1; */
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
@@ -23,7 +23,6 @@
 .mat-card{
     background-color: rgba(172, 172, 172, 0.664);
     text-align: center;
-    
 }
 
 .mat-card-header{
