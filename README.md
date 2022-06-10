@@ -31,6 +31,8 @@ Demo 2: https://drive.google.com/drive/folders/1qwbQtu3nPAFzys4PPZLHR6MGGvSAa-Ds
 
 [Coding Standards.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8877859/Coding.Standards.pdf)
 
+[User_Manual.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8878118/User_Manual.pdf)
+
 
 ## Technologies Used
 
