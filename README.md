@@ -25,9 +25,11 @@ Demo 2: https://drive.google.com/drive/folders/1qwbQtu3nPAFzys4PPZLHR6MGGvSAa-Ds
 [Project Board](https://github.com/COS301-SE-2022/Office-Booker/projects/1)
 
 ### Demo 2
-[Demo2 SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868072/Demo2.SRS.pdf)
+[Demo2 SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8877856/Demo2.SRS.pdf)
 
 [Demo2 architecture.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868073/Demo2.architecture.pdf)
+
+[Coding Standards.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8877859/Coding.Standards.pdf)
 
 
 ## Technologies Used
