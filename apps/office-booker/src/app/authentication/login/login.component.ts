@@ -43,14 +43,14 @@ export class LoginComponent {
     });
   }
   
-      
+  //function to navigate to registration page
   moveToRegister() : void {
     this.router.navigate(['/registration']);
   }
 
+  //function to check if user is an admin
   isAdmin(): boolean {
     {
-         //console.log("loop")
          if (this.cognitoService.admin()) {
            return true;
        } else {
