@@ -2,15 +2,17 @@
     
     margin:0 auto;
     width: 500px;
-    padding-top: 200px;
-    top: 40%;
+    /* padding-top: 200px; */
+    top: 1.5rem;
     left: 50%;
 
     
     font-weight: bold;
     /* border: 3px solid #f1f1f1; */
     position: absolute;
-    transform: translate(-50%, -50%);
+    /* top: 40%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
     z-index: 2;
     width: 500px;
     padding: 20px;
@@ -25,13 +27,13 @@
 }
 
 .mat-card-header{
-    color: rgb(1, 24, 67);
+    color: rgb(0, 0, 0);
     text-align: center;
     display: inline-block;
 }
 
 .mat-card-subtitle{
-    color: rgb(1, 24, 67);
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
@@ -49,7 +51,7 @@
     margin:0 auto;
     width: 500px;
     padding-top: 25px ;
-    top: 70%;
+    top: 1.5rem;
     left: 50%;
 
     
