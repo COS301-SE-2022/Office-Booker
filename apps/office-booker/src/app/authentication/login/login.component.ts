@@ -4,6 +4,7 @@ import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component'
 
 import { IUser, CognitoService } from '../../cognito.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 
 

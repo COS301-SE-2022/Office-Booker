@@ -8,24 +8,26 @@
         Please enter your details to login
       </mat-card-subtitle>
       <mat-card-content>
-        <div>
+        <!-- <div>
           <p>
           <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
          </p>
-        </div>
+        </div> -->
+          <mat-form-field>
+            <input matInput type="email" id="email" name="email" #email ="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm"
+            placeholder="Email">
+          </mat-form-field>
 
-        <div>
-          <p>
-              <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
-                
+        <mat-form-field>
+              <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+        </mat-form-field>   
               <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
                 <i class="checkbox" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
               </button>
 
               
               
-          </p>
-        </div>
+         
         
         </mat-card-content>
          
@@ -35,8 +37,8 @@
                 Login
               </button>
         </mat-card-actions>
-      
   </mat-card>
+
 </div>
 
 <div class="card-wrapper">
