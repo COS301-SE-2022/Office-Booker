@@ -4,6 +4,7 @@ import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component'
 
 import { IUser, CognitoService } from '../../cognito.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -43,14 +44,14 @@ export class LoginComponent {
     });
   }
   
-      
+  //function to navigate to registration page
   moveToRegister() : void {
     this.router.navigate(['/registration']);
   }
 
+  //function to check if user is an admin
   isAdmin(): boolean {
     {
-         //console.log("loop")
          if (this.cognitoService.admin()) {
            return true;
        } else {
