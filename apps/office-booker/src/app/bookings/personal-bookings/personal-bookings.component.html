@@ -18,8 +18,8 @@
           <mat-card-content>
             <div>User: {{currentUser.name}}</div> 
             <div>Seating: {{booking.deskId}} </div>  
-            <div>Start Date: {{booking.startsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </div>  
-            <div>End Date: {{booking.endsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </div>  
+            <div>Start Date: {{booking.startsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>  
+            <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>  
         </mat-card-content>
           <mat-card-actions>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) "mat-raised-button color="accent">Cancel Booking</button>

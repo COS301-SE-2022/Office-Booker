@@ -1,23 +1,39 @@
 .mat-card{
-  margin-top: 1rem;
+  /* margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 2rem;
-  margin-right: 2rem;
-  padding: 1.5rem;
-  background-color: rgba(172, 172, 172, 0.664);
-  text-align: left;
+  margin-right: 2rem; */
+  
+  margin:0 auto;
+  width: 300px;
+  padding-top: 2rem;
+  top: 4rem;
+  /* left: 25%; */
+
+  /* padding: 1.5rem; */
+  background-color: rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
+  /* margin: 1rem; */
+  /* text-align: left; */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  overflow: hidden;
 }
 
 .mat-card-header{
-  color: rgb(1, 24, 67);
-  text-align: left;
+  color: rgb(0, 0, 0);
+  /* text-align: left; */
   display: inline-block;
-  position: left;
 }
 
 .mat-card-subtitle{
-  color: rgb(1, 24, 67);
-  text-align: left;
+  color: rgb(0, 0, 0);
+  /* text-align: left; */
 }
 
 .clicker{
