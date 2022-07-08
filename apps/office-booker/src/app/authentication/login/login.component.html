@@ -1,42 +1,38 @@
-  
-
 <div class="card-wrapper">
-    <mat-card class="example-card">
-      <mat-card-header>Welcome to Office Booker!</mat-card-header>
+  <mat-card class="example-card">
+    <mat-card-header>Welcome to Office Booker!</mat-card-header>
       <p></p>
+      
       <mat-card-subtitle>
         Please enter your details to login
       </mat-card-subtitle>
+
       <mat-card-content>
-          <mat-form-field>
-            <input matInput type="email" id="email" name="email" #email ="ngModel" [(ngModel)]="user.email" 
+         
+        <mat-form-field>
+          <input matInput type="email" id="email" name="email" #email ="ngModel" [(ngModel)]="user.email" 
             class="form-control form-control-sm" placeholder="Email">
-          </mat-form-field>
+        </mat-form-field>
 
         <mat-form-field>
-              <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" 
-                id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+          <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" 
+            id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
         </mat-form-field>   
 
-
-              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="checkbox" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
-              </button>
-
-              
-              
-         
-        
-        </mat-card-content>
+        <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+          <i class="checkbox" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
+        </button>
+               
+      </mat-card-content>
          
         <mat-card-actions>
-              <button mat-raised-button color="accent" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Login
-              </button>
+          <button mat-raised-button color="accent" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+              Login
+          </button>
         </mat-card-actions>
+  
   </mat-card>
-
 </div>
 
 <div class="card-wrapper">
