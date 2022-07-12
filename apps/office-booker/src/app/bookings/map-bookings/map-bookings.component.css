@@ -6,19 +6,27 @@
 }
 
 .side-container {
-    width: 50rem;
+    /* width: 50rem; */
+    /* margin: 0 auto; */
+
+    /* left: -10%; */
+    right: 10%;
+    /* display: flex; */
+    /* overflow: hidden; */
+    width: auto;
     height: auto;
     float: right;
     font-weight: bold;
     margin-top: 1rem;
-    margin-right:1rem;
-    justify-content: center;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    justify-content: space-between;
     position: relative;
     
 }
 
 .booking-container {
-    /* padding: 1.5rem; */
+    padding: 1.5rem;
     width: 400px !important;
     /* margin: 2rem; */
     background-color: rgb(207, 205, 205) !important;
@@ -34,6 +42,17 @@
     /* background-color: rgba(172, 172, 172, 0.664); */
     text-align: center;
     justify-content: center; 
+
+    right: 25%;
+
+    /* width: auto; */
+    /* height: auto; */
+    /* float: right; */
+    
+    margin-top: 1rem;
+    margin-right:1rem;
+    
+    /* position: relative; */
 }
 
 .scrollable-section {
@@ -47,19 +66,19 @@
     /* overflow-y: scroll;
     margin:1rem; */
     /* overflow: hidden; */
-    margin:1rem;
+    /* margin:1rem; */
     /*-ms-overflow-style: none;  IE and Edge
     scrollbar-width: none;  Firefox/*
     /* border-top: black 2px solid;
     border-bottom:black 2px solid;
     border-radius: 25px; */
-    padding-top:2rem;
-    padding-bottom:2rem;
+    /* padding-top:2rem; */
+    /* padding-bottom:2rem; */
     /* padding-left:20rem;
     padding-right:20rem; */
-    height: 410px;
-    width: 10rem;
-    justify-content: center; 
+    /* height: 410px; */
+    /* width: 10rem; */
+    /* justify-content: center;  */
     /* display: inline-block; */
 }
 .scrollable-section::-webkit-scrollbar { 

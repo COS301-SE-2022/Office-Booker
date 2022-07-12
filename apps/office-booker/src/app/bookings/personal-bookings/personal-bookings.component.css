@@ -1,14 +1,18 @@
 .mat-card{
-  /* margin-top: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-left: 2rem;
-  margin-right: 2rem; */
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  display: inline-block;
   
-  margin:0 auto;
+  
+  
+  /* margin:0 auto; */
   width: 300px;
-  padding-top: 2rem;
-  top: 4rem;
-  /* left: 25%; */
+  /* padding-top: 2rem; */
+  /* top: 4rem; */
+  /* left: 20%; */
 
   /* padding: 1.5rem; */
   background-color: rgb(255, 255, 255);
