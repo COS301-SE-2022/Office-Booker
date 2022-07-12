@@ -23,6 +23,8 @@
 .mat-card{
     background-color: rgb(255, 255, 255);
     text-align: center;
+    border: black 2px solid;
+    border-radius: 50px;
     
 }
 
@@ -76,6 +78,7 @@
   }
 
   .btn-block{
+    margin-top: 0px;
     background : rgb(204, 26, 70);
   }
 

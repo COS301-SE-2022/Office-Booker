@@ -19,9 +19,9 @@
             id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
         </mat-form-field>   
 
-        <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+        <!-- <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
           <i class="checkbox" [ngClass]="{'fa fa-eye': !user.showPassword, 'fa fa-eye-slash': user.showPassword}"></i>
-        </button>
+        </button> -->
                
       </mat-card-content>
          
@@ -30,7 +30,14 @@
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Login
           </button>
+
+          <button mat-raised-button color="accent" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+              Forgot password?
+          </button>
         </mat-card-actions>
+
+        <p></p>
   
   </mat-card>
 </div>

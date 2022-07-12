@@ -40,7 +40,7 @@ export class LoginComponent {
       //comp.ngOnInit();
 
 
-      this.router.navigate(['/personal-bookings']);
+      this.router.navigate(['/bookings']);
     }).catch((e) => {
       alert(e)
     this.loading = false;
