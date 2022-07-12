@@ -34,23 +34,33 @@
 
 .date-time-container {
     /* margin:1rem; */
-    padding-top:1rem;
-    padding-bottom:1rem;
+    /* padding-top:1rem; */
+    /* padding-bottom:1rem; */
     /* padding-left:20rem;
     padding-right:20rem; */
-    width: 10rem;
+    /* width: 40px; */
     /* background-color: rgba(172, 172, 172, 0.664); */
-    text-align: center;
-    justify-content: center; 
+    /* text-align: center; */
+    /* justify-content: center;  */
 
-    right: 25%;
+    /* right: 25%; */
+
+    width: auto;
+    float: right;
+    font-weight: bold;
+
+    margin-top: 1rem;
+
+    /* margin-right: 40px; */
+    justify-content: space-between;
+    position: relative;
 
     /* width: auto; */
     /* height: auto; */
     /* float: right; */
     
-    margin-top: 1rem;
-    margin-right:1rem;
+    /* margin-top: 1rem; */
+    /* margin-right:1rem; */
     
     /* position: relative; */
 }
