@@ -52,7 +52,7 @@ export class GuestComponent /*implements OnInit*/ {
   public signUp(): void {
     
   
-    this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+    this.option = 'Guest';
     console.log(this.option);
     if (this.option == ''){
       alert('Please select a company')

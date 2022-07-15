@@ -3,7 +3,7 @@
         <mat-card-header>Welcome to Office Booker!</mat-card-header>
         <p></p>
         <mat-card-subtitle>
-            Please enter your details to register for an account
+            Please enter your details to register for a guest account
         </mat-card-subtitle>
         <mat-card-content>
 
@@ -12,16 +12,6 @@
           <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
         </p>
         </div> -->
-
-            <div>
-                <p>
-                    <!-- <label for="companies" class="form-label">Company:</label> -->
-                    <select value="Company" id="company" name="company"> 
-              <option value="" disabled selected>Select your company</option>
-              <option *ngFor="let comp of companies"> {{comp.name}} </option>
-            </select>
-                </p>
-            </div>
 
             <div>
                 <p>
