@@ -1,0 +1,74 @@
+.card-wrapper {
+    margin: 0 auto;
+    width: 500px;
+    padding-top: 200px;
+    top: 40%;
+    left: 50%;
+    font-weight: bold;
+    /* border: 3px solid #f1f1f1; */
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+.mat-card {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.mat-card-header {
+    color: rgb(1, 24, 67);
+    text-align: center;
+    display: inline-block;
+}
+
+.mat-card-subtitle {
+    color: rgb(1, 24, 67);
+    text-align: center;
+}
+
+input {
+    position: center;
+    width: 14rem;
+}
+
+select {
+    width: 14rem;
+}
+
+.btn.btn-outline-secondary {
+    position: absolute;
+}
+
+.card-wrapper2 {
+    margin: 0 auto;
+    width: 500px;
+    padding-top: 25px;
+    top: 68%;
+    left: 50%;
+    font-weight: bold;
+    /* border: 3px solid #f1f1f1; */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.btn.btn-sm.btn-success {
+    background: rgb(204, 26, 70);
+}
+
+body {
+    overflow: hidden;
+}
