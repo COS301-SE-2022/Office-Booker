@@ -8,6 +8,8 @@
 
     
     font-weight: bold;
+    text-align: center;
+
     /* border: 3px solid #f1f1f1; */
     /* position: absolute; */
     /* top: 40%;
@@ -15,13 +17,15 @@
     /* transform: translate(-50%, -50%); */
     /* z-index: 2; */
     /* padding: 20px; */
-    text-align: center;
 
 }
 
 .mat-card{
     background-color: rgb(255, 255, 255);
     text-align: center;
+    border: rgb(39, 39, 39) 1px solid;
+    border-radius: 15px;
+    
     
 }
 
@@ -66,25 +70,22 @@
 }
 
 
-
 * {
     box-sizing: border-box;
   }
   
-
   .btn.btn-sm.btn-success{
     background : rgb(204, 26, 70);
   }
 
   .btn-block{
+    margin-top: 0px;
     background : rgb(204, 26, 70);
   }
 
   body{
     overflow: hidden;
   }
-
-
   
   .mat-form-field{
     width: 75%;

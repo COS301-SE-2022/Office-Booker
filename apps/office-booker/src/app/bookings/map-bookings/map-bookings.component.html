@@ -4,11 +4,11 @@
         <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.booked]="desk.booking" width="50" height="30" (click)="selectToBook(desk.id, 'desk')"></rect>
     </g>
     <g>
-      <line x1="200" y1="0" x2="200" y2="200" style="stroke:rgb(0, 0, 0);stroke-width:2"></line>
-      <line x1="200" y1="700" x2="200" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:2"></line>
-      <line x1="300" y1="700" x2="300" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:2"></line>
+      <line x1="200" y1="0" x2="200" y2="200" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
+      <line x1="200" y1="700" x2="200" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
+      <line x1="300" y1="700" x2="300" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
 
-      <line x1="600" y1="500" x2="800" y2="500" style="stroke:rgb(0, 0, 0);stroke-width:2"></line>
+      <line x1="600" y1="500" x2="800" y2="500" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
     </g>
   </svg>
 </div>
@@ -48,11 +48,11 @@
         <div class="scrollable-section">
           <mat-card class="booking-container" *ngFor="let booking of selectedItemBookings">
             <mat-card-content>
-              <p>Booking for {{booking.startsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </p>
-              <p>Ending at {{booking.endsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}}</p>
-              <mat-card-actions>
-                <button (click)="deleteBooking(booking.id, selectedItemType)" mat-raised-button color="warn" *ngIf="currentUser.id === booking.employeeId">Cancel Booking</button>
-              </mat-card-actions>
+              <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>  
+              <div>Time: {{booking.startsAt | date: 'HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'HH:MM': 'UTC'+2}} </div>
+                <mat-card-actions>
+                  <button (click)="deleteBooking(booking.id, selectedItemType)" mat-raised-button color="warn" *ngIf="currentUser.id === booking.employeeId">Cancel Booking</button>
+                </mat-card-actions>
             </mat-card-content>
           </mat-card>
 

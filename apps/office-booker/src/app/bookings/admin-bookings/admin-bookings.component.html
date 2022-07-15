@@ -16,14 +16,16 @@
             </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <div>User: {{booking.employeeName}}</div> 
-            <div>Seating: {{booking.deskId}} </div>  
-            <div>Start Date: {{booking.startsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </div>  
-            <div>End Date: {{booking.endsAt | date: 'dd MMM yyyy hh:mm a': 'UTC'+2}} </div>  
+            <div>{{booking.employeeName}}</div> 
+            <div>Seat {{booking.deskId}} </div>  
+            <div>{{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>  
+            <div>{{booking.startsAt | date: 'HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'HH:MM': 'UTC'+2}} </div>  
         </mat-card-content>
           <mat-card-actions>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) "mat-raised-button color="accent">Cancel Booking</button>
           </mat-card-actions>
+
+          <p></p>
         </mat-card>
 
     </div>
