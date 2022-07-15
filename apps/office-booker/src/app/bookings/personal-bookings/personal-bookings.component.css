@@ -21,6 +21,17 @@
   /* text-align: left; */
 }
 
+.mat-card{
+  width: 300px;
+  margin: 1rem;
+  background-color: rgba(255, 255, 255, 1);
+  text-align: center;
+
+  border: black 2px solid;
+  border-radius: 25px;
+  
+}
+
 * {
   box-sizing: border-box;
 }

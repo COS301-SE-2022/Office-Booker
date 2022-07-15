@@ -1,11 +1,13 @@
-mat-card{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    padding: 1.5rem;
-    background-color: rgba(172, 172, 172, 0.664);
-}
+.mat-card{
+    width: 300px;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+  
+    border: black 2px solid;
+    border-radius: 25px;
+    
+  }
 
 .clicker{
     background : rgb(204, 26, 70);
