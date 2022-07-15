@@ -1,34 +1,19 @@
-.mat-card{
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-
-  display: inline-block;
-  
-  
-  
-  /* margin:0 auto; */
-  width: 300px;
-  /* padding-top: 2rem; */
-  /* top: 4rem; */
-  /* left: 20%; */
-
-  /* padding: 1.5rem; */
-  background-color: rgb(255, 255, 255);
-  color:rgb(0, 0, 0);
-  /* margin: 1rem; */
-  /* text-align: left; */
-}
 
 .mat-card{
   width: 300px;
+  
   margin: 1rem;
+  margin-left: 2rem;
+  
   background-color: rgba(255, 255, 255, 1);
   text-align: center;
 
-  border: black 2px solid;
-  border-radius: 25px;
+  border: rgb(39, 39, 39) 1px solid;
+  border-radius: 15px;
+
+  display: inline-block;
+  color:rgb(0, 0, 0);
+
   
 }
 
@@ -42,13 +27,13 @@ body{
 
 .mat-card-header{
   color: rgb(0, 0, 0);
-  /* text-align: left; */
+  /* text-align: center; */
   display: inline-block;
 }
 
 .mat-card-subtitle{
   color: rgb(0, 0, 0);
-  /* text-align: left; */
+  /* text-align: center; */
 }
 
 .clicker{
@@ -56,10 +41,10 @@ body{
 }
 
 .heading{
-padding-left: 1rem;
+padding-left: 2rem;
 }
 
 .text{
-  padding-left: 1rem;
+  padding-left: 2rem;
 }
 
