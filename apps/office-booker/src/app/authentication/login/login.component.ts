@@ -25,6 +25,9 @@ export class LoginComponent {
     this.user = {} as IUser;
   }
 
+  // Function that uses cognito services to sign the user in and check admin status. It navigates to the 
+  // personal bookings page if successful, otherwise it prints an error
+
   public signIn(): void {
     this.loading = true;
     this.cognitoService.signIn(this.user)
@@ -37,7 +40,7 @@ export class LoginComponent {
       //comp.ngOnInit();
 
 
-      this.router.navigate(['/personal-bookings']);
+      this.router.navigate(['/bookings']);
     }).catch((e) => {
       alert(e)
     this.loading = false;

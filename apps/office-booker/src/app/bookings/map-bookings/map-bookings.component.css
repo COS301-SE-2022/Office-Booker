@@ -6,34 +6,63 @@
 }
 
 .side-container {
-    width: 50rem;
-    height: auto;
+    /* width: 50rem; */
+    /* margin: 0 auto; */
+
+    /* left: -10%; */
+    /* right: 10%; */
+    /* display: flex; */
+    /* overflow: hidden; */
+    width: auto;
+    /* height: auto; */
     float: right;
     font-weight: bold;
-    margin-top: 1rem;
-    margin-right:1rem;
-    justify-content: center;
+    /* margin-top: 0.5rem; */
+    margin-right: 40px;
+    /* margin-left: 25px; */
+    justify-content: space-between;
     position: relative;
     
 }
 
 .booking-container {
-    /* padding: 1.5rem; */
-    width: 400px !important;
+    padding: 1.5rem;
+    width: 200px !important;
     /* margin: 2rem; */
-    background-color: rgb(207, 205, 205) !important;
+    background-color: rgba(207, 205, 205, 0.461) !important;
 }
 
 .date-time-container {
-    margin:1rem;
-    padding-top:1rem;
-    padding-bottom:1rem;
+    /* margin:1rem; */
+    /* padding-top:1rem; */
+    /* padding-bottom:1rem; */
     /* padding-left:20rem;
     padding-right:20rem; */
-    width: 10rem;
+    /* width: 40px; */
     /* background-color: rgba(172, 172, 172, 0.664); */
-    text-align: center;
-    justify-content: center; 
+    /* text-align: center; */
+    /* justify-content: center;  */
+
+    /* right: 25%; */
+
+    width: auto;
+    float: right;
+    font-weight: bold;
+
+    margin-top: 1rem;
+
+    /* margin-right: 40px; */
+    justify-content: space-between;
+    position: relative;
+
+    /* width: auto; */
+    /* height: auto; */
+    /* float: right; */
+    
+    /* margin-top: 1rem; */
+    /* margin-right:1rem; */
+    
+    /* position: relative; */
 }
 
 .scrollable-section {
@@ -44,22 +73,24 @@
 }
 
 .info-to-display-container {
-    /* overflow-y: scroll;
-    margin:1rem; */
+    overflow-y: scroll;
+    margin:0.5rem;
     /* overflow: hidden; */
-    margin:1rem;
+    /* margin:1rem; */
     /*-ms-overflow-style: none;  IE and Edge
-    scrollbar-width: none;  Firefox/*
-    /* border-top: black 2px solid;
-    border-bottom:black 2px solid;
-    border-radius: 25px; */
-    padding-top:2rem;
-    padding-bottom:2rem;
+    /* scrollbar-width: none;  Firefox */
+    border: black 2px solid;
+    border-radius: 50px;
+    
+    /* border-bottom:black 2px solid; */
+    
+    /* padding-top:2rem; */
+    /* padding-bottom:2rem; */
     /* padding-left:20rem;
     padding-right:20rem; */
-    height: 410px;
-    width: 10rem;
-    justify-content: center; 
+    /* height: 410px; */
+    width: 40px;
+    /* justify-content: center;  */
     /* display: inline-block; */
 }
 .scrollable-section::-webkit-scrollbar { 
@@ -92,9 +123,12 @@
 }
 
 .mat-card{
-    width: 250px;
+    width: 300px;
     margin: 1rem;
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
+
+    border: rgb(39, 39, 39) 1px solid;
+    border-radius: 15px;
     
 }

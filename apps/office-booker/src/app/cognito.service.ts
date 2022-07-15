@@ -104,15 +104,7 @@ export class CognitoService {
   }
 
   public getUser(): Promise<any> {
-
-    //alert(Auth.userAttributes)
-    //alert(Auth.currentAuthenticatedUser)
-    //alert(Auth.userAttributes)
-    //alert(Auth.userAttributes)
-    //alert(Auth.userAttributes)
-
     return Auth.currentUserInfo();
-
   }
 
   public updateUser(user: IUser): Promise<any> {
@@ -128,10 +120,8 @@ export class CognitoService {
 
   public hasAdmin() : void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-    console.log("checks admin")
 
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      console.log(res);
       this.isAdmin = res.admin;
    }) 
   

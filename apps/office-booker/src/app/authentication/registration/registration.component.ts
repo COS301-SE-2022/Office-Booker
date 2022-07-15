@@ -37,6 +37,8 @@ ngOnInit(){
   this.getCompanies();
 }
 
+
+//function to get the list of companies
 getCompanies(){
   this.bookingService.getCompanies().subscribe( res => {
     res.forEach(comp=> {
@@ -50,12 +52,11 @@ getCompanies(){
   })
 }
 
+//function to sign the user up using cognito services
 public signUp(): void {
-  
-
   this.option = (<HTMLSelectElement>document.getElementById('company')).value;
   console.log(this.option);
-  if (this.option == ''){
+  if (this.option == ''){ //checks if the user did not select a company
     alert('Please select a company')
     
   }
@@ -84,6 +85,7 @@ public signUp(): void {
   
 }
 
+// confirms sign up using cognito services and once successful, creates a user for the local database
 public confirmSignUp(): void {
   this.loading = true;
   this.cognitoService.confirmSignUp(this.user)
