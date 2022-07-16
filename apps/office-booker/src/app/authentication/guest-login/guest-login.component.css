@@ -5,15 +5,14 @@
     top: 4rem;
     left: 50%;
     font-weight: bold;
-    /* border: 3px solid #f1f1f1; */
-    /*position: absolute;*/
-    /*top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 500px;
-    padding: 20px;*/
     text-align: center;
+    /* border: 3px solid #f1f1f1; */
+    /* position: absolute; */
+    /* top: 40%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* z-index: 2; */
+    /* padding: 20px; */
 }
 
 .mat-card {
@@ -24,23 +23,18 @@
 }
 
 .mat-card-header {
-    color: rgb(1, 24, 67);
+    color: rgb(0, 0, 0);
     text-align: center;
     display: inline-block;
 }
 
 .mat-card-subtitle {
-    color: rgb(1, 24, 67);
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
-input {
+.input {
     position: center;
-    width: 14rem;
-}
-
-select {
-    width: 14rem;
 }
 
 .btn.btn-outline-secondary {
@@ -51,7 +45,7 @@ select {
     margin: 0 auto;
     width: 500px;
     padding-top: 25px;
-    top: 68%;
+    top: 2rem;
     left: 50%;
     font-weight: bold;
     /* border: 3px solid #f1f1f1; */
@@ -78,4 +72,8 @@ select {
 
 body {
     overflow: hidden;
+}
+
+.mat-form-field {
+    width: 75%;
 }

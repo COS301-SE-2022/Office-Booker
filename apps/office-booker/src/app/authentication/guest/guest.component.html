@@ -8,10 +8,10 @@
         <mat-card-content>
 
             <!-- <div>
-        <p>
-          <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
-        </p>
-        </div> -->
+            <p>
+            <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
+            </p>
+            </div> -->
 
             <div>
                 <p>
@@ -42,10 +42,19 @@
         <mat-card-actions>
             <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Register
+                Register as Guest
               </button>
         </mat-card-actions>
+    </mat-card>
+</div>
 
+<div class="card-wrapper">
+    <mat-card class="example-card">
+        <mat-card-subtitle>
+            Already have a guest account?
+        </mat-card-subtitle>
+
+        <button mat-raised-button color="accent" [routerLink]="'/guest-login'" class="btn-block">Login as Guest</button>
     </mat-card>
 </div>
 

@@ -32,11 +32,11 @@ export class GuestComponent /*implements OnInit*/ {
   this.option = '';
   }
 
-  ngOnInit() {
+  /*ngOnInit() {
     this.getCompanies();
-  }
+  }*/
 
-  getCompanies(){
+  /*getCompanies(){
     this.bookingService.getCompanies().subscribe( res => {
       res.forEach(comp=> {
         const newComp = {} as company;
@@ -47,7 +47,7 @@ export class GuestComponent /*implements OnInit*/ {
       
       });
     })
-  }
+  }*/
   
   public signUp(): void {
     
@@ -67,13 +67,13 @@ export class GuestComponent /*implements OnInit*/ {
       
     this.loading = false;
     this.isConfirm = true;
-    this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+    /*this.option = (<HTMLSelectElement>document.getElementById('company')).value;
       for(let i = 0; i < this.companies.length; i++)
           {
             if(this.companies[i].name == this.option){
              this.companyId = this.companies[i].id;
             }
-          }
+                }*/
   
     }).catch((e) => {
       alert(e)
