@@ -52,6 +52,10 @@ export class LoginComponent {
     this.router.navigate(['/registration']);
   }
 
+  forgotPassword() : void {
+    this.router.navigate(['/forgot-password']);
+  }
+
   //function to check if user is an admin
   isAdmin(): boolean {
     {

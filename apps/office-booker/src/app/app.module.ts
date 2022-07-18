@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { JwtModule } from "@auth0/angular-jwt";
+import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -29,6 +29,7 @@ import { BookingCardComponent } from './bookings/personal-bookings/booking-card/
 import { SignOutComponent } from './authentication/sign-out/sign-out.component';
 import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings.component';
 import { AccountComponent } from './authentication/account/account.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'sign-out', component: SignOutComponent },
   { path: 'admin-bookings', component: AdminBookingsComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: '', component: LoginComponent },
 ];
 
@@ -67,6 +69,7 @@ export function tokenGetter() {
     SignOutComponent,
     AdminBookingsComponent,
     AccountComponent,
+    ForgotPasswordComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
