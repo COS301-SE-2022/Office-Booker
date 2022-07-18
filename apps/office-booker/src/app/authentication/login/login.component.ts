@@ -35,7 +35,9 @@ export class LoginComponent {
       //console.log("Sign in fucntion sets permissions")
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
-      
+      this.cognitoService.getCompany();
+      console.log(this.cognitoService.returnCompany());
+
       //const comp = new MenuBarComponent(this.app, this.cognitoService);
       //comp.ngOnInit();
 

@@ -19,6 +19,7 @@ export interface IUser {
 })
 export class CognitoService {
 
+  company: string;
   isAuthenticate: boolean;
   isAdmin: boolean;
   private authenticationSubject: BehaviorSubject<any>;
@@ -29,9 +30,10 @@ export class CognitoService {
     Amplify.configure({
       Auth: environment.cognito,
     });
+    this.company = "";
     this.isAuthenticate = false;
     this.isAdmin = false;
-    
+
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
@@ -77,8 +79,7 @@ export class CognitoService {
   }
 
   public isAuthenticated(): void {
-    if ( (localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")) )
-    {
+    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       this.isAuthenticate = true;
 
     }
@@ -118,13 +119,13 @@ export class CognitoService {
     return Auth.currentUserInfo();
   }
 
-  public hasAdmin() : void {
+  public hasAdmin(): void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
 
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.isAdmin = res.admin;
-   }) 
-  
+    })
+
   }
 
   public admin(): boolean {
@@ -135,13 +136,28 @@ export class CognitoService {
     return this.isAuthenticate;
   }
 
-  public setAdmin(value : boolean): void { 
+  public setAdmin(value: boolean): void {
     this.isAdmin = value;
   }
 
-  public setAuthenticated(value : boolean): void {
+  public setAuthenticated(value: boolean): void {
     this.isAuthenticate = value;
   }
-  
+
+  public getCompany(): void {
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+    this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      console.log(res.companyId);
+      this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
+        console.log(res2.name);
+      })
+    })
+  }
+
+  public returnCompany(): string {
+    console.log(this.company);
+    return this.company;
+  }
+
 
 }
