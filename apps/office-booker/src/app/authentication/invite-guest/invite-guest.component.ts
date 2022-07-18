@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee, company} from '../../services/booking-service.service';
+import { CognitoService } from '../../cognito.service';
+import { BookingServiceService, employee, company } from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-invite-guest',
@@ -10,12 +11,25 @@ import { BookingServiceService, employee, company} from '../../services/booking-
 export class InviteGuestComponent /*implements OnInit*/ {
   email: string;
   company: string;
+  loading: boolean;
   constructor(
     private router: Router,
+    private bookingService: BookingServiceService,
+    private cognitoService: CognitoService,
   ) {
     this.email = "";
     this.company = "";
+    this.loading = false;
   }
 
   /*ngOnInit(): void {}*/
+  public invite(): void {
+    console.log(this.email);
+    this.cognitoService.getCompany();
+    const thisCompany = this.cognitoService.returnCompanyID();
+    this.bookingService.createUser(this.email, 1, this.email).subscribe(res => { 
+      return res; 
+    });
+    console.log("User created!")
+  }
 }

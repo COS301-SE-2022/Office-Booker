@@ -165,6 +165,14 @@ export class CognitoService {
     return this.company;
   }
 
+  public returnCompanyID(): number{
+    this.bookingService.getCompanyIdByEmail(this.getEmailAddress()).subscribe(res =>{
+      console.log(res.companyId);
+      return res.companyId;
+    })
+    return -1;
+  }
+
   //deletes user from Cognito User Pool
   public deleteUser(): void {
     Auth.deleteUser();

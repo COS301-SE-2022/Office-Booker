@@ -8,16 +8,16 @@
         <mat-card-content>
             <div>
                 <p>
-                    <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.username" class="form-control form-control-sm">
+                    <input placeholder="Email" type="email" id="email" name="email" [(ngModel)]="email" class="form-control form-control-sm">
                 </p>
             </div>
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="accent" (click)="invite()" class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 Send
-              </button>
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>

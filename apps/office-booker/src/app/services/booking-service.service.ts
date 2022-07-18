@@ -39,7 +39,7 @@ export interface employee {
   email: string,
   name: string,
   companyId: number,
-  admin: boolean
+  admin: boolean,
 }
 
 export interface company {
@@ -156,8 +156,9 @@ export class BookingServiceService {
     const body = {
       name: name,
       companyId: companyId,
-      email: email
+      email: email,
     } 
+    console.log(body);
     return this.http.post<employee>(`${url}`, body);
   }
 
