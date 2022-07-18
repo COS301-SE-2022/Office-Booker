@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { JwtModule } from "@auth0/angular-jwt";
+import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
 import { SignOutComponent } from './authentication/sign-out/sign-out.component';
 import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings.component';
+import { AccountComponent } from './authentication/account/account.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -35,13 +37,19 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'personal-bookings', component: PersonalBookingsComponent },
   { path: 'sign-out', component: SignOutComponent },
-  { path: 'admin-bookings', component: AdminBookingsComponent},
+  { path: 'admin-bookings', component: AdminBookingsComponent },
   { path: '', component: LoginComponent },
 ];
 
 export function tokenGetter() {
-  const user = localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")
-  return localStorage.getItem('CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.' + user + '.accessToken');
+  const user = localStorage.getItem(
+    'CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser'
+  );
+  return localStorage.getItem(
+    'CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.' +
+      user +
+      '.accessToken'
+  );
 }
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
@@ -58,6 +66,7 @@ export function tokenGetter() {
     BookingCardComponent,
     SignOutComponent,
     AdminBookingsComponent,
+    AccountComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -78,12 +87,12 @@ export function tokenGetter() {
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-          tokenGetter: tokenGetter,
-          allowedDomains: ['localhost:3333', 'example.com'],
-          // disallowedRoutes: ["http://example.com/examplebadroute/"],
-          authScheme: "Bearer " // Default value
-      }
-  })
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:3333', 'example.com'],
+        // disallowedRoutes: ["http://example.com/examplebadroute/"],
+        authScheme: 'Bearer ', // Default value
+      },
+    }),
   ],
   providers: [],
   exports: [RouterModule],
