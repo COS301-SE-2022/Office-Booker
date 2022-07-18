@@ -12,7 +12,7 @@
             <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-bars"></i> Create Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-bars" ></i> Manage your bookings</a>
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-bars" ></i> Manage bookings</a>
         </li>
         <li>
             <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()" ><i class="fa fa-bars" ></i> Admin Page</a>
@@ -23,8 +23,13 @@
         <li> 
             <a href="#" routerLink="/bookings" ><i class='fa fa-phone'></i> Contact Us</a>
         </li>
-        <li> 
+        
+        <li style="float: right" > 
             <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><i class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
+        </li>
+
+        <li style="float: right"> 
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class='fa fa-address-card'></i> {{email}}</a>
         </li>
     </ul>
 </nav>
