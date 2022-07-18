@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { JwtModule } from "@auth0/angular-jwt";
-import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -38,6 +37,7 @@ const routes: Routes = [
   { path: 'personal-bookings', component: PersonalBookingsComponent },
   { path: 'sign-out', component: SignOutComponent },
   { path: 'admin-bookings', component: AdminBookingsComponent },
+  { path: 'account', component: AccountComponent },
   { path: '', component: LoginComponent },
 ];
 

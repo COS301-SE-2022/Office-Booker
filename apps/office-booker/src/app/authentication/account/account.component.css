@@ -1,0 +1,22 @@
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body{
+    overflow: hidden;
+  }
+  
+  .clicker{
+    background : rgb(204, 26, 70);
+  }
+  
+  .heading{
+  padding-left: 2rem;
+  }
+  
+  .text{
+    padding-left: 2rem;
+  }
+  
+  
