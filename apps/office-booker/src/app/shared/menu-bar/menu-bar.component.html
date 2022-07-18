@@ -9,10 +9,10 @@
             <a href="#" routerLink="/bookings"  *ngIf="isAuthenticated()"><i class="fa fa-home"></i> Home</a>
         </li>
         <li>
-            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-bars"></i> Create Bookings</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-calendar-plus-o"></i> Create Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-bars" ></i> Manage bookings</a>
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-list-alt" ></i> Manage Bookings</a>
         </li>
         <li>
             <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()" ><i class="fa fa-bars" ></i> Admin Page</a>
