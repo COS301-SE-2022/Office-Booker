@@ -12,6 +12,7 @@ export class MenuBarComponent {
 
   admin = false;
   authenticated = false;
+  email = "";
 
 
   constructor(private app: AppComponent,
@@ -25,6 +26,7 @@ export class MenuBarComponent {
   ngOnInit() {
     this.admin = this.cognitoService.authenticated();
     this.authenticated = this.cognitoService.admin();
+    this.email = this.cognitoService.getEmailAddress();
 
     //console.log(this.admin);
     //console.log(this.authenticated);

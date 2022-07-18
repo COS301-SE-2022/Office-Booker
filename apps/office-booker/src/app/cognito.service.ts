@@ -119,7 +119,13 @@ export class CognitoService {
     return Auth.currentUserInfo();
   }
 
-  public hasAdmin(): void {
+  public getEmailAddress(): string {
+    const length = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")).length;
+    const userData = (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))).substring(1, length - 1);
+    return userData;
+  }
+
+  public hasAdmin() : void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
 
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
@@ -159,5 +165,10 @@ export class CognitoService {
     return this.company;
   }
 
+  //deletes user from Cognito User Pool
+  public deleteUser(): void {
+    Auth.deleteUser();
+  }
+  
 
 }
