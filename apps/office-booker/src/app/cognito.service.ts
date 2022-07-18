@@ -142,6 +142,11 @@ export class CognitoService {
   public setAuthenticated(value : boolean): void {
     this.isAuthenticate = value;
   }
+
+  //deletes user from Cognito User Pool
+  public deleteUser(): void {
+    Auth.deleteUser();
+  }
   
 
 }
