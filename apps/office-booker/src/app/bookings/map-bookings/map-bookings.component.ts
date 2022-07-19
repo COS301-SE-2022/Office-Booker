@@ -22,6 +22,10 @@ export class MapBookingsComponent{
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
 
+  //multi select variables
+  multiSelectedItemId = [];
+  multiSelectedItemBookingsArr = []
+
   //date variables for date time picker
   grabbedStartDate = "";
   grabbedEndDate = "";
@@ -72,6 +76,7 @@ export class MapBookingsComponent{
           if(this.desks[i].id == deskId){       //find correct desk using the id of the desk
             this.desks[i].booking = bookingReturn;        //assigns the boolean to the desk of specific id (if there were no bookings the booking is false)
             this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
+            this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
           }
         }
       this.changeDetection.detectChanges();
@@ -88,8 +93,11 @@ export class MapBookingsComponent{
     this.desks.forEach(desk => {        
       if(desk.id == itemId){
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
+        //this.selectedItemBookings = this.selectedItemBookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());    //sorts display bookings in ascending order (earliest first)
       }
     })
+    console.log(this.desks[8].bookings[0]);
+    console.log(this.desks[8].bookings[4]);
     this.changeDetection.detectChanges();
   }
 
