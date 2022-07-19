@@ -27,7 +27,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
     console.log(this.email);
     this.cognitoService.getCompany();
     const thisCompany = this.cognitoService.returnCompanyID();
-    this.bookingService.createUser(this.email, 1, this.email).subscribe(res => { 
+    this.bookingService.createUser(this.email, 1, this.email, true).subscribe(res => { 
       return res; 
     });
     console.log("User created!")

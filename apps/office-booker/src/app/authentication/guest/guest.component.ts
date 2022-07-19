@@ -92,7 +92,7 @@ export class GuestComponent /*implements OnInit*/ {
       this.userName = this.user.name
       
         console.log(this.companyId);
-      this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
+      this.bookingService.createUser(this.userName, this.companyId, this.userId, true).subscribe(res => {
         return res;
        
       });

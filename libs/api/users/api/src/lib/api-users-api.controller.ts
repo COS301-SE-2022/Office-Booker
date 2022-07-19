@@ -6,6 +6,7 @@ class createUserDto {
     name: string;
     companyId: number;
     email: string;
+    guest: boolean;
 }
 
 class emailDto {
@@ -44,7 +45,7 @@ export class ApiUsersApiController {
 
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
-        const { name , companyId, email } = postData;
+        const { name , companyId, email, guest } = postData;
         return await this.userService.createUser({
             name: name,
             company: {
@@ -54,6 +55,7 @@ export class ApiUsersApiController {
             },
             email: email,
             admin: false,
+            guest: guest,
         });
     }
 

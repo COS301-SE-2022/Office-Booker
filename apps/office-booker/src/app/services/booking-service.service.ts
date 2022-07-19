@@ -151,16 +151,15 @@ export class BookingServiceService {
     return this.http.get<company>(`${url}`);
   }  
 
-  createUser(name: string, companyId: number, email: string) {
+  createUser(name: string, companyId: number, email: string, guest: boolean) {
     const url = 'http://localhost:3333/api/users/';
     const body = {
       name: name,
       companyId: companyId,
       email: email,
+      guest: guest
     } 
     console.log(body);
     return this.http.post<employee>(`${url}`, body);
-  }
-
-  
+  }  
 }
