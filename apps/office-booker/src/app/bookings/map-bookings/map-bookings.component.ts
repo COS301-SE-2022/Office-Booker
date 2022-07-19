@@ -68,15 +68,29 @@ export class MapBookingsComponent{
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
+        const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if(booking){      //if a booking exists at all even one, change the boolean to true
-          bookingReturn = true;
+          const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
+          bookingDate.setHours(bookingDate.getHours()-2);   //booking is saved plus two somehow
+
+          if(bookingDate > comparisonDate){     //only if the booking ends after the current time
+            bookingReturn = true;
+          }
         }
         for(let i = 0; i < this.desks.length; i++)      //loop through each desk in the array to make sure you find the correct desk
         {
           if(this.desks[i].id == deskId){       //find correct desk using the id of the desk
             this.desks[i].booking = bookingReturn;        //assigns the boolean to the desk of specific id (if there were no bookings the booking is false)
-            this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
-            this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
+            if(booking){
+              const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
+              bookingDate.setHours(bookingDate.getHours()-2);
+              if(bookingDate > comparisonDate){
+                this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
+                this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
+                
+              }
+
+            }
           }
         }
       this.changeDetection.detectChanges();
@@ -97,21 +111,21 @@ export class MapBookingsComponent{
       }
     })
 
-    if(this.multiSelectedItemId.length < 5){      //limits compaarison to 5
+    if(this.multiSelectedItemId.length < 5){      //limits comparison to 5
       if(!(this.multiSelectedItemId.includes(itemId))){     //checks id doesnt already exist in the array
         this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
       }
     }
-this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
+
+    this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
     this.multiSelectedItemId.forEach(id => {
       this.desks.forEach(desk => {          //loops through each id and each desk
-        if(desk.id == id){              //to match id's for pushing the bookings on to the array
+        if(desk.id == id && desk.booking){              //to match id's for pushing the bookings on to the array
           this.multiSelectedItemBookingsArr.push(desk.bookings);
         }
       })
     })
-console.log(this.desks[8]);
-console.log(this.multiSelectedItemBookingsArr);
+
     this.changeDetection.detectChanges();
   }
 
