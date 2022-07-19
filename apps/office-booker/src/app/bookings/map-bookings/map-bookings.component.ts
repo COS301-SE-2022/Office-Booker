@@ -97,15 +97,15 @@ export class MapBookingsComponent{
       }
     })
 
-    if(this.multiSelectedItemId.length < 5){
-      if(!(this.multiSelectedItemId.includes(itemId))){
-        this.multiSelectedItemId.push(itemId);
+    if(this.multiSelectedItemId.length < 5){      //limits compaarison to 5
+      if(!(this.multiSelectedItemId.includes(itemId))){     //checks id doesnt already exist in the array
+        this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
       }
     }
-this.multiSelectedItemBookingsArr = [];
+this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
     this.multiSelectedItemId.forEach(id => {
-      this.desks.forEach(desk => {
-        if(desk.id == id){
+      this.desks.forEach(desk => {          //loops through each id and each desk
+        if(desk.id == id){              //to match id's for pushing the bookings on to the array
           this.multiSelectedItemBookingsArr.push(desk.bookings);
         }
       })
