@@ -25,6 +25,13 @@
     
 }
 
+.comparison-container {
+    width: 90%;
+    height: auto;
+    margin: 2rem;
+    float:left;
+}
+
 .booking-container {
     padding: 1.5rem;
     width: 200px !important;
@@ -131,4 +138,11 @@
     border: rgb(39, 39, 39) 1px solid;
     border-radius: 15px;
     
+}
+
+.close-button {
+    width: 30px;
+    margin-top: 2px;
+    display: flex;
+    float:right;
 }
