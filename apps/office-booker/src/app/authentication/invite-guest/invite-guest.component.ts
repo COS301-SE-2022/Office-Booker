@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoService } from '../../cognito.service';
 import { BookingServiceService, employee, company } from '../../services/booking-service.service';
+import { SESClient, CloneReceiptRuleSetCommand } from '@aws-sdk/client-ses';
 
 @Component({
   selector: 'office-booker-invite-guest',
