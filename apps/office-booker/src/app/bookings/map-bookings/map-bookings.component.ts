@@ -23,8 +23,8 @@ export class MapBookingsComponent{
   selectedItemBookings: Array<Booking> = [];
 
   //multi select variables
-  multiSelectedItemId = [];
-  multiSelectedItemBookingsArr = []
+  multiSelectedItemId: Array<number> = [];
+  multiSelectedItemBookingsArr: Array<Array<Booking>> = []
 
   //date variables for date time picker
   grabbedStartDate = "";
@@ -85,7 +85,7 @@ export class MapBookingsComponent{
   }
 
   selectToBook(itemId: number, itemType: string){       //used to find the info for the selected desk
-    this.selectedItemBookings = [];      
+    this.selectedItemBookings = [];   
     this.selected = true;         //changes so that the div can be displayed only once something has been selected
     this.selectedItemName = itemType + " " + itemId.toString();       //cosmetic for displaying in the selected div
     this.selectedItemId = itemId;           //needed for when making bookings and canceling bookings and displaying bookings
@@ -96,8 +96,22 @@ export class MapBookingsComponent{
         //this.selectedItemBookings = this.selectedItemBookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());    //sorts display bookings in ascending order (earliest first)
       }
     })
-    console.log(this.desks[8].bookings[0]);
-    console.log(this.desks[8].bookings[4]);
+
+    if(this.multiSelectedItemId.length < 5){
+      if(!(this.multiSelectedItemId.includes(itemId))){
+        this.multiSelectedItemId.push(itemId);
+      }
+    }
+this.multiSelectedItemBookingsArr = [];
+    this.multiSelectedItemId.forEach(id => {
+      this.desks.forEach(desk => {
+        if(desk.id == id){
+          this.multiSelectedItemBookingsArr.push(desk.bookings);
+        }
+      })
+    })
+console.log(this.desks[8]);
+console.log(this.multiSelectedItemBookingsArr);
     this.changeDetection.detectChanges();
   }
 
