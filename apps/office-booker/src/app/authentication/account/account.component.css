@@ -1,22 +1,92 @@
+.card-wrapper{
+    
+  margin:0 auto;
+  width: 500px;
+  padding-top: 2rem;
+  top: 4rem;
+  left: 50%;
+
   
-  * {
-    box-sizing: border-box;
-  }
+  font-weight: bold;
+  text-align: center;
+
+  /* border: 3px solid #f1f1f1; */
+  /* position: absolute; */
+  /* top: 40%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* z-index: 2; */
+  /* padding: 20px; */
+
+}
+
+.mat-card{
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  border: rgb(39, 39, 39) 1px solid;
+  border-radius: 15px;
   
-  body{
-    overflow: hidden;
-  }
   
-  .clicker{
-    background : rgb(204, 26, 70);
-  }
+}
+
+.mat-card-header{
+  color: rgb(0, 0, 0);
+  text-align: center;
+  display: inline-block;
+}
+
+.mat-card-subtitle{
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.input{
+  position: center;
+}
+
+.btn.btn-outline-secondary {
+  position: absolute;
   
-  .heading{
-  padding-left: 2rem;
-  }
+}
+
+
+.card-wrapper2{
+  margin:0 auto;
+  width: 500px;
+  padding-top: 25px ;
+  top: 2rem;
+  left: 50%;
+
   
-  .text{
-    padding-left: 2rem;
-  }
+  font-weight: bold;
+  /* border: 3px solid #f1f1f1; */
+  position: absolute;
   
-  
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 500px;
+  padding: 20px;
+  text-align: center;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.btn.btn-sm.btn-success{
+  background : rgb(204, 26, 70);
+}
+
+.btn-block{
+  margin-top: 0px;
+  background : rgb(204, 26, 70);
+}
+
+body{
+  overflow: hidden;
+}
+
+.mat-form-field{
+  width: 75%;
+}
