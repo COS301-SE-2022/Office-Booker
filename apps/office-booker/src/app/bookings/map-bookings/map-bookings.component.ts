@@ -247,6 +247,7 @@ export class MapBookingsComponent{
           if(this.desks[i].id == deskId){       //at the same time it needs to go through all the desks to find the correct desk matching with id
             this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
             this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
+            this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
           }
         }
         this.changeDetection.detectChanges();
