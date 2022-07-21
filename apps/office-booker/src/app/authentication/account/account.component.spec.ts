@@ -10,7 +10,8 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccountComponent, HttpClientTestingModule],
+      declarations: [AccountComponent],
+      imports: [HttpClientTestingModule],
     }).compileComponents();
   });
 
