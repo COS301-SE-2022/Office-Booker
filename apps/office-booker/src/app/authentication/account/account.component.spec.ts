@@ -5,6 +5,7 @@ import { AccountComponent } from './account.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 
 describe('AccountComponent', () => {
