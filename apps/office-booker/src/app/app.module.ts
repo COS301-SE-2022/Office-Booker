@@ -30,6 +30,7 @@ import { SignOutComponent } from './authentication/sign-out/sign-out.component';
 import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings.component';
 import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -39,7 +40,7 @@ const routes: Routes = [
   { path: 'sign-out', component: SignOutComponent },
   { path: 'admin-bookings', component: AdminBookingsComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent},
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: LoginComponent },
 ];
 
@@ -70,6 +71,7 @@ export function tokenGetter() {
     AdminBookingsComponent,
     AccountComponent,
     ForgotPasswordComponent,
+    InviteDialogComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [

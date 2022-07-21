@@ -26,6 +26,8 @@
             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
         </mat-card-content>
           <mat-card-actions>
+            <button class="clicker2" (click)="openDialog() "mat-raised-button color="accent">Invite Others</button>
+            <p></p>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) "mat-raised-button color="accent">Cancel Booking</button>
           </mat-card-actions>
 
