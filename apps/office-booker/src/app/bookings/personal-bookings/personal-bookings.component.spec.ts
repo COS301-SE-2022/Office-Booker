@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 
 
 describe('PersonalBookingsComponent', () => {
@@ -13,7 +15,8 @@ describe('PersonalBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PersonalBookingsComponent],
-      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule]
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatDialog, MatDialogRef]
+
     }).compileComponents();
   });
 
