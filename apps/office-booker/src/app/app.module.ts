@@ -32,6 +32,9 @@ import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
   { path: 'login', component: LoginComponent },
