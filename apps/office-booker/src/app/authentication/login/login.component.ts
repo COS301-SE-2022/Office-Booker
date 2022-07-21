@@ -20,7 +20,6 @@ export class LoginComponent {
 
   constructor(private router: Router,
               private cognitoService: CognitoService,
-              // private menubar: MenuBarComponent
               ) {
     this.loading = false;
     this.user = {} as IUser;
@@ -33,15 +32,9 @@ export class LoginComponent {
     this.loading = true;
     this.cognitoService.signIn(this.user)
     .then(() => {
-      //console.log("Sign in fucntion sets permissions")
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
       
-      //const comp = new MenuBarComponent(this.app, this.cognitoService);
-      //comp.ngOnInit();
-
-      // need to set menubar email address here
-
       this.router.navigate(['/bookings']);
     }).catch((e) => {
       alert(e)

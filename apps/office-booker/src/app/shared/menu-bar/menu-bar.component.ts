@@ -25,15 +25,8 @@ export class MenuBarComponent {
 
   ngOnInit() {
     this.admin = this.cognitoService.authenticated();
-    alert(this.admin);
     this.authenticated = this.cognitoService.admin();
-    alert(this.authenticated);
     this.email = this.cognitoService.getEmailAddress();
-    alert(this.email);
-
-    //console.log(this.admin);
-    //console.log(this.authenticated);
-    //console.log("Test")
 
     
   }
@@ -44,7 +37,6 @@ export class MenuBarComponent {
   }
 
   isAuthenticated(): boolean {
-    //console.log("called")
     return this.cognitoService.authenticated();
   }
 
@@ -53,7 +45,6 @@ export class MenuBarComponent {
   }
 
   isEmailAddress(): boolean {
-    // alert("is email called");
     this.email = this.cognitoService.getEmailAddress();
     if (this.cognitoService.getEmailAddress() != null && this.isAuthenticated() )
       return true;
