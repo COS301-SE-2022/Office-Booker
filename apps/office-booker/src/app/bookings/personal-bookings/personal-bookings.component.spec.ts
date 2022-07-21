@@ -17,7 +17,7 @@ describe('PersonalBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PersonalBookingsComponent, InviteDialogComponent],
-      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatDialog, MatDialogRef],
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule],
 
     }).compileComponents();
   });

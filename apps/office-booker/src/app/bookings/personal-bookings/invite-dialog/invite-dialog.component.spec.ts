@@ -11,7 +11,7 @@ describe('InviteDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
-      imports: [MatDialog, MatDialogRef, MAT_DIALOG_DATA],
+      imports: [],
     }).compileComponents();
   });
 
