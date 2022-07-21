@@ -6,6 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
+import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
+
 
 
 describe('PersonalBookingsComponent', () => {
@@ -14,7 +16,7 @@ describe('PersonalBookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PersonalBookingsComponent],
+      declarations: [PersonalBookingsComponent, InviteDialogComponent],
       imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatDialog, MatDialogRef],
 
     }).compileComponents();
