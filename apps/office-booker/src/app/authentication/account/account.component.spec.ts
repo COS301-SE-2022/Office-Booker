@@ -5,6 +5,7 @@ import { AccountComponent } from './account.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 
 
@@ -15,7 +16,7 @@ describe('AccountComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AccountComponent],
-      imports: [HttpClientTestingModule, MatCardModule],
+      imports: [HttpClientTestingModule, MatCardModule, MatFormFieldModule, FormsModule],
     }).compileComponents();
   });
 
