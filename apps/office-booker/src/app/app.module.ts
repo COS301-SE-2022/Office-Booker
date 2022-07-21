@@ -102,7 +102,12 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [{ provide: MatDialogRef, useValue: {}}],
+  providers: [
+    { provide: MatDialogRef, useValue: {}},
+    { provide: MatDialog, useValue: {}},
+    { provide: MAT_DIALOG_DATA, useValue: {}},
+  
+  ],
   exports: [RouterModule],
   bootstrap: [AppComponent],
 })
