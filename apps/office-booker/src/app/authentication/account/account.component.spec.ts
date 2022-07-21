@@ -4,6 +4,9 @@ import { AccountComponent } from './account.component';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
+import { MatCardModule } from '@angular/material/card';
+
+
 describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
@@ -11,7 +14,7 @@ describe('AccountComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AccountComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, MatCardModule],
     }).compileComponents();
   });
 
