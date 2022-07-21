@@ -11,7 +11,7 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccountComponent, RouterTestingModule, HttpClientTestingModule],
+      declarations: [AccountComponent],
     }).compileComponents();
   });
 
