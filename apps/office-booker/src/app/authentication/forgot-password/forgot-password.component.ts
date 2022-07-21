@@ -5,8 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
 })
-export class ForgotPasswordComponent implements OnInit {
-  constructor() {}
+export class ForgotPasswordComponent {
+  constructor() {
+    //
+  }
 
-  ngOnInit(): void {}
+  //  ngOnInit(): void {}
 }
