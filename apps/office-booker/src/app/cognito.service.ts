@@ -20,8 +20,10 @@ export interface IUser {
 export class CognitoService {
 
   company: string;
+  companyID: number;
   isAuthenticate: boolean;
   isAdmin: boolean;
+  isGuest: boolean;
   private authenticationSubject: BehaviorSubject<any>;
 
 
@@ -31,8 +33,10 @@ export class CognitoService {
       Auth: environment.cognito,
     });
     this.company = "";
+    this.companyID = 0;
     this.isAuthenticate = false;
     this.isAdmin = false;
+    this.isGuest = false;
 
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
@@ -47,9 +51,7 @@ export class CognitoService {
       password: user.password,
       attributes: {
         email: user.email,
-
       }
-
     });
 
 
@@ -121,6 +123,7 @@ export class CognitoService {
 
   public getEmailAddress(): string {
     const length = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")).length;
+    console.log(JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")));
     const userData = (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))).substring(1, length - 1);
     return userData;
   }
@@ -154,6 +157,7 @@ export class CognitoService {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       console.log(res.companyId);
+      this.companyID = res.companyId;
       this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
         console.log(res2.name);
       })
@@ -166,11 +170,7 @@ export class CognitoService {
   }
 
   public returnCompanyID(): number{
-    this.bookingService.getCompanyIdByEmail(this.getEmailAddress()).subscribe(res =>{
-      console.log(res.companyId);
-      return res.companyId;
-    })
-    return -1;
+    return this.companyID;
   }
 
   //deletes user from Cognito User Pool

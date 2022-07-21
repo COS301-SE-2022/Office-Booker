@@ -27,7 +27,7 @@ export class MapBookingsComponent{
   grabbedEndDate = "";
 
   //user to have user id and rest if necessary
-  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false};
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false};
 
   constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
               private cognitoService: CognitoService) {       

@@ -40,6 +40,7 @@ export interface employee {
   name: string,
   companyId: number,
   admin: boolean,
+  guest: boolean
 }
 
 export interface company {

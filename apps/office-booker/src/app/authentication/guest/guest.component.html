@@ -48,16 +48,6 @@
     </mat-card>
 </div>
 
-<div class="card-wrapper">
-    <mat-card class="example-card">
-        <mat-card-subtitle>
-            Already have a guest account?
-        </mat-card-subtitle>
-
-        <button mat-raised-button color="accent" [routerLink]="'/guest-login'" class="btn-block">Login as Guest</button>
-    </mat-card>
-</div>
-
 <div class="card-wrapper" *ngIf="isConfirm">
     <mat-card class="example-card">
         <mat-card-header>Verification code</mat-card-header>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee, company} from '../../services/booking-service.service';
+import { BookingServiceService, employee, company } from '../../services/booking-service.service';
 
 import { IUser, CognitoService } from '../../cognito.service';
 
@@ -13,23 +13,24 @@ export class GuestComponent /*implements OnInit*/ {
   loading: boolean;
   isConfirm: boolean;
   user: IUser;
-  userId : string;
-  userName : string;
-  companyId : number;
+  userId: string;
+  userName: string;
+  companyId: number;
   companies: Array<company> = [];
   option: string;
+  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false };
   constructor(
     private router: Router,
-    private cognitoService: CognitoService, 
+    private cognitoService: CognitoService,
     private bookingService: BookingServiceService,
   ) {
     this.loading = false;
-  this.isConfirm = false;
-  this.user = {} as IUser;
-  this.userId = '';
-  this.userName = '';
-  this.companyId = 1;
-  this.option = '';
+    this.isConfirm = false;
+    this.user = {} as IUser;
+    this.userId = '';
+    this.userName = '';
+    this.companyId = 1;
+    this.option = '';
   }
 
   /*ngOnInit() {
@@ -48,59 +49,68 @@ export class GuestComponent /*implements OnInit*/ {
       });
     })
   }*/
-  
+
   public signUp(): void {
-    
-  
+
     this.option = 'Guest';
     console.log(this.option);
-    if (this.option == ''){
+    if (this.option == '') {
       alert('Please select a company')
-      
+
     }
     else {
-      this.loading = true;
-      this.cognitoService.signUp(this.user)
-      
+      this.bookingService.getEmployeeByEmail(this.user.email).subscribe(res => {
+        console.log(this.user.email);
+        console.log(res);
+        this.currentUser = res;
+        if (this.currentUser.email == "null") {
+          alert('You have not been invited');
+        } else {
+          this.loading = true;
+          this.cognitoService.signUp(this.user)
   
-    .then(() => {
-      
-    this.loading = false;
-    this.isConfirm = true;
-    /*this.option = (<HTMLSelectElement>document.getElementById('company')).value;
-      for(let i = 0; i < this.companies.length; i++)
-          {
-            if(this.companies[i].name == this.option){
-             this.companyId = this.companies[i].id;
-            }
-                }*/
   
-    }).catch((e) => {
-      alert(e)
-    this.loading = false;
-    });
-     }
-    
+            .then(() => {
+  
+              this.loading = false;
+              this.isConfirm = true;
+              /*this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+                for(let i = 0; i < this.companies.length; i++)
+                    {
+                      if(this.companies[i].name == this.option){
+                       this.companyId = this.companies[i].id;
+                      }
+                          }*/
+  
+            }).catch((e) => {
+              alert(e)
+              this.loading = false;
+            });
+        }
+      })
+      console.log(this.currentUser);
+    }
+
   }
-  
+
   public confirmSignUp(): void {
     this.loading = true;
     this.cognitoService.confirmSignUp(this.user)
-    .then(() => {
-      
-      this.userId = this.user.email
-      this.userName = this.user.name
-      
+      .then(() => {
+
+        this.userId = this.user.email
+        this.userName = this.user.name
+
         console.log(this.companyId);
-      this.bookingService.createUser(this.userName, this.companyId, this.userId, true).subscribe(res => {
-        return res;
-       
-      });
-      
-        
+        /*this.bookingService.createUser(this.userName, this.companyId, this.userId, true).subscribe(res => {
+          return res;
+         
+        });*/
+
+
       });
     this.router.navigate(['/login']);
-  
+
     this.loading = false;
     this.router.navigate(['/login'])
   }
