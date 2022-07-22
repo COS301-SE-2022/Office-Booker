@@ -19,8 +19,6 @@ export class MenuBarComponent {
     private cognitoService: CognitoService, 
     ) {
       
-     
-    
   }
 
   ngOnInit() {
@@ -42,6 +40,10 @@ export class MenuBarComponent {
 
   isAdmin(): boolean {
     return this.cognitoService.admin();
+  }
+
+  isGuest(): boolean {
+    return this.cognitoService.guest();
   }
 
   isEmailAddress(): boolean {

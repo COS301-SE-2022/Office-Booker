@@ -141,6 +141,10 @@ export class CognitoService {
     return this.isAdmin;
   }
 
+  public guest(): boolean {
+    return this.isGuest;
+  }
+
   public authenticated(): boolean {
     return this.isAuthenticate;
   }
