@@ -4,6 +4,8 @@ import { GuestComponent } from './guest.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+
 describe('GuestComponent', () => {
   let component: GuestComponent;
   let fixture: ComponentFixture<GuestComponent>;
@@ -11,7 +13,7 @@ describe('GuestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GuestComponent],
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule, HttpClientTestingModule]
     }).compileComponents();
   });
 

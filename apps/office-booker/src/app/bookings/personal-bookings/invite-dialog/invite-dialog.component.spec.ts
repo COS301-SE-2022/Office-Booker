@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InviteDialogComponent } from './invite-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 describe('InviteDialogComponent', () => {
@@ -13,7 +13,7 @@ describe('InviteDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
-      imports: [MatFormField],
+      imports: [MatFormFieldModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
