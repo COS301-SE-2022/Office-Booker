@@ -46,6 +46,7 @@ export class MenuBarComponent {
 
   isEmailAddress(): boolean {
     this.email = this.cognitoService.getEmailAddress();
+    console.log(this.email);
     if (this.email != null && this.isAuthenticated() )
       return true;
     return false;
