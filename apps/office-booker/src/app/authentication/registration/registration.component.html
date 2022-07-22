@@ -1,5 +1,4 @@
 
-
 <div class="card-wrapper">
     <mat-card class="example-card" *ngIf="!isConfirm">
       <mat-card-header>Welcome to Office Booker!</mat-card-header>
@@ -9,57 +8,53 @@
       </mat-card-subtitle>
       <mat-card-content>
 
-        <!-- <div>
-        <p>
-          <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
-        </p>
-        </div> -->
 
-        <div>
+
+
+        <!-- <div>
           <p>
-          <!-- <label for="companies" class="form-label">Company:</label> -->
+          <label for="companies" class="form-label">Company:</label>
             <select value="Company" id="company" name="company" > 
               <option value="" disabled selected>Select your company</option>
               <option *ngFor="let comp of companies"> {{comp.name}} </option>
             </select>
           </p>  
-        </div>
-        
-        <div>
-          <p>
-          <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.username" class="form-control form-control-sm">
-          </p>
-        </div>
+        </div> -->
 
+        <mat-form-field>
+          <mat-label>Company</mat-label>
+          <mat-select [(value)]="selected" id="select" name="company">
+            <mat-option value="" disabled selected>Select your company</mat-option>
+            <mat-option *ngFor="let comp of companies" [value]="comp.name"> {{comp.name}} </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <div>
-          <p>
-            <input placeholder="Name" type="name" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
-          </p>
-        </div>
+        <mat-form-field>
+          <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.name" class="form-control form-control-sm" placeholder="Email">
+      </mat-form-field>
 
+      <mat-form-field>
+          <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+      </mat-form-field>
 
-        <div>
-            <div class="input-group input-group-sm">
-              <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
-              <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
-              </button>
-            </div>
-        </div>
-
-
-        </mat-card-content>
+      </mat-card-content>
          
-        <mat-card-actions>
-              <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Register
-              </button>
-        </mat-card-actions>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="signUp(selected)" class="btn btn-sm btn-success" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+              Register
+        </button>
+      </mat-card-actions>
+      
+      <p></p>
       
   </mat-card>
 </div>
+
+
+
+
+<!-- Div that appears and asks for verifcation code -->
 
 <div class="card-wrapper" *ngIf="isConfirm">
   <mat-card class="example-card">
