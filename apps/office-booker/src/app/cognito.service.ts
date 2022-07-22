@@ -137,6 +137,15 @@ export class CognitoService {
 
   }
 
+  public hasGuest() : void {
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+
+    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      this.isGuest = res.guest;
+    })
+
+  }  
+
   public admin(): boolean {
     return this.isAdmin;
   }
