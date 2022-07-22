@@ -20,12 +20,14 @@
         <mat-card-content>
             <div>{{currentUser.name}}</div>
             <div>Seat {{booking.deskId}} </div>
-            <div>{{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>
-            <div>{{booking.startsAt | date: 'HH:mm': 'UTC'+2}} - {{booking.endsAt | date: 'HH:mm': 'UTC'+2}} </div>
+            <div>{{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+            <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
             <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
         </mat-card-content>
         <mat-card-actions>
+            <button class="clicker2" (click)="openDialog() " mat-raised-button color="accent">Invite Others</button>
+            <p></p>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
         </mat-card-actions>
 

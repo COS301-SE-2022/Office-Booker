@@ -178,5 +178,13 @@ export class CognitoService {
     Auth.deleteUser();
   }
   
+  public forgotPassword() : void {
+    Auth.forgotPassword(this.getEmailAddress());
+    alert("Password reset email sent");
+  }
+
+  public resetPassword(email : string) : void {
+    Auth.forgotPassword(email);
+  }
 
 }

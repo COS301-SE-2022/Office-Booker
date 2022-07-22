@@ -1,7 +1,17 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
+
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  inviteEmail: string;
+}
 
 @Component({
   selector: 'office-booker-personal-bookings',
@@ -9,7 +19,11 @@ import { BookingServiceService, Room, Desk, Booking, employee} from '../../servi
   styleUrls: ['./personal-bookings.component.css'],
 })
 
-export class PersonalBookingsComponent{
+export class PersonalBookingsComponent {
+
+
+  inviteEmail: string;
+
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
   Users: Array<employee> = [];
@@ -17,10 +31,26 @@ export class PersonalBookingsComponent{
   userNumb = -1;
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false};
   
-  constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
+  constructor(private router: Router, private bookingService: BookingServiceService, 
+              private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
+    this.inviteEmail = "";
     changeDetection.detach();
     //console.log(this.userBookings);
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(InviteDialogComponent, {
+      width: '550px',
+      data: {inviteEmail: this.inviteEmail}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.inviteEmail = result;
+      console.log(this.inviteEmail);
+    });
+  }
+
 
   ngOnInit(){
     this.getDesksByRoomId(1);
@@ -136,6 +166,8 @@ export class PersonalBookingsComponent{
   
 }
 
-
+inviteOthers(bookingId : number) {
+  // this.bookingService.createBooking(bookingId).subscribe(res => {
+}
 
 }

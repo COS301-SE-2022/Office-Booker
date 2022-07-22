@@ -31,6 +31,12 @@ import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings
 import { GuestComponent } from './authentication/guest/guest.component';
 import { GuestLoginComponent } from './authentication/guest-login/guest-login.component';
 import { InviteGuestComponent } from './authentication/invite-guest/invite-guest.component';
+import { AccountComponent } from './authentication/account/account.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
+
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -42,6 +48,8 @@ const routes: Routes = [
   { path: 'guest-registration', component: GuestComponent },
   { path: 'guest-login', component: GuestLoginComponent },
   { path: 'invite-guest', component: InviteGuestComponent },
+  { path: 'account', component: AccountComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: LoginComponent },
 ];
 
@@ -73,6 +81,9 @@ export function tokenGetter() {
     GuestComponent,
     GuestLoginComponent,
     InviteGuestComponent,
+    AccountComponent,
+    ForgotPasswordComponent,
+    InviteDialogComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -100,7 +111,12 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: MatDialogRef, useValue: {}},
+    // { provide: MatDialog, useValue: {}},
+    // { provide: MAT_DIALOG_DATA, useValue: {}},
+  
+  ],
   exports: [RouterModule],
   bootstrap: [AppComponent],
 })
