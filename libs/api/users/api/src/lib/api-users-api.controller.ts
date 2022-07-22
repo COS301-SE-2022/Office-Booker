@@ -70,7 +70,7 @@ export class ApiUsersApiController {
         return await this.userService.deleteUser(userId);
     }
 
-    @Get("/rating/:userId")
+    @Get("/ratings/:userId")
     async getRatingsForUser(@Param('userId') userId: number) {
         return await this.userService.getUserRating(userId);
     }
