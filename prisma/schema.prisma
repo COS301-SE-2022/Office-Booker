@@ -47,6 +47,8 @@ model Desk {
   Bookings    Booking[]
   LocationRow Int
   LocationCol Int
+  Height      Int
+  Width       Int
 }
 
 model Facility {
