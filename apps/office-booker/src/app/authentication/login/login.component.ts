@@ -32,14 +32,9 @@ export class LoginComponent {
     this.loading = true;
     this.cognitoService.signIn(this.user)
     .then(() => {
-      //console.log("Sign in fucntion sets permissions")
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
       
-      //const comp = new MenuBarComponent(this.app, this.cognitoService);
-      //comp.ngOnInit();
-
-
       this.router.navigate(['/bookings']);
     }).catch((e) => {
       alert(e)
@@ -50,6 +45,10 @@ export class LoginComponent {
   //function to navigate to registration page
   moveToRegister() : void {
     this.router.navigate(['/registration']);
+  }
+
+  forgotPassword() : void {
+    this.router.navigate(['/forgot-password']);
   }
 
   //function to check if user is an admin

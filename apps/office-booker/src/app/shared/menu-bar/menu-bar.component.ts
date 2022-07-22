@@ -28,10 +28,6 @@ export class MenuBarComponent {
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
 
-    //console.log(this.admin);
-    //console.log(this.authenticated);
-    //console.log("Test")
-
     
   }
 
@@ -41,13 +37,20 @@ export class MenuBarComponent {
   }
 
   isAuthenticated(): boolean {
-    //console.log("called")
     return this.cognitoService.authenticated();
   }
 
   isAdmin(): boolean {
     return this.cognitoService.admin();
   }
+
+  isEmailAddress(): boolean {
+    this.email = this.cognitoService.getEmailAddress();
+    if (this.email != null && this.isAuthenticated() )
+      return true;
+    return false;
+  }
+    
 
 
 }

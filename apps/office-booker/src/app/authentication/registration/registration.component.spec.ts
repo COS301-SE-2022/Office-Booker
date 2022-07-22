@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { RegistrationComponent } from './registration.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+
+import { MatCardModule } from '@angular/material/card';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -12,7 +14,7 @@ describe('RegistrationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RegistrationComponent],
-      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule, MatCardModule],
     }).compileComponents();
   });
 
