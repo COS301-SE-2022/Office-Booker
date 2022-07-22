@@ -9,6 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
   let fixture: ComponentFixture<RegistrationComponent>;
@@ -16,7 +19,8 @@ describe('RegistrationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RegistrationComponent],
-      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule, MatCardModule, MatInputModule, MatSelectModule],
+      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule, MatCardModule, 
+                MatInputModule, MatSelectModule, BrowserAnimationsModule],
     }).compileComponents();
   });
 
