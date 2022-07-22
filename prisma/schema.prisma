@@ -40,15 +40,16 @@ model Room {
 }
 
 model Desk {
-  id          Int        @id @default(autoincrement())
-  facilities  Facility[]
-  Room        Room       @relation(fields: [roomId], references: [id])
-  roomId      Int
-  Bookings    Booking[]
-  LocationRow Int
-  LocationCol Int
-  Height      Int
-  Width       Int
+  id            Int        @id @default(autoincrement())
+  facilities    Facility[]
+  Room          Room       @relation(fields: [roomId], references: [id])
+  roomId        Int
+  Bookings      Booking[]
+  LocationRow   Int
+  LocationCol   Int
+  Height        Int
+  Width         Int
+  isMeetingRoom Boolean
 }
 
 model Facility {
