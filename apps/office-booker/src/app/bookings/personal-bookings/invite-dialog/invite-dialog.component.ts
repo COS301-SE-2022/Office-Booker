@@ -23,6 +23,7 @@ export class InviteDialogComponent {
   inviteEmail: string;
 
   constructor(
+    public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog) {
 
@@ -33,6 +34,6 @@ export class InviteDialogComponent {
   // ngOnInit(): void {}
 
   onNoClick() : void {
-    this.dialog._getAfterAllClosed();
+    this.dialogRef.close();
   }
 }

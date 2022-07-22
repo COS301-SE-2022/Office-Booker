@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 
 // import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,6 +20,7 @@ export interface DialogData {
 })
 
 export class PersonalBookingsComponent {
+
 
   inviteEmail: string;
 
