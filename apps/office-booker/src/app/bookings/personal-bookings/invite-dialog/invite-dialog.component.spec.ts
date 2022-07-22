@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {MatCardModule} from '@angular/material/card';
 import {FormsModule} from '@angular/forms';
-import {MatFormField} from '@angular/material/form-field';
 
 
 describe('InviteDialogComponent', () => {
@@ -17,7 +16,7 @@ describe('InviteDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
-      imports: [MatFormFieldModule, MatCardModule, FormsModule, MatFormField],
+      imports: [MatFormFieldModule, MatCardModule, FormsModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},

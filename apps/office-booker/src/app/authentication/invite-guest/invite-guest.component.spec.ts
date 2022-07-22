@@ -9,7 +9,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {MatCardModule} from '@angular/material/card';
 
 import {FormsModule} from '@angular/forms';
-import {MatFormField} from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 describe('InviteGuestComponent', () => {
   let component: InviteGuestComponent;
@@ -18,7 +18,7 @@ describe('InviteGuestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteGuestComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormField],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule],
     }).compileComponents();
   });
 
