@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
@@ -19,13 +20,14 @@ model Company {
 }
 
 model Employee {
-  id              Int       @id @default(autoincrement())
-  name            String
-  email           String    @unique
-  company         Company   @relation(fields: [companyId], references: [id])
-  Bookings        Booking[]
-  companyId       Int
-  admin           Boolean
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  company   Company   @relation(fields: [companyId], references: [id])
+  Bookings  Booking[]
+  companyId Int
+  admin     Boolean
+  guest     Boolean   
   currentRating   Int
   ratingsReceived Int
 }

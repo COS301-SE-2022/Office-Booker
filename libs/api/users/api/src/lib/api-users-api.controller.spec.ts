@@ -50,7 +50,8 @@ describe('ApiUsersApiController', () => {
       name: 'ying',
       companyId: 2,
       email: 'email',
-      admin: false
+      admin: false,
+      guest: false
     }
     controller.createUser(postData);
     expect(service.createUser).toHaveBeenCalledWith({
@@ -61,6 +62,7 @@ describe('ApiUsersApiController', () => {
         }
       },
       email: 'email',
+      guest: false,
       admin: false,
       currentRating: 5,
       ratingsReceived: 1,

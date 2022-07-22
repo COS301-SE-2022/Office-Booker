@@ -6,6 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { MatFormField } from '@angular/material/form-field';
+
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 
 

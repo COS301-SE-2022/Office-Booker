@@ -10,10 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'office-booker-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './guest-login.component.html',
+  styleUrls: ['./guest-login.component.css'],
 })
-export class LoginComponent {
+export class GuestLoginComponent {
 
   loading: boolean;
   user: IUser;
@@ -32,11 +32,10 @@ export class LoginComponent {
     this.loading = true;
     this.cognitoService.signIn(this.user)
     .then(() => {
+      //console.log("Sign in fucntion sets permissions")
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
-      this.cognitoService.getCompany();
-      console.log(this.cognitoService.returnCompany());
-
+      
       //const comp = new MenuBarComponent(this.app, this.cognitoService);
       //comp.ngOnInit();
 
@@ -51,10 +50,6 @@ export class LoginComponent {
   //function to navigate to registration page
   moveToRegister() : void {
     this.router.navigate(['/registration']);
-  }
-
-  forgotPassword() : void {
-    this.router.navigate(['/forgot-password']);
   }
 
   //function to check if user is an admin

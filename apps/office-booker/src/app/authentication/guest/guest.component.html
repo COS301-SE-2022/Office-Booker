@@ -1,0 +1,74 @@
+<div class="card-wrapper">
+    <mat-card class="example-card" *ngIf="!isConfirm">
+        <mat-card-header>Welcome to Office Booker!</mat-card-header>
+        <p></p>
+        <mat-card-subtitle>
+            Please enter your details to register for a guest account
+        </mat-card-subtitle>
+        <mat-card-content>
+
+            <!-- <div>
+            <p>
+            <input placeholder="Email" type="username" id="username" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control form-control-sm">
+            </p>
+            </div> -->
+
+            <div>
+                <p>
+                    <input placeholder="Email" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.username" class="form-control form-control-sm">
+                </p>
+            </div>
+
+
+            <div>
+                <p>
+                    <input placeholder="Name" type="name" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
+                </p>
+            </div>
+
+
+            <div>
+                <div class="input-group input-group-sm">
+                    <input placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+                    <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+                <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
+              </button>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button color="accent" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+                Register as Guest
+              </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div class="card-wrapper" *ngIf="isConfirm">
+    <mat-card class="example-card">
+        <mat-card-header>Verification code</mat-card-header>
+        <mat-card-subtitle>
+            Please enter the verifcation code recieved via email
+        </mat-card-subtitle>
+
+        <mat-card-content>
+            <div>
+                <p>
+                    <input placeholder="Verification Code" type="text" id="code" name="code" #code="ngModel" [(ngModel)]="user.code" class="form-control form-control-sm">
+                </p>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="accent" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+              Confirm
+            </button>
+        </mat-card-actions>
+
+    </mat-card>
+</div>

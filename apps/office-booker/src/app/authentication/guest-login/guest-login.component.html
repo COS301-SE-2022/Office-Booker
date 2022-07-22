@@ -29,7 +29,7 @@
               Login
           </button>
 
-            <button mat-raised-button color="accent" (click)="forgotPassword()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="accent" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Forgot password?
           </button>
@@ -53,9 +53,9 @@
 <div class="card-wrapper">
     <mat-card class="example-card">
         <mat-card-subtitle>
-            Have an invitation?
+            Book as guest?
         </mat-card-subtitle>
 
-        <button mat-raised-button color="accent" [routerLink]="'/guest-registration'" class="btn-block">Register as Guest</button>
+        <button mat-raised-button color="accent" [routerLink]="'/guest-options'" class="btn-block">Guest Options</button>
     </mat-card>
 </div>

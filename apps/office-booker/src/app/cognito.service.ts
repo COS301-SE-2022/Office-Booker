@@ -19,8 +19,11 @@ export interface IUser {
 })
 export class CognitoService {
 
+  company: string;
+  companyID: number;
   isAuthenticate: boolean;
   isAdmin: boolean;
+  isGuest: boolean;
   private authenticationSubject: BehaviorSubject<any>;
 
 
@@ -29,9 +32,12 @@ export class CognitoService {
     Amplify.configure({
       Auth: environment.cognito,
     });
+    this.company = "";
+    this.companyID = 0;
     this.isAuthenticate = false;
     this.isAdmin = false;
-    
+    this.isGuest = false;
+
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
@@ -45,9 +51,7 @@ export class CognitoService {
       password: user.password,
       attributes: {
         email: user.email,
-
       }
-
     });
 
 
@@ -77,8 +81,7 @@ export class CognitoService {
   }
 
   public isAuthenticated(): void {
-    if ( (localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")) )
-    {
+    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       this.isAuthenticate = true;
 
     }
@@ -120,6 +123,7 @@ export class CognitoService {
 
   public getEmailAddress(): string {
     const length = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")).length;
+    console.log(JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")));
     const userData = (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))).substring(1, length - 1);
     return userData;
   }
@@ -129,8 +133,8 @@ export class CognitoService {
 
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.isAdmin = res.admin;
-   }) 
-  
+    })
+
   }
 
   public admin(): boolean {
@@ -141,12 +145,32 @@ export class CognitoService {
     return this.isAuthenticate;
   }
 
-  public setAdmin(value : boolean): void { 
+  public setAdmin(value: boolean): void {
     this.isAdmin = value;
   }
 
-  public setAuthenticated(value : boolean): void {
+  public setAuthenticated(value: boolean): void {
     this.isAuthenticate = value;
+  }
+
+  public getCompany(): void {
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+    this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      console.log(res.companyId);
+      this.companyID = res.companyId;
+      this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
+        console.log(res2.name);
+      })
+    })
+  }
+
+  public returnCompany(): string {
+    console.log(this.company);
+    return this.company;
+  }
+
+  public returnCompanyID(): number{
+    return this.companyID;
   }
 
   //deletes user from Cognito User Pool

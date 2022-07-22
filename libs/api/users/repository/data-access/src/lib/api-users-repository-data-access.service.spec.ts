@@ -94,6 +94,7 @@ describe('ApiUsersRepositoryDataAccessService', () => {
         Bookings: null,
         email: 'test',
         admin: false,
+        guest: false,
         currentRating: 5,
         ratingsReceived: 1
       };

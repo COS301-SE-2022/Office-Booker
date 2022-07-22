@@ -28,6 +28,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { BookingCardComponent } from './bookings/personal-bookings/booking-card/booking-card.component';
 import { SignOutComponent } from './authentication/sign-out/sign-out.component';
 import { AdminBookingsComponent } from './bookings/admin-bookings/admin-bookings.component';
+import { GuestComponent } from './authentication/guest/guest.component';
+import { GuestLoginComponent } from './authentication/guest-login/guest-login.component';
+import { InviteGuestComponent } from './authentication/invite-guest/invite-guest.component';
 import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
@@ -42,6 +45,9 @@ const routes: Routes = [
   { path: 'personal-bookings', component: PersonalBookingsComponent },
   { path: 'sign-out', component: SignOutComponent },
   { path: 'admin-bookings', component: AdminBookingsComponent },
+  { path: 'guest-registration', component: GuestComponent },
+  { path: 'guest-login', component: GuestLoginComponent },
+  { path: 'invite-guest', component: InviteGuestComponent },
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: LoginComponent },
@@ -72,6 +78,9 @@ export function tokenGetter() {
     BookingCardComponent,
     SignOutComponent,
     AdminBookingsComponent,
+    GuestComponent,
+    GuestLoginComponent,
+    InviteGuestComponent,
     AccountComponent,
     ForgotPasswordComponent,
     InviteDialogComponent,

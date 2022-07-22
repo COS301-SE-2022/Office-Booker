@@ -1,24 +1,24 @@
 {
-  "version": 2,
-  "projects": {
-    "api": "apps/api",
-    "api-authorization": "libs/api/authorization",
-    "api-bookings-api": "libs/api/bookings/api",
-    "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
-    "api-companies-api": "libs/api/companies/api",
-    "api-companies-repository-data-access": "libs/api/companies/repository/data-access",
-    "api-desks-api": "libs/api/desks/api",
-    "api-desks-repository-data-access": "libs/api/desks/repository/data-access",
-    "api-facilities-api": "libs/api/facilities/api",
-    "api-facilities-repository-data-access": "libs/api/facilities/repository/data-access",
-    "api-interfaces": "libs/api-interfaces",
-    "api-permissions": "libs/api/permissions/",
-    "api-rooms-api": "libs/api/rooms/api",
-    "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
-    "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
-    "api-users-api": "libs/api/users/api",
-    "api-users-repository-data-access": "libs/api/users/repository/data-access",
-    "office-booker": "apps/office-booker",
-    "office-booker-e2e": "apps/office-booker-e2e"
-  }
+    "version": 2,
+    "projects": {
+        "api": "apps/api",
+        "api-authorization": "libs/api/authorization",
+        "api-bookings-api": "libs/api/bookings/api",
+        "api-bookings-repository-data-access": "libs/api/bookings/repository/data-access",
+        "api-companies-api": "libs/api/companies/api",
+        "api-companies-repository-data-access": "libs/api/companies/repository/data-access",
+        "api-desks-api": "libs/api/desks/api",
+        "api-desks-repository-data-access": "libs/api/desks/repository/data-access",
+        "api-facilities-api": "libs/api/facilities/api",
+        "api-facilities-repository-data-access": "libs/api/facilities/repository/data-access",
+        "api-interfaces": "libs/api-interfaces",
+        "api-permissions": "libs/api/permissions/",
+        "api-rooms-api": "libs/api/rooms/api",
+        "api-rooms-repository-data-access": "libs/api/rooms/repository/data-access",
+        "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
+        "api-users-api": "libs/api/users/api",
+        "api-users-repository-data-access": "libs/api/users/repository/data-access",
+        "office-booker": "apps/office-booker",
+        "office-booker-e2e": "apps/office-booker-e2e"
+    }
 }
