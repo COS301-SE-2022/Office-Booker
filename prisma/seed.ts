@@ -49,6 +49,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -61,6 +65,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -73,6 +81,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -85,6 +97,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -97,6 +113,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -109,6 +129,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -121,6 +145,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -133,6 +161,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -145,6 +177,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -157,6 +193,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -169,6 +209,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -181,6 +225,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -193,6 +241,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -205,6 +257,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -217,6 +273,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -229,6 +289,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -241,6 +305,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -253,6 +321,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -265,6 +337,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -277,6 +353,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -289,6 +369,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -301,6 +385,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
