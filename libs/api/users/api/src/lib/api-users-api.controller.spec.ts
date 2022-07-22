@@ -61,7 +61,9 @@ describe('ApiUsersApiController', () => {
         }
       },
       email: 'email',
-      admin: false
+      admin: false,
+      currentRating: 5,
+      ratingsReceived: 1,
     });
   })
 
