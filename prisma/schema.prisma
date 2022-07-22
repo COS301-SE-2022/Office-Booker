@@ -50,6 +50,7 @@ model Desk {
   Height        Int
   Width         Int
   isMeetingRoom Boolean
+  capacity      Int
 }
 
 model Facility {
