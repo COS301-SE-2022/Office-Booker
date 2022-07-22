@@ -45,7 +45,7 @@ export class MenuBarComponent {
   }
 
   isNotGuest(): boolean {
-    return this.cognitoService.guest();
+    return !(this.cognitoService.guest());
   }
 
   isEmailAddress(): boolean {
