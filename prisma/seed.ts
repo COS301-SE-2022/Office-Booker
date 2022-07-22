@@ -22,7 +22,9 @@ async function main() {
             company: { connect: { id: company.id } },
             email: 'kryptoskode301@gmail.com',
             admin: true,
-            guest: false,
+            currentRating: 4,
+            ratingsReceived: 10,
+            guest: false
         },
     })
 
@@ -33,6 +35,8 @@ async function main() {
             email: 'duplessisbrett@icloud.com',
             admin: false,
             guest: false,
+            currentRating: 3,
+            ratingsReceived: 5,
         },
     })
 

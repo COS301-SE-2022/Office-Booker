@@ -48,4 +48,28 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
+    async getUserRating(@Param() userId: number) {
+        return this.prisma.employee.findUnique({
+            where: {
+                id: userId,
+            },
+            select: {
+                currentRating: true,
+                ratingsReceived: true,
+            }
+        });
+    }
+
+    async updateUserRating(@Param() userID: number, current: number, ratings: number) {
+        return this.prisma.employee.update({
+            where: {
+                id: userID,
+            },
+            data: {
+                currentRating: current,
+                ratingsReceived: ratings,
+            },
+        });
+    }
+
 }

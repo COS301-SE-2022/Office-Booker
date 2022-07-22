@@ -28,6 +28,8 @@ model Employee {
   companyId Int
   admin     Boolean
   guest     Boolean   
+  currentRating   Int
+  ratingsReceived Int
 }
 
 // model the structure of the office

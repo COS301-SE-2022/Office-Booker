@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 
@@ -11,6 +11,11 @@ class createUserDto {
 
 class emailDto {
     email: string;
+}
+
+class ratingDto {
+    currentRating:   number;
+    ratingsReceived: number;
 }
 
 @Controller('users')
@@ -56,6 +61,8 @@ export class ApiUsersApiController {
             email: email,
             admin: false,
             guest: guest,
+            currentRating: 5,
+            ratingsReceived: 1,
         });
     }
 
@@ -65,4 +72,14 @@ export class ApiUsersApiController {
         return await this.userService.deleteUser(userId);
     }
 
+    @Get("/ratings/:userId")
+    async getRatingsForUser(@Param('userId') userId: number) {
+        return await this.userService.getUserRating(userId);
+    }
+
+    @Put("/ratings/:userId")
+    async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: ratingDto) {
+        const { currentRating, ratingsReceived } = ratingDto;
+        return await this.userService.updateUserRating(userId, currentRating, ratingsReceived);
+    }
 }
