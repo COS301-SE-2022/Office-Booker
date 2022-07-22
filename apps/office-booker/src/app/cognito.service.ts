@@ -162,6 +162,10 @@ export class CognitoService {
     this.isAdmin = value;
   }
 
+  public setGuest(value: boolean): void {
+    this.isGuest = value;
+  }
+
   public setAuthenticated(value: boolean): void {
     this.isAuthenticate = value;
   }
