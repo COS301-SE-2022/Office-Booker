@@ -28,10 +28,6 @@
             <mat-option *ngFor="let comp of companies" [value]="comp.name"> {{comp.name}} </mat-option>
           </mat-select>
         </mat-form-field>
-        <p>You selected: {{selected}} </p>
-
-
-
 
         <mat-form-field>
           <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.name" class="form-control form-control-sm" placeholder="Email">
