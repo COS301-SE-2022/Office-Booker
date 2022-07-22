@@ -74,6 +74,7 @@ export class MapBookingsComponent{
             this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
           }
         }
+        console.log(this.desks);
       this.changeDetection.detectChanges();
       });
     })
