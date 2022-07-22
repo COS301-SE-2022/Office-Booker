@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import {FormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 describe('InviteDialogComponent', () => {
@@ -18,7 +19,7 @@ describe('InviteDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
-      imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule],
+      imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, BrowserAnimationsModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
