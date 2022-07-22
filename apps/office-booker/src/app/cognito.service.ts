@@ -123,7 +123,7 @@ export class CognitoService {
 
   public getEmailAddress(): string {
     const length = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")).length;
-    console.log(JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")));
+    // console.log(JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")));
     const userData = (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))).substring(1, length - 1);
     return userData;
   }
@@ -160,10 +160,10 @@ export class CognitoService {
   public getCompany(): void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      console.log(res.companyId);
+      // console.log(res.companyId);
       this.companyID = res.companyId;
       this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
-        console.log(res2.name);
+        // console.log(res2.name);
       })
     })
   }

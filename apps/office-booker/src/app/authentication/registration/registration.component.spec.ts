@@ -6,6 +6,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RegistrationComponent } from './registration.component';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -14,7 +19,8 @@ describe('RegistrationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RegistrationComponent],
-      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule, MatCardModule],
+      imports: [RouterTestingModule, FormsModule, HttpClientTestingModule, MatCardModule, 
+                MatInputModule, MatSelectModule, BrowserAnimationsModule],
     }).compileComponents();
   });
 
