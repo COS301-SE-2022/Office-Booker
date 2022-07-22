@@ -13,7 +13,7 @@ describe('InviteDialogComponent', () => {
       declarations: [InviteDialogComponent],
       imports: [],
       providers: [
-        // { provide: MatDialogRef, useValue: {}},
+        { provide: MatDialogRef, useValue: {}},
         // { provide: MatDialog, useValue: {}},
         // { provide: MAT_DIALOG_DATA, useValue: {}},
       ]
