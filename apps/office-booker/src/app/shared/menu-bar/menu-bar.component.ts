@@ -11,6 +11,7 @@ import { BookingServiceService, employee } from '../../services/booking-service.
 export class MenuBarComponent {
 
   admin = false;
+  guest = false;
   authenticated = false;
   email = "";
 
@@ -19,12 +20,11 @@ export class MenuBarComponent {
     private cognitoService: CognitoService, 
     ) {
       
-     
-    
   }
 
   ngOnInit() {
     this.admin = this.cognitoService.authenticated();
+    this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
 
@@ -42,6 +42,10 @@ export class MenuBarComponent {
 
   isAdmin(): boolean {
     return this.cognitoService.admin();
+  }
+
+  isNotGuest(): boolean {
+    return !(this.cognitoService.guest());
   }
 
   isEmailAddress(): boolean {

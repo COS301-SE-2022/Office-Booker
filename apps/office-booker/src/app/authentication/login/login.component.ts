@@ -34,6 +34,7 @@ export class LoginComponent {
     .then(() => {
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
+      this.cognitoService.hasGuest();
       this.cognitoService.getCompany();
       // console.log(this.cognitoService.returnCompany());
 

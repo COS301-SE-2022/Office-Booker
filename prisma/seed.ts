@@ -10,11 +10,11 @@ async function main() {
     })
 
     //Pseudo company called guest associated with all guest accounts
-    const guest = await prisma.company.create({
+    /*const guest = await prisma.company.create({
         data: {
             name: 'Guest',
         },
-    })
+    })*/
 
     const employee1 = await prisma.employee.create({
         data: {
