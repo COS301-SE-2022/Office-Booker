@@ -15,7 +15,7 @@ describe('InviteDialogComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: {}},
         // { provide: MatDialog, useValue: {}},
-        // { provide: MAT_DIALOG_DATA, useValue: {}},
+        { provide: MAT_DIALOG_DATA, useValue: {}},
       ]
     }).compileComponents();
   });
