@@ -36,8 +36,12 @@ import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -85,6 +89,7 @@ export function tokenGetter() {
     AccountComponent,
     ForgotPasswordComponent,
     InviteDialogComponent,
+    PopupDialogComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -114,10 +119,9 @@ export function tokenGetter() {
     }),
   ],
   providers: [
-    { provide: MatDialogRef, useValue: {}},
+    { provide: MatDialogRef, useValue: {} },
     // { provide: MatDialog, useValue: {}},
     // { provide: MAT_DIALOG_DATA, useValue: {}},
-  
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],
