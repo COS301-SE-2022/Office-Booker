@@ -42,6 +42,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
+import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -122,6 +123,7 @@ export function tokenGetter() {
     { provide: MatDialogRef, useValue: {} },
     // { provide: MatDialog, useValue: {}},
     // { provide: MAT_DIALOG_DATA, useValue: {}},
+    PopupDialogService
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],

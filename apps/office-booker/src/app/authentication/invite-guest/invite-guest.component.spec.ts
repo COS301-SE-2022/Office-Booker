@@ -10,6 +10,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 
 describe('InviteGuestComponent', () => {
   let component: InviteGuestComponent;
@@ -19,6 +20,7 @@ describe('InviteGuestComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InviteGuestComponent],
       imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule],
+      providers: [PopupDialogService],
     }).compileComponents();
   });
 
