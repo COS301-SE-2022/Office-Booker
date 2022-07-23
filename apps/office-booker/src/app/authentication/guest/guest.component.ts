@@ -63,7 +63,7 @@ export class GuestComponent /*implements OnInit*/ {
         console.log(this.user.email);
         console.log(res);
         this.currentUser = res;
-        if (this.currentUser.email == "null") {
+        if (res == null) {
           alert('You have not been invited');
         } else {
           this.loading = true;

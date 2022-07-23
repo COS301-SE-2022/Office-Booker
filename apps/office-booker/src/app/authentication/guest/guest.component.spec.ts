@@ -10,6 +10,9 @@ import {MatCardModule} from '@angular/material/card';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 describe('GuestComponent', () => {
   let component: GuestComponent;
   let fixture: ComponentFixture<GuestComponent>;
@@ -17,7 +20,8 @@ describe('GuestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GuestComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule,
+                 MatInputModule, BrowserAnimationsModule],
     }).compileComponents();
   });
 
