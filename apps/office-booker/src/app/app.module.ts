@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider'; 
 
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +39,7 @@ import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialo
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { VotingBookingsComponent } from './bookings/voting-bookings/voting-bookings.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -51,6 +53,7 @@ const routes: Routes = [
   { path: 'invite-guest', component: InviteGuestComponent },
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'voting-bookings', component: VotingBookingsComponent},
   { path: '', component: LoginComponent },
 ];
 
@@ -85,6 +88,7 @@ export function tokenGetter() {
     AccountComponent,
     ForgotPasswordComponent,
     InviteDialogComponent,
+    VotingBookingsComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -95,6 +99,7 @@ export function tokenGetter() {
     MatDialogModule,
     RouterModule.forRoot(routes),
     RouterModule,
+    MatSliderModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,
