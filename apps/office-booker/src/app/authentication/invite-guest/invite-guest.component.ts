@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Options } from '@nestjs/common';
+import { throws } from 'assert';
 import { CognitoService } from '../../cognito.service';
 import { BookingServiceService, employee, company } from '../../services/booking-service.service';
 
@@ -25,6 +26,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
     };
 
   exists: boolean;
+  beenRun : boolean;
   
   constructor(
     private router: Router,
@@ -43,6 +45,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
       this.email = "";
       this.company = "";
       this.loading = false;
+      this.beenRun = false;
 
       this.exists = false;
     }
@@ -50,7 +53,36 @@ export class InviteGuestComponent /*implements OnInit*/ {
   /*ngOnInit(): void {}*/
   
   public invite(): void {
-  
+    if (this.beenRun == false) { 
+      this.beenRun = true;
+      this.option.title = "This user has already been invited!";
+        this.option.message = this.email;
+
+        this.cognitoService.getCompany();
+        const thisCompany = this.cognitoService.returnCompanyID();
+
+        this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
+          console.log(res);
+          if (res) {
+            console.log("User is already on the system");
+            console.log(this.exists);
+            this.exists = true;
+            console.log(this.exists);
+          } 
+          else {
+            //this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+              console.log("User created!");
+              console.log(this.exists);
+              this.exists = false;
+              console.log(this.exists);
+
+              // return data;
+            //});
+          }
+        });
+      return
+    }
+
     console.log(this.email);
     if (this.email == ""){ //if email is empty, show error popup
       this.option.title = "Error";
@@ -96,7 +128,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
   
     console.log("EXISTS IS : " + this.exists);
    
-    
+    this.beenRun = true;
     this.popupDialogService.open(this.option);
   }
 

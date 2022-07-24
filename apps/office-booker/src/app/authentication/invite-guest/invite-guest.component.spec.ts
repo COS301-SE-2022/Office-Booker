@@ -25,7 +25,8 @@ describe('InviteGuestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteGuestComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule, MatFormField],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, 
+        MatFormFieldModule, MatFormFieldModule],
       providers: [PopupDialogService,
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
