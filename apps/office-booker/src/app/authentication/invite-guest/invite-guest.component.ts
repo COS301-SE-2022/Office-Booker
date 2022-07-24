@@ -31,22 +31,24 @@ export class InviteGuestComponent /*implements OnInit*/ {
     private bookingService: BookingServiceService,
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
-  ) {
-    this.option = {
-      title: '',
-      message: '',
-      cancelText: 'Close',
-      confirmText: 'Ok'
-    };
-    this.email = "";
-    this.company = "";
-    this.loading = false;
+  ) 
+    {
+      this.option = {
+        title: '',
+        message: '',
+        cancelText: 'Close',
+        confirmText: 'Ok'
+      };
 
-    this.exists = false;
-  }
+      this.email = "";
+      this.company = "";
+      this.loading = false;
+
+      this.exists = false;
+    }
 
   /*ngOnInit(): void {}*/
-
+  
   public invite(): void {
   
     console.log(this.email);
@@ -76,19 +78,19 @@ export class InviteGuestComponent /*implements OnInit*/ {
           }
         });
 
-        if (this.exists == true){
+        if (this.exists == false){
           this.option.title = "You have successfully invited";
           this.option.message = this.email;
         }
-        else if (this.exists == false){
+        else if (this.exists == true){
           this.option.title = "This user has already been invited!";
           this.option.message = this.email;
         }
 
     }
-
+  
     console.log("EXISTS IS : " + this.exists);
-    
+   
     
     this.popupDialogService.open(this.option);
   }
