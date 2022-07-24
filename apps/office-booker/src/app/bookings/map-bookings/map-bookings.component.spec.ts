@@ -24,7 +24,9 @@ describe('BookingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule],
       declarations: [MapBookingsComponent],
-      providers: [CognitoService, 
+      providers: [
+        CognitoService,
+        PopupDialogService, 
         { provide: MatDialogRef, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} },
