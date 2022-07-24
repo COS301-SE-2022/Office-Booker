@@ -16,6 +16,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatInputModule } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -27,7 +29,7 @@ describe('InviteGuestComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InviteGuestComponent],
       imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-        MatFormFieldModule, MatFormFieldModule, MatInputModule],
+        MatFormFieldModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule],
       providers: [PopupDialogService,
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
