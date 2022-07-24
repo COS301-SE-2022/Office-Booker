@@ -39,24 +39,22 @@ export class PopupDialogComponent {
                   title: string
               }, private mdDialogRef: MatDialogRef<PopupDialogComponent>)
   {
-    const options = {
-      title: 'CONFIRM.DOWNLOAD.JOB.TITLE',
-      message: 'CONFIRM.DOWNLOAD.JOB.MESSAGE',
-      cancelText: 'CONFIRM.DOWNLOAD.JOB.CANCELTEXT',
-      confirmText: 'CONFIRM.DOWNLOAD.JOB.CONFIRMTEXT'
-    };
+    
   }
 
   public cancel() {
     this.close();
   }
-public close() {
+  public close() {
     this.mdDialogRef.close();
   }
-public confirm() {
+
+  @HostListener("enter.esc") 
+  public confirm() {
     this.close();
   }
-@HostListener("keydown.esc") 
+  
+  @HostListener("keydown.esc") 
   public onEsc() {
     this.close();
   }

@@ -11,6 +11,11 @@ import { FormsModule } from '@angular/forms'
 import { CognitoService } from '../../cognito.service';
 
 
+//imports for Popup Dialog
+import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
 describe('BookingsComponent', () => {
   let component: MapBookingsComponent;
   let fixture: ComponentFixture<MapBookingsComponent>;
@@ -19,7 +24,12 @@ describe('BookingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule],
       declarations: [MapBookingsComponent],
-      providers: [CognitoService]
+      providers: [CognitoService, 
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialog, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
+
     }).compileComponents();
   });
 

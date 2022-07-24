@@ -3,6 +3,11 @@ import { Component } from '@angular/core';
 import { BookingServiceService, Desk, Booking, employee } from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 
+
+import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
+
+
+
 @Component({
   selector: 'office-booker-map-bookings',
   templateUrl: './map-bookings.component.html',
@@ -30,11 +35,23 @@ export class MapBookingsComponent {
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false };
   hasBooking = false;
 
-  constructor(private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef,
-    private cognitoService: CognitoService) {
+  //popup dialog variables
+  option = { 
+    title: '',
+    message: '',
+    cancelText: '', 
+    confirmText: '',
+  };
+
+  constructor(private bookingService: BookingServiceService, 
+    private changeDetection: ChangeDetectorRef,
+    private cognitoService: CognitoService,
+    private popupDialogService: PopupDialogService) { 
+
     changeDetection.detach();
     this.selectedItemId = 0;
   }
+  
   ngOnInit() {
     this.getDesksByRoomId(1);       //gets all the desks for the current room
     this.getCurrentUser();          //fetches the logged in user
@@ -107,6 +124,8 @@ export class MapBookingsComponent {
   }
 
   filterBookings() {         //filters the bookings based on the selected date
+    this.option.title = 'Filter Bookings by dates'
+    // this.option.message = 'Are you sure you want to filte?';
     if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
       this.desks.forEach(desk => {
         if (desk.booking) {
@@ -167,6 +186,10 @@ export class MapBookingsComponent {
         this.changeDetection.detectChanges();
       })
     }
+    this.option.message = '<form><p>Start Date: </p><input type="datetime-local" name="grabbedStartDate"><p>End Date: </p><input type="datetime-local" name="grabbedEndDate"><br><br><br><button mat-raised-button color="primary">Filter Bookings</button></form>';
+    this.option.cancelText = 'Cancel'
+    this.option.confirmText = 'Confirm';
+    this.popupDialogService.open(this.option);
   }
 
   bookItem(itemId: number, itemType: string) {         //used when the booked button is clicked

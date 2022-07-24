@@ -18,6 +18,7 @@ export class PopupDialogService {
   option = {
     title: 'CONFIRM.DOWNLOAD.JOB.TITLE',
     message: 'CONFIRM.DOWNLOAD.JOB.MESSAGE',
+    
     cancelText: 'CONFIRM.DOWNLOAD.JOB.CANCELTEXT',
     confirmText: 'CONFIRM.DOWNLOAD.JOB.CONFIRMTEXT'
   };
