@@ -6,18 +6,18 @@
             Please enter an email address you would like to invite
         </mat-card-subtitle>
         <mat-card-content>
-            <div>
-                <p>
-                    <input placeholder="Email" type="email" id="email" name="email" [(ngModel)]="email" class="form-control form-control-sm">
-                </p>
-            </div>
+            <mat-form-field>
+                <input matInput type="email" id="email" name="email" [(ngModel)]="email" class="form-control form-control-sm" placeholder="Email">
+            </mat-form-field>
         </mat-card-content>
 
         <mat-card-actions>
             <button mat-raised-button color="accent" (click)="invite()" class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Send
+                Invite
             </button>
+
+            <p></p>
         </mat-card-actions>
     </mat-card>
 </div>

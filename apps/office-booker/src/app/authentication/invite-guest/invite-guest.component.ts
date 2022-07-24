@@ -23,7 +23,9 @@ export class InviteGuestComponent /*implements OnInit*/ {
       cancelText: 'CONFIRM.DOWNLOAD.JOB.CANCELTEXT',
       confirmText: 'CONFIRM.DOWNLOAD.JOB.CONFIRMTEXT'
     };
+
   exists: boolean;
+  
   constructor(
     private router: Router,
     private bookingService: BookingServiceService,
@@ -31,7 +33,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
     private popupDialogService: PopupDialogService,
   ) {
     this.option = {
-      title: 'You have successfully invited a guest!',
+      title: '',
       message: '',
       cancelText: 'Close',
       confirmText: 'Ok'
@@ -39,40 +41,55 @@ export class InviteGuestComponent /*implements OnInit*/ {
     this.email = "";
     this.company = "";
     this.loading = false;
-    // this.dialogService.open(options);
 
     this.exists = false;
   }
 
   /*ngOnInit(): void {}*/
+
   public invite(): void {
+  
     console.log(this.email);
     if (this.email == ""){ //if email is empty, show error popup
       this.option.title = "Error";
       this.option.message = "Please enter an email address";
-      this.option.cancelText = "Close";
-      this.option.confirmText = "Ok" 
     }
     else { //if email is not empty, create user
+        this.option.title = "This user has already been invited!";
         this.option.message = this.email;
+
         this.cognitoService.getCompany();
         const thisCompany = this.cognitoService.returnCompanyID();
+
         this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
           console.log(res);
           if (res) {
             console.log("User is already on the system");
-            this.option.title = "This user has already been invited!";
+            this.exists = true;
           } 
           else {
             this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
               console.log("User created!");
-              this.option.title = "You have successfully invited a guest!";
-              return data;
+              this.exists = false;
+              // return data;
             });
           }
         });
 
+        if (this.exists == true){
+          this.option.title = "You have successfully invited";
+          this.option.message = this.email;
+        }
+        else if (this.exists == false){
+          this.option.title = "This user has already been invited!";
+          this.option.message = this.email;
+        }
+
     }
+
+    console.log("EXISTS IS : " + this.exists);
+    
+    
     this.popupDialogService.open(this.option);
   }
 
