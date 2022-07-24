@@ -17,6 +17,7 @@ import { MatFormField } from '@angular/material/form-field';
 
 
 
+
 describe('InviteGuestComponent', () => {
   let component: InviteGuestComponent;
   let fixture: ComponentFixture<InviteGuestComponent>;
@@ -24,7 +25,7 @@ describe('InviteGuestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InviteGuestComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatCardModule, FormsModule, MatFormFieldModule, MatFormField],
       providers: [PopupDialogService,
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},

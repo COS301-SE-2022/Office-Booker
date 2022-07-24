@@ -67,12 +67,17 @@ export class InviteGuestComponent /*implements OnInit*/ {
           console.log(res);
           if (res) {
             console.log("User is already on the system");
+            console.log(this.exists);
             this.exists = true;
+            console.log(this.exists);
           } 
           else {
             this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
               console.log("User created!");
+              console.log(this.exists);
               this.exists = false;
+              console.log(this.exists);
+
               // return data;
             });
           }
