@@ -23,6 +23,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
       cancelText: 'CONFIRM.DOWNLOAD.JOB.CANCELTEXT',
       confirmText: 'CONFIRM.DOWNLOAD.JOB.CONFIRMTEXT'
     };
+  exists: boolean;
   constructor(
     private router: Router,
     private bookingService: BookingServiceService,
@@ -40,31 +41,38 @@ export class InviteGuestComponent /*implements OnInit*/ {
     this.loading = false;
     // this.dialogService.open(options);
 
+    this.exists = false;
   }
 
   /*ngOnInit(): void {}*/
   public invite(): void {
-    console.log("Email before it checks: " + this.email);
+    console.log(this.email);
     if (this.email == ""){ //if email is empty, show error popup
       this.option.title = "Please enter an email address";
       this.option.message = "";
       this.option.cancelText = "Close";
-      this.option.confirmText = "Ok"
-    } 
-    else { //if email is not empty, create user
-      this.option.message = this.email;
-
-      this.cognitoService.getCompany();
-      const thisCompany = this.cognitoService.returnCompanyID();
-      this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(res => { 
-        return res; 
+      this.option.confirmText = "Ok" }
+      else { //if email is not empty, create user
+        this.option.message = this.email;
+        this.cognitoService.getCompany();
+        const thisCompany = this.cognitoService.returnCompanyID();
+        this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
+          console.log(res);
+        if (res) {
+          console.log("User is already on the system");
+          alert("User is already on the system");
+        } else {
+          this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+            console.log("User created!");
+            alert("User created!");
+            return data;
+          });
+        }
       });
-      console.log("User created!")
-    }
 
+
+      }
     this.popupDialogService.open(this.option);
-
-    
-
   }
+
 }
