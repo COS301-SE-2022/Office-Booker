@@ -65,4 +65,87 @@ export class ApiBookingsRepositoryDataAccessService {
 
     // TODO: modify bookings?
 
+
+    // invites
+
+    // create an invite for a specific booking
+    async createInvite(@Param() bookingId: number, @Param() userEmail: string) {
+        return this.prisma.invite.create({
+            data: {
+                Booking: {  
+                    connect: {
+                        id: bookingId,
+                    },
+                },
+                invitedEmployee: {
+                    connect: {
+                        email: userEmail,
+                    },
+                },
+                accepted: false,
+            },
+        });
+    }
+
+    // get all invites for a specific booking
+    async getInvitesForBooking(@Param() bookingId: number) {
+        return this.prisma.invite.findMany({
+            where: {
+                bookingId,
+            },
+        });
+    }
+
+    // get all invites for a specific user
+    async getInvitesForUser(@Param() userId: number) {
+        return this.prisma.invite.findMany({
+            where: {
+                invitedEmployee: {
+                    id: userId,
+                },
+            },
+        });
+    }
+
+    // get a specific invite by its id
+    async getInviteById(@Param() inviteId: number) {
+        return this.prisma.invite.findUnique({
+            where: {
+                id: inviteId,
+            },
+        });
+    }
+
+    // accept an invite
+    async acceptInvite(@Param() inviteId: number) {
+        return this.prisma.invite.update({
+            where: {
+                id: inviteId,
+            },
+            data: {
+                accepted: true,
+            },
+        });
+    }
+
+    // reject an invite
+    async deleteInvite(@Param() inviteId: number) {
+        return this.prisma.invite.delete({
+            where: {
+                id: inviteId,
+            },
+        });
+    }
+
+    // create duplicate invited booking
+    async createInvitedBooking(@Param() inviteId: number) {
+        const invite = await this.getInviteById(inviteId);
+        const booking = await this.getBookingById(invite.bookingId);
+        return this.prisma.booking.create({
+            data: {
+                ...booking,
+                isInvited: true,
+            },
+        });
+    }
 }
