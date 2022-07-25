@@ -12,6 +12,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
   email: string;
   company: string;
   loading: boolean;
+  exists: boolean;
   constructor(
     private router: Router,
     private bookingService: BookingServiceService,
@@ -20,6 +21,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
     this.email = "";
     this.company = "";
     this.loading = false;
+    this.exists = false;
   }
 
   /*ngOnInit(): void {}*/
@@ -27,9 +29,20 @@ export class InviteGuestComponent /*implements OnInit*/ {
     console.log(this.email);
     this.cognitoService.getCompany();
     const thisCompany = this.cognitoService.returnCompanyID();
-    this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(res => { 
-      return res; 
+    this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
+      console.log(res);
+      if (res) {
+        console.log("User is already on the system");
+        alert("User is already on the system");
+      } else {
+        this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+          console.log("User created!");
+          alert("User created!");
+          return data;
+        });
+      }
     });
-    console.log("User created!")
+
+
   }
 }

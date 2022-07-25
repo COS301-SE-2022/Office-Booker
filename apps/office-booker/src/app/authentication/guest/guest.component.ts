@@ -53,17 +53,14 @@ export class GuestComponent /*implements OnInit*/ {
   public signUp(): void {
 
     this.option = 'Guest';
-    console.log(this.option);
     if (this.option == '') {
       alert('Please select a company')
 
     }
     else {
       this.bookingService.getEmployeeByEmail(this.user.email).subscribe(res => {
-        console.log(this.user.email);
-        console.log(res);
         this.currentUser = res;
-        if (this.currentUser.email == "null") {
+        if (res == null) {
           alert('You have not been invited');
         } else {
           this.loading = true;
@@ -74,13 +71,6 @@ export class GuestComponent /*implements OnInit*/ {
   
               this.loading = false;
               this.isConfirm = true;
-              /*this.option = (<HTMLSelectElement>document.getElementById('company')).value;
-                for(let i = 0; i < this.companies.length; i++)
-                    {
-                      if(this.companies[i].name == this.option){
-                       this.companyId = this.companies[i].id;
-                      }
-                          }*/
   
             }).catch((e) => {
               alert(e)
@@ -88,7 +78,6 @@ export class GuestComponent /*implements OnInit*/ {
             });
         }
       })
-      console.log(this.currentUser);
     }
 
   }
@@ -101,7 +90,6 @@ export class GuestComponent /*implements OnInit*/ {
         this.userId = this.user.email
         this.userName = this.user.name
 
-        console.log(this.companyId);
         /*this.bookingService.createUser(this.userName, this.companyId, this.userId, true).subscribe(res => {
           return res;
          
