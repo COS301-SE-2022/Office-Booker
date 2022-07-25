@@ -1,23 +1,22 @@
 {
-  "projectType": "library",
-  "root": "libs/api/mail",
-  "sourceRoot": "libs/api/mail/src",
-  "prefix": "office-booker",
-  "targets": {
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api/mail"],
-      "options": {
-        "jestConfig": "libs/api/mail/jest.config.ts",
-        "passWithNoTests": true
-      }
+    "root": "libs/api/permissions/",
+    "sourceRoot": "libs/api/permissions/src",
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/api/permissions//**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/libs/api/permissions/"],
+            "options": {
+                "jestConfig": "libs/api/permissions/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
     },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/api/mail/**/*.ts", "libs/api/mail/**/*.html"]
-      }
-    }
-  },
-  "tags": []
+    "tags": []
 }
