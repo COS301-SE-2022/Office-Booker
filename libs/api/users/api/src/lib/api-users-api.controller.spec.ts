@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
-import {MailService} from '@office-booker/api/mail';
+import { MailService } from '@office-booker/api/mail';
 import { MailModule } from '@office-booker/api/mail';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
@@ -24,7 +24,9 @@ describe('ApiUsersApiController', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
-      imports: [MailService, MailModule, ConfigModule],
+      imports: [MailService, MailModule, ConfigModule.forRoot({
+        isGlobal: true,
+      })],
       controllers: [ApiUsersApiController],
       providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService, ConfigService],
     }).compile();
