@@ -141,6 +141,7 @@ export class ApiBookingsRepositoryDataAccessService {
     async createInvitedBooking(@Param() inviteId: number) {
         const invite = await this.getInviteById(inviteId);
         const booking = await this.getBookingById(invite.bookingId);
+        delete booking.id;
         return this.prisma.booking.create({
             data: {
                 ...booking,
