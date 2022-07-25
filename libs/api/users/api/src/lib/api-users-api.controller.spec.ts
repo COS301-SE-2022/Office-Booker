@@ -24,9 +24,9 @@ describe('ApiUsersApiController', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
-      imports: [MailService, MailModule],
+      imports: [MailService, MailModule, ConfigModule],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService, ConfigService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
