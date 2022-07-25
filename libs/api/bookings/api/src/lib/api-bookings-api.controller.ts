@@ -15,6 +15,10 @@ class CreateBookingDto {
     endsAt: Date;
 }
 
+class emailDto {
+    email: string;
+}
+
 @UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
@@ -65,5 +69,18 @@ export class ApiBookingsApiController {
             }
         });
     }
+
+    // invites
+
+    @Post('/:bookingId/invite/')
+    async inviteUser(@Param('bookingId') bookingId: string, @Body() emailDto: emailDto) {
+        return await this.bookingService.createInvite(Number(bookingId), emailDto.email);
+    }
+
+    @Get('/:bookingId/invites/')
+    async getInvites(@Param('bookingId') bookingId: string) {
+        return await this.bookingService.getInvitesForBooking(Number(bookingId));
+    }
+
 
 }
