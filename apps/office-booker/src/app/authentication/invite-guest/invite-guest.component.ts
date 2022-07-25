@@ -36,6 +36,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
         alert("User is already on the system");
       } else {
         this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+
           console.log("User created!");
           alert("User created!");
           return data;

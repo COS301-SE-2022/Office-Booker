@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
+import { MailService } from '@libs/api/mail/mail.service';
 
 class createUserDto {
     name: string;
@@ -20,7 +21,7 @@ class ratingDto {
 
 @Controller('users')
 export class ApiUsersApiController {
-    constructor(private userService: ApiUsersRepositoryDataAccessService) { }
+    constructor(private userService: ApiUsersRepositoryDataAccessService, private mailService: MailService) { }
 
     @UseGuards(AuthGuard('jwt'))
     @Get("/")
@@ -51,6 +52,7 @@ export class ApiUsersApiController {
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
         const { name , companyId, email, guest } = postData;
+
         return await this.userService.createUser({
             name: name,
             company: {
