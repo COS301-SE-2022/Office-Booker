@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/office-booker",
         "index": "apps/office-booker/src/index.html",
@@ -90,9 +88,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/office-booker"
-      ],
+      "outputs": ["coverage/apps/office-booker"],
       "options": {
         "jestConfig": "apps/office-booker/jest.config.ts",
         "passWithNoTests": true
