@@ -3,6 +3,7 @@ import { PrismaService } from '@office-booker/api/shared/services/prisma/data-ac
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
 import {MailService} from '@office-booker/api/mail';
+import { MailModule } from '@office-booker/api/mail';
 
 
 describe('ApiUsersApiController', () => {
@@ -22,6 +23,7 @@ describe('ApiUsersApiController', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
+      imports: [MailService, MailModule],
       controllers: [ApiUsersApiController],
       providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService],
     }).compile();
