@@ -15,7 +15,7 @@ import { CognitoService } from '../../cognito.service';
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 describe('BookingsComponent', () => {
@@ -25,7 +25,7 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckbox],
+                MatCheckboxModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
