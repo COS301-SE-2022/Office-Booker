@@ -82,5 +82,4 @@ export class ApiBookingsApiController {
         return await this.bookingService.getInvitesForBooking(Number(bookingId));
     }
 
-
 }
