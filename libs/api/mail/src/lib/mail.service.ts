@@ -10,9 +10,9 @@ export class MailService {
 
     await this.mailerService.sendMail({
       to: 'u20460687@tuks.co.za',
-      // from: '"Support Team" <support@example.com>', // override default from
-      subject: 'Welcome to Nice App! Confirm your Email',
-      html: './confirmation', // `.hbs` extension is appended automatically
+      from: '"Office Booker" <support@example.com>', // override default from
+      subject: 'Welcome to Office Booker!',
+      html: '<p>You have been invited to office booker</p><p>Click the link to join: </p><a href="www.youtube.com">Click</a>', 
       context: { // ✏️ filling curly brackets with content
         name: 'Ying',
         url,
