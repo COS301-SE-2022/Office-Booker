@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -17,6 +17,10 @@ class CreateBookingDto {
 
 class emailDto {
     email: string;
+}
+
+class inviteDto {
+
 }
 
 @UseGuards(AuthGuard('jwt'))
@@ -72,14 +76,30 @@ export class ApiBookingsApiController {
 
     // invites
 
-    @Post('/:bookingId/invite/')
+    @Post('/invites/:bookingId')
     async inviteUser(@Param('bookingId') bookingId: string, @Body() emailDto: emailDto) {
         return await this.bookingService.createInvite(Number(bookingId), emailDto.email);
     }
 
-    @Get('/:bookingId/invites/')
+    @Get('/invites/:bookingId')
     async getInvites(@Param('bookingId') bookingId: string) {
         return await this.bookingService.getInvitesForBooking(Number(bookingId));
+    }
+
+    @Get('/invites/user/:userId')
+    async getInvitesForUser(@Param('userId') userId: string) {
+        return await this.bookingService.getInvitesForUser(Number(userId));
+    }
+
+    @Put('/invites/accept/:inviteId')
+    async acceptInvite(@Param('inviteId') inviteId: string) {
+        await this.bookingService.acceptInvite(Number(inviteId));
+        return this.bookingService.createInvitedBooking(Number(inviteId));
+    }
+
+    @Put('/invites/decline/:inviteId')
+    async declineInvite(@Param('inviteId') inviteId: string) {
+        return await this.bookingService.deleteInvite(Number(inviteId));
     }
 
 }
