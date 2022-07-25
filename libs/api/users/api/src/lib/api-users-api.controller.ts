@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
-import { MailService } from '@libs/api/mail/mail.service';
+import { MailService } from '@office-booker/api/mail';
 
 class createUserDto {
     name: string;
@@ -51,8 +51,9 @@ export class ApiUsersApiController {
 
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
+        console.log("Im here");
         const { name , companyId, email, guest } = postData;
-
+        this.mailService.sendUserConfirmation();
         return await this.userService.createUser({
             name: name,
             company: {

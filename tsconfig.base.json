@@ -39,6 +39,7 @@
       "@office-booker/api/facilities/repository/data-access": [
         "libs/api/facilities/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/mail": ["libs/api/mail/src/index.ts"],
       "@office-booker/api/permissions": ["libs/api/permissions/src/index.ts"],
       "@office-booker/api/rooms/api": ["libs/api/rooms/api/src/index.ts"],
       "@office-booker/api/rooms/repository/data-access": [
@@ -50,7 +51,8 @@
       "@office-booker/api/users/api": ["libs/api/users/api/src/index.ts"],
       "@office-booker/api/users/repository/data-access": [
         "libs/api/users/repository/data-access/src/index.ts"
-      ]
+      ],
+      "@office-booker/mail": ["libs/mail/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
