@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -13,6 +13,16 @@ class CreateBookingDto {
     @IsDate()
     @Type(() => Date)
     endsAt: Date;
+
+    @Type(() => Number)
+    deskId: number;
+
+    @Type(() => Number)
+    userId: number;
+}
+
+class emailDto {
+    email: string;
 }
 
 @UseGuards(AuthGuard('jwt'))
@@ -46,14 +56,15 @@ export class ApiBookingsApiController {
         return await this.bookingService.deleteBooking(Number(bookingId));
     }
 
-    @Post('/:deskId/:userId')
-    async createBooking(@Param('deskId') deskId: string, @Param('userId') userId: string, @Body() postData: CreateBookingDto) {
+    @Post('/')
+    async createBooking(@Body() postData: CreateBookingDto) {
+        const { startsAt, endsAt, deskId, userId } = postData;
+
         if (!this.permissionService.userAndDesk(Number(userId), Number(deskId))) {
             console.log("User and desk don't match");
             throw new Error('You are not allowed to create a booking for this desk.');
         }
 
-        const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
             endsAt: endsAt,
@@ -64,6 +75,34 @@ export class ApiBookingsApiController {
                 connect: { id: Number(userId) },
             }
         });
+    }
+
+    // invites
+
+    @Post('/invites/:bookingId')
+    async inviteUser(@Param('bookingId') bookingId: string, @Body() emailDto: emailDto) {
+        return await this.bookingService.createInvite(Number(bookingId), emailDto.email);
+    }
+
+    @Get('/invites/:bookingId')
+    async getInvites(@Param('bookingId') bookingId: string) {
+        return await this.bookingService.getInvitesForBooking(Number(bookingId));
+    }
+
+    @Get('/invites/user/:userId')
+    async getInvitesForUser(@Param('userId') userId: string) {
+        return await this.bookingService.getInvitesForUser(Number(userId));
+    }
+
+    @Put('/invites/accept/:inviteId')
+    async acceptInvite(@Param('inviteId') inviteId: string) {
+        await this.bookingService.acceptInvite(Number(inviteId));
+        return this.bookingService.createInvitedBooking(Number(inviteId));
+    }
+
+    @Put('/invites/decline/:inviteId')
+    async declineInvite(@Param('inviteId') inviteId: string) {
+        return await this.bookingService.deleteInvite(Number(inviteId));
     }
 
 }
