@@ -25,7 +25,7 @@ class emailDto {
     email: string;
 }
 
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
