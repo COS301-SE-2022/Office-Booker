@@ -1,0 +1,27 @@
+<div class="header">
+    <h1 mat-dialog-title>Hello</h1>
+  </div>
+  
+  
+  <div mat-dialog-content>
+    <p class="dialog-message"></p>  
+    <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
+      <mat-card-content>
+          <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>
+          <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'+2}} - {{booking.endsAt | date: 'HH:mm': 'UTC'+2}} </div>
+          <mat-card-actions>
+              <button (click)="this.data.mapBookings.deleteBooking(booking.id, this.data.selectedItemType)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
+          </mat-card-actions>
+      </mat-card-content>
+  </mat-card>
+  </div>
+  
+  
+  <div mat-dialog-actions>
+    <button mat-button></button>
+    <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
+    <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
+    <button mat-button cdkFocusInitial></button>
+  </div>
+  
+  

@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
@@ -43,6 +44,7 @@ import {
 } from '@angular/material/dialog';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
+import { DeskPopupComponent } from './bookings/map-bookings/desk-popup/desk-popup.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -91,6 +93,7 @@ export function tokenGetter() {
     ForgotPasswordComponent,
     InviteDialogComponent,
     PopupDialogComponent,
+    DeskPopupComponent,
   ],
   entryComponents: [BookingDialogComponent],
   imports: [
@@ -105,6 +108,7 @@ export function tokenGetter() {
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
@@ -123,7 +127,7 @@ export function tokenGetter() {
     { provide: MatDialogRef, useValue: {} },
     // { provide: MatDialog, useValue: {}},
     // { provide: MAT_DIALOG_DATA, useValue: {}},
-    PopupDialogService
+    PopupDialogService,
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],

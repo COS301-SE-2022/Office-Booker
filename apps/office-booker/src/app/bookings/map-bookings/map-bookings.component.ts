@@ -5,6 +5,10 @@ import { CognitoService } from '../../cognito.service';
 
 
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeskPopupComponent } from './desk-popup/desk-popup.component';
+
+import { MatCheckbox } from '@angular/material/checkbox';
 
 
 
@@ -46,7 +50,8 @@ export class MapBookingsComponent {
   constructor(private bookingService: BookingServiceService, 
     private changeDetection: ChangeDetectorRef,
     private cognitoService: CognitoService,
-    private popupDialogService: PopupDialogService) { 
+    private popupDialogService: PopupDialogService,
+    public dialog: MatDialog) { 
 
     changeDetection.detach();
     this.selectedItemId = 0;
@@ -115,12 +120,16 @@ export class MapBookingsComponent {
     this.selectedItemName = itemType + " " + itemId.toString();       //cosmetic for displaying in the selected div
     this.selectedItemId = itemId;           //needed for when making bookings and canceling bookings and displaying bookings
     this.selectedItemType = itemType;     //will be necessary once meeting rooms have been included
+    
+    
     this.desks.forEach(desk => {
       if (desk.id == itemId) {
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
       }
     })
     this.changeDetection.detectChanges();
+
+    this.openDialog();
   }
 
   filterBookings() {         //filters the bookings based on the selected date
@@ -292,5 +301,19 @@ export class MapBookingsComponent {
       }
       this.changeDetection.detectChanges();
     })
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DeskPopupComponent, {
+      width: '550px',
+      data: {currentUser: this.currentUser,
+              selectedItemBookings: this.selectedItemBookings,
+              selectedItemType: this.selectedItemType,
+            }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
