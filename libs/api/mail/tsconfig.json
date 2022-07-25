@@ -1,5 +1,8 @@
 {
   "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs"
+  },
   "files": [],
   "include": [],
   "references": [
@@ -9,20 +12,5 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ],
-  "compilerOptions": {
-    "assets":  ["templates/**/*"],
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "watchAssets": true
-  },
-  "angularCompilerOptions": {
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+  ]
 }
