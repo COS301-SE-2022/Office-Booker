@@ -19,10 +19,6 @@ class emailDto {
     email: string;
 }
 
-class inviteDto {
-
-}
-
 @UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
