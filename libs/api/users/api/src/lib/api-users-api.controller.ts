@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { AuthGuard } from '@nestjs/passport';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { MailService } from '@office-booker/api/mail';
+import { MailerService } from '@nestjs-modules/mailer';
 
 class createUserDto {
     name: string;

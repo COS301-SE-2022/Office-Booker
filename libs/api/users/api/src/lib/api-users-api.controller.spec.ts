@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
+import {MailService} from '@office-booker/api/mail';
 
 
 describe('ApiUsersApiController', () => {
@@ -22,7 +23,7 @@ describe('ApiUsersApiController', () => {
     }
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
