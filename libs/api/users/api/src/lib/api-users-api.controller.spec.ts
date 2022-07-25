@@ -4,6 +4,7 @@ import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/re
 import { ApiUsersApiController } from './api-users-api.controller';
 import {MailService} from '@office-booker/api/mail';
 import { MailModule } from '@office-booker/api/mail';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
 describe('ApiUsersApiController', () => {
@@ -25,7 +26,7 @@ describe('ApiUsersApiController', () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [MailService, MailModule],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService, ConfigService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);

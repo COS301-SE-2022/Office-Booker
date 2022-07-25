@@ -20,12 +20,13 @@ import { ApiAuthorizationModule } from '@office-booker/api/authorization';
 import { ApiPermissionsService } from '@office-booker/api/permissions';
 import { MailService } from '@office-booker/api/mail';
 import { MailModule } from '@office-booker/api/mail';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [ApiAuthorizationModule, MailModule , ConfigModule.forRoot({
     isGlobal: true,
   })],
   controllers: [AppController, ApiRoomsApiController, ApiDesksApiController, ApiFacilitiesApiController, ApiBookingsApiController, ApiCompaniesApiController, ApiUsersApiController],
-  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, ApiPermissionsService, MailService],
+  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, ApiPermissionsService, MailService, ConfigService],
 })
 export class AppModule {}
