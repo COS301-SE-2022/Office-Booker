@@ -13,13 +13,19 @@ class CreateBookingDto {
     @IsDate()
     @Type(() => Date)
     endsAt: Date;
+
+    @Type(() => Number)
+    deskId: number;
+
+    @Type(() => Number)
+    userId: number;
 }
 
 class emailDto {
     email: string;
 }
 
-@UseGuards(AuthGuard('jwt'))
+//@UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
@@ -50,14 +56,15 @@ export class ApiBookingsApiController {
         return await this.bookingService.deleteBooking(Number(bookingId));
     }
 
-    @Post('/:deskId/:userId')
-    async createBooking(@Param('deskId') deskId: string, @Param('userId') userId: string, @Body() postData: CreateBookingDto) {
+    @Post('/')
+    async createBooking(@Body() postData: CreateBookingDto) {
+        const { startsAt, endsAt, deskId, userId } = postData;
+
         if (!this.permissionService.userAndDesk(Number(userId), Number(deskId))) {
             console.log("User and desk don't match");
             throw new Error('You are not allowed to create a booking for this desk.');
         }
 
-        const { startsAt, endsAt } = postData;
         return await this.bookingService.createBooking({
             startsAt: startsAt,
             endsAt: endsAt,
