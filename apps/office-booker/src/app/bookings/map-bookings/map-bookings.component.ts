@@ -305,10 +305,11 @@ export class MapBookingsComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
-      width: '550px',
+      width: '400px',
       data: {currentUser: this.currentUser,
               selectedItemBookings: this.selectedItemBookings,
               selectedItemType: this.selectedItemType,
+              deskId: this.selectedItemId,
             }
     });
 
