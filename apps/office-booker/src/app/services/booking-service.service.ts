@@ -103,10 +103,12 @@ export class BookingServiceService {
   }
 
   createBooking(deskId: number, userId: number, startDate: string, endDate: string){
-    const url = 'http://localhost:3333/api/bookings/' + deskId + '/'+ userId;
+    const url = 'http://localhost:3333/api/bookings';
     const body = {
       startsAt: startDate,
-      endsAt: endDate
+      endsAt: endDate,
+      deskId: deskId,
+      userId: userId,
     }
     return this.http.post<Booking>(`${url}`, body);
   }
