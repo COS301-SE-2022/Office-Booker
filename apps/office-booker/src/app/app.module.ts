@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider'; 
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
@@ -37,11 +38,9 @@ import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { VotingBookingsComponent } from './bookings/voting-bookings/voting-bookings.component';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
 import { DeskPopupComponent } from './bookings/map-bookings/desk-popup/desk-popup.component';
@@ -58,6 +57,7 @@ const routes: Routes = [
   { path: 'invite-guest', component: InviteGuestComponent },
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'voting-bookings', component: VotingBookingsComponent},
   { path: '', component: LoginComponent },
 ];
 
@@ -92,6 +92,7 @@ export function tokenGetter() {
     AccountComponent,
     ForgotPasswordComponent,
     InviteDialogComponent,
+    VotingBookingsComponent,
     PopupDialogComponent,
     DeskPopupComponent,
   ],
@@ -104,6 +105,7 @@ export function tokenGetter() {
     MatDialogModule,
     RouterModule.forRoot(routes),
     RouterModule,
+    MatSliderModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,

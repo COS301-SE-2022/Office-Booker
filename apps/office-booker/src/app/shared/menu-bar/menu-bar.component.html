@@ -18,8 +18,10 @@
                     class="fa fa-list-alt"></i> Manage Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><i
-                    class="fa fa-bars"></i> Admin Page</a>
+            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-check-circle-o" ></i>Rate other Users</a>
+        </li>
+        <li>
+            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()" ><i class="fa fa-bars" ></i> Admin Page</a>
         </li>
         <li>
             <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><i

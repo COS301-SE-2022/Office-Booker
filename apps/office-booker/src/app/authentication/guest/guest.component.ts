@@ -18,7 +18,7 @@ export class GuestComponent /*implements OnInit*/ {
   companyId: number;
   companies: Array<company> = [];
   option: string;
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false };
+  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
   constructor(
     private router: Router,
     private cognitoService: CognitoService,
