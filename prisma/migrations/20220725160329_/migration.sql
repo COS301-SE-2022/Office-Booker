@@ -13,6 +13,7 @@ CREATE TABLE "Employee" (
     "email" TEXT NOT NULL,
     "companyId" INTEGER NOT NULL,
     "admin" BOOLEAN NOT NULL,
+    "guest" BOOLEAN NOT NULL,
     "currentRating" INTEGER NOT NULL,
     "ratingsReceived" INTEGER NOT NULL,
 
@@ -60,8 +61,19 @@ CREATE TABLE "Booking" (
     "startsAt" TIMESTAMP(3) NOT NULL,
     "endsAt" TIMESTAMP(3) NOT NULL,
     "employeeId" INTEGER NOT NULL,
+    "isInvited" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Invite" (
+    "id" SERIAL NOT NULL,
+    "bookingId" INTEGER NOT NULL,
+    "employeeId" INTEGER NOT NULL,
+    "accepted" BOOLEAN NOT NULL DEFAULT false,
+
+    CONSTRAINT "Invite_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -87,3 +99,9 @@ ALTER TABLE "Booking" ADD CONSTRAINT "Booking_employeeId_fkey" FOREIGN KEY ("emp
 
 -- AddForeignKey
 ALTER TABLE "Booking" ADD CONSTRAINT "Booking_deskId_fkey" FOREIGN KEY ("deskId") REFERENCES "Desk"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
