@@ -63,10 +63,30 @@
                             </mat-card-actions>
                         </mat-card-content>
                     </mat-card>
-
                 </div>
                 <br>
             </mat-card-content>
         </mat-card>
     </div>
+</div>
+<div class="comparison-container">
+  <mat-card *ngFor="let comparison of multiSelectedItemBookingsArr">
+    <div class="close-button">
+      <mat-card-actions>
+        <button mat-icon-button color="warn" (click)="unselectComparison(comparison[0].deskId)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-actions>
+
+    </div>
+    <mat-card-header>Desk: {{comparison[0].deskId}}</mat-card-header>
+    <br>
+    <mat-card-content>
+      <div *ngFor="let booking of comparison">
+        <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>  
+        <div>Time: {{booking.startsAt | date: 'HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'HH:MM': 'UTC'+2}} </div>
+        <br>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
