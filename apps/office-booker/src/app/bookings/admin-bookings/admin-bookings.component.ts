@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-admin-bookings',
@@ -14,8 +14,10 @@ export class AdminBookingsComponent{
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
-  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false};
-  
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false, currentRating: 0, ratingsReceived: 0};
+  newRating: rating = {currentRating: -1, ratingsReceived: -1};
+  rating = 0;
+
   constructor(private router: Router, private bookingService: BookingServiceService) {
     //changeDetection.detach();
     //console.log(this.userBookings);
@@ -37,6 +39,18 @@ export class AdminBookingsComponent{
     })
   }
 
+  getRating(employeeRate: number): number{
+    let i: number;
+    for(i = 0; i < this.Users.length; i++){
+    if(this.Users[i].id == employeeRate){
+      this.rating = this.Users[i].currentRating/this.Users[i].ratingsReceived;
+      //console.log(this.Users[i].ratingsRecieved);
+      
+      return this.rating;
+    }
+    }
+    return this.rating;
+  }
 
   getDesksByRoomId(roomId: number){
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {

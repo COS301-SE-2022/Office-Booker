@@ -1,0 +1,58 @@
+
+.mat-card{
+    width: 300px;
+    
+    margin: 1rem;
+    margin-left: 2rem;
+    
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+  
+    border: rgb(39, 39, 39) 1px solid;
+    border-radius: 15px;
+  
+    display: inline-block;
+    color:rgb(0, 0, 0);
+  
+    
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  .numbers{
+    padding: 0.5rem;
+  }
+
+  body{
+    overflow: hidden;
+  }
+  
+  .mat-slider-horizontal{
+    width: 200px;
+  }
+
+  .mat-card-header{
+    color: rgb(0, 0, 0);
+    /* text-align: center; */
+    display: inline-block;
+  }
+  
+  .mat-card-subtitle{
+    color: rgb(0, 0, 0);
+    /* text-align: center; */
+  }
+  
+  .clicker{
+    background : rgb(204, 26, 70);
+  }
+  
+  .heading{
+  padding-left: 2rem;
+  }
+  
+  .text{
+    padding-left: 2rem;
+  }
+  
+  
