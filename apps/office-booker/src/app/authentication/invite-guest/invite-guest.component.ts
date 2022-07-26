@@ -146,7 +146,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
   }
 
   public validateEmail(email: string): boolean {
-    const regexEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    const regexEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; // eslint-disable-line no-use-before-define
     if (email.match(regexEmail)) {
       return true;
     } else {
