@@ -1,12 +1,13 @@
 <h1 class="heading">Rate other users bookings</h1>
 <p class="text">You can rate other users here on how they left their workspace. Rate Users from 1 to 5, 
     with 1 being leaving the workspace in a disorderly fashion and 5 being the workspace was left as it was found.</p>
-  <div *ngIf="currentUser">
+    
+  <div>
     <div class="card-wrapper" *ngFor="let booking of userBookings">
         
       <mat-card class="example-card">
         <mat-card-header>
-            <mat-card-title>Seat {{booking.deskId}} </mat-card-title>
+            <mat-card-title >Seat {{booking.deskId}} </mat-card-title>
             <mat-card-subtitle>
               This seat was booked for today.
             </mat-card-subtitle>
@@ -18,7 +19,7 @@
         <mat-card-actions>
             <mat-slider min="1" max="5" step="1" value="3" #matslider></mat-slider>
             <div class="numbers">{{matslider.value}}</div>
-            <button class="clicker" [disabled]="clicked" (click)="getScore(matslider.value); clicked = true;"   mat-raised-button color="accent" >Rate the workspace</button>
+            <button class="clicker" [disabled]="false" (click)="getScore(matslider.value, booking.employeeId);"   mat-raised-button color="accent">Rate the workspace</button>
         </mat-card-actions>
 
           <p></p>
