@@ -19,6 +19,11 @@ export class MenuBarComponent {
   constructor(private app: AppComponent,
     private cognitoService: CognitoService, 
     ) {
+
+    this.admin = this.cognitoService.authenticated();
+    this.guest = this.cognitoService.guest();
+    this.authenticated = this.cognitoService.admin();
+    this.email = this.cognitoService.getEmailAddress();
       
   }
 
