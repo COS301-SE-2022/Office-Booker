@@ -189,9 +189,25 @@ inviteOthers(bookingId : number) {
 }
 
 acceptInvite(inviteId : number) {
-  // console.log(inviteId)
 
   this.bookingService.acceptInvite(inviteId).subscribe(res => {
+    res;
+  });
+  for (let i = 0; i < this.invites.length; i++) {
+    if(this.invites[i].id == inviteId){
+      this.invites.splice(i,1);
+    }
+  }
+  // this.getBookings(this.currentUser.id);
+  // location.reload();
+  setTimeout(() => {this.getBookings(this.currentUser.id);}, 500);
+  this.changeDetection.detectChanges();
+
+}
+
+declineInvite(inviteId : number) {
+  
+  this.bookingService.declineInvite(inviteId).subscribe(res => {
     res;
   });
   for (let i = 0; i < this.invites.length; i++) {

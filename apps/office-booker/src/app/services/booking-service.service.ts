@@ -199,6 +199,11 @@ export class BookingServiceService {
     return this.http.put<Invite[]>(`${url}`, {});
   }
 
+  declineInvite(id: number){
+    const url = 'http://localhost:3333/api/bookings/invites/decline/' + id;
+    return this.http.put<Invite[]>(`${url}`, {});
+  }
+
   updateRatings(userId: number, currentRating: number, ratingsReceived: number){
     const url = 'http://localhost:3333/api/users/ratings/' + userId;
     const body = {
