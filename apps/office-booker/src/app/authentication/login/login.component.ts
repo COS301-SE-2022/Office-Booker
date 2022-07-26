@@ -30,6 +30,7 @@ export class LoginComponent {
 
   public signIn(): void {
     this.loading = true;
+    // if (this.user.username == null) { this.loading=false; alert("Please enter an email address"); return;}
     this.cognitoService.signIn(this.user)
     .then(() => {
       this.cognitoService.setAuthenticated(true);
