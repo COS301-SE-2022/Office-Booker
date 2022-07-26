@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating} from '../../services/booking-service.service';
+
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
@@ -27,32 +28,37 @@ export class PersonalBookingsComponent {
 
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
+  invites: Array<Invite> = [];
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
+  
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
   newRating: rating = {currentRating: -1, ratingsReceived: -1};
   rating = 0;
-
+    // bookingId = -1;
 
   constructor(private router: Router, private bookingService: BookingServiceService, 
               private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
     changeDetection.detach();
-    //console.log(this.userBookings);
+    //console.log(this.userBookings);a
   }
 
-  openDialog(): void {
+  openDialog(bookingId : number): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
       data: {inviteEmail: this.inviteEmail}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.inviteEmail = result;
-      console.log(this.inviteEmail);
+      // console.log(this.inviteEmail);
+      this.inviteOthers(bookingId);
     });
+
+    
+    
   }
 
 
@@ -115,7 +121,7 @@ export class PersonalBookingsComponent {
   }
 
   getBookings(userId: number){
-
+    this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
        res.forEach(booking => {
          const newBooking = {} as Booking;
@@ -130,8 +136,8 @@ export class PersonalBookingsComponent {
         });
         this.changeDetection.detectChanges();
       })   
- }
 
+  }
 
  getCurrentUser(){
    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
@@ -140,6 +146,7 @@ export class PersonalBookingsComponent {
       this.userNumb = this.currentUser.id;
       this.getRating();
       this.getBookings(this.currentUser.id);
+      this.getInvites(this.currentUser.id);
       this.changeDetection.detectChanges();
 
       
@@ -169,8 +176,51 @@ export class PersonalBookingsComponent {
   
 }
 
+
+
+//functions for invites
+
 inviteOthers(bookingId : number) {
-  // this.bookingService.createBooking(bookingId).subscribe(res => {
+  this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
+    // console.log(res);
+    // console.log(bookingId);
+  });
+
 }
+
+acceptInvite(inviteId : number) {
+  // console.log(inviteId)
+
+  this.bookingService.acceptInvite(inviteId).subscribe(res => {
+    res;
+  });
+  for (let i = 0; i < this.invites.length; i++) {
+    if(this.invites[i].id == inviteId){
+      this.invites.splice(i,1);
+    }
+  }
+  // this.getBookings(this.currentUser.id);
+  // location.reload();
+  setTimeout(() => {this.getBookings(this.currentUser.id);}, 500);
+  this.changeDetection.detectChanges();
+
+}
+
+getInvites(userId: number){
+  console.log(userId)
+  this.bookingService.getInvitesForUser(userId).subscribe(res => {
+    console.log(res)
+    res.forEach((Invite) => {
+      console.log(Invite)
+      // Invite.invitedEmployee.id;
+      this.invites.push(Invite);
+      this.changeDetection.detectChanges(); 
+     });
+     this.changeDetection.detectChanges();
+   })   
+}
+
+
+
 
 }

@@ -50,6 +50,14 @@ export interface company {
   name: string,
 }
 
+export interface Invite {
+  bookingId: number,
+  email: string,
+  id: number,
+  invitedEmployee: employee,
+
+}
+
 export interface rating{
   currentRating: number,
   ratingsReceived: number,
@@ -171,6 +179,25 @@ export class BookingServiceService {
     console.log(body);
     return this.http.post<employee>(`${url}`, body);
   }  
+
+  createInvite(bookingId: number, email: string){
+    const url = 'http://localhost:3333/api/bookings/invites/' + bookingId;
+    const body = {
+      email: email
+    } 
+    console.log(body);
+    return this.http.post<Invite>(`${url}`, body);
+  } 
+
+  getInvitesForUser(employeeId: number){
+    const url = 'http://localhost:3333/api/bookings/invites/user/' + employeeId;
+    return this.http.get<Invite[]>(`${url}`);
+  }
+
+  acceptInvite(id: number){
+    const url = 'http://localhost:3333/api/bookings/invites/accept/' + id;
+    return this.http.put<Invite[]>(`${url}`, {});
+  }
 
   updateRatings(userId: number, currentRating: number, ratingsReceived: number){
     const url = 'http://localhost:3333/api/users/ratings/' + userId;

@@ -145,6 +145,7 @@ export class ApiBookingsRepositoryDataAccessService {
         return this.prisma.booking.create({
             data: {
                 ...booking,
+                employeeId: invite.employeeId,
                 isInvited: true,
             },
         });

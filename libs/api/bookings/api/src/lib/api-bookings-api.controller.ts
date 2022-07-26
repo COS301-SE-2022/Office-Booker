@@ -97,7 +97,8 @@ export class ApiBookingsApiController {
     @Put('/invites/accept/:inviteId')
     async acceptInvite(@Param('inviteId') inviteId: string) {
         await this.bookingService.acceptInvite(Number(inviteId));
-        return this.bookingService.createInvitedBooking(Number(inviteId));
+        await this.bookingService.createInvitedBooking(Number(inviteId));
+        return await this.bookingService.deleteInvite(Number(inviteId));
     }
 
     @Put('/invites/decline/:inviteId')
