@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { MatSliderModule } from '@angular/material/slider'; 
-import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
+import { Employee } from '@prisma/client';
 
 @Component({
   selector: 'office-booker-voting-bookings',
@@ -16,7 +17,8 @@ export class VotingBookingsComponent{
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
-  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false};
+  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
+  rateUser: rating = {currentRating: -1, ratingsReceived: -1};
   clicked = false;
   
 
@@ -29,22 +31,52 @@ export class VotingBookingsComponent{
     this.getCurrentUser();
   }
   
-  getScore(score: number){
+  getScore(score: number, employeeRate: number){
+    console.log(employeeRate);
+    console.log(score); 
+    
+    // this.bookingService.getRatings(employeeRate).subscribe(res => {
+    //   console.log(res);
+    // this.rateUser.currentRating = score + res.currentRating;
+    // this.rateUser.ratingsRecieved = res.ratingsRecieved + 1;
+    // console.log(res);
+    // console.log(res.ratingsRecieved);
+    // this.updateUserRatings(employeeRate, this.rateUser);
+    // });
+    let i: number;
+    for(i = 0; i < this.Users.length; i++){
+    if(this.Users[i].id == employeeRate){
+      this.rateUser.currentRating = this.Users[i].currentRating + score;
+      this.rateUser.ratingsReceived = this.Users[i].ratingsReceived + 1;
+      //console.log(this.Users[i].ratingsRecieved);
+      this.updateUserRatings(employeeRate, this.rateUser);
+    }
+    } 
+  }
 
-    console.log(score);
+  updateUserRatings(user: number, ratings: rating){
+    console.log(ratings.ratingsReceived);
 
+    this.bookingService.updateRatings(user, ratings.currentRating, ratings.ratingsReceived).subscribe(stuff => {
+      //console.log(stuff);
+      //return stuff;
+     
+    });
   }
 
   getUsers(){
-    this.bookingService.getAllEmployees().subscribe( res => {
+    this.bookingService.getAllEmployees().subscribe(res => {
       res.forEach(user => {
         if(user.id != this.currentUser.id){
+          console.log(user);
+          console.log(user.currentRating);
+          console.log(user.ratingsReceived); 
         this.Users.push(user);
         this.getBookings(user.id, user.name);
         //this.changeDetection.detectChanges();
-      }
-      });
-    })
+        }
+      })
+    });
   }
 
 
