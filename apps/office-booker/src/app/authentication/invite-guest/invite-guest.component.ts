@@ -38,8 +38,8 @@ export class InviteGuestComponent /*implements OnInit*/ {
     this.option = {
       title: '',
       message: '',
-      cancelText: '',
-      confirmText: 'Ok'
+      cancelText: 'Ok',
+      confirmText: ''
     };
 
     this.email = "";
