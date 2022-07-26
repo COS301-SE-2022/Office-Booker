@@ -23,8 +23,8 @@
 .mat-card{
     background-color: rgb(255, 255, 255);
     text-align: center;
-    border: rgb(39, 39, 39) 1px solid;
-    border-radius: 15px;
+    border: rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-radius: 6px;
     
     
 }
@@ -75,12 +75,12 @@
   }
   
   .btn.btn-sm.btn-success{
-    background : rgb(204, 26, 70);
+    /* background : rgb(26, 148, 204); */
   }
 
   .btn-block{
     margin-top: 0px;
-    background : rgb(204, 26, 70);
+    /* background : rgb(26, 109, 204); */
   }
 
   body{
