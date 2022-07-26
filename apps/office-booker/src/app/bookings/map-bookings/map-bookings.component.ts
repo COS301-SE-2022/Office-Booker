@@ -31,6 +31,10 @@ export class MapBookingsComponent {
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
 
+  //multi select variables
+  multiSelectedItemId: Array<number> = [];
+  multiSelectedItemBookingsArr: Array<Array<Booking>> = []
+
   //date variables for date time picker
   grabbedStartDate = "";
   grabbedEndDate = "";
@@ -99,14 +103,29 @@ export class MapBookingsComponent {
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
-        if (booking) {      //if a booking exists at all even one, change the boolean to true
-          bookingReturn = true;
+        const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
+        if(booking){      //if a booking exists at all even one, change the boolean to true
+          const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
+          bookingDate.setHours(bookingDate.getHours()-2);   //booking is saved plus two somehow
+
+          if(bookingDate > comparisonDate){     //only if the booking ends after the current time
+            bookingReturn = true;
+          }
         }
         for (let i = 0; i < this.desks.length; i++)      //loop through each desk in the array to make sure you find the correct desk
         {
           if (this.desks[i].id == deskId) {       //find correct desk using the id of the desk
             this.desks[i].booking = bookingReturn;        //assigns the boolean to the desk of specific id (if there were no bookings the booking is false)
-            this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
+            if(booking){
+              const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
+              bookingDate.setHours(bookingDate.getHours()-2);
+              if(bookingDate > comparisonDate){
+                this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
+                this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
+                
+              }
+
+            }
           }
         }
         this.changeDetection.detectChanges();
@@ -114,22 +133,53 @@ export class MapBookingsComponent {
     })
   }
 
-  selectToBook(itemId: number, itemType: string) {       //used to find the info for the selected desk
-    this.selectedItemBookings = [];
+  selectToBook(itemId: number, itemType: string){       //used to find the info for the selected desk
+    this.selectedItemBookings = [];   
     this.selected = true;         //changes so that the div can be displayed only once something has been selected
     this.selectedItemName = itemType + " " + itemId.toString();       //cosmetic for displaying in the selected div
     this.selectedItemId = itemId;           //needed for when making bookings and canceling bookings and displaying bookings
     this.selectedItemType = itemType;     //will be necessary once meeting rooms have been included
-    
-    
-    this.desks.forEach(desk => {
-      if (desk.id == itemId) {
+    this.desks.forEach(desk => {        
+      if(desk.id == itemId){
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
+        //this.selectedItemBookings = this.selectedItemBookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());    //sorts display bookings in ascending order (earliest first)
       }
     })
-    this.changeDetection.detectChanges();
 
-    //this.openDialog(); //calls openDialog function which triggers the popup dialog
+    if(this.multiSelectedItemId.length < 5){      //limits comparison to 5
+      if(!(this.multiSelectedItemId.includes(itemId))){     //checks id doesnt already exist in the array
+        this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
+      }
+    }
+
+    this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
+    this.multiSelectedItemId.forEach(id => {
+      this.desks.forEach(desk => {          //loops through each id and each desk
+        if(desk.id == id && desk.booking){              //to match id's for pushing the bookings on to the array
+          this.multiSelectedItemBookingsArr.push(desk.bookings);
+        }
+      })
+    })
+
+    this.changeDetection.detectChanges();
+  }
+
+  unselectComparison(itemId: number){
+    for(let i = 0; i < this.multiSelectedItemId.length; i++){
+      if(itemId == this.multiSelectedItemId[i]){
+        this.multiSelectedItemId.splice(i,1);
+      }
+    }
+    this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
+    this.multiSelectedItemId.forEach(id => {
+      this.desks.forEach(desk => {          //loops through each id and each desk
+        if(desk.id == id && desk.booking){              //to match id's for pushing the bookings on to the array
+          this.multiSelectedItemBookingsArr.push(desk.bookings);
+        }
+      })
+    })
+
+    this.changeDetection.detectChanges();
   }
 
   filterBookings() {         //filters the bookings based on the selected date
@@ -224,44 +274,40 @@ export class MapBookingsComponent {
   }
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
-    if (!this.hasBooking) {
-      const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
-        return desk.id == deskId;
-      });
-      let bookingClash = false;         //boolean for if a clash in bookings exist
-      currentDesk[0].bookings.forEach(booking => {        //goes through all the bookings for the currently selected desk
-        const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
-        const startDateCheck = new Date(booking.startsAt);
-        if (endDateCheck >= startDate && startDateCheck <= startDate) {       //if the booking end date is greater than the start of the attempted start booking date and start date of booking is less than the attempted start booking date
-          bookingClash = true;                                            //ie if the attempted booking date starts before the end of a booking but after the start of the same booking
-        }
-        else if (startDateCheck <= endDate && endDateCheck >= endDate) {      //if the booking start date is less than the end of the attempted end booking date and the end date is greater than the end of the attempted end booking date
-          bookingClash = true;                                            //ie if the attempted booking date ends after the start of a booking but before the end of the same booking 
-        }
-        else if (startDate <= startDateCheck && endDate >= endDateCheck) {     // if the start of the attempted start booking date is less than the start date of the booking and the end of attempted booking end date is greater than the end date of the booking
-          bookingClash = true;                                               //ie when the start of the attempted booking date is before the start of an existing booking and the end of the attempted booking date is after end date the of the same existing booking
-        }
-      })
+    const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
+      return desk.id == deskId;
+    });
+    let bookingClash = false;         //boolean for if a clash in bookings exist
+    currentDesk[0].bookings.forEach(booking => {        //goes through all the bookings for the currently selected desk
+      const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
+      const startDateCheck = new Date(booking.startsAt);
+      if(endDateCheck >= startDate && startDateCheck <= startDate){       //if the booking end date is greater than the start of the attempted start booking date and start date of booking is less than the attempted start booking date
+        bookingClash = true;                                            //ie if the attempted booking date starts before the end of a booking but after the start of the same booking
+      }
+      else if(startDateCheck <= endDate && endDateCheck >= endDate){      //if the booking start date is less than the end of the attempted end booking date and the end date is greater than the end of the attempted end booking date
+        bookingClash = true;                                            //ie if the attempted booking date ends after the start of a booking but before the end of the same booking 
+      }
+      else if (startDate <= startDateCheck && endDate >= endDateCheck){     // if the start of the attempted start booking date is less than the start date of the booking and the end of attempted booking end date is greater than the end date of the booking
+        bookingClash = true;                                               //ie when the start of the attempted booking date is before the start of an existing booking and the end of the attempted booking date is after end date the of the same existing booking
+      }
+    })
 
-      if (!bookingClash) {        //if there are no clashes from above
-        const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
-        const endsAt = endDate.toISOString();
-        this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
-          for (let i = 0; i < this.desks.length; i++) {
-            if (this.desks[i].id == deskId) {       //at the same time it needs to go through all the desks to find the correct desk matching with id
-              this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
-              this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
-            }
+    if(!bookingClash){        //if there are no clashes from above
+      const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
+      const endsAt = endDate.toISOString();
+      this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
+        for(let i = 0; i < this.desks.length; i++){
+          if(this.desks[i].id == deskId){       //at the same time it needs to go through all the desks to find the correct desk matching with id
+            this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
+            this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
+            this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
           }
-          this.hasBooking = true;
-          this.changeDetection.detectChanges();
-        });
-      }
-      else {        //if clash alert
-        alert("Can't overlap bookings");
-      }
-    }else{
-      alert("Guests are limited to one booking at a time");
+        }
+        this.changeDetection.detectChanges();
+      });
+    }
+    else {        //if clash alert
+      alert("Can't overlap bookings");
     }
   }
 
