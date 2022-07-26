@@ -43,7 +43,7 @@ export class LoginComponent {
       //comp.ngOnInit();
 
 
-      this.router.navigate(['/bookings']);
+      this.router.navigate(['/personal-bookings']);
     }).catch((e) => {
       alert(e)
     this.loading = false;

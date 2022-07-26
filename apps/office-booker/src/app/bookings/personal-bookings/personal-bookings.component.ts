@@ -116,7 +116,7 @@ export class PersonalBookingsComponent {
   }
 
   getBookings(userId: number){
-
+    this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
        res.forEach(booking => {
          const newBooking = {} as Booking;
@@ -130,7 +130,8 @@ export class PersonalBookingsComponent {
         });
         this.changeDetection.detectChanges();
       })   
- }
+
+  }
 
  getCurrentUser(){
    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
@@ -139,7 +140,6 @@ export class PersonalBookingsComponent {
       this.userNumb = this.currentUser.id;
       this.getBookings(this.currentUser.id);
       this.getInvites(this.currentUser.id);
-      console.log("Gets invites")
       this.changeDetection.detectChanges();
       
    }) 
@@ -189,9 +189,16 @@ acceptInvite(inviteId : number) {
   // console.log(inviteId)
 
   this.bookingService.acceptInvite(inviteId).subscribe(res => {
-    // console.log(inviteId)
-    // console.log(res);
+    res;
   });
+  for (let i = 0; i < this.invites.length; i++) {
+    if(this.invites[i].id == inviteId){
+      this.invites.splice(i,1);
+    }
+  }
+  // this.getBookings(this.currentUser.id);
+  // location.reload();
+  setTimeout(() => {this.getBookings(this.currentUser.id);}, 500);
   this.changeDetection.detectChanges();
 
 }
@@ -199,13 +206,14 @@ acceptInvite(inviteId : number) {
 getInvites(userId: number){
   console.log(userId)
   this.bookingService.getInvitesForUser(userId).subscribe(res => {
+    console.log(res)
     res.forEach((Invite) => {
       console.log(Invite)
       // Invite.invitedEmployee.id;
       this.invites.push(Invite);
-      // this.changeDetection.detectChanges(); 
+      this.changeDetection.detectChanges(); 
      });
-    //  this.changeDetection.detectChanges();
+     this.changeDetection.detectChanges();
    })   
 }
 

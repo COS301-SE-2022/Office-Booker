@@ -185,7 +185,7 @@ export class BookingServiceService {
   } 
 
   getInvitesForUser(employeeId: number){
-    const url = 'http://localhost:3333/api/bookings/invites/' + employeeId;
+    const url = 'http://localhost:3333/api/bookings/invites/user/' + employeeId;
     return this.http.get<Invite[]>(`${url}`);
   }
 
