@@ -56,8 +56,8 @@
                 <div class="scrollable-section">
                     <mat-card class="booking-container" *ngFor="let booking of selectedItemBookings">
                         <mat-card-content>
-                            <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>
-                            <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'+2}} - {{booking.endsAt | date: 'HH:mm': 'UTC'+2}} </div>
+                            <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+                            <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
                             <mat-card-actions>
                                 <button (click)="deleteBooking(booking.id, selectedItemType)" mat-raised-button color="warn" *ngIf="currentUser.id === booking.employeeId">Cancel Booking</button>
                             </mat-card-actions>
