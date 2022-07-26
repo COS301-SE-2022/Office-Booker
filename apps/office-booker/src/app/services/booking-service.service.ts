@@ -48,6 +48,12 @@ export interface company {
   name: string,
 }
 
+export interface Invite { 
+  bookingId: number,
+  email: string,
+
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -165,4 +171,14 @@ export class BookingServiceService {
     console.log(body);
     return this.http.post<employee>(`${url}`, body);
   }  
+
+  createInvite(bookingId: number, email: string){
+    const url = 'http://localhost:3333/api/bookings/invites/' + bookingId;
+    const body = {
+      email: email
+    } 
+    console.log(body);
+    return this.http.post<Invite>(`${url}`, body);
+  } 
+
 }

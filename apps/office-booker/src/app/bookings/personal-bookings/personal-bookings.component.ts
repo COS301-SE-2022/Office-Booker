@@ -30,25 +30,30 @@ export class PersonalBookingsComponent {
   employeeName = "";
   userNumb = -1;
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false};
+
+  // bookingId = -1;
   
   constructor(private router: Router, private bookingService: BookingServiceService, 
               private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
     changeDetection.detach();
-    //console.log(this.userBookings);
+    //console.log(this.userBookings);a
   }
 
-  openDialog(): void {
+  openDialog(bookingId : number): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
       data: {inviteEmail: this.inviteEmail}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.inviteEmail = result;
       console.log(this.inviteEmail);
+      this.inviteOthers(bookingId);
     });
+
+    
+    
   }
 
 
@@ -167,7 +172,11 @@ export class PersonalBookingsComponent {
 }
 
 inviteOthers(bookingId : number) {
-  // this.bookingService.createBooking(bookingId).subscribe(res => {
+  this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
+    console.log(res);
+    console.log(bookingId);
+  });
+
 }
 
 }

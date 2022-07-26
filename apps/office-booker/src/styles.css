@@ -5,6 +5,7 @@ body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 
     background-image: url("./assets/background-image.png") ;   
+    /* background-color: rgba(202, 202, 202, 0.577); */
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
