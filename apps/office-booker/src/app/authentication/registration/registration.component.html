@@ -40,7 +40,7 @@
       </mat-card-content>
          
       <mat-card-actions>
-        <button mat-raised-button color="accent" (click)="signUp(selected)" class="btn btn-sm btn-success" [disabled]="loading">
+        <button mat-raised-button color="primary" (click)="signUp(selected)" class="btn btn-sm btn-success" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Register
         </button>
@@ -72,7 +72,7 @@
       
       </mat-card-content>
       <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="primary" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Confirm
             </button>

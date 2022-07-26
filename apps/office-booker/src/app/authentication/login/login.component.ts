@@ -30,6 +30,7 @@ export class LoginComponent {
 
   public signIn(): void {
     this.loading = true;
+    // if (this.user.username == null) { this.loading=false; alert("Please enter an email address"); return;}
     this.cognitoService.signIn(this.user)
     .then(() => {
       this.cognitoService.setAuthenticated(true);
@@ -55,7 +56,8 @@ export class LoginComponent {
   }
 
   forgotPassword() : void {
-    this.router.navigate(['/forgot-password']);
+    // this.router.navigate(['/forgot-password']); //temp removal due to not being implemented yet
+    alert("For the moment, please contact your system administrator to reset your password");
   }
 
   //function to check if user is an admin

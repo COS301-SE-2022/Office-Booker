@@ -24,12 +24,12 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="primary" (click)="signIn()" class="btn btn-sm btn-success" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Login
           </button>
 
-            <button mat-raised-button color="accent" (click)="forgotPassword()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="primary" (click)="forgotPassword()" class="btn btn-sm btn-success" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Forgot password?
           </button>
@@ -46,7 +46,7 @@
             Need to register an account?
         </mat-card-subtitle>
 
-        <button mat-raised-button color="accent" [routerLink]="'/registration'" class="btn-block">Register</button>
+        <button mat-raised-button color="primary" [routerLink]="'/registration'" class="btn-block">Register</button>
     </mat-card>
 </div>
 
@@ -56,6 +56,6 @@
             Have an invitation?
         </mat-card-subtitle>
 
-        <button mat-raised-button color="accent" [routerLink]="'/guest-registration'" class="btn-block">Register as Guest</button>
+        <button mat-raised-button color="primary" [routerLink]="'/guest-registration'" class="btn-block">Register as Guest</button>
     </mat-card>
 </div>
