@@ -41,6 +41,8 @@ export interface employee {
   companyId: number,
   admin: boolean,
   guest: boolean
+  currentRating: number,
+  ratingsReceived: number,
 }
 
 export interface company {
@@ -48,6 +50,10 @@ export interface company {
   name: string,
 }
 
+export interface rating{
+  currentRating: number,
+  ratingsReceived: number,
+}
 
 @Injectable({
   providedIn: 'root'
@@ -123,7 +129,7 @@ export class BookingServiceService {
 
   getEmployeeById(userId: number){
     const url = 'http://localhost:3333/api/users/' + userId;
-    return this.http.get<employee[]>(`${url}`);
+    return this.http.get<employee>(`${url}`);
   }
   
   getEmployeeByEmail(email: string){
@@ -163,4 +169,18 @@ export class BookingServiceService {
     console.log(body);
     return this.http.post<employee>(`${url}`, body);
   }  
+
+  updateRatings(userId: number, currentRating: number, ratingsReceived: number){
+    const url = 'http://localhost:3333/api/users/ratings/' + userId;
+    const body = {
+      currentRating: currentRating, 
+      ratingsReceived: ratingsReceived
+    }
+    return this.http.put<rating>(`${url}`, body);
+  }
+
+  getRatings(userId: number){
+    const url = 'http://localhost:3333/api/users/ratings/' + userId;
+    return this.http.get<rating>(`${url}`);
+  }
 }
