@@ -21,8 +21,6 @@ export class LoginComponent {
 
   constructor(private router: Router,
               private cognitoService: CognitoService,
-              private app: AppComponent,
-
               ) {
     this.loading = false;
     this.user = {} as IUser;
