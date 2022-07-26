@@ -75,12 +75,12 @@
   }
   
   .btn.btn-sm.btn-success{
-    background : rgb(204, 26, 70);
+    /* background : rgb(204, 26, 70); */
   }
 
   .btn-block{
     margin-top: 0px;
-    background : rgb(204, 26, 70);
+    /* background : rgb(204, 26, 70); */
   }
 
   body{

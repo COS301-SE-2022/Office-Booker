@@ -56,7 +56,8 @@ export class LoginComponent {
   }
 
   forgotPassword() : void {
-    this.router.navigate(['/forgot-password']);
+    // this.router.navigate(['/forgot-password']); //temp removal due to not being implemented yet
+    alert("For the moment, please contact your system administrator to reset your password");
   }
 
   //function to check if user is an admin
