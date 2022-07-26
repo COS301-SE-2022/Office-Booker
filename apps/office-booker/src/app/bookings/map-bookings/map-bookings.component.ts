@@ -129,7 +129,7 @@ export class MapBookingsComponent {
     })
     this.changeDetection.detectChanges();
 
-    this.openDialog();
+    //this.openDialog(); //calls openDialog function which triggers the popup dialog
   }
 
   filterBookings() {         //filters the bookings based on the selected date
@@ -303,6 +303,7 @@ export class MapBookingsComponent {
     })
   }
 
+  //generates the popup dialog and sends the relevant variables needed
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
       width: '400px',
