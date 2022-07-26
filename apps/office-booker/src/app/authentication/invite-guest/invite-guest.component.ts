@@ -53,42 +53,8 @@ export class InviteGuestComponent /*implements OnInit*/ {
 
   public invite(): void {
 
-    this.beenRun = true;
-    this.option.title = "This user has already been invited!";
-    this.option.message = this.email;
-
-    this.cognitoService.getCompany();
-    const thisCompany = this.cognitoService.returnCompanyID();
-
-    this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
-      console.log(res);
-      if (res) {
-        console.log("User is already on the system");
-        console.log(this.exists);
-        this.exists = true;
-        console.log(this.exists);
-      }
-      else {
-        //this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
-        console.log("User created!");
-        console.log(this.exists);
-        this.exists = false;
-        console.log(this.exists);
-
-        // return data;
-        //});
-      }
-    });
-    //return
-
-
-    console.log(this.email);
-    if (this.email == "") { //if email is empty, show error popup
-      this.option.title = "Error";
-      this.option.message = "Please enter an email address";
-      this.popupDialogService.open(this.option);
-    }
-    else { //if email is not empty, create user
+    if (this.validateEmail(this.email)) {
+      this.beenRun = true;
       this.option.title = "This user has already been invited!";
       this.option.message = this.email;
 
@@ -102,39 +68,90 @@ export class InviteGuestComponent /*implements OnInit*/ {
           console.log(this.exists);
           this.exists = true;
           console.log(this.exists);
-          this.option.title = "This user has already been invited!";
-          this.option.message = this.email;
-          this.popupDialogService.open(this.option);
         }
         else {
-          this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
-            console.log("User created!");
-            console.log(this.exists);
-            this.exists = false;
-            console.log(this.exists);
-            this.option.title = "You have successfully invited";
-            this.option.message = this.email;
-            this.popupDialogService.open(this.option);
-            // return data;
-          });
+          //this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+          console.log("User created!");
+          console.log(this.exists);
+          this.exists = false;
+          console.log(this.exists);
+
+          // return data;
+          //});
         }
       });
+      //return
 
-      /*if (this.exists == false){
-        this.option.title = "You have successfully invited";
-        this.option.message = this.email;
+
+      console.log(this.email);
+      if (this.email == "") { //if email is empty, show error popup
+        this.option.title = "Error";
+        this.option.message = "Please enter an email address";
+        this.popupDialogService.open(this.option);
       }
-      else if (this.exists == true){
+      else { //if email is not empty, create user
         this.option.title = "This user has already been invited!";
         this.option.message = this.email;
-      }*/
 
+        this.cognitoService.getCompany();
+        const thisCompany = this.cognitoService.returnCompanyID();
+
+        this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
+          console.log(res);
+          if (res) {
+            console.log("User is already on the system");
+            console.log(this.exists);
+            this.exists = true;
+            console.log(this.exists);
+            this.option.title = "This user has already been invited!";
+            this.option.message = this.email;
+            this.popupDialogService.open(this.option);
+          }
+          else {
+            this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+              console.log("User created!");
+              console.log(this.exists);
+              this.exists = false;
+              console.log(this.exists);
+              this.option.title = "You have successfully invited";
+              this.option.message = this.email;
+              this.popupDialogService.open(this.option);
+              // return data;
+            });
+          }
+        });
+
+        /*if (this.exists == false){
+          this.option.title = "You have successfully invited";
+          this.option.message = this.email;
+        }
+        else if (this.exists == true){
+          this.option.title = "This user has already been invited!";
+          this.option.message = this.email;
+        }*/
+
+      }
+    } else {
+      this.option.title = "Invalid email";
+      this.option.message = this.email;
+      this.popupDialogService.open(this.option);
     }
+
+
 
     /*console.log("EXISTS IS : " + this.exists);
    
     this.beenRun = true;
     this.popupDialogService.open(this.option);*/
+  }
+
+  public validateEmail(email: string): boolean {
+    const regexEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; // eslint-disable-line no-useless-escape
+    if (email.match(regexEmail)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
