@@ -1,10 +1,10 @@
 .mat-card{
     width: 200px;
     margin: 0.5rem;
-    background-color: rgba(255, 255, 255, 1);
-    text-align: center;
+    border: rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-radius: 6px;
 
-    border: rgb(39, 39, 39) 0.5px solid;
+    text-align: center;
     /* border-radius: 1px; */
     
 }
