@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@office-booker/api-interfaces';
 import { RouterModule } from '@angular/router';
@@ -16,22 +16,26 @@ import { CognitoService } from './cognito.service';
 export class AppComponent //implements OnInit 
 {
   hello$ = this.http.get<Message>('/api/hello');
+  loggedIn = false;
   
   constructor(private http: HttpClient, 
     private router: Router,
     private cognitoService: CognitoService, 
      ) 
     {
-        
+  
     }
   
+  public signIn() : void {
+    this.cognitoService.loggedIn();
+  }
 
   public signOut(): void {
     this.cognitoService.signOut()
     .then(() => {
       this.router.navigate(['/signIn']);
     });
-  }
+  }  
 
 
 

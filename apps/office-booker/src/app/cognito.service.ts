@@ -23,9 +23,10 @@ export class CognitoService {
   companyID: number;
   isAuthenticate: boolean;
   isAdmin: boolean;
-  isGuest: boolean;
+  isGuest = false;
   private authenticationSubject: BehaviorSubject<any>;
 
+  isLoggedIn = false;
 
 
   constructor(private bookingService: BookingServiceService) {
@@ -72,6 +73,7 @@ export class CognitoService {
   //function to sign a user out of cognito
   public signOut(): Promise<any> {
     //alert('Sign out');
+    this.setGuest(false);
 
     return Auth.signOut()
       .then(() => {
@@ -151,6 +153,14 @@ export class CognitoService {
   }
 
   public guest(): boolean {
+    this.loggedIn();
+    if (this.loggedIn() == false) {
+      // console.log("not logged in")
+      return true;
+    }
+    // console.log("logged in")
+
+    console.log(this.isGuest);
     return this.isGuest;
   }
 
@@ -202,6 +212,11 @@ export class CognitoService {
 
   public resetPassword(email : string) : void {
     Auth.forgotPassword(email);
+  }
+
+  public loggedIn() : boolean {
+    this.isAuthenticated();
+    return this.authenticated();
   }
 
 }
