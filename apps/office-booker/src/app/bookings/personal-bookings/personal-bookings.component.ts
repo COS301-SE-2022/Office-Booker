@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking, employee} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, employee, Invite} from '../../services/booking-service.service';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
@@ -26,6 +26,7 @@ export class PersonalBookingsComponent {
 
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
+  invites: Array<Invite> = [];
   Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
@@ -48,7 +49,7 @@ export class PersonalBookingsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.inviteEmail = result;
-      console.log(this.inviteEmail);
+      // console.log(this.inviteEmail);
       this.inviteOthers(bookingId);
     });
 
@@ -131,13 +132,14 @@ export class PersonalBookingsComponent {
       })   
  }
 
-
  getCurrentUser(){
    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.currentUser = res;
       this.userNumb = this.currentUser.id;
       this.getBookings(this.currentUser.id);
+      this.getInvites(this.currentUser.id);
+      console.log("Gets invites")
       this.changeDetection.detectChanges();
       
    }) 
@@ -171,12 +173,43 @@ export class PersonalBookingsComponent {
   
 }
 
+
+
+//functions for invites
+
 inviteOthers(bookingId : number) {
   this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
-    console.log(res);
-    console.log(bookingId);
+    // console.log(res);
+    // console.log(bookingId);
   });
 
 }
+
+acceptInvite(inviteId : number) {
+  // console.log(inviteId)
+
+  this.bookingService.acceptInvite(inviteId).subscribe(res => {
+    // console.log(inviteId)
+    // console.log(res);
+  });
+  this.changeDetection.detectChanges();
+
+}
+
+getInvites(userId: number){
+  console.log(userId)
+  this.bookingService.getInvitesForUser(userId).subscribe(res => {
+    res.forEach((Invite) => {
+      console.log(Invite)
+      // Invite.invitedEmployee.id;
+      this.invites.push(Invite);
+      // this.changeDetection.detectChanges(); 
+     });
+    //  this.changeDetection.detectChanges();
+   })   
+}
+
+
+
 
 }

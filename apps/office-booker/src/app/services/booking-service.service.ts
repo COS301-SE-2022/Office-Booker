@@ -48,9 +48,12 @@ export interface company {
   name: string,
 }
 
-export interface Invite { 
+export interface Invite {
   bookingId: number,
   email: string,
+  id: number,
+  invitedEmployee: employee,
+
 
 }
 
@@ -180,5 +183,15 @@ export class BookingServiceService {
     console.log(body);
     return this.http.post<Invite>(`${url}`, body);
   } 
+
+  getInvitesForUser(employeeId: number){
+    const url = 'http://localhost:3333/api/bookings/invites/' + employeeId;
+    return this.http.get<Invite[]>(`${url}`);
+  }
+
+  acceptInvite(id: number){
+    const url = 'http://localhost:3333/api/bookings/invites/accept/' + id;
+    return this.http.put<Invite[]>(`${url}`, {});
+  }
 
 }

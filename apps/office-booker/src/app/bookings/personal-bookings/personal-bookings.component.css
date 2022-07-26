@@ -52,3 +52,27 @@ padding-left: 2rem;
   padding-left: 2rem;
 }
 
+.card-wrapper-left{
+    
+  /* margin:left; */
+  margin-right: 0px;
+  /* width: 500px; */
+  width: 50%;
+  top: 50%;
+  display: inline;
+  /* left: 50%; */
+  font-weight: bold; 
+
+}
+
+.card-wrapper-right{
+  margin: right 2rem;  
+  width: 50%;
+
+  float:right;
+  /* width: 500px;  */
+  /* top: 50%; */
+  left: 10%;
+  font-weight: bold; 
+
+}
