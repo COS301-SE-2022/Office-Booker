@@ -14,6 +14,7 @@ export class MenuBarComponent {
   guest = false;
   authenticated = false;
   email = "";
+  loggedIn = false;
 
 
   constructor(private app: AppComponent,
@@ -55,8 +56,9 @@ export class MenuBarComponent {
 
   isEmailAddress(): boolean {
     this.email = this.cognitoService.getEmailAddress();
-    if (this.email != null && this.isAuthenticated() )
+    if (this.email != null && this.isAuthenticated() ){
       return true;
+    }
     return false;
   }
     
