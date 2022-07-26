@@ -1,0 +1,17 @@
+<div class="header">
+  <h1 mat-dialog-title>{{ option.title }}</h1>
+</div>
+
+
+<div mat-dialog-content>
+  <p class="dialog-message">{{ option.message }}</p>  
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">{{option.cancelText}}</button>
+  <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
+  <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
+  <button mat-button (click)="confirm()" cdkFocusInitial>{{ option.confirmText }}</button>
+</div>
+
