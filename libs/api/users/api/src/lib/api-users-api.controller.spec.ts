@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
+import { MailService } from '@office-booker/api/mail';
+import { MailModule } from '@office-booker/api/mail';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
 describe('ApiUsersApiController', () => {
@@ -21,8 +24,11 @@ describe('ApiUsersApiController', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
+      imports: [MailService, MailModule, ConfigModule.forRoot({
+        isGlobal: true,
+      })],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService, ConfigService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
@@ -50,7 +56,8 @@ describe('ApiUsersApiController', () => {
       name: 'ying',
       companyId: 2,
       email: 'email',
-      admin: false
+      admin: false,
+      guest: false
     }
     controller.createUser(postData);
     expect(service.createUser).toHaveBeenCalledWith({
@@ -61,7 +68,10 @@ describe('ApiUsersApiController', () => {
         }
       },
       email: 'email',
-      admin: false
+      guest: false,
+      admin: false,
+      currentRating: 5,
+      ratingsReceived: 1,
     });
   })
 

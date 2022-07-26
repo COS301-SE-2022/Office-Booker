@@ -4,7 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -15,7 +18,8 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [RouterTestingModule, FormsModule, MatCardModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, FormsModule, MatCardModule, HttpClientTestingModule, 
+        MatInputModule, MatFormFieldModule, BrowserAnimationsModule],
     }).compileComponents();
   });
 

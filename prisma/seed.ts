@@ -9,12 +9,22 @@ async function main() {
         },
     })
 
+    //Pseudo company called guest associated with all guest accounts
+    /*const guest = await prisma.company.create({
+        data: {
+            name: 'Guest',
+        },
+    })*/
+
     const employee1 = await prisma.employee.create({
         data: {
             name: 'Kryptos Kode',
             company: { connect: { id: company.id } },
             email: 'kryptoskode301@gmail.com',
             admin: true,
+            guest: false,
+            currentRating: 4,
+            ratingsReceived: 10,
         },
     })
 
@@ -24,6 +34,9 @@ async function main() {
             company: { connect: { id: company.id } },
             email: 'duplessisbrett@icloud.com',
             admin: false,
+            guest: false,
+            currentRating: 3,
+            ratingsReceived: 5,
         },
     })
 
@@ -45,6 +58,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -57,6 +74,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -69,6 +90,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -81,6 +106,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -93,6 +122,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -105,6 +138,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -117,6 +154,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -129,6 +170,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -141,6 +186,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -153,6 +202,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -165,6 +218,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -177,6 +234,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -189,6 +250,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -201,6 +266,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -213,6 +282,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -225,6 +298,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -237,6 +314,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -249,6 +330,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -261,6 +346,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -273,6 +362,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -285,6 +378,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 
@@ -297,6 +394,10 @@ async function main() {
                     id: room.id,
                 },
             },
+            Width: 50,
+            Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
         },
     })
 

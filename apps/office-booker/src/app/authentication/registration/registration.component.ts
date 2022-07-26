@@ -16,9 +16,11 @@ export class RegistrationComponent {
   user: IUser;
   userId : string;
   userName : string;
+  company : string;
   companyId : number;
   companies: Array<company> = [];
   option: string;
+  selected : string;
 
   constructor(private router: Router,
     private cognitoService: CognitoService, 
@@ -29,8 +31,10 @@ export class RegistrationComponent {
   this.user = {} as IUser;
   this.userId = '';
   this.userName = '';
-  this.companyId = 1;
+  this.company = '';
+  this.companyId = -1;
   this.option = '';
+  this.selected = '';
 }
 
 ngOnInit(){
@@ -53,10 +57,9 @@ getCompanies(){
 }
 
 //function to sign the user up using cognito services
-public signUp(): void {
-  this.option = (<HTMLSelectElement>document.getElementById('company')).value;
-  console.log(this.option);
-  if (this.option == ''){ //checks if the user did not select a company
+public signUp(company: string): void {
+  this.company = company;
+  if (this.company == ''){ //checks if the user did not select a company
     alert('Please select a company')
     
   }
@@ -69,7 +72,8 @@ public signUp(): void {
     
   this.loading = false;
   this.isConfirm = true;
-  this.option = (<HTMLSelectElement>document.getElementById('company')).value;
+  this.option = company;
+  console.log(this.option)
     for(let i = 0; i < this.companies.length; i++)
         {
           if(this.companies[i].name == this.option){
@@ -93,9 +97,7 @@ public confirmSignUp(): void {
     
     this.userId = this.user.email
     this.userName = this.user.name
-    
-      console.log(this.companyId);
-    this.bookingService.createUser(this.userName, this.companyId, this.userId).subscribe(res => {
+    this.bookingService.createUser(this.userName, this.companyId, this.userId, false).subscribe(res => {
       return res;
      
     });
