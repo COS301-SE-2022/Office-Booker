@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { MatSliderModule } from '@angular/material/slider'; 
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
 import { Employee } from '@prisma/client';
 
@@ -20,9 +21,10 @@ export class VotingBookingsComponent{
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
   rateUser: rating = {currentRating: -1, ratingsReceived: -1};
   clicked = false;
+
   
 
-  constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef) {
+  constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef, public snackBar: MatSnackBar) {
     //changeDetection.detach();
   }
 
@@ -32,48 +34,39 @@ export class VotingBookingsComponent{
   }
   
   getScore(score: number, employeeRate: number){
-    console.log(employeeRate);
-    console.log(score); 
-    
-    // this.bookingService.getRatings(employeeRate).subscribe(res => {
-    //   console.log(res);
-    // this.rateUser.currentRating = score + res.currentRating;
-    // this.rateUser.ratingsRecieved = res.ratingsRecieved + 1;
-    // console.log(res);
-    // console.log(res.ratingsRecieved);
-    // this.updateUserRatings(employeeRate, this.rateUser);
-    // });
     let i: number;
     for(i = 0; i < this.Users.length; i++){
     if(this.Users[i].id == employeeRate){
       this.rateUser.currentRating = this.Users[i].currentRating + score;
       this.rateUser.ratingsReceived = this.Users[i].ratingsReceived + 1;
-      //console.log(this.Users[i].ratingsRecieved);
       this.updateUserRatings(employeeRate, this.rateUser);
     }
     } 
   }
 
-  updateUserRatings(user: number, ratings: rating){
+  openSnackBar(message: number) {
+    this.snackBar.open("Review Made for workspace " + message, "Ok", {
+      duration: 5000,
+    });
+  }
+  
+  updateUserRatings(user: number, ratings: rating): boolean{ // this function updates the users rating.
     console.log(ratings.ratingsReceived);
 
     this.bookingService.updateRatings(user, ratings.currentRating, ratings.ratingsReceived).subscribe(stuff => {
-      //console.log(stuff);
-      //return stuff;
+      //This API call will update the user with a new rating score and increase their total ratings received by 1.
+      
      
     });
+    return true;
   }
 
-  getUsers(){
+  getUsers(){ // this gets the users in the database for a specific company.
     this.bookingService.getAllEmployees().subscribe(res => {
       res.forEach(user => {
-        if(user.id != this.currentUser.id){
-          console.log(user);
-          console.log(user.currentRating);
-          console.log(user.ratingsReceived); 
+        if(user.id != this.currentUser.id){ // this makes sure that the current user is not included so they can not rate themselves.
         this.Users.push(user);
         this.getBookings(user.id, user.name);
-        //this.changeDetection.detectChanges();
         }
       })
     });
@@ -141,12 +134,12 @@ export class VotingBookingsComponent{
  }
 
 
- getCurrentUser(){
-   const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-   this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+ getCurrentUser(){ //This identifies the current user so that the user can be excluded from ratings to prevent rating yourself.
+   const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")); // this gets the users email from local storage.
+   this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {//Uses the email to find the current user and assign them to current user.
       this.currentUser = res;
       this.userNumb = this.currentUser.id;
-       this.getUsers();
+       this.getUsers(); // this gets the current users.
    }) 
 }
 
