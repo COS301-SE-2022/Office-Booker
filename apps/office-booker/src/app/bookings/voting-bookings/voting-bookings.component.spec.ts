@@ -3,6 +3,7 @@ import { VotingBookingsComponent } from './voting-bookings.component';
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatSliderModule } from '@angular/material/slider'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 describe('VotingBookingsComponent', () => {

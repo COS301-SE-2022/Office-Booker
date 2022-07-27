@@ -39,7 +39,7 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { VotingBookingsComponent } from './bookings/voting-bookings/voting-bookings.component';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
@@ -114,6 +114,7 @@ export function tokenGetter() {
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
