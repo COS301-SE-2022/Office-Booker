@@ -9,7 +9,7 @@
             <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
             <mat-card-subtitle>
                 <!-- You have a booking coming up. -->
-                Seat {{booking.deskId}} 
+                {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -30,6 +30,10 @@
     </mat-card>
 
 </div>
+
+
+
+
 
 <div class="card-wrapper-right" *ngFor="let invite of invites">
     <mat-card class="example-card">

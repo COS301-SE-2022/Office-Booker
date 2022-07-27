@@ -15,12 +15,14 @@ export interface Desk {
   LocationRow: number,
   LocationCol: number,
   booking: boolean,
-  bookings: Booking[]
+  bookings: Booking[],
+  isMeetingRoom: boolean,
 }
 
 export interface Booking {
   id: number,
   deskId: number,
+  desk: Desk,
   employeeId: number,
   startsAt: string,
   endsAt: string,

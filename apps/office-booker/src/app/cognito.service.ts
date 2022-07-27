@@ -160,7 +160,6 @@ export class CognitoService {
     }
     // console.log("logged in")
 
-    console.log(this.isGuest);
     return this.isGuest;
   }
 
