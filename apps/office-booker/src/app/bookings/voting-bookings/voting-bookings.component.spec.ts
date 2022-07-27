@@ -13,7 +13,7 @@ describe('VotingBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VotingBookingsComponent],
-      imports: [RouterTestingModule, MatCardModule, MatSnackBar, MatSliderModule , HttpClientTestingModule]
+      imports: [RouterTestingModule, MatCardModule, MatSnackBarModule, MatSliderModule , HttpClientTestingModule]
     }).compileComponents();
   });
 
