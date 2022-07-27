@@ -148,25 +148,32 @@ export class PersonalBookingsComponent {
   isMeetingRoom(deskId: number) : string{
     for (let i = 0; i < this.desks.length; i++) {
       if (this.desks[i].id == deskId) {
-        console.log(this.desks[i]);
         this.isMeet = this.desks[i].isMeetingRoom;
-        console.log(this.desks[i].isMeetingRoom);
       }
     }
 
-    console.log(this.isMeet);
-    console.log("desk" + deskId);
-
     if (this.isMeet==false){
-      console.log("Desk");
       return "Desk";
       
     }
     else if (this.isMeet==true){
-      console.log("meeting room")
       return "Meeting Room";
     }
     return "Error";
+  }
+
+  getDeskIdOfInvite(inviteId: number) : number {
+  
+    for (let i = 0; i < this.invites.length; i++) {
+      // console.log(i)
+      if (this.invites[i].id == inviteId) {
+        console.log(this.invites[i].id);
+        console.log(this.invites[i].Booking)
+        return this.invites[i].Booking.deskId;
+      }
+    }
+
+    return 0;
   }
 
   getCurrentUser() {
@@ -253,12 +260,9 @@ export class PersonalBookingsComponent {
   }
 
   getInvites(userId: number) {
-    console.log(userId)
     this.bookingService.getInvitesForUser(userId).subscribe(res => {
-      console.log(res)
       res.forEach((Invite) => {
-        console.log(Invite)
-        // Invite.invitedEmployee.id;
+        console.log(Invite);
         this.invites.push(Invite);
         this.changeDetection.detectChanges();
       });

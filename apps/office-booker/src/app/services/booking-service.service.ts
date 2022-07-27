@@ -57,6 +57,7 @@ export interface Invite {
   email: string,
   id: number,
   invitedEmployee: employee,
+  Booking: Booking,
 
 }
 
