@@ -11,14 +11,14 @@
         </li>
         <li>
             <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class="fa fa-calendar-plus-o"></i> Create Bookings</a>
+                    class="fa fa-calendar-plus-o"></i> Make Bookings</a>
         </li>
         <li>
             <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class="fa fa-list-alt"></i> Manage Bookings</a>
+                    class="fa fa-list-alt"></i> Your Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-check-circle-o" ></i>Rate other Users</a>
+            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-check-circle-o" ></i> Rate Users</a>
         </li>
         <li>
             <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()" ><i class="fa fa-bars" ></i> Admin Page</a>
@@ -29,7 +29,7 @@
         </li>
         <li>
             <li>
-                <a href="#"><i class='fa fa-phone'></i> Contact Us</a>
+                <a href="#" routerLink="/contact"><i class='fa fa-phone'></i> Contact Us</a>
             </li>
             <li>
 

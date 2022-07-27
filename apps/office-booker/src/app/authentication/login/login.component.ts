@@ -5,6 +5,7 @@ import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component'
 import { IUser, CognitoService } from '../../cognito.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { AppComponent } from '../../app.component';
 
 
 
@@ -33,17 +34,14 @@ export class LoginComponent {
     // if (this.user.username == null) { this.loading=false; alert("Please enter an email address"); return;}
     this.cognitoService.signIn(this.user)
     .then(() => {
+      // this.app.signIn();
+      // this.cognitoService.
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
       this.cognitoService.hasGuest();
       this.cognitoService.getCompany();
-      // console.log(this.cognitoService.returnCompany());
 
-      //const comp = new MenuBarComponent(this.app, this.cognitoService);
-      //comp.ngOnInit();
-
-
-      this.router.navigate(['/bookings']);
+      this.router.navigate(['/personal-bookings']);
     }).catch((e) => {
       alert(e)
     this.loading = false;

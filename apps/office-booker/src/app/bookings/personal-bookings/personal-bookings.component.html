@@ -3,24 +3,24 @@
 <p class="text" >You have a current rating of {{rating}}</p>
 
 
-<div class="card-wrapper" *ngFor="let booking of userBookings">
+<div class="card-wrapper-left" *ngFor="let booking of userBookings">
     <mat-card class="example-card">
         <mat-card-header>
-            <mat-card-title> Booking {{booking.id}}</mat-card-title>
+            <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
             <mat-card-subtitle>
-                You have a booking coming up.
+                <!-- You have a booking coming up. -->
+                {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div>{{currentUser.name}}</div>
-            <div>Seat {{booking.deskId}} </div>
-            <div>{{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+            <!-- <div>Seat {{booking.deskId}} </div> -->
+            <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
             <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
             <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
         </mat-card-content>
         <mat-card-actions>
-            <button class="clicker2" (click)="openDialog() " mat-raised-button color="primary">Invite Others</button>
+            <button class="clicker2" (click)="openDialog(booking.id) " mat-raised-button color="primary">Invite Others</button>
             <p></p>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
         </mat-card-actions>
@@ -30,3 +30,34 @@
     </mat-card>
 
 </div>
+
+
+
+
+
+<div class="card-wrapper-right" *ngFor="let invite of invites">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title> You have been invited to Meeting Room {{invite.bookingId}}</mat-card-title>
+            <mat-card-subtitle>
+                You have a booking coming up.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- <div>{{invite.booking.startsAt | date: 'd MMMM': 'UTC'}} </div> -->
+            <!-- <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div> -->
+            <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
+            <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
+        </mat-card-content>
+        <mat-card-actions>
+            <button class="clicker2" (click)="acceptInvite(invite.id)" mat-raised-button color="primary">Accept Invite</button>
+            <p></p>
+            <button class="clicker" (click)="declineInvite(invite.id)" mat-raised-button color="primary">Declinered">Decline Booking</button>
+        </mat-card-actions>
+
+        <p></p>
+
+    </mat-card>
+
+</div>
+

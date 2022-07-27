@@ -8,8 +8,8 @@
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
   
-    border: rgb(39, 39, 39) 1px solid;
-    border-radius: 15px;
+    border: rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-radius: 6px;
   
     display: inline-block;
     color:rgb(0, 0, 0);
@@ -44,7 +44,7 @@
   }
   
   .clicker{
-    background : rgb(204, 26, 70);
+    /* background : rgb(204, 26, 70); */
   }
   
   .heading{

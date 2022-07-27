@@ -17,9 +17,9 @@
 
         </mat-card-content>
         <mat-card-actions>
-            <mat-slider min="1" max="5" step="1" value="3" #matslider></mat-slider>
+            <mat-slider color="primary" min="1" max="5" step="1" value="3" #matslider></mat-slider>
             <div class="numbers">{{matslider.value}}</div>
-            <button class="clicker" [disabled]="false" (click)="getScore(matslider.value, booking.employeeId);"   mat-raised-button color="accent">Rate the workspace</button>
+            <button class="clicker" [disabled]="false" (click)="getScore(matslider.value, booking.employeeId);" mat-raised-button color="primary">Rate the workspace</button>
         </mat-card-actions>
 
           <p></p>
