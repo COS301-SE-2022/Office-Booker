@@ -119,7 +119,7 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                allowedDomains: ['localhost:3333', 'example.com'],
+                allowedDomains: ['localhost:3333', 'api.officebooker.co.za', 'backend:3333', 'officebooker.co.za'],
                 // disallowedRoutes: ["http://example.com/examplebadroute/"],
                 authScheme: 'Bearer ', // Default value
             },
