@@ -28,7 +28,8 @@ export interface Booking {
   endsAt: string,
   createdAt: string
   employee: employee,
-  employeeName: string
+  employeeName: string,
+  isMeetingRoom: boolean,
 }
 
 export interface BookingDto {
@@ -57,9 +58,10 @@ export interface Invite {
   email: string,
   id: number,
   invitedEmployee: employee,
-  Booking: Booking,
+  deskId: number
 
 }
+
 
 export interface rating{
   currentRating: number,
@@ -106,7 +108,7 @@ export class BookingServiceService {
 
   getBookingByBookingId(bookingId: number){
     const url = 'http://localhost:3333/api/bookings/' + bookingId;
-    return this.http.get(`${url}`);
+    return this.http.get<Booking>(`${url}`);
   }
 
   getCurrentBooking(deskId: number){

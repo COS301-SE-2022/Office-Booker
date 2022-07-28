@@ -4,6 +4,7 @@
 
 
 <div class="card-wrapper-left" *ngFor="let booking of userBookings">
+    
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
@@ -20,12 +21,11 @@
             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
         </mat-card-content>
         <mat-card-actions>
-            <button class="clicker2" (click)="openDialog(booking.id) " mat-raised-button color="primary">Invite Others</button>
-            <p></p>
+            <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+            <br>
+            <br>
             <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
         </mat-card-actions>
-
-        <p></p>
 
     </mat-card>
 
@@ -33,13 +33,11 @@
 
 
 
-
-
 <div class="card-wrapper-right" *ngFor="let invite of invites">
     <mat-card class="example-card">
         <mat-card-header>
             <!-- {{isMeetingRoom ( getDeskIdOfBooking ( invite.bookingId)) }} -->
-            <mat-card-title> You have been invited to   {{ getDeskIdOfInvite ( invite.id)}} </mat-card-title>
+            <mat-card-title> You have been invited to Meeting Room {{ getDeskIdOfInvite ( invite.id)}} </mat-card-title>
             <mat-card-subtitle>
                 <!-- You have a booking coming up. -->
             </mat-card-subtitle>
@@ -59,6 +57,4 @@
         <p></p>
 
     </mat-card>
-
 </div>
-

@@ -34,6 +34,8 @@ export class PersonalBookingsComponent {
   employeeName = "";
   userNumb = -1;
 
+  deskIdInvite = -1;
+
   isMeet = false;
 
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
@@ -45,7 +47,6 @@ export class PersonalBookingsComponent {
     private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
     changeDetection.detach();
-    //console.log(this.userBookings);a
   }
 
   openDialog(bookingId: number): void {
@@ -134,16 +135,37 @@ export class PersonalBookingsComponent {
         newBooking.endsAt = booking.endsAt;
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
-        
 
         this.userBookings.push(newBooking);
         this.changeDetection.detectChanges();
+        this.getMeetingRoom(booking.deskId, booking.id);
+
 
       });
       this.changeDetection.detectChanges();
     })
 
   }
+
+  getMeetingRoom(deskId: number, bookingId: number) : void {
+    this.desks.forEach(desk => {
+      if (desk.id == deskId) {       
+        for (let i = 0; i < this.userBookings.length; i++){
+        
+          if (this.userBookings[i].id == bookingId) {
+            this.userBookings[i].isMeetingRoom = desk.isMeetingRoom;
+          }
+        }
+      } 
+      this.changeDetection.detectChanges();
+    }
+    
+    );
+    
+
+  }
+
+
 
   isMeetingRoom(deskId: number) : string{
     for (let i = 0; i < this.desks.length; i++) {
@@ -162,19 +184,6 @@ export class PersonalBookingsComponent {
     return "Error";
   }
 
-  getDeskIdOfInvite(inviteId: number) : number {
-  
-    for (let i = 0; i < this.invites.length; i++) {
-      // console.log(i)
-      if (this.invites[i].id == inviteId) {
-        console.log(this.invites[i].id);
-        console.log(this.invites[i].Booking)
-        return this.invites[i].Booking.deskId;
-      }
-    }
-
-    return 0;
-  }
 
   getCurrentUser() {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
@@ -214,8 +223,41 @@ export class PersonalBookingsComponent {
   }
 
 
+  //functions for invites ----------------------------------------------------------------------------------------------------------------------
 
-  //functions for invites
+
+  getInvites(userId: number) {
+    this.bookingService.getInvitesForUser(userId).subscribe(res => {
+      res.forEach((Invite) => {
+        const newInvite = {} as Invite;
+        newInvite.bookingId = Invite.bookingId;
+        newInvite.email = Invite.email;
+        newInvite.id = Invite.id;
+        newInvite.invitedEmployee = Invite.invitedEmployee;
+    
+        
+        this.getDeskID(Invite.bookingId);
+
+        this.invites.push(newInvite);
+        this.changeDetection.detectChanges();
+      });
+      this.changeDetection.detectChanges();
+    })
+  }
+
+  getDeskID(bookingId: number) {
+    this.bookingService.getBookingByBookingId(bookingId).subscribe(res => {
+      for (let i = 0; i < this.invites.length; i++){
+        if (this.invites[i].bookingId == bookingId){
+          this.invites[i].deskId = res.deskId;
+          
+        }
+      }
+      this.changeDetection.detectChanges();
+
+    });
+  }
+
 
   inviteOthers(bookingId: number) {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
@@ -259,16 +301,19 @@ export class PersonalBookingsComponent {
 
   }
 
-  getInvites(userId: number) {
-    this.bookingService.getInvitesForUser(userId).subscribe(res => {
-      res.forEach((Invite) => {
-        console.log(Invite);
-        this.invites.push(Invite);
-        this.changeDetection.detectChanges();
-      });
-      this.changeDetection.detectChanges();
-    })
+  getDeskIdOfInvite(inviteId: number) : number {
+  
+    for (let i = 0; i < this.invites.length; i++) {
+      // console.log(i)
+      if (this.invites[i].id == inviteId) {
+        return this.invites[i].deskId;
+      }
+    }
+
+    return 0;
   }
+
+  
 
 
 
