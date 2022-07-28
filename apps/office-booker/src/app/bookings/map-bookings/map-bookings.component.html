@@ -84,8 +84,8 @@
       <br>
       <mat-card-content>
         <div class="card-content" *ngFor="let booking of comparison">
-          <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'+2}} </div>  
-          <div>Time: {{booking.startsAt | date: 'HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'HH:MM': 'UTC'+2}} </div>
+          <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>  
+          <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
         </div>
       </mat-card-content>
     </mat-card>
