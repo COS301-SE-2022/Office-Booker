@@ -1,6 +1,6 @@
 <h1 class="heading">Manage your bookings here</h1>
 <p class="text">You can check the bookings you have made as well as remove them.</p>
-<p class="text" >You have a current rating of {{rating}}</p>
+<p class="text" >You have a current rating of {{rating | number : '1.2-2'}}</p>
 
 
 <div class="card-wrapper-left" *ngFor="let booking of userBookings">
