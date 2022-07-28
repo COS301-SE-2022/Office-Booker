@@ -31,8 +31,17 @@ Demo 2: https://drive.google.com/drive/folders/1qwbQtu3nPAFzys4PPZLHR6MGGvSAa-Ds
 
 [Coding Standards.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8877859/Coding.Standards.pdf)
 
-[User_Manual.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8878118/User_Manual.pdf)
 
+### Demo 3
+[DEMO3_SRS.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9212872/DEMO3_SRS.pdf)
+
+[Coding Standards Demo3.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9212968/Coding.Standards.Demo3.pdf)
+
+[User_Manual_Demo_3.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9212890/User_Manual_Demo_3.pdf)
+
+[Demo3 architecture.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/8868073/Demo2.architecture.pdf)
+
+[Demo3_Installation_manual.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9212869/Demo3_Installation_manual.pdf)
 
 ## Technologies Used
 
