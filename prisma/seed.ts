@@ -92,7 +92,7 @@ async function main() {
             },
             Width: 200,
             Height: 250,
-            isMeetingRoom: false,
+            isMeetingRoom: true,
             capacity: 15,
         },
     })
@@ -428,8 +428,8 @@ async function main() {
             },
             Width: 200,
             Height: 200,
-            isMeetingRoom: false,
-            capacity: 1,
+            isMeetingRoom: true,
+            capacity: 10,
         },
     })
 
