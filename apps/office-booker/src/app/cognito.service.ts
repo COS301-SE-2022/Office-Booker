@@ -135,6 +135,7 @@ export class CognitoService {
 
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.isAdmin = res.admin;
+      console.log("hasAdmin: " + this.isAdmin);
     })
 
   }
@@ -149,6 +150,7 @@ export class CognitoService {
   }  
 
   public admin(): boolean {
+    // this.hasAdmin();
     return this.isAdmin;
   }
 

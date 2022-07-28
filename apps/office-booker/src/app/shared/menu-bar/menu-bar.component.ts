@@ -15,6 +15,7 @@ export class MenuBarComponent {
   authenticated = false;
   email = "";
   loggedIn = false;
+  status = "";
 
 
   constructor(private app: AppComponent,
@@ -23,6 +24,7 @@ export class MenuBarComponent {
       if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
         this.loggedIn = true;
       } else this.loggedIn = false;
+    
     this.admin = this.cognitoService.authenticated();
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
@@ -65,7 +67,18 @@ export class MenuBarComponent {
     // return !(this.cognitoService.guest()) && this.cognitoService.loggedIn();
   }
 
+  isStatus() : void { 
+    if (this.isAdmin() == true)
+      this.status = "Admin";
+    else if (this.isNotGuest() == false)
+      this.status = "Guest";
+    else 
+      this.status = "User";
+    return;
+  }
+
   isEmailAddress(): boolean {
+    this.isStatus();
     this.email = this.cognitoService.getEmailAddress();
     if (this.email != null && this.isAuthenticated() ){
       return true;

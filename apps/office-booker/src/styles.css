@@ -12,6 +12,12 @@ body {
     background-size: cover;
     height: 100%;
     background-attachment: fixed;
+
+
+
          
 }
 
+* {
+    font-family:'Maven Pro', sans-serif;
+}
