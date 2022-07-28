@@ -202,6 +202,7 @@ export class PersonalBookingsComponent {
     this.bookingService.getRatings(this.currentUser.id).subscribe(res => {
       this.newRating = res;
       this.rating = this.newRating.currentRating / (this.newRating.ratingsReceived);
+      this.changeDetection.detectChanges();
     });
   }
 

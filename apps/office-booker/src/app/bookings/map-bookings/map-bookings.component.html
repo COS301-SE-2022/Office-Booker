@@ -80,7 +80,7 @@
         </mat-card-actions>
   
       </div>
-      <mat-card-header>{{comparison[0].isMeetingRoom === true ? "Meeting Room" : "Desk"}} {{comparison[0].deskId}}</mat-card-header>
+      <mat-card-header>{{comparison[0].isMeetingRoom ? "Meeting Room" : "Desk"}} {{comparison[0].deskId}}</mat-card-header>
       <br>
       <mat-card-content>
         <div class="card-content" *ngFor="let booking of comparison">
