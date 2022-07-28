@@ -13,6 +13,8 @@ export interface Desk {
   roomId: number,
   LocationRow: number,
   LocationCol: number,
+  Height: number,
+  Width: number,
   booking: boolean,
   bookings: Booking[],
   isMeetingRoom: boolean,

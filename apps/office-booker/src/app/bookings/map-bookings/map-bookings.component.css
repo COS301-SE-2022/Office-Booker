@@ -120,8 +120,18 @@
    
 }
 
+.desk {
+    fill:rgb(58, 56, 56);
+}
+
+.meetingRoom {
+    fill:rgb(143, 139, 139);
+    stroke-width: 2px;
+    stroke:rgb(17, 17, 17);
+}
+
 .booked {
-    fill: #dd8d8d;
+    fill: rgb(66, 77, 161);
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
@@ -157,3 +167,4 @@
     display: flex;
     float:right;
 }
+
