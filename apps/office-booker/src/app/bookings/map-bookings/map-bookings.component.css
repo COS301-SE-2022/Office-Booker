@@ -30,7 +30,18 @@
     height: auto;
     margin: 2rem;
     float:left;
+    display: flex;
 }
+
+.comparison-card {
+    max-width: 20%;
+}
+
+.card-content {
+    padding: 2rem;
+    border-bottom:  rgba(140, 140, 140, 0.314) 2.5px solid;
+}
+
 
 .booking-container {
     padding: 1.5rem;
