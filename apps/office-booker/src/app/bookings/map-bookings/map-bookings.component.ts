@@ -89,6 +89,7 @@ export class MapBookingsComponent {
         newDesk.LocationRow = desk.LocationRow;
         newDesk.roomId = desk.roomId;
         newDesk.bookings = [];            //the potentially empty variable needs to be instantiated
+        newDesk.isMeetingRoom = desk.isMeetingRoom;
         this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
 
         this.desks.push(newDesk);       //adds to desk array
@@ -122,7 +123,7 @@ export class MapBookingsComponent {
               if(bookingDate > comparisonDate){
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
-                
+                this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
               }
 
             }
@@ -133,12 +134,12 @@ export class MapBookingsComponent {
     })
   }
 
-  selectToBook(itemId: number, itemType: string){       //used to find the info for the selected desk
+  selectToBook(itemId: number, itemType: boolean){       //used to find the info for the selected desk
     this.selectedItemBookings = [];   
     this.selected = true;         //changes so that the div can be displayed only once something has been selected
-    this.selectedItemName = itemType + " " + itemId.toString();       //cosmetic for displaying in the selected div
+    this.selectedItemName = (itemType === true ? "Meeting Room" : "Desk") + " " + itemId.toString();       //cosmetic for displaying in the selected div
     this.selectedItemId = itemId;           //needed for when making bookings and canceling bookings and displaying bookings
-    this.selectedItemType = itemType;     //will be necessary once meeting rooms have been included
+    this.selectedItemType =  (itemType === true ? "Meeting Room" : "Desk");     //will be necessary once meeting rooms have been included
     this.desks.forEach(desk => {        
       if(desk.id == itemId){
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
@@ -151,7 +152,6 @@ export class MapBookingsComponent {
         this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
       }
     }
-
     this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
     this.multiSelectedItemId.forEach(id => {
       this.desks.forEach(desk => {          //loops through each id and each desk
@@ -245,7 +245,7 @@ export class MapBookingsComponent {
     }
   }
 
-  bookItem(itemId: number, itemType: string) {         //used when the booked button is clicked
+  bookItem(itemId: number) {         //used when the booked button is clicked
     if (this.grabbedStartDate != "" && this.grabbedEndDate != "")      //makes sure dates are selected
     {
       const splitTimeDateStart = this.grabbedStartDate.split('-');        //string is grabbed from the input and needs to be separated to create date object (splits the year from month and date)
@@ -263,9 +263,9 @@ export class MapBookingsComponent {
 
       const newWholeDateStart = new Date(newYearStart, newMonthStart - 1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]) + 2, Number(splitTimeStart[1]));     //uses the variable from above in (year, month -1 as the number is incorrect when using input, date from the first index in the second split and converted to number, second split first item is the hour plus two *something UTC related*, and second item is minutes (both converted to numbers) )
       const newWholeDateEnd = new Date(newYearEnd, newMonthEnd - 1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]) + 2, Number(splitTimeEnd[1]));
-      if (itemType == 'desk') {       //needed once meeting rooms included
-        this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
-      }
+      
+      
+      this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
     }
     else {       //when no date was chosen
       alert("No date chosen");
