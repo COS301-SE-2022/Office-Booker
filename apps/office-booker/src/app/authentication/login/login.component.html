@@ -29,10 +29,15 @@
               Login
           </button>
 
-            <button mat-raised-button color="primary" (click)="forgotPassword()" class="btn btn-sm btn-success" [disabled]="loading">
+            <!-- <button mat-raised-button color="primary" (click)="forgotPassword()" class="btn btn-sm btn-success" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Forgot password?
-          </button>
+            </button> -->
+            <br>
+            <br>
+            <u class="forgot" (click)="forgotPassword()">
+                  Forgot password?
+            </u>
         </mat-card-actions>
 
         <p></p>

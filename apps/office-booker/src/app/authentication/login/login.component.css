@@ -89,4 +89,8 @@
   
   .mat-form-field{
     width: 75%;
-}
+  }
+
+  .forgot{
+    font-size: 12px;
+  }
