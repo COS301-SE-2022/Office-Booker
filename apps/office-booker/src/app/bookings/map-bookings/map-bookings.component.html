@@ -1,7 +1,7 @@
 <div class="map-container">
     <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(206, 204, 204)">
     <g *ngFor="let desk of desks">
-        <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.booked]="desk.booking" width="50" height="30" (click)="selectToBook(desk.id, 'desk')"></rect>
+        <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.booked]="desk.booking" width="50" height="30" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
     </g>
     <g>
       <line x1="200" y1="0" x2="200" y2="200" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
@@ -50,7 +50,7 @@
                 <p>Item Name: {{this.selectedItemName | titlecase}}</p>
                 <p>Item Facilities: </p>
                 <mat-card-actions>
-                    <button (click)="bookItem(selectedItemId, selectedItemType)" mat-raised-button color="primary">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
+                    <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book {{selectedItemType | titlecase}} {{selectedItemId}}</button>
                 </mat-card-actions>
                 <hr>
                 <div class="scrollable-section">
@@ -80,7 +80,7 @@
         </mat-card-actions>
   
       </div>
-      <mat-card-header>Desk: {{comparison[0].deskId}}</mat-card-header>
+      <mat-card-header>{{comparison[0].isMeetingRoom === true ? "Meeting Room" : "Desk"}} {{comparison[0].deskId}}</mat-card-header>
       <br>
       <mat-card-content>
         <div class="card-content" *ngFor="let booking of comparison">
