@@ -1,8 +1,7 @@
-FROM node:lts-alpine
-WORKDIR /app
-COPY ./dist/apps/office-booker .
-ENV PORT=3334
+FROM nginx
+
+ENV PORT=80
 EXPOSE ${PORT}
-RUN npm install --production
-RUN npm install reflect-metadata tslib rxjs hbs
-CMD node ./main.js
+
+WORKDIR /usr/share/nginx/html
+COPY ./dist/apps/office-booker .

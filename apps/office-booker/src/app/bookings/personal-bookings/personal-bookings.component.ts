@@ -7,7 +7,6 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { NumberFormatStyle } from '@angular/common';
-import { variable } from '@angular/compiler/src/output/output_ast';
 
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -149,19 +148,19 @@ export class PersonalBookingsComponent {
 
   getMeetingRoom(deskId: number, bookingId: number) : void {
     this.desks.forEach(desk => {
-      if (desk.id == deskId) {       
+      if (desk.id == deskId) {
         for (let i = 0; i < this.userBookings.length; i++){
-        
+
           if (this.userBookings[i].id == bookingId) {
             this.userBookings[i].isMeetingRoom = desk.isMeetingRoom;
           }
         }
-      } 
+      }
       this.changeDetection.detectChanges();
     }
-    
+
     );
-    
+
 
   }
 
@@ -176,7 +175,7 @@ export class PersonalBookingsComponent {
 
     if (this.isMeet==false){
       return "Desk";
-      
+
     }
     else if (this.isMeet==true){
       return "Meeting Room";
@@ -234,8 +233,8 @@ export class PersonalBookingsComponent {
         newInvite.email = Invite.email;
         newInvite.id = Invite.id;
         newInvite.invitedEmployee = Invite.invitedEmployee;
-    
-        
+
+
         this.getDeskID(Invite.bookingId);
 
         this.invites.push(newInvite);
@@ -250,7 +249,7 @@ export class PersonalBookingsComponent {
       for (let i = 0; i < this.invites.length; i++){
         if (this.invites[i].bookingId == bookingId){
           this.invites[i].deskId = res.deskId;
-          
+
         }
       }
       this.changeDetection.detectChanges();
@@ -302,7 +301,7 @@ export class PersonalBookingsComponent {
   }
 
   getDeskIdOfInvite(inviteId: number) : number {
-  
+
     for (let i = 0; i < this.invites.length; i++) {
       // console.log(i)
       if (this.invites[i].id == inviteId) {
@@ -313,7 +312,7 @@ export class PersonalBookingsComponent {
     return 0;
   }
 
-  
+
 
 
 

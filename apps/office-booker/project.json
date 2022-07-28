@@ -1,11 +1,11 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/office-booker",
   "sourceRoot": "apps/office-booker/src",
   "prefix": "office-booker",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/office-booker",
@@ -17,7 +17,6 @@
           "apps/office-booker/src/favicon.ico",
           "apps/office-booker/src/assets"
         ],
-        "generatePackageJson": true,
         "styles": [
           "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/office-booker/src/styles.css"

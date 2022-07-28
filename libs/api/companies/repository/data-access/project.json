@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/companies/repository/data-access",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/companies/repository/data-access/src",
   "targets": {
     "lint": {

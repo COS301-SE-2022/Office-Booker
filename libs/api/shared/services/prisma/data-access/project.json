@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/shared/services/prisma/data-access",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/shared/services/prisma/data-access/src",
   "targets": {
     "lint": {
