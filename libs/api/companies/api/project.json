@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/companies/api",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/companies/api/src",
   "targets": {
     "lint": {

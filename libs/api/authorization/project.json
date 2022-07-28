@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/authorization",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/authorization/src",
   "targets": {
     "lint": {
