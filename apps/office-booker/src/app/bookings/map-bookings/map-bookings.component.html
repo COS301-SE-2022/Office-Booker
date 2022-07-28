@@ -1,10 +1,10 @@
 <div class="map-container">
     <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(206, 204, 204)">
     <g *ngFor="let desk of desks">
-        <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.booked]="desk.booking" width="50" height="30" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
+        <rect [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom" [class.meetingRoom]="desk.isMeetingRoom" [class.booked]="desk.booking" [attr.width]="desk.Width" [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
     </g>
     <g>
-      <line x1="200" y1="0" x2="200" y2="200" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
+      <line x1="395" y1="280" x2="395" y2="450" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
       <line x1="200" y1="700" x2="200" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
       <line x1="300" y1="700" x2="300" y2="800" style="stroke:rgb(0, 0, 0);stroke-width:4"></line>
 

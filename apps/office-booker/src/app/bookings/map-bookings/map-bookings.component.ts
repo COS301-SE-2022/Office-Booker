@@ -90,6 +90,8 @@ export class MapBookingsComponent {
         newDesk.LocationRow = desk.LocationRow;
         newDesk.roomId = desk.roomId;
         newDesk.bookings = [];            //the potentially empty variable needs to be instantiated
+        newDesk.Height = desk.Height;
+        newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
         this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
 
