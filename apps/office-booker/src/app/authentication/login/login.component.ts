@@ -15,7 +15,8 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-
+  
+  showPassword: boolean
   loading: boolean;
   user: IUser;
 
@@ -23,6 +24,7 @@ export class LoginComponent {
               private cognitoService: CognitoService,
               ) {
     this.loading = false;
+    this.showPassword = false;
     this.user = {} as IUser;
   }
 
@@ -69,11 +71,9 @@ export class LoginComponent {
        }
   }
 
-  showPassword() : void { 
-   "user.showPassword = !user.showPassword"
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
 
 }
-
-
