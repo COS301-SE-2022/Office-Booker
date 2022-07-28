@@ -274,6 +274,8 @@ export class MapBookingsComponent {
   }
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
+    console.log(this.hasBooking);
+    if(!this.hasBooking){
     const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
       return desk.id == deskId;
     });
@@ -305,10 +307,14 @@ export class MapBookingsComponent {
         }
         this.changeDetection.detectChanges();
       });
+      this.hasBooking = true;
     }
     else {        //if clash alert
       alert("Can't overlap bookings");
     }
+  }else{
+    alert("Guest can only book one desk at a time");
+  }
   }
 
   deleteBooking(itemId: number, itemType: string) {        //function when delete booking is called from a button
