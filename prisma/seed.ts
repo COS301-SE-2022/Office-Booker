@@ -51,49 +51,49 @@ async function main() {
 
     const desk_1 = await prisma.desk.create({
         data: {
-            LocationCol: 10,
-            LocationRow: 10,
+            LocationCol: 0,
+            LocationRow: 0,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
-            isMeetingRoom: false,
-            capacity: 1,
+            Width: 200,
+            Height: 200,
+            isMeetingRoom: true,
+            capacity: 10,
         },
     })
 
     const desk_2 = await prisma.desk.create({
         data: {
-            LocationCol: 70,
-            LocationRow: 10,
+            LocationCol: 540,
+            LocationRow: 0,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
-            isMeetingRoom: false,
-            capacity: 1,
+            Width: 300,
+            Height: 200,
+            isMeetingRoom: true,
+            capacity: 10,
         },
     })
 
     const desk_3 = await prisma.desk.create({
         data: {
-            LocationCol: 300,
-            LocationRow: 400,
+            LocationCol: 0,
+            LocationRow: 210,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 200,
+            Height: 250,
             isMeetingRoom: false,
-            capacity: 1,
+            capacity: 15,
         },
     })
 
@@ -106,8 +106,8 @@ async function main() {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 30,
+            Height: 50,
             isMeetingRoom: false,
             capacity: 1,
         },
@@ -115,15 +115,15 @@ async function main() {
 
     const desk_5 = await prisma.desk.create({
         data: {
-            LocationCol: 420,
+            LocationCol: 400,
             LocationRow: 400,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 30,
+            Height: 50,
             isMeetingRoom: false,
             capacity: 1,
         },
@@ -275,15 +275,15 @@ async function main() {
 
     const desk_15 = await prisma.desk.create({
         data: {
-            LocationCol: 300,
-            LocationRow: 360,
+            LocationCol: 360,
+            LocationRow: 340,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 30,
+            Height: 50,
             isMeetingRoom: false,
             capacity: 1,
         },
@@ -291,15 +291,15 @@ async function main() {
 
     const desk_16 = await prisma.desk.create({
         data: {
-            LocationCol: 360,
-            LocationRow: 360,
+            LocationCol: 400,
+            LocationRow: 340,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 30,
+            Height: 50,
             isMeetingRoom: false,
             capacity: 1,
         },
@@ -339,15 +339,15 @@ async function main() {
 
     const desk_19 = await prisma.desk.create({
         data: {
-            LocationCol: 420,
-            LocationRow: 360,
+            LocationCol: 360,
+            LocationRow: 280,
             Room: {
                 connect: {
                     id: room.id,
                 },
             },
-            Width: 50,
-            Height: 30,
+            Width: 30,
+            Height: 50,
             isMeetingRoom: false,
             capacity: 1,
         },
@@ -396,6 +396,38 @@ async function main() {
             },
             Width: 50,
             Height: 30,
+            isMeetingRoom: false,
+            capacity: 1,
+        },
+    })
+
+    const desk_23 = await prisma.desk.create({
+        data: {
+            LocationCol: 400,
+            LocationRow: 280,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+            Width: 30,
+            Height: 50,
+            isMeetingRoom: false,
+            capacity: 1,
+        },
+    })
+
+    const desk_24 = await prisma.desk.create({
+        data: {
+            LocationCol: 300,
+            LocationRow: 600,
+            Room: {
+                connect: {
+                    id: room.id,
+                },
+            },
+            Width: 200,
+            Height: 200,
             isMeetingRoom: false,
             capacity: 1,
         },
