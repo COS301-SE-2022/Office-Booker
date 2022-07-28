@@ -14,7 +14,10 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+                <input matInput [type]="showPassword ? 'text' : 'password'" type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
+                <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                    {{showPassword?'visibility_off':'visibility'}}
+                </mat-icon>
             </mat-form-field>
 
             <!-- <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
