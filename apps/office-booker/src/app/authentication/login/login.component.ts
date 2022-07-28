@@ -41,7 +41,7 @@ export class LoginComponent {
       this.cognitoService.hasGuest();
       this.cognitoService.getCompany();
 
-      this.router.navigate(['/personal-bookings']);
+      this.router.navigate(['/bookings']);
     }).catch((e) => {
       alert(e)
     this.loading = false;
