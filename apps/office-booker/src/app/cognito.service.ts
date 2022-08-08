@@ -39,7 +39,7 @@ export class CognitoService {
     this.isAuthenticated();
     this.isAdmin = false;
     this.hasAdmin();
-    this.isGuest = true;
+    this.isGuest = false;
     this.hasGuest();
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
