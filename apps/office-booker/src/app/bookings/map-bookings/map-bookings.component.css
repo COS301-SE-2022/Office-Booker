@@ -5,6 +5,8 @@
     float:left;
 }
 
+
+
 .side-container {
     /* width: 50rem; */
     /* margin: 0 auto; */
@@ -18,7 +20,7 @@
     float: right;
     font-weight: bold;
     /* margin-top: 0.5rem; */
-    margin-right: 40px;
+    margin-right: 20px;
     /* margin-left: 25px; */
     justify-content: space-between;
     position: relative;
@@ -168,3 +170,6 @@
     float:right;
 }
 
+.body {
+    /* margin: 1200px; */
+}

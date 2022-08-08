@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IUser, CognitoService } from '../../cognito.service';
+import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
+
 
 @Component({
   selector: 'office-booker-account',
@@ -8,18 +10,43 @@ import { IUser, CognitoService } from '../../cognito.service';
 })
 export class AccountComponent {
   user: IUser;
+  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  userNumb = -1;
+  newRating: rating = { currentRating: -1, ratingsReceived: -1 };
+  rating = 0;
 
-  constructor(private cognitoService: CognitoService) {
+
+  constructor(private cognitoService: CognitoService,
+              private bookingService: BookingServiceService,
+              private changeDetection: ChangeDetectorRef) {
 
     this.user = {} as IUser;
   }
 
-  // ngOnInit(): void {
-  //   // this.forgotPassword();
+  ngOnInit(): void {
+    this.getCurrentUser();
 
-  // }
+  }
+
+  getCurrentUser() {
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+      this.currentUser = res;
+      this.userNumb = this.currentUser.id;
+      this.getRating();
+      this.changeDetection.detectChanges();
 
 
+    })
+  }
+
+  getRating() {
+    this.bookingService.getRatings(this.currentUser.id).subscribe(res => {
+      this.newRating = res;
+      this.rating = this.newRating.currentRating / (this.newRating.ratingsReceived);
+      this.changeDetection.detectChanges();
+    });
+  }
 
   public forgotPassword(): void {
     alert(this.user.email);
