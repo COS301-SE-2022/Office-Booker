@@ -23,7 +23,7 @@ export class CognitoService {
   companyID: number;
   isAuthenticate: boolean;
   isAdmin: boolean;
-  isGuest = false;
+  isGuest: boolean;
   private authenticationSubject: BehaviorSubject<any>;
 
   isLoggedIn = false;
@@ -36,10 +36,11 @@ export class CognitoService {
     this.company = "";
     this.companyID = 0;
     this.isAuthenticate = false;
+    this.isAuthenticated();
     this.isAdmin = false;
-    // this.isGuest = true;
-    console.log("constructor")
-
+    this.hasAdmin();
+    this.isGuest = true;
+    this.hasGuest();
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
@@ -138,20 +139,22 @@ export class CognitoService {
 
   public hasAdmin() : void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-
-    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      this.isAdmin = res.admin;
-      console.log("hasAdmin: " + this.isAdmin);
-    })
+    if (userData != "null") {
+      this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+        this.isAdmin = res.admin;
+        console.log("hasAdmin: " + this.isAdmin);
+      })
+  }
 
   }
 
   public hasGuest() : void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-
-    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      this.isGuest = res.guest;
-    })
+    if (userData != "null") {
+      this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+        this.isGuest = res.guest;
+      })
+    }
 
     console.log("Guest: " + this.isGuest);
 
