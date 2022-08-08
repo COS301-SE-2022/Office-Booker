@@ -37,7 +37,8 @@ export class CognitoService {
     this.companyID = 0;
     this.isAuthenticate = false;
     this.isAdmin = false;
-    this.isGuest = true;
+    // this.isGuest = true;
+    console.log("constructor")
 
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
@@ -65,6 +66,7 @@ export class CognitoService {
   public signIn(user: IUser): Promise<any> {
     return Auth.signIn(user.email, user.password)
       .then(() => {
+        this.hasGuest();
         this.authenticationSubject.next(true);
       });
   }
@@ -85,10 +87,14 @@ export class CognitoService {
   public isAuthenticated(): void {
     if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       this.isAuthenticate = true;
+      // console.log("isAuthenticated: " + this.isAuthenticate);
 
     }
     else
+    {
       this.isAuthenticate = false;
+      // console.log("isAuthenticated: " + this.isAuthenticate);
+    }
   }
 
   public isAuthenticatedCheck(): Promise<boolean> {
@@ -147,6 +153,8 @@ export class CognitoService {
       this.isGuest = res.guest;
     })
 
+    console.log("Guest: " + this.isGuest);
+
   }  
 
   public admin(): boolean {
@@ -155,14 +163,18 @@ export class CognitoService {
   }
 
   public guest(): boolean {
-    this.loggedIn();
-    if (this.loggedIn() == false) {
-      // console.log("not logged in")
-      return true;
-    }
+    // this.loggedIn();
+    // if (this.loggedIn() == false) {
+    //   // console.log("not logged in")
+    //   return true;
+    // }
     // console.log("logged in")
 
+    // console.log(this.isGuest);
+
     return this.isGuest;
+
+    return false;
   }
 
   public authenticated(): boolean {
@@ -217,6 +229,7 @@ export class CognitoService {
 
   public loggedIn() : boolean {
     this.isAuthenticated();
+    // console.log(this.authenticated())
     return this.authenticated();
   }
 
