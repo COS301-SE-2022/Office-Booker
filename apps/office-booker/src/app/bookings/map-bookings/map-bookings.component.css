@@ -115,9 +115,7 @@
 }
 
 .meetingRoom {
-    fill: rgb(218, 218, 218);
-    stroke-width: 2px;
-    stroke: rgb(17, 17, 17);
+    fill: rgb(196, 196, 196);
 }
 
 .circle {

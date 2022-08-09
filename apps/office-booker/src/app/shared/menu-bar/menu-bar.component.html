@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <nav>
-    <ul id="menu">
+    <ul id="menu" style="border-radius: 3px;">
         <li>
             <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><i
                     class="fa fa-sign-in"></i> Login</a>
@@ -21,7 +21,7 @@
             <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-check-circle-o" ></i> Rate Users</a>
         </li>
         <li>
-            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()" ><i class="fa fa-bars" ></i> Admin Page</a>
+            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><i class="fa fa-bars" ></i> Admin Page</a>
         </li>
         <li>
             <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><i
@@ -41,6 +41,6 @@
                 <li style="float: right">
                     <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><i
                     class='fa fa-address-card'></i> [{{status}}] {{email}}</a>
-            </li>
+                </li>
     </ul>
 </nav>
