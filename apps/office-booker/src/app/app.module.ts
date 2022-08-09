@@ -24,6 +24,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
@@ -107,6 +109,7 @@ export function tokenGetter() {
         MatSliderModule,
         MatCardModule,
         MatIconModule,
+        MatButtonToggleModule,
         MatInputModule,
         MatSelectModule,
         MatCheckboxModule,

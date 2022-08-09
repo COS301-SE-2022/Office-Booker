@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
 
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { NumberFormatStyle } from '@angular/common';

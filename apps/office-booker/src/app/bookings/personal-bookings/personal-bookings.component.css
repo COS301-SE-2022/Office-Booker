@@ -18,12 +18,23 @@
   
 }
 
+.mat-button-toggle-group{
+  margin: 1rem;
+  margin-left: 2rem;
+  
+}
+
 * {
   box-sizing: border-box;
 }
 
 body{
   overflow: hidden;
+  
+}
+
+.mat-button.toggle{
+  color:rgb(204, 26, 70)
 }
 
 .mat-card-header{

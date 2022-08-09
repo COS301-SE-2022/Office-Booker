@@ -1,7 +1,17 @@
 <h1 class="heading">Manage your bookings here</h1>
 <p class="text">You can check the bookings you have made as well as remove them.</p>
 
+<mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
+    <mat-button-toggle value="red">Red</mat-button-toggle>
+    <mat-button-toggle value="green">Green</mat-button-toggle>
+    <mat-button-toggle value="blue">Blue</mat-button-toggle>
+  </mat-button-toggle-group>
+  
+
+<p></p>
+
 <div class="card-wrapper-left" *ngFor="let booking of userBookings">
+    
     
     <mat-card class="example-card">
         <mat-card-header>
