@@ -130,14 +130,16 @@
     <mat-card class="example-card">
         <mat-card-header>
             <!-- {{isMeetingRoom ( getDeskIdOfBooking ( invite.bookingId)) }} -->
-            <mat-card-title> You have been invited to Meeting Room {{ getDeskIdOfInvite ( invite.id)}} </mat-card-title>
+            <mat-card-title>Invite to Meeting Room {{ getDeskIdOfInvite ( invite.id)}} </mat-card-title>
             <mat-card-subtitle>
 
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div>Invited by: {{invite.id}} </div>
-        </mat-card-content>
+            <div>Invited by: ! Need database change to show who created the invite ! </div>
+            <div>Details:</div>
+            <div>{{invite.booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
+            <div>{{invite.booking.startsAt | date: 'HH:mm': 'UTC'}} - {{invite.booking.endsAt | date: 'HH:mm': 'UTC'}} </div>        </mat-card-content>
         <mat-card-actions>
             <button class="clicker2" (click)="acceptInvite(invite.id)" mat-raised-button color="primary">Accept Invite</button>
             <p></p>

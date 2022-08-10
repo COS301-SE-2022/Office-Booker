@@ -242,6 +242,7 @@ export class PersonalBookingsComponent {
         newInvite.email = Invite.email;
         newInvite.id = Invite.id;
         newInvite.invitedEmployee = Invite.invitedEmployee;
+        newInvite.booking = Invite.booking;
 
         this.getDeskID(Invite.bookingId);
 
