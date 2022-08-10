@@ -136,10 +136,11 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div>Invited by: ! Need database change to show who created the invite ! </div>
-            <div>Details:</div>
+            <div>Invited by: {{invite.email}} </div>
+            <p></p>
             <div>{{invite.Booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
-            <div>{{invite.Booking.startsAt | date: 'HH:mm': 'UTC'}} - {{invite.Booking.endsAt | date: 'HH:mm': 'UTC'}} </div>        </mat-card-content>
+            <div>{{invite.Booking.startsAt | date: 'HH:mm': 'UTC'}} - {{invite.Booking.endsAt | date: 'HH:mm': 'UTC'}} </div>        
+        </mat-card-content>
         <mat-card-actions>
             <button class="clicker2" (click)="acceptInvite(invite.id)" mat-raised-button color="primary">Accept Invite</button>
             <p></p>

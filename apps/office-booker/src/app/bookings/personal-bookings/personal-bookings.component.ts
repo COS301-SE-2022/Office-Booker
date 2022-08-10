@@ -74,6 +74,7 @@ export class PersonalBookingsComponent {
   ngOnInit() {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
+    this.getUsers();
     this.changeDetection.detectChanges();
 
   }
@@ -83,12 +84,9 @@ export class PersonalBookingsComponent {
       res.forEach(user => {
         this.Users.push(user);
         this.changeDetection.detectChanges();
-        if (this.Users.length == 3) {
-          this.getCurrentUser();
-          this.changeDetection.detectChanges();
-        }
       });
     })
+    console.log(this.Users);
   }
 
 
@@ -264,19 +262,25 @@ export class PersonalBookingsComponent {
         if (this.invites[i].bookingId == bookingId){
           this.invites[i].deskId = res.deskId;
           this.invites[i].Booking = res;
-
         }
       }
-      this.changeDetection.detectChanges();
 
+      for (let i = 0; i < this.invites.length; i++){
+        for (let p = 0; p < this.Users.length; p++){
+          if (this.invites[i].Booking.employeeId == this.Users[p].id){
+            this.invites[i].email = this.Users[p].email;
+            console.log(this.invites[i].email);
+          }
+        this.changeDetection.detectChanges();
+        }
+      }
     });
   }
 
 
   inviteOthers(bookingId: number) {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
-      // console.log(res);
-      // console.log(bookingId);
+      //
     });
 
   }
