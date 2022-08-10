@@ -2,13 +2,15 @@
 <p class="text">You can check the bookings you have made as well as remove them.</p>
 
 <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
-    <mat-button-toggle value="All">All</mat-button-toggle>
-    <mat-button-toggle value="Yours">Yours</mat-button-toggle>
-    <mat-button-toggle value="Invited">Invited</mat-button-toggle>
+    <mat-button-toggle checked="true" value="all">All</mat-button-toggle>
+    <mat-button-toggle value="yours">Yours</mat-button-toggle>
+    <mat-button-toggle value="invited">Invited</mat-button-toggle>
   </mat-button-toggle-group>
   
 
 <p></p>
+
+<!-- div for all bookings -->
 
 <div class="card-wrapper-left" *ngFor="let booking of userBookings" >
     <div class="card-wrapper-left" *ngIf="toDisplay === 'all'">
@@ -38,6 +40,8 @@
     </div>
 </div>
 
+
+<!-- div for users own bookings -->
 <div class="card-wrapper-left" *ngFor="let booking of userBookings" >
     <div class="card-wrapper-left" *ngIf="toDisplay === 'yours'">
     <mat-card class="example-card">
@@ -66,6 +70,8 @@
     </div>
 </div>
 
+
+<!-- div for invited bookings -->
 <div class="card-wrapper-left" *ngFor="let booking of userBookings" >
     <div class="card-wrapper-left" *ngIf="toDisplay === 'invited'">
     <mat-card class="example-card">
@@ -97,7 +103,7 @@
 
 
 
-
+<!-- div for invites -->
 <div class="card-wrapper-right" *ngFor="let invite of invites">
     <mat-card class="example-card">
         <mat-card-header>
