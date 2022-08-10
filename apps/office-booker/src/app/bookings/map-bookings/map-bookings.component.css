@@ -2,15 +2,12 @@
     width: 800px;
     height: auto;
     margin: 2rem;
-    float:left;
+    float: left;
 }
-
-
 
 .side-container {
     /* width: 50rem; */
     /* margin: 0 auto; */
-
     /* left: -10%; */
     /* right: 10%; */
     /* display: flex; */
@@ -24,14 +21,13 @@
     /* margin-left: 25px; */
     justify-content: space-between;
     position: relative;
-    
 }
 
 .comparison-container {
     width: 90%;
     height: auto;
     margin: 2rem;
-    float:left;
+    float: left;
     display: flex;
 }
 
@@ -41,9 +37,8 @@
 
 .card-content {
     padding: 2rem;
-    border-bottom:  rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-bottom: rgba(140, 140, 140, 0.314) 2.5px solid;
 }
-
 
 .booking-container {
     padding: 1.5rem;
@@ -62,48 +57,41 @@
     /* background-color: rgba(172, 172, 172, 0.664); */
     /* text-align: center; */
     /* justify-content: center;  */
-
     /* right: 25%; */
-
     width: auto;
     float: right;
     font-weight: bold;
-
     margin-top: 1rem;
-
     /* margin-right: 40px; */
     justify-content: space-between;
     position: relative;
-
     /* width: auto; */
     /* height: auto; */
     /* float: right; */
-    
     /* margin-top: 1rem; */
     /* margin-right:1rem; */
-    
     /* position: relative; */
 }
 
 .scrollable-section {
     height: 300px;
     overflow-y: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .info-to-display-container {
     overflow-y: scroll;
-    margin:0.5rem;
+    margin: 0.5rem;
     /* overflow: hidden; */
     /* margin:1rem; */
     /*-ms-overflow-style: none;  IE and Edge
     /* scrollbar-width: none;  Firefox */
     border: black 2px solid;
     border-radius: 50px;
-    
     /* border-bottom:black 2px solid; */
-    
     /* padding-top:2rem; */
     /* padding-bottom:2rem; */
     /* padding-left:20rem;
@@ -113,33 +101,34 @@
     /* justify-content: center;  */
     /* display: inline-block; */
 }
-.scrollable-section::-webkit-scrollbar { 
-    height: 2px;            /*need something to be edited otherwise wont hide scroll bar*/
-    width: 0 !important 
+
+.scrollable-section::-webkit-scrollbar {
+    height: 2px;
+    /*need something to be edited otherwise wont hide scroll bar*/
+    width: 0 !important
 }
 
-.booking-item-info-container {
-   
-}
+.booking-item-info-container {}
 
 .desk {
-    fill:rgb(58, 56, 56);
+    fill: rgb(186, 203, 236);
 }
 
 .meetingRoom {
-    fill:rgb(143, 139, 139);
-    stroke-width: 2px;
-    stroke:rgb(17, 17, 17);
+    fill: rgb(196, 196, 196);
+}
+
+.circle {
+    fill: rgb(148, 248, 134);
 }
 
 .booked {
-    fill: rgb(66, 77, 161);
+    fill: rgb(88, 88, 88);
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
 
-.card-wrapper{
-    
+.card-wrapper {
     /* margin:0 auto;
     width: 500px; */
     /* top: 50%;
@@ -149,25 +138,22 @@
     z-index: 2; */
     /* text-align: center;
     position: absolute; */
-
 }
 
-.mat-card{
+.mat-card {
     width: 300px;
     margin: 1rem;
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
-
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
-    
 }
 
 .close-button {
     width: 30px;
     margin-top: 2px;
     display: flex;
-    float:right;
+    float: right;
 }
 
 .body {
