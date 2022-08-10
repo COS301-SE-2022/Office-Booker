@@ -36,6 +36,8 @@ export class PersonalBookingsComponent {
 
   deskIdInvite = -1;
 
+  toDisplay: string;
+
   isMeet = false;
 
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
@@ -46,6 +48,7 @@ export class PersonalBookingsComponent {
   constructor(private router: Router, private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
+    this.toDisplay = "all";
     changeDetection.detach();
   }
 
@@ -69,6 +72,7 @@ export class PersonalBookingsComponent {
   ngOnInit() {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
+    this.changeDetection.detectChanges();
 
   }
 
