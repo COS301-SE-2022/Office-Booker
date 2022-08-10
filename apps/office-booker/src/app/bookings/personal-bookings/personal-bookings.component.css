@@ -1,10 +1,13 @@
 
 .mat-card{
-  width: 300px;
-  height: 300px;
+  /* width: 240px; */
+  /* height: 275px; */
   
-  margin: 1rem;
-  margin-left: 2rem;
+  width: stretch;
+  height: stretch;
+
+  margin: 0.5rem;
+  /* margin-left: 2rem; */
   
   background-color: rgba(255, 255, 255, 1);
   text-align: center;
@@ -30,6 +33,7 @@
 
 body{
   overflow: hidden;
+  
   
 }
 
@@ -57,25 +61,26 @@ body{
 }
 
 .heading{
-padding-left: 2rem;
+text-align: center;
 }
 
 .text{
-  padding-left: 2rem;
+  text-align: center;
 }
 
 .pendingInvites{
-  padding-left: 2rem;
+  text-align: center;
   font-size: 30px;
 }
 
 .card-wrapper-left{
     
   /* margin:left; */
-  margin-right: 0px;
+  /* margin-right: 0px; */
   /* width: 500px; */
-  width: 50%;
+  /* width: 50%; */
   top: 50%;
+  /* display: inline-block; */
   display: inline;
   /* left: 50%; */
   font-weight: bold; 
@@ -92,4 +97,11 @@ padding-left: 2rem;
   left: 10%;
   font-weight: bold; 
 
+}
+
+.filters{
+}
+
+.center{
+  text-align: center;
 }
