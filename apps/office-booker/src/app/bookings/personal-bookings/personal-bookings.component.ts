@@ -37,6 +37,7 @@ export class PersonalBookingsComponent {
   deskIdInvite = -1;
 
   toDisplay: string;
+  bookingOrInvite: string;
 
   isMeet = false;
 
@@ -49,6 +50,7 @@ export class PersonalBookingsComponent {
     private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
     this.toDisplay = "all";
+    this.bookingOrInvite = "booking";
     changeDetection.detach();
   }
 
@@ -325,6 +327,10 @@ export class PersonalBookingsComponent {
     this.changeDetection.detectChanges();
   }
 
+  setBookingOrInvite(filter: string) : void {
+    this.bookingOrInvite = filter;
+    this.changeDetection.detectChanges();
+  }
 
 
 

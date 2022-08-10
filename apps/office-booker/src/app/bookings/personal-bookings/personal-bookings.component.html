@@ -1,7 +1,12 @@
 <h1 class="heading">Manage your bookings here</h1>
 <p class="text">You can check the bookings you have made as well as remove them.</p>
 
-<mat-button-toggle-group name="favoriteColor" aria-label="filter" (change)="setFilter($event.value)">
+<mat-button-toggle-group name="bookingOrInvite" aria-label="bookingOrInvite" (change)="setBookingOrInvite($event.value)">
+    <mat-button-toggle checked="true" value="booking">Bookings</mat-button-toggle>
+    <mat-button-toggle value="invite">Invites</mat-button-toggle>
+  </mat-button-toggle-group>
+
+<mat-button-toggle-group name="filter" aria-label="filter" (change)="setFilter($event.value)">
     <mat-button-toggle checked="true" value="all">All</mat-button-toggle>
     <mat-button-toggle value="yours">Yours</mat-button-toggle>
     <mat-button-toggle value="invited">Invited</mat-button-toggle>
@@ -12,10 +17,7 @@
 
 <!-- div for all bookings -->
 
-<mat-tree>
-    <mat-tree-node> parent node </mat-tree-node>
-    <mat-tree-node> -- child node1 </mat-tree-node>
-    <mat-tree-node> -- child node2 </mat-tree-node>
+
 
 <div class="card-wrapper-left" *ngIf="toDisplay === 'all'">
 <div class="card-wrapper-left" *ngFor="let booking of userBookings">
@@ -140,4 +142,4 @@
     </mat-card>
 </div>
 
-</mat-tree>
+
