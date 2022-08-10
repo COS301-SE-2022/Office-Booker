@@ -39,6 +39,9 @@ export class MapBookingsComponent {
   grabbedStartDate = "";
   grabbedEndDate = "";
 
+  defaultTimeNow = new Date();
+  defaultTimeOneHour = new Date();
+
   //user to have user id and rest if necessary
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
   hasBooking = false;
@@ -58,8 +61,22 @@ export class MapBookingsComponent {
     private popupDialogService: PopupDialogService,
     public dialog: MatDialog) { 
 
-    changeDetection.detach();
-    this.selectedItemId = 0;
+      this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
+      this.defaultTimeNow.setSeconds(0);      //sets the seconds to 0
+
+      this.defaultTimeOneHour.setHours(this.defaultTimeOneHour.getHours()+1);     //end time is defaulted to 1 hour from start
+      this.defaultTimeOneHour.setMinutes(0);
+      this.defaultTimeOneHour.setSeconds(0);
+
+
+      this.grabbedStartDate = this.defaultTimeNow.toISOString();    //pushed to ISO string to be available for the input
+      this.grabbedStartDate = this.grabbedStartDate.substring(0, this.grabbedStartDate.length - 5);       //cut off the end bits so the input can read the correct information
+      this.grabbedEndDate = this.defaultTimeOneHour.toISOString();
+      this.grabbedEndDate = this.grabbedEndDate.substring(0, this.grabbedEndDate.length - 5);
+
+
+      changeDetection.detach();
+      this.selectedItemId = 0;
   }
   
   ngOnInit() {
