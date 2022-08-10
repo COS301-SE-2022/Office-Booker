@@ -61,7 +61,7 @@ export interface Invite {
   id: number,
   invitedEmployee: employee,
   deskId: number,
-  booking: Booking,
+  Booking: Booking,
 
 }
 

@@ -237,12 +237,16 @@ export class PersonalBookingsComponent {
   getInvites(userId: number) {
     this.bookingService.getInvitesForUser(userId).subscribe(res => {
       res.forEach((Invite) => {
+        
+        console.log("Invite.Booking: " + Invite.Booking);
+
         const newInvite = {} as Invite;
-        newInvite.bookingId = Invite.bookingId;
-        newInvite.email = Invite.email;
         newInvite.id = Invite.id;
+        newInvite.Booking = Invite.Booking;
+        newInvite.bookingId = Invite.bookingId;
+
+        newInvite.email = Invite.email;
         newInvite.invitedEmployee = Invite.invitedEmployee;
-        newInvite.booking = Invite.booking;
 
         this.getDeskID(Invite.bookingId);
 
@@ -259,6 +263,7 @@ export class PersonalBookingsComponent {
       for (let i = 0; i < this.invites.length; i++){
         if (this.invites[i].bookingId == bookingId){
           this.invites[i].deskId = res.deskId;
+          this.invites[i].Booking = res;
 
         }
       }
