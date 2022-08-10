@@ -6,7 +6,6 @@
     <mat-button-toggle value="invite">Invites</mat-button-toggle>
   </mat-button-toggle-group>
 
-<p></p>
 
   <div *ngIf="bookingOrInvite === 'booking'">
   <mat-button-toggle-group name="filter" aria-label="filter" (change)="setFilter($event.value)">
@@ -16,10 +15,13 @@
   </mat-button-toggle-group>
 </div>
 
-<div *ngFor="let invite of invites">
-    <p>You have pending invites!</p>
-</div>
+
   
+<div *ngIf="invites">
+    <div *ngIf="bookingOrInvite === 'booking'">
+        <p class="text">You have pending invites!</p>
+    </div>
+</div>
 
 <p></p>
 
