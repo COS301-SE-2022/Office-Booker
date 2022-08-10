@@ -8,11 +8,14 @@
 
 <p></p>
 
+  <div *ngIf="bookingOrInvite === 'booking'">
   <mat-button-toggle-group name="filter" aria-label="filter" (change)="setFilter($event.value)">
     <mat-button-toggle checked="true" value="all">All</mat-button-toggle>
     <mat-button-toggle value="yours">Yours</mat-button-toggle>
     <mat-button-toggle value="invited">Invited</mat-button-toggle>
   </mat-button-toggle-group>
+</div>
+
   
 
 <p></p>
