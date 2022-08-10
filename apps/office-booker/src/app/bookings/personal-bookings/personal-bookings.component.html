@@ -19,7 +19,7 @@
   
 <div *ngIf="invites">
     <div *ngIf="bookingOrInvite === 'booking'">
-        <p class="text">You have pending invites!</p>
+        <p class="pendingInvites">You have pending invites.</p>
     </div>
 </div>
 
@@ -132,14 +132,11 @@
             <!-- {{isMeetingRoom ( getDeskIdOfBooking ( invite.bookingId)) }} -->
             <mat-card-title> You have been invited to Meeting Room {{ getDeskIdOfInvite ( invite.id)}} </mat-card-title>
             <mat-card-subtitle>
-                <!-- You have a booking coming up. -->
+
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <!-- <div>{{invite.booking.startsAt | date: 'd MMMM': 'UTC'}} </div> -->
-            <!-- <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div> -->
-            <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
-            <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
+            <div>Invited by: {{invite.id}} </div>
         </mat-card-content>
         <mat-card-actions>
             <button class="clicker2" (click)="acceptInvite(invite.id)" mat-raised-button color="primary">Accept Invite</button>

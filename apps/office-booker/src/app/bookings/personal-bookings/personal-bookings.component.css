@@ -64,6 +64,11 @@ padding-left: 2rem;
   padding-left: 2rem;
 }
 
+.pendingInvites{
+  padding-left: 2rem;
+  font-size: 30px;
+}
+
 .card-wrapper-left{
     
   /* margin:left; */

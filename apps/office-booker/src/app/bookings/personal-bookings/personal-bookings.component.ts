@@ -243,10 +243,10 @@ export class PersonalBookingsComponent {
         newInvite.id = Invite.id;
         newInvite.invitedEmployee = Invite.invitedEmployee;
 
-
         this.getDeskID(Invite.bookingId);
 
         this.invites.push(newInvite);
+        console.log(newInvite);
         this.changeDetection.detectChanges();
       });
       this.changeDetection.detectChanges();
