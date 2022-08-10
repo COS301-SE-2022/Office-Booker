@@ -31,6 +31,7 @@ export interface Booking {
   employee: employee,
   employeeName: string,
   isMeetingRoom: boolean,
+  isInvited: boolean,
 }
 
 export interface BookingDto {

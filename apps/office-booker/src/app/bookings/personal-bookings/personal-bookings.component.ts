@@ -139,6 +139,7 @@ export class PersonalBookingsComponent {
         newBooking.endsAt = booking.endsAt;
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
+        newBooking.isInvited = booking.isInvited;
 
         this.userBookings.push(newBooking);
         this.changeDetection.detectChanges();
