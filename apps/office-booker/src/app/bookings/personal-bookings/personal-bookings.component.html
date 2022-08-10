@@ -12,6 +12,11 @@
 
 <!-- div for all bookings -->
 
+<mat-tree>
+    <mat-tree-node> parent node </mat-tree-node>
+    <mat-tree-node> -- child node1 </mat-tree-node>
+    <mat-tree-node> -- child node2 </mat-tree-node>
+
 <div class="card-wrapper-left" *ngIf="toDisplay === 'all'">
 <div class="card-wrapper-left" *ngFor="let booking of userBookings">
     <mat-card class="example-card">
@@ -134,3 +139,5 @@
 
     </mat-card>
 </div>
+
+</mat-tree>
