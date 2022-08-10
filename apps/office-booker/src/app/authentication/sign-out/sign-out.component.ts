@@ -20,7 +20,8 @@ export class SignOutComponent implements OnInit {
     this.cognitoService.setAuthenticated(false);
     this.cognitoService.setAdmin(false);
     this.cognitoService.setGuest(true);
-      
+    localStorage.clear();
+          
     //const comp = new MenuBarComponent(this.app, this.cognitoService);
     //comp.ngOnInit();
     this.router.navigate(['login'])

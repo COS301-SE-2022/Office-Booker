@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
 
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { NumberFormatStyle } from '@angular/common';
@@ -35,6 +36,9 @@ export class PersonalBookingsComponent {
 
   deskIdInvite = -1;
 
+  toDisplay: string;
+  bookingOrInvite: string;
+
   isMeet = false;
 
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
@@ -45,6 +49,8 @@ export class PersonalBookingsComponent {
   constructor(private router: Router, private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
     this.inviteEmail = "";
+    this.toDisplay = "all";
+    this.bookingOrInvite = "booking";
     changeDetection.detach();
   }
 
@@ -68,6 +74,8 @@ export class PersonalBookingsComponent {
   ngOnInit() {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
+    this.getUsers();
+    this.changeDetection.detectChanges();
 
   }
 
@@ -76,12 +84,9 @@ export class PersonalBookingsComponent {
       res.forEach(user => {
         this.Users.push(user);
         this.changeDetection.detectChanges();
-        if (this.Users.length == 3) {
-          this.getCurrentUser();
-          this.changeDetection.detectChanges();
-        }
       });
     })
+    console.log(this.Users);
   }
 
 
@@ -134,6 +139,7 @@ export class PersonalBookingsComponent {
         newBooking.endsAt = booking.endsAt;
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
+        newBooking.isInvited = booking.isInvited;
 
         this.userBookings.push(newBooking);
         this.changeDetection.detectChanges();
@@ -229,16 +235,21 @@ export class PersonalBookingsComponent {
   getInvites(userId: number) {
     this.bookingService.getInvitesForUser(userId).subscribe(res => {
       res.forEach((Invite) => {
-        const newInvite = {} as Invite;
-        newInvite.bookingId = Invite.bookingId;
-        newInvite.email = Invite.email;
-        newInvite.id = Invite.id;
-        newInvite.invitedEmployee = Invite.invitedEmployee;
+        
+        console.log("Invite.Booking: " + Invite.Booking);
 
+        const newInvite = {} as Invite;
+        newInvite.id = Invite.id;
+        newInvite.Booking = Invite.Booking;
+        newInvite.bookingId = Invite.bookingId;
+
+        newInvite.email = Invite.email;
+        newInvite.invitedEmployee = Invite.invitedEmployee;
 
         this.getDeskID(Invite.bookingId);
 
         this.invites.push(newInvite);
+        console.log(newInvite);
         this.changeDetection.detectChanges();
       });
       this.changeDetection.detectChanges();
@@ -250,19 +261,26 @@ export class PersonalBookingsComponent {
       for (let i = 0; i < this.invites.length; i++){
         if (this.invites[i].bookingId == bookingId){
           this.invites[i].deskId = res.deskId;
-
+          this.invites[i].Booking = res;
         }
       }
-      this.changeDetection.detectChanges();
 
+      for (let i = 0; i < this.invites.length; i++){
+        for (let p = 0; p < this.Users.length; p++){
+          if (this.invites[i].Booking.employeeId == this.Users[p].id){
+            this.invites[i].email = this.Users[p].email;
+            console.log(this.invites[i].email);
+          }
+        this.changeDetection.detectChanges();
+        }
+      }
     });
   }
 
 
   inviteOthers(bookingId: number) {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
-      // console.log(res);
-      // console.log(bookingId);
+      //
     });
 
   }
@@ -313,8 +331,16 @@ export class PersonalBookingsComponent {
     return 0;
   }
 
+  // methods for filter buttons
+  setFilter(filter: string) : void{
+    this.toDisplay = filter;
+    this.changeDetection.detectChanges();
+  }
 
-
+  setBookingOrInvite(filter: string) : void {
+    this.bookingOrInvite = filter;
+    this.changeDetection.detectChanges();
+  }
 
 
 

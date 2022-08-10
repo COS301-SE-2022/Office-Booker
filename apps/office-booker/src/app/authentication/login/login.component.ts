@@ -19,6 +19,7 @@ export class LoginComponent {
   showPassword: boolean
   loading: boolean;
   user: IUser;
+  loggedIn = false;
 
   constructor(private router: Router,
               private cognitoService: CognitoService,
@@ -27,6 +28,14 @@ export class LoginComponent {
     this.showPassword = false;
     this.user = {} as IUser;
   }
+
+  ngOnInit() {
+    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
+      this.router.navigate(['/bookings']);
+    } 
+    
+  }
+
 
   // Function that uses cognito services to sign the user in and check admin status. It navigates to the 
   // personal bookings page if successful, otherwise it prints an error

@@ -31,6 +31,7 @@ export interface Booking {
   employee: employee,
   employeeName: string,
   isMeetingRoom: boolean,
+  isInvited: boolean,
 }
 
 export interface BookingDto {
@@ -59,7 +60,8 @@ export interface Invite {
   email: string,
   id: number,
   invitedEmployee: employee,
-  deskId: number
+  deskId: number,
+  Booking: Booking,
 
 }
 
