@@ -104,6 +104,9 @@ export class ApiBookingsRepositoryDataAccessService {
                     id: userId,
                 },
             },
+            include: {
+                Booking: true,
+            }
         });
     }
 

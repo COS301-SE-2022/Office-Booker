@@ -39,16 +39,13 @@ export class CognitoService {
     this.isAuthenticated();
     this.isAdmin = false;
     this.hasAdmin();
-    this.isGuest = false;
+    this.isGuest = true;
     this.hasGuest();
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
   public signUp(user: IUser): Promise<any> {
-    //alert(user.email)
-    //alert(user.password)
-    //alert(user.name)
     return Auth.signUp({
       username: user.email,
       password: user.password,

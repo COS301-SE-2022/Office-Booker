@@ -1,10 +1,13 @@
 
 .mat-card{
-  width: 300px;
-  height: 300px;
+  /* width: 240px; */
+  /* height: 275px; */
   
-  margin: 1rem;
-  margin-left: 2rem;
+  width: stretch;
+  height: stretch;
+
+  margin: 0.5rem;
+  /* margin-left: 2rem; */
   
   background-color: rgba(255, 255, 255, 1);
   text-align: center;
@@ -18,12 +21,24 @@
   
 }
 
+.mat-button-toggle-group{
+  margin: 1rem;
+  margin-left: 2rem;
+  
+}
+
 * {
   box-sizing: border-box;
 }
 
 body{
   overflow: hidden;
+  
+  
+}
+
+.mat-button.toggle{
+  color:rgb(204, 26, 70)
 }
 
 .mat-card-header{
@@ -46,20 +61,26 @@ body{
 }
 
 .heading{
-padding-left: 2rem;
+text-align: center;
 }
 
 .text{
-  padding-left: 2rem;
+  text-align: center;
+}
+
+.pendingInvites{
+  text-align: center;
+  font-size: 30px;
 }
 
 .card-wrapper-left{
     
   /* margin:left; */
-  margin-right: 0px;
+  /* margin-right: 0px; */
   /* width: 500px; */
-  width: 50%;
+  /* width: 50%; */
   top: 50%;
+  /* display: inline-block; */
   display: inline;
   /* left: 50%; */
   font-weight: bold; 
@@ -76,4 +97,11 @@ padding-left: 2rem;
   left: 10%;
   font-weight: bold; 
 
+}
+
+.filters{
+}
+
+.center{
+  text-align: center;
 }
