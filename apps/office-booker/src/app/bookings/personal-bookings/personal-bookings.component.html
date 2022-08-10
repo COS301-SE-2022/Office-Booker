@@ -5,8 +5,10 @@
     <mat-button-toggle checked="true" value="booking">Bookings</mat-button-toggle>
     <mat-button-toggle value="invite">Invites</mat-button-toggle>
   </mat-button-toggle-group>
+
 <p></p>
-<mat-button-toggle-group name="filter" aria-label="filter" (change)="setFilter($event.value)">
+
+  <mat-button-toggle-group name="filter" aria-label="filter" (change)="setFilter($event.value)">
     <mat-button-toggle checked="true" value="all">All</mat-button-toggle>
     <mat-button-toggle value="yours">Yours</mat-button-toggle>
     <mat-button-toggle value="invited">Invited</mat-button-toggle>
@@ -17,106 +19,106 @@
 
 <!-- div for all bookings -->
 
+<div class="card-wrapper-left" *ngIf="bookingOrInvite === 'booking'">
 
+    <div class="card-wrapper-left" *ngIf="toDisplay === 'all'">
+    <div class="card-wrapper-left" *ngFor="let booking of userBookings">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
+                <mat-card-subtitle>
+                    <!-- You have a booking coming up. -->
+                    {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <div>Seat {{booking.deskId}} </div> -->
+                <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
+                <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
+                <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
+                <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                <br>
+                <br>
+                <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
+            </mat-card-actions>
 
-<div class="card-wrapper-left" *ngIf="toDisplay === 'all'">
-<div class="card-wrapper-left" *ngFor="let booking of userBookings">
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
-            <mat-card-subtitle>
-                <!-- You have a booking coming up. -->
-                {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <!-- <div>Seat {{booking.deskId}} </div> -->
-            <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
-            <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
-            <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
-            <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
-        </mat-card-content>
-        <mat-card-actions>
-            <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
-            <br>
-            <br>
-            <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
-        </mat-card-actions>
-
-    </mat-card>
-</div>
-</div>
-
-
-<!-- div for users own bookings -->
-<div class="card-wrapper-left" *ngFor="let booking of userBookings" >
-    <div class="card-wrapper-left" *ngIf="toDisplay === 'yours'">
-    <div class="card-wrapper-left" *ngIf="booking.isInvited === false">
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
-            <mat-card-subtitle>
-                <!-- You have a booking coming up. -->
-                {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <!-- <div>Seat {{booking.deskId}} </div> -->
-            <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
-            <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
-            <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
-            <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
-        </mat-card-content>
-        <mat-card-actions>
-            <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
-            <br>
-            <br>
-            <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
-        </mat-card-actions>
-
-    </mat-card>
+        </mat-card>
     </div>
     </div>
-</div>
 
 
-<!-- div for invited bookings -->
-<div class="card-wrapper-left" *ngFor="let booking of userBookings" >
-    <div class="card-wrapper-left" *ngIf="toDisplay === 'invited'">
-        <div class="card-wrapper-left" *ngIf="booking.isInvited === true">
+    <!-- div for users own bookings -->
+    <div class="card-wrapper-left" *ngFor="let booking of userBookings" >
+        <div class="card-wrapper-left" *ngIf="toDisplay === 'yours'">
+        <div class="card-wrapper-left" *ngIf="booking.isInvited === false">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
+                <mat-card-subtitle>
+                    <!-- You have a booking coming up. -->
+                    {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <div>Seat {{booking.deskId}} </div> -->
+                <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
+                <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
+                <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
+                <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                <br>
+                <br>
+                <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
+            </mat-card-actions>
 
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
-            <mat-card-subtitle>
-                <!-- You have a booking coming up. -->
-                {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <!-- <div>Seat {{booking.deskId}} </div> -->
-            <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
-            <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
-            <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
-            <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
-        </mat-card-content>
-        <mat-card-actions>
-            <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
-            <br>
-            <br>
-            <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
-        </mat-card-actions>
-
-    </mat-card>
+        </mat-card>
+        </div>
+        </div>
     </div>
+
+
+    <!-- div for invited bookings -->
+    <div class="card-wrapper-left" *ngFor="let booking of userBookings" >
+        <div class="card-wrapper-left" *ngIf="toDisplay === 'invited'">
+            <div class="card-wrapper-left" *ngIf="booking.isInvited === true">
+
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title> Booking for {{booking.startsAt | date: 'dd MMMM': 'UTC'}} </mat-card-title>
+                <mat-card-subtitle>
+                    <!-- You have a booking coming up. -->
+                    {{isMeetingRoom(booking.deskId)}} {{booking.deskId}}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <div>Seat {{booking.deskId}} </div> -->
+                <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
+                <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
+                <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
+                <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                <br>
+                <br>
+                <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
+            </mat-card-actions>
+
+        </mat-card>
+        </div>
+        </div>
     </div>
 </div>
-
-
 
 
 <!-- div for invites -->
-<div class="card-wrapper-right" *ngFor="let invite of invites">
+<div class="card-wrapper-left" *ngIf="bookingOrInvite === 'invite'">
+<div class="card-wrapper-left" *ngFor="let invite of invites">
     <mat-card class="example-card">
         <mat-card-header>
             <!-- {{isMeetingRoom ( getDeskIdOfBooking ( invite.bookingId)) }} -->
@@ -140,6 +142,7 @@
         <p></p>
 
     </mat-card>
+</div>
 </div>
 
 
