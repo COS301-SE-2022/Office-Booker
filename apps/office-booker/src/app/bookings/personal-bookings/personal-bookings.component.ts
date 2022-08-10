@@ -318,7 +318,11 @@ export class PersonalBookingsComponent {
     return 0;
   }
 
-
+  // methods for filter buttons
+  setFilter(filter: string) : void{
+    this.toDisplay = filter;
+    this.changeDetection.detectChanges();
+  }
 
 
 
