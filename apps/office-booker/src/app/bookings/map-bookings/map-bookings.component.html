@@ -5,7 +5,7 @@
         <rect class="desk" rx="2" [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom" [class.deskBooked]="desk.booking"
           [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width"
           [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
-        <ellipse [attr.rx]="7.5" [attr.ry]="7.5" fill="#fff" stroke-width="0" [attr.cx]="desk.LocationCol + desk.Width / 2"
+        <ellipse class="outterCircle" [attr.rx]="7.5" [attr.ry]="7.5" fill="#fff" stroke-width="0" [attr.cx]="desk.LocationCol + desk.Width / 2"
           [attr.cy]="desk.LocationRow + desk.Height / 2" />
         <ellipse class="circle" [attr.rx]="5" [attr.ry]="5" stroke-width="0" [attr.cx]="desk.LocationCol + desk.Width / 2"
           [attr.cy]="desk.LocationRow + desk.Height / 2" [class.dotBooked]="desk.booking"/>
