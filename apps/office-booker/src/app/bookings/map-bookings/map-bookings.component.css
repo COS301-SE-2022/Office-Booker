@@ -111,19 +111,43 @@
 .booking-item-info-container {}
 
 .desk {
-    fill: rgb(186, 203, 236);
+    fill: rgb(106, 148, 233);
+    transition: all 0.1s;
+    transform-origin: 5% 5%;
+}
+
+.desk:hover {
+    fill: rgb(33, 103, 245);
+    cursor: pointer;
+    transform: scale(1);
+    filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.4));
 }
 
 .meetingRoom {
-    fill: rgb(196, 196, 196);
+    fill: rgb(126, 126, 126);
+    transition: all 0.1s;
+    transform-origin: 5% 5%;
+}
+
+.meetingRoom:hover {
+    fill: rgb(59, 59, 59);
+    cursor: pointer;
+    transform: scale(1);
+    filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.4));
 }
 
 .circle {
     fill: rgb(148, 248, 134);
 }
 
-.booked {
+.dotBooked {
     fill: rgb(88, 88, 88);
+    background-color: rgb(189, 189, 189);
+    border-radius: 15%;
+}
+
+.deskBooked {
+    fill: rgb(192, 207, 238);
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
