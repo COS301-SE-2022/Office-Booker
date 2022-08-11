@@ -114,8 +114,18 @@
     fill: rgb(186, 203, 236);
 }
 
+.desk:hover {
+    fill: rgb(75, 129, 238);
+    cursor: pointer;
+}
+
 .meetingRoom {
     fill: rgb(196, 196, 196);
+}
+
+.meetingRoom:hover {
+    fill: rgb(117, 117, 117);
+    cursor: pointer;
 }
 
 .circle {

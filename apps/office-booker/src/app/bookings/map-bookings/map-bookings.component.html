@@ -2,7 +2,7 @@
     <div class="map-container">
         <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
       <g *ngFor="let desk of desks">
-        <rect rx="2" [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom"
+        <rect class="desk" rx="2" [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom"
           [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width"
           [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
         <ellipse [attr.rx]="7.5" [attr.ry]="7.5" fill="#fff" stroke-width="0" [attr.cx]="desk.LocationCol + desk.Width / 2"
