@@ -41,6 +41,7 @@ export class MapBookingsComponent {
 
   defaultTimeNow = new Date();
   defaultTimeOneHour = new Date();
+  timeZoneOffset = new Date().getTimezoneOffset();
 
   //user to have user id and rest if necessary
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
@@ -60,11 +61,11 @@ export class MapBookingsComponent {
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
     public dialog: MatDialog) { 
-
+      this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset/60));      //used to get current time for current computer
       this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
       this.defaultTimeNow.setSeconds(0);      //sets the seconds to 0
 
-      this.defaultTimeOneHour.setHours(this.defaultTimeOneHour.getHours()+1);     //end time is defaulted to 1 hour from start
+      this.defaultTimeOneHour.setHours(this.defaultTimeOneHour.getHours() - (this.timeZoneOffset/60)+1);     //end time is defaulted to 1 hour from start
       this.defaultTimeOneHour.setMinutes(0);
       this.defaultTimeOneHour.setSeconds(0);
 
@@ -203,89 +204,100 @@ export class MapBookingsComponent {
   }
 
   filterBookings() {         //filters the bookings based on the selected date
-    if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
-      this.desks.forEach(desk => {
-        if (desk.booking) {
-          desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-          for (let i = 0; i < desk.bookings.length; i++) {
-            if (desk.bookings[i].endsAt > this.grabbedStartDate) {        //if the end date of the booking is after the start date of the filter
-              desk.booking = true;
-            }
-          }
-        }
-        if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
-          for (let i = 0; i < desk.bookings.length; i++) {
-            if (desk.bookings[i].endsAt > this.grabbedStartDate) {
-              desk.booking = true;
-            }
-          }
-        }
-        this.changeDetection.detectChanges();
-      })
-    }
-    else if (this.grabbedEndDate != "" && this.grabbedStartDate == "") {        //used when the end date is chosen for a filter but start date is not, checks if bookings prior to a date
-      this.desks.forEach(desk => {
-        if (desk.booking) {
-          desk.booking = false;                 //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-          for (let i = 0; i < desk.bookings.length; i++) {
-            if (desk.bookings[i].startsAt < this.grabbedEndDate) {            //if the start date of the booking is before the end date of the filter ie it starts before the end date therefore there is a booking
-              desk.booking = true;
-            }
-          }
-          if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
+    const validDate = this.validateDate();
+    if(validDate){
+      if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
+        this.desks.forEach(desk => {
+          if (desk.booking) {
+            desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
             for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].startsAt < this.grabbedEndDate) {
+              if (desk.bookings[i].endsAt > this.grabbedStartDate) {        //if the end date of the booking is after the start date of the filter
                 desk.booking = true;
               }
             }
           }
-        }
-        this.changeDetection.detectChanges();
-      })
+          if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
+            for (let i = 0; i < desk.bookings.length; i++) {
+              if (desk.bookings[i].endsAt > this.grabbedStartDate) {
+                desk.booking = true;
+              }
+            }
+          }
+          this.changeDetection.detectChanges();
+        })
+      }
+      else if (this.grabbedEndDate != "" && this.grabbedStartDate == "") {        //used when the end date is chosen for a filter but start date is not, checks if bookings prior to a date
+        this.desks.forEach(desk => {
+          if (desk.booking) {
+            desk.booking = false;                 //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
+            for (let i = 0; i < desk.bookings.length; i++) {
+              if (desk.bookings[i].startsAt < this.grabbedEndDate) {            //if the start date of the booking is before the end date of the filter ie it starts before the end date therefore there is a booking
+                desk.booking = true;
+              }
+            }
+            if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
+              for (let i = 0; i < desk.bookings.length; i++) {
+                if (desk.bookings[i].startsAt < this.grabbedEndDate) {
+                  desk.booking = true;
+                }
+              }
+            }
+          }
+          this.changeDetection.detectChanges();
+        })
+      }
+      else if (this.grabbedStartDate != "" && this.grabbedEndDate != "") {       //used when both start and end are selected
+        this.desks.forEach(desk => {
+          if (desk.booking) {
+            desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
+            for (let i = 0; i < desk.bookings.length; i++) {
+              if (desk.bookings[i].startsAt < this.grabbedStartDate && desk.bookings[i].endsAt > this.grabbedEndDate) {     //if start of booking is before start of filter and end of booking is after end of filter
+                desk.booking = true;
+              }
+            }
+          }
+          if (!desk.booking) {             //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
+            for (let i = 0; i < desk.bookings.length; i++) {
+              if (desk.bookings[i].startsAt < this.grabbedEndDate && desk.bookings[i].endsAt > this.grabbedStartDate) {
+                desk.booking = true;
+              }
+            }
+          }
+          this.changeDetection.detectChanges();
+        })
+      }
     }
-    else if (this.grabbedStartDate != "" && this.grabbedEndDate != "") {       //used when both start and end are selected
-      this.desks.forEach(desk => {
-        if (desk.booking) {
-          desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-          for (let i = 0; i < desk.bookings.length; i++) {
-            if (desk.bookings[i].startsAt < this.grabbedStartDate && desk.bookings[i].endsAt > this.grabbedEndDate) {     //if start of booking is before start of filter and end of booking is after end of filter
-              desk.booking = true;
-            }
-          }
-        }
-        if (!desk.booking) {             //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
-          for (let i = 0; i < desk.bookings.length; i++) {
-            if (desk.bookings[i].startsAt < this.grabbedEndDate && desk.bookings[i].endsAt > this.grabbedStartDate) {
-              desk.booking = true;
-            }
-          }
-        }
-        this.changeDetection.detectChanges();
-      })
+    else {
+      alert("Please select a valid date range");
     }
   }
 
   bookItem(itemId: number) {         //used when the booked button is clicked
     if (this.grabbedStartDate != "" && this.grabbedEndDate != "")      //makes sure dates are selected
     {
-      const splitTimeDateStart = this.grabbedStartDate.split('-');        //string is grabbed from the input and needs to be separated to create date object (splits the year from month and date)
-      const splitTimeDateEnd = this.grabbedEndDate.split('-');        //same as above but this is the end date and the above is the start
-
-      const newYearStart = Number(splitTimeDateStart[0]);       //first item in the split is the year   and needs to be number for the new date
-      const newMonthStart = Number(splitTimeDateStart[1]);      //second item in the split is the month  and needs to be number for the new date
-      const newYearEnd = Number(splitTimeDateEnd[0]);             //same as above but for the end date as the above is the start
-      const newMonthEnd = Number(splitTimeDateEnd[1]);
-
-      const splitDateAndSecStart = splitTimeDateStart[2].split('T');        //third item in the split needs to be further split as the string contains the date as well as the time
-      const splitTimeStart = splitDateAndSecStart[1].split(':');            //second item in the new split needs to be split as the hours and minutes need to be split
-      const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');          //same as above but for the end date as the above is the start
-      const splitTimeEnd = splitDateAndSecEnd[1].split(':');
-
-      const newWholeDateStart = new Date(newYearStart, newMonthStart - 1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]) + 2, Number(splitTimeStart[1]));     //uses the variable from above in (year, month -1 as the number is incorrect when using input, date from the first index in the second split and converted to number, second split first item is the hour plus two *something UTC related*, and second item is minutes (both converted to numbers) )
-      const newWholeDateEnd = new Date(newYearEnd, newMonthEnd - 1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]) + 2, Number(splitTimeEnd[1]));
-      
-      
-      this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
+      if(this.validateDate()){
+        const splitTimeDateStart = this.grabbedStartDate.split('-');        //string is grabbed from the input and needs to be separated to create date object (splits the year from month and date)
+        const splitTimeDateEnd = this.grabbedEndDate.split('-');        //same as above but this is the end date and the above is the start
+  
+        const newYearStart = Number(splitTimeDateStart[0]);       //first item in the split is the year   and needs to be number for the new date
+        const newMonthStart = Number(splitTimeDateStart[1]);      //second item in the split is the month  and needs to be number for the new date
+        const newYearEnd = Number(splitTimeDateEnd[0]);             //same as above but for the end date as the above is the start
+        const newMonthEnd = Number(splitTimeDateEnd[1]);
+  
+        const splitDateAndSecStart = splitTimeDateStart[2].split('T');        //third item in the split needs to be further split as the string contains the date as well as the time
+        const splitTimeStart = splitDateAndSecStart[1].split(':');            //second item in the new split needs to be split as the hours and minutes need to be split
+        const splitDateAndSecEnd = splitTimeDateEnd[2].split('T');          //same as above but for the end date as the above is the start
+        const splitTimeEnd = splitDateAndSecEnd[1].split(':');
+  
+        const newWholeDateStart = new Date(newYearStart, newMonthStart - 1, Number(splitDateAndSecStart[0]), Number(splitTimeStart[0]) + 2, Number(splitTimeStart[1]));     //uses the variable from above in (year, month -1 as the number is incorrect when using input, date from the first index in the second split and converted to number, second split first item is the hour plus two *something UTC related*, and second item is minutes (both converted to numbers) )
+        const newWholeDateEnd = new Date(newYearEnd, newMonthEnd - 1, Number(splitDateAndSecEnd[0]), Number(splitTimeEnd[0]) + 2, Number(splitTimeEnd[1]));
+        
+        
+        this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
+      }
+      else{
+        alert("Please select a valid date range");
+      }
     }
     else {       //when no date was chosen
       alert("No date chosen");
@@ -377,6 +389,10 @@ export class MapBookingsComponent {
       }
       this.changeDetection.detectChanges();
     })
+  }
+
+  validateDate(){
+    return this.grabbedStartDate < this.grabbedEndDate;
   }
 
   //generates the popup dialog and sends the relevant variables needed
