@@ -41,6 +41,7 @@ export class MapBookingsComponent {
 
   defaultTimeNow = new Date();
   defaultTimeOneHour = new Date();
+  timeZoneOffset = new Date().getTimezoneOffset();
 
   //user to have user id and rest if necessary
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
@@ -60,11 +61,11 @@ export class MapBookingsComponent {
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
     public dialog: MatDialog) { 
-
+      this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset/60));      //used to get current time for current computer
       this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
       this.defaultTimeNow.setSeconds(0);      //sets the seconds to 0
 
-      this.defaultTimeOneHour.setHours(this.defaultTimeOneHour.getHours()+1);     //end time is defaulted to 1 hour from start
+      this.defaultTimeOneHour.setHours(this.defaultTimeOneHour.getHours() - (this.timeZoneOffset/60)+1);     //end time is defaulted to 1 hour from start
       this.defaultTimeOneHour.setMinutes(0);
       this.defaultTimeOneHour.setSeconds(0);
 
