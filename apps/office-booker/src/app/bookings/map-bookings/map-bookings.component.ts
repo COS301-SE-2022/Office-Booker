@@ -203,6 +203,10 @@ export class MapBookingsComponent {
   }
 
   filterBookings() {         //filters the bookings based on the selected date
+    const validDate = this.validateDate();
+    if(validDate){
+      console.log("yes");
+    }
     if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
       this.desks.forEach(desk => {
         if (desk.booking) {
@@ -377,6 +381,10 @@ export class MapBookingsComponent {
       }
       this.changeDetection.detectChanges();
     })
+  }
+
+  validateDate(){
+    return this.grabbedStartDate < this.grabbedEndDate;
   }
 
   //generates the popup dialog and sends the relevant variables needed
