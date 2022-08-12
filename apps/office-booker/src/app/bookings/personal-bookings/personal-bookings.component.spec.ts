@@ -7,9 +7,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MatFormField } from '@angular/material/form-field';
-import { MatButtonToggle } from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 
 
@@ -20,7 +22,8 @@ describe('PersonalBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PersonalBookingsComponent, InviteDialogComponent],
-      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatButtonToggleModule, 
+                MatGridListModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
