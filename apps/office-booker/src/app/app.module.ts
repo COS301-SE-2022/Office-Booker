@@ -65,7 +65,9 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'voting-bookings', component: VotingBookingsComponent },
-  { path: '', component: LoginComponent },
+  { path: 'landing-page', component: LandingPageComponent },
+  { path: '', component: LandingPageComponent },
+  
 ];
 
 export function tokenGetter() {
