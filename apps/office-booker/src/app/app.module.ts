@@ -19,15 +19,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider'; 
+import { MatSliderModule } from '@angular/material/slider';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
-
-
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
@@ -42,12 +40,17 @@ import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { VotingBookingsComponent } from './bookings/voting-bookings/voting-bookings.component';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
 import { DeskPopupComponent } from './bookings/map-bookings/desk-popup/desk-popup.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -61,8 +64,10 @@ const routes: Routes = [
   { path: 'invite-guest', component: InviteGuestComponent },
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'voting-bookings', component: VotingBookingsComponent},
-  { path: '', component: LoginComponent },
+  { path: 'voting-bookings', component: VotingBookingsComponent },
+  { path: 'landing-page', component: LandingPageComponent },
+  { path: '', component: LandingPageComponent },
+  
 ];
 
 export function tokenGetter() {
@@ -78,66 +83,72 @@ export function tokenGetter() {
 
 //export const appRoutingModule = RouterModule.forRoot(routes);
 @NgModule({
-    declarations: [
-        AppComponent,
-        NxWelcomeComponent,
-        MenuBarComponent,
-        BookingDialogComponent,
-        LoginComponent,
-        RegistrationComponent,
-        PersonalBookingsComponent,
-        MapBookingsComponent,
-        BookingCardComponent,
-        SignOutComponent,
-        AdminBookingsComponent,
-        GuestComponent,
-        GuestLoginComponent,
-        InviteGuestComponent,
-        AccountComponent,
-        ForgotPasswordComponent,
-        InviteDialogComponent,
-        VotingBookingsComponent,
-        PopupDialogComponent,
-        DeskPopupComponent,
-    ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatGridListModule,
-        MatDialogModule,
-        RouterModule.forRoot(routes),
-        RouterModule,
-        MatSliderModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatTreeModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatFormFieldModule,
-        MatSnackBarModule,
-        FormsModule,
-        ReactiveFormsModule,
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                allowedDomains: ['localhost:3333', 'api.officebooker.co.za', 'backend:3333', 'officebooker.co.za'],
-                // disallowedRoutes: ["http://example.com/examplebadroute/"],
-                authScheme: 'Bearer ', // Default value
-            },
-        }),
-    ],
-    providers: [
-        { provide: MatDialogRef, useValue: {} },
-        // { provide: MatDialog, useValue: {}},
-        // { provide: MAT_DIALOG_DATA, useValue: {}},
-        PopupDialogService,
-    ],
-    exports: [RouterModule],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    NxWelcomeComponent,
+    MenuBarComponent,
+    BookingDialogComponent,
+    LoginComponent,
+    RegistrationComponent,
+    PersonalBookingsComponent,
+    MapBookingsComponent,
+    BookingCardComponent,
+    SignOutComponent,
+    AdminBookingsComponent,
+    GuestComponent,
+    GuestLoginComponent,
+    InviteGuestComponent,
+    AccountComponent,
+    ForgotPasswordComponent,
+    InviteDialogComponent,
+    VotingBookingsComponent,
+    PopupDialogComponent,
+    DeskPopupComponent,
+    LandingPageComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatDialogModule,
+    RouterModule.forRoot(routes),
+    RouterModule,
+    MatSliderModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatTreeModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [
+          'localhost:3333',
+          'api.officebooker.co.za',
+          'backend:3333',
+          'officebooker.co.za',
+        ],
+        // disallowedRoutes: ["http://example.com/examplebadroute/"],
+        authScheme: 'Bearer ', // Default value
+      },
+    }),
+  ],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+    // { provide: MatDialog, useValue: {}},
+    // { provide: MAT_DIALOG_DATA, useValue: {}},
+    PopupDialogService,
+  ],
+  exports: [RouterModule],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
