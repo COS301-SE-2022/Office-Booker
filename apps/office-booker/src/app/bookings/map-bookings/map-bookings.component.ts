@@ -103,9 +103,8 @@ changeOpen(itemId: number, itemType: boolean) {
     const mousey = e.clientY; // Gets Mouse Y
     const el = document.getElementById("info-card");
     if (el != null) {
-      el.style.left = mousex - 100 + "px";
-      el.style.position = "relative";
-      el.style.top = mousey - 130 + "px";
+      el.style.left = mousex - 150 + "px";
+      el.style.top = mousey + "px";
     }
   });
   this.changeDetection.detectChanges();

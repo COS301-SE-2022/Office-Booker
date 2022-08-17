@@ -1,6 +1,6 @@
-<body #trigger>
+<body>
     <div class="map-container">
-        <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
+        <svg #trigger x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
             <g *ngFor="let desk of desks">
                 <rect type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin" class="desk" rx="2"
                     [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom"
@@ -25,11 +25,25 @@
 
     <!-- This template displays the overlay content and is connected to the button -->
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
-        <ul class="example-list" id="info-card">
+        <!-- <ul class="example-list" id="info-card">
             <li>Item Name: {{this.hoveredItemName}}</li>
             <li>Item Type: {{this.hoveredItemType}}</li>
             <li>Item ID: {{this.hoveredItemId.toString()}}</li>
-        </ul>
+        </ul> -->
+        <div class="card-wrapper">
+            <mat-card class="example-card" id="info-card">
+                <mat-card-header>{{this.hoveredItemName}}</mat-card-header>
+                <p></p>
+                <mat-card-content>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <span></span> Symbols here
+
+                    <p></p>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </ng-template>
 
     <div class="side-container">
