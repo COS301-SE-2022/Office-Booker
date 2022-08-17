@@ -10,7 +10,7 @@ import { DeskPopupComponent } from './desk-popup/desk-popup.component';
 
 import { MatCheckbox } from '@angular/material/checkbox';
 
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'office-booker-map-bookings',
@@ -60,6 +60,7 @@ export class MapBookingsComponent {
     private changeDetection: ChangeDetectorRef,
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
+    public snackBar: MatSnackBar,
     public dialog: MatDialog) { 
       this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset/60));      //used to get current time for current computer
       this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
@@ -268,7 +269,8 @@ export class MapBookingsComponent {
       }
     }
     else {
-      alert("Please select a valid date range");
+      this.openSnackBar("Invalid date range selected");
+      //alert("Please select a valid date range");
     }
   }
 
@@ -296,10 +298,12 @@ export class MapBookingsComponent {
         this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
       }
       else{
-        alert("Please select a valid date range");
+        this.openSnackBar("Invalid date range selected");
+        //alert("Please select a valid date range");
       }
     }
     else {       //when no date was chosen
+      this.openSnackBar("Please select a date to make a booking");
       alert("No date chosen");
     }
     this.changeDetection.detectChanges();
@@ -341,14 +345,17 @@ export class MapBookingsComponent {
               }
             }
           }
+          this.openSnackBar("Booking created");
           this.changeDetection.detectChanges();
         });
         this.hasBooking = true;
       }
       else {        //if clash alert
+        this.openSnackBar("Booking overlaps with another booking");
         alert("Can't overlap bookings");
       }
     }else{
+      this.openSnackBar("Guest can only book one at a time");
       alert("Guest can only book one desk at a time");
     }
   }
@@ -362,6 +369,7 @@ export class MapBookingsComponent {
 
   deleteADeskBooking(bookingId: number) {         //does the api call in the function
     this.bookingService.deleteBooking(bookingId).subscribe(res => {     //deletes the booking
+      this.openSnackBar("Booking has been deleted");
       return res;
     });
     this.desks.forEach(desk => {        //goes through desk to get the matching desk with id
@@ -393,6 +401,12 @@ export class MapBookingsComponent {
 
   validateDate(){
     return this.grabbedStartDate < this.grabbedEndDate;
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+    });
   }
 
   //generates the popup dialog and sends the relevant variables needed
