@@ -19,3 +19,19 @@ body {
 * {
     font-family:'Maven Pro', sans-serif;
 }
+
+.success-snack {
+    color: rgb(148, 243, 104) !important;
+}
+
+.success-snack .mat-simple-snackbar-action {
+    color: rgb(148, 243, 104) !important;
+}
+
+.fail-snack {
+    color: rgb(247, 105, 100) !important;
+}
+
+.fail-snack .mat-simple-snackbar-action {
+    color: rgb(247, 105, 100) !important;
+}
