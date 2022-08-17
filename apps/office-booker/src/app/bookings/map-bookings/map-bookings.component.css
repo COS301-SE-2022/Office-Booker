@@ -200,12 +200,13 @@
     border-bottom: none;
 }
 
-.mat-card {
+
+/* .mat-card {
     background-color: rgb(255, 255, 255);
     text-align: center;
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
-}
+} */
 
 .card-wrapper {
     margin: 0 auto;
