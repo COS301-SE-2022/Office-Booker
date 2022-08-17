@@ -92,10 +92,11 @@ ngOnInit() {
   this.changeDetection.detectChanges();
 }
 
-changeOpen() {
+changeOpen(itemId: number, itemType: boolean) {
   this.isOpen = !this.isOpen;
-  this.changeDetection.detectChanges();
-
+  this.hoveredItemName = (itemType === true ? "Meeting Room" : "Desk") + " " + itemId.toString();       //cosmetic for displaying in the selected div
+  this.hoveredItemId = itemId;           //needed for when making bookings and canceling bookings and displaying bookings
+  this.selectedItemType = (itemType === true ? "Meeting Room" : "Desk");     //will be necessary once meeting rooms have been included
 
   document.addEventListener("mousemove", (e) => {
     const mousex = e.clientX; // Gets Mouse X
@@ -107,6 +108,7 @@ changeOpen() {
       el.style.top = mousey - 130 + "px";
     }
   });
+  this.changeDetection.detectChanges();
 }
 
 

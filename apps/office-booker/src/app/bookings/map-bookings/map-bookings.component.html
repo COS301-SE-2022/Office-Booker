@@ -2,11 +2,11 @@
     <div class="map-container">
         <svg x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
             <g *ngFor="let desk of desks">
-                <rect (mouseover)="changeOpen()" (mouseleave)="changeOpen()" type="button" cdkOverlayOrigin
-                    #trigger="cdkOverlayOrigin" class="desk" rx="2" [attr.x]="desk.LocationCol"
-                    [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom" [class.deskBooked]="desk.booking"
-                    [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width" [attr.height]="desk.Height"
-                    (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
+                <rect type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin" class="desk" rx="2"
+                    [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.desk]="!desk.isMeetingRoom"
+                    [class.deskBooked]="desk.booking" [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width"
+                    [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"
+                    (mouseover)="changeOpen(desk.id, desk.isMeetingRoom)" (mouseleave)="changeOpen(0, false)"></rect>
                 <ellipse class="outterCircle" [attr.rx]="7.5" [attr.ry]="7.5" fill="#fff" stroke-width="0"
                     [attr.cx]="desk.LocationCol + desk.Width / 2" [attr.cy]="desk.LocationRow + desk.Height / 2" />
                 <ellipse class="circle" [attr.rx]="5" [attr.ry]="5" stroke-width="0"
@@ -26,9 +26,9 @@
     <!-- This template displays the overlay content and is connected to the button -->
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
         <ul class="example-list" id="info-card">
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item Name: {{this.selectedItemName | titlecase}}</li>
+            <li>Item Name: {{this.hoveredItemName}}</li>
+            <li>Item Type: {{this.hoveredItemType}}</li>
+            <li>Item ID: {{this.hoveredItemId.toString()}}</li>
         </ul>
     </ng-template>
 
