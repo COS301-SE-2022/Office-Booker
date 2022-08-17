@@ -31,3 +31,7 @@ body {
 .fail-snack {
     color: rgb(247, 105, 100) !important;
 }
+
+.fail-snack .mat-simple-snackbar-action {
+    color: rgb(247, 105, 100) !important;
+}
