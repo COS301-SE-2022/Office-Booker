@@ -119,7 +119,7 @@
                                 <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
                                 <br>
                                 <br>
-                                <button class="clicker" (click)="deleteADeskBooking(booking.id) " mat-raised-button color="accent">Cancel Booking</button>
+                                <button class="clicker" (click)="deleteADeskBooking(booking.id); openDeleteSnackBar('You have deleted your booking.');" mat-raised-button color="accent">Cancel Booking</button>
                             </mat-card-actions>
 
                         </mat-card>
@@ -151,7 +151,7 @@
                     <mat-card-actions>
                         <button class="clicker2" (click)="acceptInvite(invite.id)" mat-raised-button color="primary">Accept Invite</button>
                         <p></p>
-                        <button class="clicker" (click)="declineInvite(invite.id)" mat-raised-button color="primary">Decline Booking</button>
+                        <button class="clicker" (click)="declineInvite(invite.id); openDeleteSnackBar('You have declined the invite.');" mat-raised-button color="primary">Decline Booking</button>
                     </mat-card-actions>
 
                     <p></p>
