@@ -270,7 +270,7 @@ export class MapBookingsComponent {
     }
     else {
       this.openSnackBar("Invalid date range selected");
-      //alert("Please select a valid date range");
+      
     }
   }
 
@@ -299,12 +299,12 @@ export class MapBookingsComponent {
       }
       else{
         this.openSnackBar("Invalid date range selected");
-        //alert("Please select a valid date range");
+        
       }
     }
     else {       //when no date was chosen
       this.openSnackBar("Please select a date to make a booking");
-      alert("No date chosen");
+      
     }
     this.changeDetection.detectChanges();
   }
@@ -352,11 +352,11 @@ export class MapBookingsComponent {
       }
       else {        //if clash alert
         this.openSnackBar("Booking overlaps with another booking");
-        alert("Can't overlap bookings");
+        
       }
     }else{
       this.openSnackBar("Guest can only book one at a time");
-      alert("Guest can only book one desk at a time");
+     
     }
   }
 
