@@ -39,6 +39,7 @@ import { InviteGuestComponent } from './authentication/invite-guest/invite-guest
 import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 import {
   MatDialog,
@@ -107,6 +108,7 @@ export function tokenGetter() {
     LandingPageComponent,
   ],
   imports: [
+    OverlayModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
