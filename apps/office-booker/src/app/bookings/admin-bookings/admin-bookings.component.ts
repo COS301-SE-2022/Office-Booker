@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'office-booker-admin-bookings',
@@ -18,7 +20,7 @@ export class AdminBookingsComponent{
   newRating: rating = {currentRating: -1, ratingsReceived: -1};
   rating = 0;
 
-  constructor(private router: Router, private bookingService: BookingServiceService) {
+  constructor(private router: Router, private bookingService: BookingServiceService, public snackBar: MatSnackBar) {
     //changeDetection.detach();
     //console.log(this.userBookings);
   }
@@ -28,6 +30,13 @@ export class AdminBookingsComponent{
     this.getUsers();
   }
 
+  openDeleteSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "fail-snack",
+    });
+  }
+  
   getUsers(){
     this.bookingService.getAllEmployees().subscribe( res => {
       res.forEach(user => {

@@ -3,6 +3,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
 import { AdminBookingsComponent } from './admin-bookings.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 describe('AdminBookingsComponent', () => {
   let component: AdminBookingsComponent;
@@ -11,7 +13,8 @@ describe('AdminBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminBookingsComponent],
-      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule]
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatSnackBarModule, 
+        MatGridListModule]
     }).compileComponents();
   });
 

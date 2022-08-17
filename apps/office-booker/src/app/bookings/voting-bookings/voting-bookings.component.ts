@@ -5,6 +5,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
 import { Employee } from '@prisma/client';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
   selector: 'office-booker-voting-bookings',
