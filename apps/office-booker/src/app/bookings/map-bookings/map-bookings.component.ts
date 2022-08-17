@@ -269,7 +269,7 @@ export class MapBookingsComponent {
       }
     }
     else {
-      this.openSnackBar("Invalid date range selected");
+      this.openFailSnackBar("Invalid date range selected");
       
     }
   }
@@ -298,12 +298,12 @@ export class MapBookingsComponent {
         this.makeADeskBooking(itemId, newWholeDateStart, newWholeDateEnd);        //calls booking that uses api
       }
       else{
-        this.openSnackBar("Invalid date range selected");
+        this.openFailSnackBar("Invalid date range selected");
         
       }
     }
     else {       //when no date was chosen
-      this.openSnackBar("Please select a date to make a booking");
+      this.openFailSnackBar("Please select a date to make a booking");
       
     }
     this.changeDetection.detectChanges();
@@ -345,17 +345,17 @@ export class MapBookingsComponent {
               }
             }
           }
-          this.openSnackBar("Booking created");
+          this.openSuccessSnackBar("Booking created");
           this.changeDetection.detectChanges();
         });
         this.hasBooking = true;
       }
       else {        //if clash alert
-        this.openSnackBar("Booking overlaps with another booking");
+        this.openFailSnackBar("Booking overlaps with another booking");
         
       }
     }else{
-      this.openSnackBar("Guest can only book one at a time");
+      this.openFailSnackBar("Guest can only book one at a time");
      
     }
   }
@@ -369,7 +369,7 @@ export class MapBookingsComponent {
 
   deleteADeskBooking(bookingId: number) {         //does the api call in the function
     this.bookingService.deleteBooking(bookingId).subscribe(res => {     //deletes the booking
-      this.openSnackBar("Booking has been deleted");
+      this.openFailSnackBar("Booking has been deleted");
       return res;
     });
     this.desks.forEach(desk => {        //goes through desk to get the matching desk with id
@@ -403,9 +403,17 @@ export class MapBookingsComponent {
     return this.grabbedStartDate < this.grabbedEndDate;
   }
 
-  openSnackBar(message: string) {
+  openSuccessSnackBar(message: string) {
     this.snackBar.open(message, "Ok", {
       duration: 5000,
+      panelClass: "success-snack"
+    });
+  }
+
+  openFailSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "fail-snack"
     });
   }
 
