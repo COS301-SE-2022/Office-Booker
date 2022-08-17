@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { NumberFormatStyle } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -48,13 +49,27 @@ export class PersonalBookingsComponent {
   // bookingId = -1;
 
   constructor(private router: Router, private bookingService: BookingServiceService,
-    private changeDetection: ChangeDetectorRef, public dialog: MatDialog) {
+    private changeDetection: ChangeDetectorRef, public dialog: MatDialog, public snackBar: MatSnackBar) {
     this.inviteEmail = "";
     this.toDisplay = "all";
     this.bookingOrInvite = "booking";
     changeDetection.detach();
   }
 
+  openDeleteSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "fail-snack",
+    });
+  }
+
+  openJoinSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "success-snack",
+    });
+  }
+  
   openDialog(bookingId: number): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
@@ -282,6 +297,7 @@ export class PersonalBookingsComponent {
   inviteOthers(bookingId: number) {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
       //
+      this.openJoinSnackBar("You have successfully sent the invite.");
     });
 
   }
