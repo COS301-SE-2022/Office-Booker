@@ -25,7 +25,7 @@
 <p></p>
 
 <!-- div for all bookings -->
-<mat-grid-list cols="4" rowHeight="275px">
+<mat-grid-list cols="5" rowHeight="290px">
 
     <div class="card-wrapper-left" *ngIf="bookingOrInvite === 'booking'">
 
@@ -47,6 +47,7 @@
                             <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
                             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
                         </mat-card-content>
+                        <br>
                         <mat-card-actions>
                             <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
                             <br>
