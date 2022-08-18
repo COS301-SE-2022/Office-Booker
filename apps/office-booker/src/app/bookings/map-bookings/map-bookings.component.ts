@@ -31,9 +31,12 @@ export class MapBookingsComponent {
   selectedItemId: number;
   selectedItemFacilities = [];
   selectedItemBookings: Array<Booking> = [];
+
+  //variables for the desk being hovered over
   hoveredItemName = "";
   hoveredItemId: number;
   hoveredItemType = "";
+
 
 //multi select variables
 multiSelectedItemId: Array<number> = [];
