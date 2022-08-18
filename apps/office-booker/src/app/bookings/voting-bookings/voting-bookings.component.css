@@ -8,6 +8,8 @@
     border-radius: 6px;
     display: inline-block;
     color: rgb(0, 0, 0);
+    padding: 0.5rem;
+    padding-top: 1rem;
 }
 
 * {

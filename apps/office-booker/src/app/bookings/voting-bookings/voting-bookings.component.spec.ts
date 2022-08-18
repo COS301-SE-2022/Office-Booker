@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatSliderModule } from '@angular/material/slider'; 
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatGridListModule } from '@angular/material/grid-list';
 
 describe('VotingBookingsComponent', () => {
   let component: VotingBookingsComponent;
@@ -13,7 +14,7 @@ describe('VotingBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VotingBookingsComponent],
-      imports: [RouterTestingModule, MatCardModule, MatSnackBarModule, MatSliderModule , HttpClientTestingModule]
+      imports: [RouterTestingModule, MatCardModule, MatSnackBarModule, MatSliderModule , HttpClientTestingModule, MatGridListModule]
     }).compileComponents();
   });
 

@@ -11,7 +11,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -22,7 +22,7 @@ describe('PersonalBookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PersonalBookingsComponent, InviteDialogComponent],
-      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatButtonToggleModule, 
+      imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatSnackBarModule, MatButtonToggleModule, 
                 MatGridListModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
