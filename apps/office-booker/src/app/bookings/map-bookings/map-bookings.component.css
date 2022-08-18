@@ -64,7 +64,7 @@
     margin-top: 1rem;
     /* margin-right: 40px; */
     justify-content: space-between;
-    position: relative;
+    /* position: relative; */
     /* width: auto; */
     /* height: auto; */
     /* float: right; */
@@ -148,6 +148,12 @@
 
 .deskBooked {
     fill: rgb(192, 207, 238);
+    background-color: rgb(189, 189, 189);
+    border-radius: 15%;
+}
+
+.ownedBooking {
+    fill: rgb(173, 238, 147);
     background-color: rgb(189, 189, 189);
     border-radius: 15%;
 }
