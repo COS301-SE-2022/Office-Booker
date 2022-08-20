@@ -27,6 +27,7 @@ export class CognitoService {
   private authenticationSubject: BehaviorSubject<any>;
 
   isLoggedIn = false;
+  code = "";
 
 
   constructor(private bookingService: BookingServiceService) {
@@ -41,6 +42,7 @@ export class CognitoService {
     this.hasAdmin();
     this.isGuest = true;
     this.hasGuest();
+  
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
@@ -163,18 +165,8 @@ export class CognitoService {
   }
 
   public guest(): boolean {
-    // this.loggedIn();
-    // if (this.loggedIn() == false) {
-    //   // console.log("not logged in")
-    //   return true;
-    // }
-    // console.log("logged in")
-
-    // console.log(this.isGuest);
-
     return this.isGuest;
 
-    return false;
   }
 
   public authenticated(): boolean {
@@ -218,9 +210,8 @@ export class CognitoService {
     Auth.deleteUser();
   }
   
-  public forgotPassword() : void {
-    Auth.forgotPassword(this.getEmailAddress());
-    alert("Password reset email sent");
+  public submitPasswordReset(): void {
+    Auth.forgotPasswordSubmit(this.getEmail, this.code, this.newPassword);
   }
 
   public resetPassword(email : string) : void {
