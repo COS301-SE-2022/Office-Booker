@@ -18,6 +18,7 @@ export interface Desk {
   booking: boolean,
   bookings: Booking[],
   isMeetingRoom: boolean,
+  ownBooking: boolean,
 }
 
 export interface Booking {

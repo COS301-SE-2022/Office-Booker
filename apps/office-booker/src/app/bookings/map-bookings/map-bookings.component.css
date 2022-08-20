@@ -152,6 +152,12 @@
     border-radius: 15%;
 }
 
+.ownedBooking {
+    fill: rgb(173, 238, 147);
+    background-color: rgb(189, 189, 189);
+    border-radius: 15%;
+}
+
 .card-wrapper {
     /* margin:0 auto;
     width: 500px; */

@@ -174,6 +174,8 @@ getBookingsByDeskId(deskId: number) {
               this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
               this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
               this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
+              this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
+              
             }
 
           }
@@ -234,14 +236,19 @@ unselectComparison(itemId: number) {
 
   filterBookings() {         //filters the bookings based on the selected date
     const validDate = this.validateDate();
+    console.log(this.desks);
     if(validDate){
       if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
         this.desks.forEach(desk => {
           if (desk.booking) {
             desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
+            desk.ownBooking = false;
             for (let i = 0; i < desk.bookings.length; i++) {
               if (desk.bookings[i].endsAt > this.grabbedStartDate) {        //if the end date of the booking is after the start date of the filter
                 desk.booking = true;
+                if(desk.bookings[i].employeeId == this.currentUser.id){
+                  desk.ownBooking = true;
+                }
               }
             }
           }
@@ -249,6 +256,9 @@ unselectComparison(itemId: number) {
             for (let i = 0; i < desk.bookings.length; i++) {
               if (desk.bookings[i].endsAt > this.grabbedStartDate) {
                 desk.booking = true;
+                if(desk.bookings[i].employeeId == this.currentUser.id){
+                  desk.ownBooking = true;
+                }
               }
             }
           }
@@ -259,15 +269,22 @@ unselectComparison(itemId: number) {
         this.desks.forEach(desk => {
           if (desk.booking) {
             desk.booking = false;                 //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
+            desk.ownBooking = false;
             for (let i = 0; i < desk.bookings.length; i++) {
               if (desk.bookings[i].startsAt < this.grabbedEndDate) {            //if the start date of the booking is before the end date of the filter ie it starts before the end date therefore there is a booking
                 desk.booking = true;
+                if(desk.bookings[i].employeeId == this.currentUser.id){
+                  desk.ownBooking = true;
+                }
               }
             }
             if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
               for (let i = 0; i < desk.bookings.length; i++) {
                 if (desk.bookings[i].startsAt < this.grabbedEndDate) {
                   desk.booking = true;
+                  if(desk.bookings[i].employeeId == this.currentUser.id){
+                    desk.ownBooking = true;
+                  }
                 }
               }
             }
@@ -279,9 +296,13 @@ unselectComparison(itemId: number) {
         this.desks.forEach(desk => {
           if (desk.booking) {
             desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
+            desk.ownBooking = false;
             for (let i = 0; i < desk.bookings.length; i++) {
               if (desk.bookings[i].startsAt < this.grabbedStartDate && desk.bookings[i].endsAt > this.grabbedEndDate) {     //if start of booking is before start of filter and end of booking is after end of filter
                 desk.booking = true;
+                if(desk.bookings[i].employeeId == this.currentUser.id){
+                  desk.ownBooking = true;
+                }
               }
             }
           }
@@ -289,6 +310,9 @@ unselectComparison(itemId: number) {
             for (let i = 0; i < desk.bookings.length; i++) {
               if (desk.bookings[i].startsAt < this.grabbedEndDate && desk.bookings[i].endsAt > this.grabbedStartDate) {
                 desk.booking = true;
+                if(desk.bookings[i].employeeId == this.currentUser.id){
+                  desk.ownBooking = true;
+                }
               }
             }
           }
@@ -368,6 +392,7 @@ makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
               this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
               this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
               this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
+              this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
               if(this.currentUser.guest){
                 this.guestBookings++;
               }
@@ -407,7 +432,8 @@ makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
         }
         if (desk.bookings.length < 1) {       //if the booking array is empty boolean needs to be set to false
           desk.booking = false;
-        }
+        }  
+        desk.ownBooking = false;     
       }
     })
 
@@ -429,6 +455,16 @@ makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
 
 validateDate() {
   return this.grabbedStartDate < this.grabbedEndDate;
+}
+
+checkOwnBookings() {
+  this.desks.forEach(desk => {
+    desk.bookings.forEach(booking => {
+    if(booking.employeeId == this.currentUser.id){
+      desk.ownBooking = true;
+    }
+    });
+  })
 }
 
   openSuccessSnackBar(message: string) {
@@ -461,4 +497,6 @@ openDialog(): void {
     console.log('The dialog was closed');
   });
 }
+
+
 }
