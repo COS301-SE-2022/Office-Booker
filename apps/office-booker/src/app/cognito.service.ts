@@ -28,6 +28,7 @@ export class CognitoService {
 
   isLoggedIn = false;
   code = "";
+  newPassword = "";
 
 
   constructor(private bookingService: BookingServiceService) {
@@ -210,8 +211,8 @@ export class CognitoService {
     Auth.deleteUser();
   }
   
-  public submitPasswordReset(): void {
-    Auth.forgotPasswordSubmit(this.getEmail, this.code, this.newPassword);
+  public submitPasswordReset(email: string, code: string, newPassword: string): void {
+    Auth.forgotPasswordSubmit(email, code, newPassword);
   }
 
   public resetPassword(email : string) : void {
