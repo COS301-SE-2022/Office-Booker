@@ -16,6 +16,8 @@ export class AccountComponent {
   rating = 0;
   code = "";
   newPassword = "";
+  loading = false;
+  isConfirm = false;
 
 
   constructor(private cognitoService: CognitoService,
@@ -52,6 +54,10 @@ export class AccountComponent {
 
   public forgotPassword(): void {
     this.cognitoService.resetPassword(this.user.email);
+    this.isConfirm = true;
+  }
+
+  public submitPasswordReset(): void {
     this.cognitoService.submitPasswordReset(this.user.email, this.code, this.newPassword);
   }
 
