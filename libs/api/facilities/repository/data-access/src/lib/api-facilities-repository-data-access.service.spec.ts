@@ -1,8 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { ApiFacilitiesRepositoryDataAccessService } from './api-facilities-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { Module, NotFoundException } from '@nestjs/common';
-import exp = require('constants');
 import * as crypto from 'crypto';
 
 describe('ApiFacilitiesRepositoryDataAccessService', () => {
@@ -19,9 +17,17 @@ describe('ApiFacilitiesRepositoryDataAccessService', () => {
 
   describe('getFacilitiesForDesk', () => {
     it('should return an array of facilities', async () => {
-      prisma.facility.findMany = jest.fn().mockReturnValue([{ id: 1, name: 'plug', count: 2, Desk: null, deskId: 2 }, { id: 2, name: 'ethernet', count: 1, Desk: null, deskId: 2 }, { id: 3, name: 'usb port', count: 1, Desk: null, deskId: 2 }]);
+      prisma.facility.findMany = jest.fn().mockReturnValue([
+        { id: 1, Desk: null, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
+        { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
+        { id: 3, Desk: null, deskId: 2, plugs: 5, monitors: 1, projectors: 1 }
+      ]);
       expect(await (await service.getFacilitiesForDesk(2)).length).toBeGreaterThan(0);
-      expect(await service.getFacilitiesForDesk(2)).toEqual([{ id: 1, name: 'plug', count: 2, Desk: null, deskId: 2 }, { id: 2, name: 'ethernet', count: 1, Desk: null, deskId: 2 }, { id: 3, name: 'usb port', count: 1, Desk: null, deskId: 2 }]);
+      expect(await service.getFacilitiesForDesk(2)).toEqual([
+        { id: 1, Desk: null, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
+        { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
+        { id: 3, Desk: null, deskId: 2, plugs: 5, monitors: 1, projectors: 1 }
+      ]);
       expect(prisma.facility.findMany).toHaveBeenCalledWithObjectMatchingHash('248ed3d764bce50188fee61cfe1d8b12');
     });
   });
