@@ -57,11 +57,12 @@ model Desk {
 }
 
 model Facility {
-  id     Int    @id @default(autoincrement())
-  name   String //this can be enum later
-  count  Int
-  Desk   Desk   @relation(fields: [deskId], references: [id])
-  deskId Int
+  id         Int  @id @default(autoincrement())
+  Desk       Desk @relation(fields: [deskId], references: [id])
+  deskId     Int
+  plugs      Int  @default(0)
+  monitors   Int  @default(0)
+  projectors Int  @default(0)
 }
 
 // models related to bookings
