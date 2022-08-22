@@ -1,6 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Desk, Booking, employee } from '../../services/booking-service.service';
+import { BookingServiceService, Desk, Booking, employee, Facility } from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 
 
@@ -113,7 +113,12 @@ changeOpen(itemId: number, itemType: boolean) {
   this.changeDetection.detectChanges();
 }
 
-
+getFacilitiesForDesk(deskId: number) {
+  this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
+    console.log(res);
+  });
+  this.changeDetection.detectChanges();
+}
 
 checkUserHasBooking() {
   this.bookingService.getBookingByEmployee(this.currentUser.id).subscribe(res => {

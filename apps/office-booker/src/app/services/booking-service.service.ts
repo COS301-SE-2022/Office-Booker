@@ -66,6 +66,15 @@ export interface Invite {
 
 }
 
+export interface Facility {
+  id: number,
+  desk: Desk,
+  deskId: number,
+  plugs: number,
+  monitors: number,
+  projectors: number,
+}
+
 
 export interface rating{
   currentRating: number,
