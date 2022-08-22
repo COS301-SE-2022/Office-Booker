@@ -129,18 +129,19 @@ export class MapBookingsComponent {
   getFacilitiesForDesk(deskId: number) {
     if (deskId != 0) {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
-        //console.log(res);
-        this.facilityString = JSON.stringify(res);
-        //console.log(JSON.stringify(res));
+        this.facilityString = JSON.stringify(res);//converts response to string
         if (JSON.stringify(res) != "[]") {
+          //split the parsed string to extract the varaiables we need
           const myArray = JSON.stringify(res).split(",");
           const plugsString = myArray[2].split(":")[1];
           const monitorsString = myArray[3].split(":")[1];
           const projectorsString = myArray[4].split(":")[1].replace(/\D/g, '');
+          //change the extarcted strings into numbers
           this.numPlugs = Number(plugsString);
           this.numMonitors = Number(monitorsString);
           this.numProjectors = Number(projectorsString);
         } else {
+          //if no response, set all facilities to 0
           this.numPlugs = 0;
           this.numMonitors = 0;
           this.numProjectors = 0;
@@ -148,6 +149,7 @@ export class MapBookingsComponent {
         this.changeDetection.detectChanges();
       });
     } else {
+      //if deskId is 0, set all to 0
       this.numPlugs = 0;
       this.numMonitors = 0;
       this.numProjectors = 0;
