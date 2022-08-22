@@ -127,7 +127,7 @@ export class MapBookingsComponent {
   }
 
   getFacilitiesForDesk(deskId: number) {
-    if (deskId > 0) {
+    if (deskId != 0) {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
         //console.log(res);
         this.facilityString = JSON.stringify(res);
@@ -147,8 +147,12 @@ export class MapBookingsComponent {
         }
         this.changeDetection.detectChanges();
       });
+    } else {
+      this.numPlugs = 0;
+      this.numMonitors = 0;
+      this.numProjectors = 0;
     }
-    //this.changeDetection.detectChanges();
+    this.changeDetection.detectChanges();
   }
 
   checkUserHasBooking() {
