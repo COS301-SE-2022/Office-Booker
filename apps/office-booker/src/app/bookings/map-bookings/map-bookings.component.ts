@@ -129,9 +129,9 @@ export class MapBookingsComponent {
   getFacilitiesForDesk(deskId: number) {
     if (deskId > 0) {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.facilityString = JSON.stringify(res);
-        console.log(JSON.stringify(res));
+        //console.log(JSON.stringify(res));
         if (JSON.stringify(res) != "[]") {
           const myArray = JSON.stringify(res).split(",");
           const plugsString = myArray[2].split(":")[1];
@@ -140,15 +140,15 @@ export class MapBookingsComponent {
           this.numPlugs = Number(plugsString);
           this.numMonitors = Number(monitorsString);
           this.numProjectors = Number(projectorsString);
+        } else {
+          this.numPlugs = 0;
+          this.numMonitors = 0;
+          this.numProjectors = 0;
         }
         this.changeDetection.detectChanges();
       });
     }
     //this.changeDetection.detectChanges();
-  }
-
-  printFac() {
-    console.log(this.facilityString);
   }
 
   checkUserHasBooking() {
