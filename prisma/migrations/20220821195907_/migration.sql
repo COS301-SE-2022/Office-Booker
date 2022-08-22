@@ -46,9 +46,10 @@ CREATE TABLE "Desk" (
 -- CreateTable
 CREATE TABLE "Facility" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "count" INTEGER NOT NULL,
     "deskId" INTEGER NOT NULL,
+    "plugs" INTEGER NOT NULL DEFAULT 0,
+    "monitors" INTEGER NOT NULL DEFAULT 0,
+    "projectors" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Facility_pkey" PRIMARY KEY ("id")
 );
