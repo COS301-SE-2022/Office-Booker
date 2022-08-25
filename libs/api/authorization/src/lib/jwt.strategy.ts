@@ -27,7 +27,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     console.log(authConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async validate(payload: any) {
-    return !!payload.sub;
+    const user = await this.userService.getUserByEmail(payload.username);
+    return user;
   }
 }
