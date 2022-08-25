@@ -1,10 +1,9 @@
-import { Body, Controller, Delete, Get, Inject, Injectable, Param, Post, Put, Scope, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiPermissionsService } from '@office-booker/api/permissions';
-import { REQUEST } from '@nestjs/core';
 
 class CreateBookingDto {
     @IsDate()
@@ -28,11 +27,9 @@ class emailDto {
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
-@Injectable({ scope: Scope.REQUEST })
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
-        private permissionService: ApiPermissionsService,
-        @Inject(REQUEST) private request: Request) { }
+        private permissionService: ApiPermissionsService) { }
 
     @Get('/desk/:deskId')
     async getBookingsForDesk(@Param('deskId') deskId: string) {
@@ -61,9 +58,9 @@ export class ApiBookingsApiController {
 
     @Post('/')
     async createBooking(@Body() postData: CreateBookingDto) {
-        const { startsAt, endsAt, deskId, userId } = postData;
+        const { startsAt, endsAt, deskId, userId } = postData; // TODO: check that this userId is the same as the current user
 
-        if (!this.permissionService.userAndDesk(Number(userId), Number(deskId))) {
+        if (!this.permissionService.userAndDesk(this.request.user, Number(deskId))) {
             console.log("User and desk don't match");
             throw new Error('You are not allowed to create a booking for this desk.');
         }
