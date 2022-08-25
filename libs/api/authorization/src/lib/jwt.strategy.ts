@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }),
 
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    //   audience: authConfig.clientId,
+      //   audience: authConfig.clientId,
       issuer: authConfig.authority,
       algorithms: ['RS256'],
     });
@@ -29,7 +29,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async validate(payload: any) {
-    const user = await this.userService.getUserByEmail(payload.username);
-    return user;
+    try {
+      const user = await this.userService.getUserByEmail(payload.username);
+      return user;
+    } catch (e) {
+      return null;
+    }
   }
 }
