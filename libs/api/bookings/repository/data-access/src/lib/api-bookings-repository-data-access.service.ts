@@ -16,7 +16,7 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
-    // get a specific booking by its ids
+    // get a specific booking by its id
     // for instance if a user wants to see a booking he created
     async getBookingById(@Param() bookingId: number) {
         return this.prisma.booking.findUnique({
