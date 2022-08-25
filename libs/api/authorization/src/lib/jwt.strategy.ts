@@ -3,11 +3,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { passportJwtSecret } from 'jwks-rsa';
 import { AuthConfig } from './auth.config';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private authConfig: AuthConfig,
+    private userService: ApiUsersRepositoryDataAccessService,
   ) {
     super({
       secretOrKeyProvider: passportJwtSecret({
