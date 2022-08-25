@@ -24,7 +24,8 @@ export class ApiPermissionsService {
     }
 
     async userAndBooking(userId: number, bookingId: number) : Promise<boolean> {
+        const user = await this.userService.getUserById(userId);
         const booking = await this.bookingService.getBookingById(bookingId);
-        return this.userAndDesk(userId, booking.deskId);
+        return this.userAndDesk(userId, booking.deskId) || user.admin;
     }
 }

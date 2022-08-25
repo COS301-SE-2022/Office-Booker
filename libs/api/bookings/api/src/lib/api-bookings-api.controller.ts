@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Injectable, Param, Post, Put, Scope, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiPermissionsService } from '@office-booker/api/permissions';
+import { REQUEST } from '@nestjs/core';
 
 class CreateBookingDto {
     @IsDate()
@@ -27,9 +28,11 @@ class emailDto {
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
+@Injectable({ scope: Scope.REQUEST })
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
-        private permissionService: ApiPermissionsService) { }
+        private permissionService: ApiPermissionsService,
+        @Inject(REQUEST) private request: Request) { }
 
     @Get('/desk/:deskId')
     async getBookingsForDesk(@Param('deskId') deskId: string) {
