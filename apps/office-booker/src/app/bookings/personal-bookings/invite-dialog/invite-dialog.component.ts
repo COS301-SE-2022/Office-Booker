@@ -9,8 +9,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
+import {MatChipInputEvent} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips'; 
+import { Invite } from '../../../services/booking-service.service';
+
+
 export interface DialogData {
   inviteEmail: string;
+  invites: Array<Invite>;
 }
 
 @Component({

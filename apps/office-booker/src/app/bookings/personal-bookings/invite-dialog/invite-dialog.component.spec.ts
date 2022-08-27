@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 
 describe('InviteDialogComponent', () => {
