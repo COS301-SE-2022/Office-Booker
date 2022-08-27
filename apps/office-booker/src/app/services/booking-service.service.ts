@@ -97,8 +97,8 @@ export class BookingServiceService {
     return this.http.get<Room[]>(`${url}`);
   }
 
-  getAllInvites(){
-    const url = this.baseURL + 'bookings/invites/';
+  getInvitesForBooking(bookingId : number){
+    const url = this.baseURL + 'bookings/invites/' + bookingId;
     return this.http.get<Invite[]>(`${url}`);
   }
   

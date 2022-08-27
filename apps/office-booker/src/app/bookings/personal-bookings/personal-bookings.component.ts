@@ -95,16 +95,16 @@ export class PersonalBookingsComponent {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
     this.getUsers();
-    this.getAllInvites();
 
     this.changeDetection.detectChanges();
 
   }
 
-  getAllInvites() { 
-    this.bookingService.getAllInvites().subscribe(res => { 
+  getInvitesForBooking(bookingId : number) { 
+    this.bookingService.getInvitesForBooking(bookingId).subscribe(res => { 
       res.forEach(Invite => { 
         this.invites.push(Invite);
+        console.log("Invites: " + Invite);
         this.changeDetection.detectChanges();
       });
     })
@@ -117,7 +117,7 @@ export class PersonalBookingsComponent {
         this.changeDetection.detectChanges();
       });
     })
-    console.log(this.Users);
+    // console.log(this.Users);
   }
 
 
@@ -163,6 +163,7 @@ export class PersonalBookingsComponent {
     this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
+        this.getInvitesForBooking(booking.id);
         const newBooking = {} as Booking;
         newBooking.id = booking.id;
         newBooking.deskId = booking.deskId;
@@ -171,10 +172,12 @@ export class PersonalBookingsComponent {
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
         newBooking.isInvited = booking.isInvited;
-        newBooking.Invite = booking.Invite;
+        newBooking.Invite = this.invites;
+        
 
         this.userBookings.push(newBooking);
-        console.log(booking.Invite);
+        this.invites = [];
+        // console.log(newBooking.Invite);
         this.changeDetection.detectChanges();
         this.getMeetingRoom(booking.deskId, booking.id);
 
