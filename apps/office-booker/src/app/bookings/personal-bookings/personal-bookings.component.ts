@@ -70,10 +70,14 @@ export class PersonalBookingsComponent {
     });
   }
   
-  openDialog(bookingId: number): void {
+  openDialog(bookingId: number, Invites: Invite[]): void {
+    console.log(Invites);
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
-      data: { inviteEmail: this.inviteEmail }
+      data: { inviteEmail: this.inviteEmail ,
+              Invites , 
+            }
+            
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -156,8 +160,10 @@ export class PersonalBookingsComponent {
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
         newBooking.isInvited = booking.isInvited;
+        newBooking.Invite = booking.Invite;
 
         this.userBookings.push(newBooking);
+        console.log(booking.Invite);
         this.changeDetection.detectChanges();
         this.getMeetingRoom(booking.deskId, booking.id);
 

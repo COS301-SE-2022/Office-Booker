@@ -5,6 +5,21 @@
     <input matInput [(ngModel)]="data.inviteEmail" placeholder="Email" required>
   </mat-form-field>
 
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Invited</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip *ngFor="let invite of invites">
+        {{invite.invitedEmployee.email}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input placeholder="..."
+             [matChipInputFor]="chipList"
+             >
+    </mat-chip-list>
+  </mat-form-field>
+
 
 </div>
 <div mat-dialog-actions>

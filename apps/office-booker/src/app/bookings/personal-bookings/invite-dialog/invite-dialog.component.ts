@@ -27,6 +27,7 @@ export interface DialogData {
 export class InviteDialogComponent {
 
   inviteEmail: string;
+  invites: Invite[];
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
@@ -34,6 +35,8 @@ export class InviteDialogComponent {
     public dialog: MatDialog) {
 
       this.inviteEmail = "";
+      this.invites = data.invites;
+      console.log(this.invites);
     }
    
 

@@ -33,6 +33,7 @@ export interface Booking {
   employeeName: string,
   isMeetingRoom: boolean,
   isInvited: boolean,
+  Invite: Invite[],
 }
 
 export interface BookingDto {
