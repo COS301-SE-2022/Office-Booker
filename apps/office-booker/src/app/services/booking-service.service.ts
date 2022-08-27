@@ -211,7 +211,6 @@ export class BookingServiceService {
     const body = {
       email: email
     } 
-    console.log(body);
     return this.http.post<Invite>(`${url}`, body);
   } 
 

@@ -16,6 +16,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export interface DialogData {
   inviteEmail: string;
+  Invites: Invite[];  
 }
 
 @Component({
@@ -72,10 +73,11 @@ export class PersonalBookingsComponent {
   
   openDialog(bookingId: number, Invites: Invite[]): void {
     console.log(Invites);
+    this.getInvitesByBookingId(bookingId);
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
       data: { inviteEmail: this.inviteEmail ,
-              Invites , 
+              Invites: this.invites
             }
             
     });
@@ -90,6 +92,15 @@ export class PersonalBookingsComponent {
 
   }
 
+  getInvitesByBookingId(bookingId: number) {
+    for ( let i=0; i<this.userBookings.length; i++ ) {
+      if (this.userBookings[i].id == bookingId) {
+        this.invites = this.userBookings[i].Invite;
+  }
+}
+  }
+    
+
 
   ngOnInit() {
     this.getDesksByRoomId(1);
@@ -102,6 +113,7 @@ export class PersonalBookingsComponent {
 
   getInvitesForBooking(bookingId : number) { 
     this.bookingService.getInvitesForBooking(bookingId).subscribe(res => { 
+      console.log("res: "  + JSON.stringify(res));
       res.forEach(Invite => { 
         this.invites.push(Invite);
         console.log("Invites: " + Invite);
@@ -163,6 +175,8 @@ export class PersonalBookingsComponent {
     this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
+        console.log(booking.id)
+
         this.getInvitesForBooking(booking.id);
         const newBooking = {} as Booking;
         newBooking.id = booking.id;
@@ -232,8 +246,9 @@ export class PersonalBookingsComponent {
       this.currentUser = res;
       this.userNumb = this.currentUser.id;
       this.getRating();
-      this.getBookings(this.currentUser.id);
       this.getInvites(this.currentUser.id);
+      this.getBookings(this.currentUser.id);
+
       this.changeDetection.detectChanges();
 
 

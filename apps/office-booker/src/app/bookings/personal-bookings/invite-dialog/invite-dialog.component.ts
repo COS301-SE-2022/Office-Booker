@@ -16,7 +16,7 @@ import { Invite } from '../../../services/booking-service.service';
 
 export interface DialogData {
   inviteEmail: string;
-  invites: Array<Invite>;
+  Invites: Invite[];
 }
 
 @Component({
@@ -35,7 +35,7 @@ export class InviteDialogComponent {
     public dialog: MatDialog) {
 
       this.inviteEmail = "";
-      this.invites = data.invites;
+      this.invites = data.Invites;
       console.log(this.invites);
     }
    
