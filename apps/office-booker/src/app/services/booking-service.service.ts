@@ -97,7 +97,7 @@ export class BookingServiceService {
     return this.http.get<Room[]>(`${url}`);
   }
 
-  getInvitesForBooking(bookingId : number): Observable<Invite[]>{
+  getInvitesForBooking(bookingId : number){
     const url = this.baseURL + 'bookings/invites/' + bookingId;
     return this.http.get<Invite[]>(`${url}`);
   }
