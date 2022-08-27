@@ -175,8 +175,6 @@ export class PersonalBookingsComponent {
     this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
-        console.log(booking.id)
-
         this.getInvitesForBooking(booking.id);
         const newBooking = {} as Booking;
         newBooking.id = booking.id;
