@@ -66,6 +66,15 @@ export interface Invite {
 
 }
 
+export interface Facility {
+  id: number,
+  desk?: Desk,
+  deskId: number,
+  plugs: number,
+  monitors: number,
+  projectors: number,
+}
+
 
 export interface rating{
   currentRating: number,
@@ -104,7 +113,7 @@ export class BookingServiceService {
 
   getFacilitiesByDeskId(deskId: number){
     const url = this.baseURL + 'facilities/desk/' + deskId;
-    return this.http.get(`${url}`);
+    return this.http.get<Facility>(`${url}`);
   }
 
   getBookingsByDeskId(deskId: number){
