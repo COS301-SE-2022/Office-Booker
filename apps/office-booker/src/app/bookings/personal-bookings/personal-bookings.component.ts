@@ -95,8 +95,19 @@ export class PersonalBookingsComponent {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
     this.getUsers();
+    this.getAllInvites();
+
     this.changeDetection.detectChanges();
 
+  }
+
+  getAllInvites() { 
+    this.bookingService.getAllInvites().subscribe(res => { 
+      res.forEach(Invite => { 
+        this.invites.push(Invite);
+        this.changeDetection.detectChanges();
+      });
+    })
   }
 
   getUsers() {

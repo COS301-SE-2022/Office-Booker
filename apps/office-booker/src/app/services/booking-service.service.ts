@@ -96,6 +96,11 @@ export class BookingServiceService {
     const url = this.baseURL + 'rooms';
     return this.http.get<Room[]>(`${url}`);
   }
+
+  getAllInvites(){
+    const url = this.baseURL + 'bookings/invites/';
+    return this.http.get<Invite[]>(`${url}`);
+  }
   
   getRoomByID(roomId: number){
     const url = this.baseURL + 'rooms/'; + roomId;
