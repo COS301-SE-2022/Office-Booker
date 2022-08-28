@@ -389,9 +389,8 @@ export class PersonalBookingsComponent {
         this.invites.splice(i, 1);
       }
     }
-    // this.getBookings(this.currentUser.id);
-    // location.reload();
-    setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
+    this.getBookings(this.currentUser.id);
+    // setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
     this.changeDetection.detectChanges();
 
   }
