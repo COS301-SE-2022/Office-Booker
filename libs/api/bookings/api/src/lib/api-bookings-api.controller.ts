@@ -106,4 +106,9 @@ export class ApiBookingsApiController {
         return await this.bookingService.deleteInvite(Number(inviteId));
     }
 
+    @Put('/invites/delete/:inviteId')
+    async deleteInvite(@Param('inviteId') inviteId: string) {
+        return await this.bookingService.deleteInvite(Number(inviteId));
+    }
+
 }

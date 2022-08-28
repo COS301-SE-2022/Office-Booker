@@ -4,18 +4,20 @@ import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
 
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {MatButtonToggle} from '@angular/material/button-toggle';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { NumberFormatStyle } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface DialogData {
   inviteEmail: string;
+  Invites: Invite[];  
+  bookingId : number;
 }
 
 @Component({
@@ -70,29 +72,75 @@ export class PersonalBookingsComponent {
     });
   }
   
-  openDialog(bookingId: number): void {
+  openDialog(bookingId: number, Invite: Invite[]): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
-      data: { inviteEmail: this.inviteEmail }
+      data: { inviteEmail: this.inviteEmail ,
+              Invites: Invite,
+              bookingId: bookingId,
+            }
+            
     });
 
+
+
     dialogRef.afterClosed().subscribe(result => {
+      this.getBookings(this.currentUser.id);
       this.inviteEmail = result;
-      // console.log(this.inviteEmail);
-      this.inviteOthers(bookingId);
+      if (this.inviteEmail != null) {
+        this.inviteOthers(bookingId);
+      }
     });
 
 
 
   }
 
+  getInvitesByBookingId(bookingId: number) {
+    for ( let i=0; i<this.userBookings.length; i++ ) {
+      if (this.userBookings[i].id == bookingId) {
+        this.invites = this.userBookings[i].Invite;
+  }
+}
+  }
+    
+
 
   ngOnInit() {
     this.getDesksByRoomId(1);
     this.getCurrentUser();
     this.getUsers();
+
     this.changeDetection.detectChanges();
 
+  }
+
+  testButton() {
+    // for (let i = 0; i < this.userBookings.length; i++) {
+    // console.log(this.userBookings);
+    // }
+  }
+
+  getInvitesForBooking(bookingId : number) { 
+    this.bookingService.getInvitesForBooking(bookingId).subscribe(res => { 
+      res.forEach(Invite => { 
+        let newInvite = {} as Invite;
+        for (let i=0; i<this.userBookings.length; i++) {
+          if (this.userBookings[i].id == bookingId) {
+            for (let j=0; j<this.Users.length; j++) {
+              if (this.Users[j].id == Invite.employeeId) {
+                newInvite = Invite;
+                newInvite.invitedEmail = this.Users[j].email;
+              }
+
+            }
+            this.userBookings[i].Invite.push(newInvite);
+          }
+        }
+        this.changeDetection.detectChanges();
+      });
+    })
+    this.changeDetection.detectChanges();
   }
 
   getUsers() {
@@ -102,7 +150,6 @@ export class PersonalBookingsComponent {
         this.changeDetection.detectChanges();
       });
     })
-    console.log(this.Users);
   }
 
 
@@ -149,6 +196,9 @@ export class PersonalBookingsComponent {
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
         const newBooking = {} as Booking;
+        newBooking.Invite = new Array<Invite>();
+
+        this.getInvitesForBooking(booking.id);
         newBooking.id = booking.id;
         newBooking.deskId = booking.deskId;
         newBooking.startsAt = booking.startsAt;
@@ -156,8 +206,11 @@ export class PersonalBookingsComponent {
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
         newBooking.isInvited = booking.isInvited;
+        // newBooking.Invite = this.invites;
 
         this.userBookings.push(newBooking);
+        this.invites = [];
+        // console.log(newBooking.Invite);
         this.changeDetection.detectChanges();
         this.getMeetingRoom(booking.deskId, booking.id);
 
@@ -166,7 +219,10 @@ export class PersonalBookingsComponent {
       this.changeDetection.detectChanges();
     })
 
+
+
   }
+  
 
   getMeetingRoom(deskId: number, bookingId: number) : void {
     this.desks.forEach(desk => {
@@ -212,8 +268,9 @@ export class PersonalBookingsComponent {
       this.currentUser = res;
       this.userNumb = this.currentUser.id;
       this.getRating();
-      this.getBookings(this.currentUser.id);
       this.getInvites(this.currentUser.id);
+      this.getBookings(this.currentUser.id);
+
       this.changeDetection.detectChanges();
 
 
@@ -252,7 +309,7 @@ export class PersonalBookingsComponent {
     this.bookingService.getInvitesForUser(userId).subscribe(res => {
       res.forEach((Invite) => {
         
-        console.log("Invite.Booking: " + Invite.Booking);
+        // console.log("Invite.Booking: " + Invite.Booking);
 
         const newInvite = {} as Invite;
         newInvite.id = Invite.id;
@@ -260,12 +317,11 @@ export class PersonalBookingsComponent {
         newInvite.bookingId = Invite.bookingId;
 
         newInvite.email = Invite.email;
-        newInvite.invitedEmployee = Invite.invitedEmployee;
 
         this.getDeskID(Invite.bookingId);
 
         this.invites.push(newInvite);
-        console.log(newInvite);
+        // console.log(newInvite);
         this.changeDetection.detectChanges();
       });
       this.changeDetection.detectChanges();
@@ -285,7 +341,7 @@ export class PersonalBookingsComponent {
         for (let p = 0; p < this.Users.length; p++){
           if (this.invites[i].Booking.employeeId == this.Users[p].id){
             this.invites[i].email = this.Users[p].email;
-            console.log(this.invites[i].email);
+            // console.log(this.invites[i].email);
           }
         this.changeDetection.detectChanges();
         }
@@ -295,10 +351,13 @@ export class PersonalBookingsComponent {
 
 
   inviteOthers(bookingId: number) {
+    if (this.inviteEmail != "") {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
       //
       this.openJoinSnackBar("You have successfully sent the invite.");
     });
+  }
+  
 
   }
 
@@ -313,8 +372,7 @@ export class PersonalBookingsComponent {
       }
     }
     // this.getBookings(this.currentUser.id);
-    // location.reload();
-    setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
+    // setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
     this.changeDetection.detectChanges();
 
   }
@@ -327,11 +385,12 @@ export class PersonalBookingsComponent {
     for (let i = 0; i < this.invites.length; i++) {
       if (this.invites[i].id == inviteId) {
         this.invites.splice(i, 1);
+        this.changeDetection.detectChanges();
+
       }
     }
     // this.getBookings(this.currentUser.id);
-    // location.reload();
-    setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
+    // setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
     this.changeDetection.detectChanges();
 
   }
@@ -355,6 +414,12 @@ export class PersonalBookingsComponent {
   }
 
   setBookingOrInvite(filter: string) : void {
+    this.userBookings = [];
+    this.getBookings(this.currentUser.id);
+
+    this.invites = [];
+    this.getInvites(this.currentUser.id);
+    
     this.bookingOrInvite = filter;
     this.changeDetection.detectChanges();
   }
