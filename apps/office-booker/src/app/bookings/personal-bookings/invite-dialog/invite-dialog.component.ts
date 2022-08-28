@@ -35,7 +35,7 @@ export class InviteDialogComponent {
   bookingId : number;
 
   
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  readonly separatorKeysCodes = [ENTER] as const;
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
@@ -57,20 +57,28 @@ export class InviteDialogComponent {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    console.log(value);
     
       if (value != "") {
+        console.log('value: ' + value);
         this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
-          //
+          console.log(res);
           this.openJoinSnackBar("You have successfully sent an invite to " + value);
-        });
-
+          this.invites[this.invites.length] = this.invites[0];
+          this.invites[this.invites.length - 1].email = value;
+        }, (error) => {
+          console.log(error);
+          this.openDeleteSnackBar("An error has occurred while inviiting: " + value);
+        })
+        };
+        
         event.chipInput?.clear();
-    }
+    
 
+    // this.changeDetection.detectChanges();
+    // this.invites[this.invites.length] = this.invites[0];
+    // this.invites[this.invites.length - 1].email = value;
     this.changeDetection.detectChanges();
-    this.invites[this.invites.length] = this.invites[0];
-    this.invites[this.invites.length - 1].email = value;
+
   }
 
   remove(invite: Invite): void {
@@ -90,6 +98,13 @@ export class InviteDialogComponent {
     this.snackBar.open(message, "Ok", {
       duration: 5000,
       panelClass: "success-snack",
+    });
+  }
+
+  openDeleteSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "fail-snack",
     });
   }
   
