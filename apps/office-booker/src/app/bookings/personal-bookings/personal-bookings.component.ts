@@ -117,7 +117,7 @@ export class PersonalBookingsComponent {
 
   testButton() {
     // for (let i = 0; i < this.userBookings.length; i++) {
-    console.log(this.userBookings);
+    // console.log(this.userBookings);
     // }
   }
 
@@ -309,7 +309,7 @@ export class PersonalBookingsComponent {
     this.bookingService.getInvitesForUser(userId).subscribe(res => {
       res.forEach((Invite) => {
         
-        console.log("Invite.Booking: " + Invite.Booking);
+        // console.log("Invite.Booking: " + Invite.Booking);
 
         const newInvite = {} as Invite;
         newInvite.id = Invite.id;
@@ -322,7 +322,7 @@ export class PersonalBookingsComponent {
         this.getDeskID(Invite.bookingId);
 
         this.invites.push(newInvite);
-        console.log(newInvite);
+        // console.log(newInvite);
         this.changeDetection.detectChanges();
       });
       this.changeDetection.detectChanges();
@@ -342,7 +342,7 @@ export class PersonalBookingsComponent {
         for (let p = 0; p < this.Users.length; p++){
           if (this.invites[i].Booking.employeeId == this.Users[p].id){
             this.invites[i].email = this.Users[p].email;
-            console.log(this.invites[i].email);
+            // console.log(this.invites[i].email);
           }
         this.changeDetection.detectChanges();
         }
@@ -373,8 +373,7 @@ export class PersonalBookingsComponent {
       }
     }
     // this.getBookings(this.currentUser.id);
-    // location.reload();
-    setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
+    // setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
     this.changeDetection.detectChanges();
 
   }
@@ -387,9 +386,11 @@ export class PersonalBookingsComponent {
     for (let i = 0; i < this.invites.length; i++) {
       if (this.invites[i].id == inviteId) {
         this.invites.splice(i, 1);
+        this.changeDetection.detectChanges();
+
       }
     }
-    this.getBookings(this.currentUser.id);
+    // this.getBookings(this.currentUser.id);
     // setTimeout(() => { this.getBookings(this.currentUser.id); }, 500);
     this.changeDetection.detectChanges();
 
@@ -414,6 +415,12 @@ export class PersonalBookingsComponent {
   }
 
   setBookingOrInvite(filter: string) : void {
+    this.userBookings = [];
+    this.getBookings(this.currentUser.id);
+
+    this.invites = [];
+    this.getInvites(this.currentUser.id);
+    
     this.bookingOrInvite = filter;
     this.changeDetection.detectChanges();
   }
