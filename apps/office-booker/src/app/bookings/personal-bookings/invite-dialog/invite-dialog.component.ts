@@ -35,7 +35,7 @@ export class InviteDialogComponent {
   bookingId : number;
 
   
-  readonly separatorKeysCodes = [ENTER] as const;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
