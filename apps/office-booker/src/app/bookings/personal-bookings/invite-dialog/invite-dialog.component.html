@@ -8,7 +8,7 @@
   <mat-form-field class="example-chip-list" appearance="fill">
     <mat-label>Invited</mat-label>
     <mat-chip-list #chipList aria-label="Fruit selection">
-      <mat-chip *ngFor="let invite of invites">
+      <mat-chip *ngFor="let invite of invites" (removed)="remove(invite)">
         {{invite.invitedEmail}}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
@@ -16,7 +16,7 @@
       </mat-chip>
       <input placeholder="..."
              [matChipInputFor]="chipList"
-             >
+      >
     </mat-chip-list>
   </mat-form-field>
 

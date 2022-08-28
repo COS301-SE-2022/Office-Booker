@@ -45,4 +45,9 @@ export class InviteDialogComponent {
     
     this.dialogRef.close();
   }
+
+  remove(invite: Invite): void {
+    console.log(invite);
+  }
+  
 }

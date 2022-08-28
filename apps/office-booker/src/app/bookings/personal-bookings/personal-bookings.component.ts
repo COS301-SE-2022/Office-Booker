@@ -72,7 +72,6 @@ export class PersonalBookingsComponent {
   }
   
   openDialog(bookingId: number, Invite: Invite[]): void {
-    console.log(Invite);
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
       data: { inviteEmail: this.inviteEmail ,
@@ -83,8 +82,9 @@ export class PersonalBookingsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.inviteEmail = result;
-      // console.log(this.inviteEmail);
-      this.inviteOthers(bookingId);
+      if (this.inviteEmail != null) {
+        this.inviteOthers(bookingId);
+      }
     });
 
 
@@ -347,10 +347,13 @@ export class PersonalBookingsComponent {
 
 
   inviteOthers(bookingId: number) {
+    if (this.inviteEmail != "") {
     this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
       //
       this.openJoinSnackBar("You have successfully sent the invite.");
     });
+  }
+  
 
   }
 
