@@ -59,12 +59,19 @@ export class InviteDialogComponent {
     const value = (event.value || '').trim();
     
       if (value != "") {
-        console.log('value: ' + value);
         this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
           console.log(res);
           this.openJoinSnackBar("You have successfully sent an invite to " + value);
-          this.invites[this.invites.length] = this.invites[0];
-          this.invites[this.invites.length - 1].email = value;
+          if (this.invites.length > 0) {
+            this.invites[this.invites.length] = this.invites[0];
+            this.invites[this.invites.length - 1].email = value;
+          }
+          else {
+            const newInvite = {} as Invite;
+            this.invites[0] = newInvite;
+            this.invites[0].email = value;
+            this.changeDetection.detectChanges();
+          }
         }, (error) => {
           console.log(error);
           this.openDeleteSnackBar("An error has occurred while inviiting: " + value);
