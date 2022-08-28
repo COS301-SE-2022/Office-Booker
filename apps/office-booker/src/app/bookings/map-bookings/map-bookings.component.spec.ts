@@ -8,10 +8,11 @@ import { BookingCardComponent } from '../personal-bookings/booking-card/booking-
 import { MatCardModule } from '@angular/material/card'
 import { FormsModule } from '@angular/forms'
 
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CognitoService } from '../../cognito.service';
 
+import { OverlayModule } from '@angular/cdk/overlay';
 
 //imports for Popup Dialog
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
@@ -27,7 +28,7 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule],
+                MatCheckboxModule, MatSnackBarModule, OverlayModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
