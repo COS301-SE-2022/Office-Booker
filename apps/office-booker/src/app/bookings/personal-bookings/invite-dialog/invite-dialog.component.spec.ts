@@ -28,7 +28,7 @@ describe('InviteDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
       imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, 
-                BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule, MatChip, MatChipsModule],
+                BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule, MatChipsModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
