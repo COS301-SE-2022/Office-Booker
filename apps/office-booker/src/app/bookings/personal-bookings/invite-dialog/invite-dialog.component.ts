@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
@@ -10,9 +10,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
-import {MatChipInputEvent} from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatChipsModule } from '@angular/material/chips'; 
-import { BookingServiceService, Invite } from '../../../services/booking-service.service';
+import { Booking, BookingServiceService, Invite, employee } from '../../../services/booking-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -33,6 +33,16 @@ export class InviteDialogComponent {
   inviteEmail: string;
   invites: Invite[];
   bookingId : number;
+  defaultBooking: Booking = {} as any;
+  defaultEmployee: employee = {} as any;
+  newInvite: Invite = {
+    id: -1, bookingId: -1, employeeId: -1, accepted: false, email: "null",
+    deskId: 0,
+    Booking: this.defaultBooking,
+    invitedEmail: '',
+    invitedEmployee: this.defaultEmployee
+  };
+
 
   
   readonly separatorKeysCodes = [ENTER] as const;
@@ -57,7 +67,7 @@ export class InviteDialogComponent {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    
+      
       if (value != "") {
         this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
           console.log(res);
@@ -67,9 +77,9 @@ export class InviteDialogComponent {
             this.invites[this.invites.length - 1].email = value;
           }
           else {
-            const newInvite = {} as Invite;
-            this.invites[0] = newInvite;
+            this.invites[0] = this.newInvite;
             this.invites[0].email = value;
+            console.log(this.invites[0].email);
             this.changeDetection.detectChanges();
           }
         }, (error) => {

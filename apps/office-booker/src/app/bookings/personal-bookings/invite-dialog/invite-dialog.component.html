@@ -16,16 +16,17 @@
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
-      <input placeholder="New invites"
+      <input placeholder="New invite"
              [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
+            (matChipInputTokenEnd)="add($event)"
+            cdkFocusInitial>
     </mat-chip-list>
   </mat-form-field>
 
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()" cdkFocusInitial >Close</button>
+  <button mat-button (click)="onNoClick()" >Close</button>
   <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Finish</button> -->
 </div>
