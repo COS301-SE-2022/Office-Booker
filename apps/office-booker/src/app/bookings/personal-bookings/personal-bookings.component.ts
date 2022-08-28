@@ -17,6 +17,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export interface DialogData {
   inviteEmail: string;
   Invites: Invite[];  
+  bookingId : number;
 }
 
 @Component({
@@ -76,6 +77,7 @@ export class PersonalBookingsComponent {
       width: '550px',
       data: { inviteEmail: this.inviteEmail ,
               Invites: Invite,
+              bookingId: bookingId,
             }
             
     });

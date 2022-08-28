@@ -1,3 +1,11 @@
 .mat-form-field{
-    width: 75%;
+    width: 100%;
+}
+
+.accepted{
+    color: green;
+}
+
+.declined{
+    color: red;
 }

@@ -66,6 +66,7 @@ export interface Invite {
   Booking: Booking,
   invitedEmail: string,
   employeeId: number,
+  accepted: boolean,
 
 
 }

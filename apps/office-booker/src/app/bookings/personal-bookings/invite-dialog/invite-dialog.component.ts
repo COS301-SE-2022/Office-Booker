@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
@@ -12,10 +13,13 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatChipsModule } from '@angular/material/chips'; 
 import { BookingServiceService, Invite } from '../../../services/booking-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 
 export interface DialogData {
   inviteEmail: string;
+  bookingId : number;
   Invites: Invite[];
 }
 
@@ -28,23 +32,45 @@ export class InviteDialogComponent {
 
   inviteEmail: string;
   invites: Invite[];
-  invitesToDelete: Invite[];
+  bookingId : number;
+
+  
+  readonly separatorKeysCodes = [ENTER] as const;
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialog: MatDialog, private bookingService: BookingServiceService) {
+    public dialog: MatDialog, private bookingService: BookingServiceService,
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
 
       this.inviteEmail = "";
       this.invites = data.Invites;
-      this.invitesToDelete = [];
+      this.bookingId = data.bookingId;
     }
    
 
   // ngOnInit(): void {}
 
   onNoClick() : void {
-    this.dialogRef.close(this.invitesToDelete);
+    this.dialogRef.close();
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    console.log(value);
+    
+      if (value != "") {
+        this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
+          //
+          this.openJoinSnackBar("You have successfully sent an invite to " + value);
+        });
+
+        event.chipInput?.clear();
+    }
+
+    this.changeDetection.detectChanges();
+    this.invites[this.invites.length] = this.invites[0];
+    this.invites[this.invites.length - 1].email = value;
   }
 
   remove(invite: Invite): void {
@@ -58,6 +84,13 @@ export class InviteDialogComponent {
         this.invites.splice(i, 1);
       }
     }
+  }
+
+  openJoinSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "success-snack",
+    });
   }
   
 }

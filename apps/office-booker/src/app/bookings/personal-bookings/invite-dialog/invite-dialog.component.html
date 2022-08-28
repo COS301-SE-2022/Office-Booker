@@ -1,28 +1,31 @@
 <h1 mat-dialog-title>Invite someone to your booking!</h1>
 <div mat-dialog-content>
   <p>Please enter a email address to invite someone.</p>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <input matInput [(ngModel)]="data.inviteEmail" placeholder="Email" required>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <mat-form-field class="example-chip-list" appearance="fill">
-    <mat-label>Invited</mat-label>
-    <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-label>Invites</mat-label>
+    <mat-chip-list #chipList aria-label="invites">
       <mat-chip *ngFor="let invite of invites" (removed)="remove(invite)">
-        {{invite.invitedEmail}}
+        <div *ngIf="invite.accepted" class="accepted">{{invite.invitedEmail}}</div>
+        <div *ngIf="!invite.accepted" class="declined">{{invite.invitedEmail}}</div>
+         <!-- {{invite.invitedEmail}} -->
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
-      <input placeholder="..."
+      <input placeholder="New invites"
              [matChipInputFor]="chipList"
-      >
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
   </mat-form-field>
 
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial >Close</button>
+  <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Finish</button> -->
 </div>
