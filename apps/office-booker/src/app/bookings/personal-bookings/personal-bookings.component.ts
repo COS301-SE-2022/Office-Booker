@@ -71,13 +71,12 @@ export class PersonalBookingsComponent {
     });
   }
   
-  openDialog(bookingId: number, Invites: Invite[]): void {
-    console.log(Invites);
-    this.getInvitesByBookingId(bookingId);
+  openDialog(bookingId: number, Invite: Invite[]): void {
+    console.log(Invite);
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       width: '550px',
       data: { inviteEmail: this.inviteEmail ,
-              Invites: this.invites
+              Invites: Invite,
             }
             
     });
@@ -111,15 +110,32 @@ export class PersonalBookingsComponent {
 
   }
 
+  testButton() {
+    // for (let i = 0; i < this.userBookings.length; i++) {
+    console.log(this.userBookings);
+    // }
+  }
+
   getInvitesForBooking(bookingId : number) { 
     this.bookingService.getInvitesForBooking(bookingId).subscribe(res => { 
-      console.log("res: "  + JSON.stringify(res));
       res.forEach(Invite => { 
-        this.invites.push(Invite);
-        console.log("Invites: " + Invite);
+        let newInvite = {} as Invite;
+        for (let i=0; i<this.userBookings.length; i++) {
+          if (this.userBookings[i].id == bookingId) {
+            for (let j=0; j<this.Users.length; j++) {
+              if (this.Users[j].id == Invite.employeeId) {
+                newInvite = Invite;
+                newInvite.invitedEmail = this.Users[j].email;
+              }
+
+            }
+            this.userBookings[i].Invite.push(newInvite);
+          }
+        }
         this.changeDetection.detectChanges();
       });
     })
+    this.changeDetection.detectChanges();
   }
 
   getUsers() {
@@ -129,7 +145,6 @@ export class PersonalBookingsComponent {
         this.changeDetection.detectChanges();
       });
     })
-    // console.log(this.Users);
   }
 
 
@@ -175,8 +190,10 @@ export class PersonalBookingsComponent {
     this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
-        this.getInvitesForBooking(booking.id);
         const newBooking = {} as Booking;
+        newBooking.Invite = new Array<Invite>();
+
+        this.getInvitesForBooking(booking.id);
         newBooking.id = booking.id;
         newBooking.deskId = booking.deskId;
         newBooking.startsAt = booking.startsAt;
@@ -184,8 +201,7 @@ export class PersonalBookingsComponent {
         newBooking.employeeId = booking.employeeId;
         newBooking.desk = booking.desk;
         newBooking.isInvited = booking.isInvited;
-        newBooking.Invite = this.invites;
-        
+        // newBooking.Invite = this.invites;
 
         this.userBookings.push(newBooking);
         this.invites = [];
@@ -198,7 +214,10 @@ export class PersonalBookingsComponent {
       this.changeDetection.detectChanges();
     })
 
+
+
   }
+  
 
   getMeetingRoom(deskId: number, bookingId: number) : void {
     this.desks.forEach(desk => {

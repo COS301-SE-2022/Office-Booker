@@ -1,5 +1,7 @@
 <h1 class="heading">Manage your bookings</h1>
 
+<button type="button" (click)="testButton()">Test Button</button>
+
 <div class="center">
     <mat-button-toggle-group class="filters" name="bookingOrInvite" aria-label="bookingOrInvite" (change)="setBookingOrInvite($event.value)">
         <mat-button-toggle checked="true" value="booking">Bookings</mat-button-toggle>

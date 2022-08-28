@@ -36,13 +36,13 @@ export class InviteDialogComponent {
 
       this.inviteEmail = "";
       this.invites = data.Invites;
-      console.log(this.invites);
     }
    
 
   // ngOnInit(): void {}
 
   onNoClick() : void {
+    
     this.dialogRef.close();
   }
 }

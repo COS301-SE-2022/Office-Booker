@@ -9,7 +9,7 @@
     <mat-label>Invited</mat-label>
     <mat-chip-list #chipList aria-label="Fruit selection">
       <mat-chip *ngFor="let invite of invites">
-        {{invite.invitedEmployee.email}}
+        {{invite.invitedEmail}}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>

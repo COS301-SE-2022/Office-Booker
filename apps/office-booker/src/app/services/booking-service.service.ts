@@ -64,6 +64,9 @@ export interface Invite {
   invitedEmployee: employee,
   deskId: number,
   Booking: Booking,
+  invitedEmail: string,
+  employeeId: number,
+
 
 }
 
