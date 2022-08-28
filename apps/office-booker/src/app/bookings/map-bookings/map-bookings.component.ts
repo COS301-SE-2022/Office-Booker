@@ -76,6 +76,7 @@ export class MapBookingsComponent {
     private popupDialogService: PopupDialogService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog) {
+      
     this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset / 60));      //used to get current time for current computer
     this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
     this.defaultTimeNow.setSeconds(0);      //sets the seconds to 0

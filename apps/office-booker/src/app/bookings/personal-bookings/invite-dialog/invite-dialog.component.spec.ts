@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatChipInputEvent} from '@angular/material/chips';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -24,7 +25,7 @@ describe('InviteDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InviteDialogComponent],
       imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, 
-                BrowserAnimationsModule, HttpClientTestingModule],
+                BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
