@@ -11,7 +11,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatChipsModule } from '@angular/material/chips'; 
-import { Invite } from '../../../services/booking-service.service';
+import { BookingServiceService, Invite } from '../../../services/booking-service.service';
 
 
 export interface DialogData {
@@ -28,26 +28,36 @@ export class InviteDialogComponent {
 
   inviteEmail: string;
   invites: Invite[];
+  invitesToDelete: Invite[];
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, private bookingService: BookingServiceService) {
 
       this.inviteEmail = "";
       this.invites = data.Invites;
+      this.invitesToDelete = [];
     }
    
 
   // ngOnInit(): void {}
 
   onNoClick() : void {
-    
-    this.dialogRef.close();
+    this.dialogRef.close(this.invitesToDelete);
   }
 
   remove(invite: Invite): void {
     console.log(invite);
+    this.bookingService.deleteInvite(invite.id).subscribe(res => {
+      res;
+    });
+    
+    for (let i =0; i<this.invites.length; i++){
+      if (this.invites[i].id == invite.id){
+        this.invites.splice(i, 1);
+      }
+    }
   }
   
 }

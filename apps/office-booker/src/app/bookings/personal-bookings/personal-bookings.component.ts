@@ -80,7 +80,10 @@ export class PersonalBookingsComponent {
             
     });
 
+
+
     dialogRef.afterClosed().subscribe(result => {
+      this.getBookings(this.currentUser.id);
       this.inviteEmail = result;
       if (this.inviteEmail != null) {
         this.inviteOthers(bookingId);

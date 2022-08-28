@@ -217,6 +217,12 @@ export class BookingServiceService {
     return this.http.post<Invite>(`${url}`, body);
   } 
 
+  deleteInvite(id: number){
+    console.log(id);
+    const url = this.baseURL + 'bookings/invites/delete/' + id;
+    return this.http.put<Invite[]>(`${url}`, {});
+  }
+
   getInvitesForUser(employeeId: number){
     const url = this.baseURL + 'bookings/invites/user/' + employeeId;
     return this.http.get<Invite[]>(`${url}`);
