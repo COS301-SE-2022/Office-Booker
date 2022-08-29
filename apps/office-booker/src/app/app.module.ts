@@ -26,8 +26,7 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatChipsModule } from '@angular/material/chips'; 
-
+import { MatChipsModule } from '@angular/material/chips';
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
@@ -41,9 +40,7 @@ import { InviteGuestComponent } from './authentication/invite-guest/invite-guest
 import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
-import {OverlayModule} from '@angular/cdk/overlay';
-
-
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import {
   MatDialog,
@@ -56,6 +53,7 @@ import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.compone
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
 import { DeskPopupComponent } from './bookings/map-bookings/desk-popup/desk-popup.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { OfficeMakerComponent } from './office-maker/office-maker.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -72,7 +70,6 @@ const routes: Routes = [
   { path: 'voting-bookings', component: VotingBookingsComponent },
   { path: 'landing-page', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
-  
 ];
 
 export function tokenGetter() {
@@ -110,6 +107,7 @@ export function tokenGetter() {
     PopupDialogComponent,
     DeskPopupComponent,
     LandingPageComponent,
+    OfficeMakerComponent,
   ],
   imports: [
     OverlayModule,
