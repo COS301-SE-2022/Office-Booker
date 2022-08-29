@@ -68,6 +68,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'voting-bookings', component: VotingBookingsComponent },
+  { path: 'office-maker', component: OfficeMakerComponent},
   { path: 'landing-page', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
 ];
