@@ -1,5 +1,5 @@
 import { Directive, HostListener } from '@angular/core';
-import { SVGService } from './svg.service';
+import { SVGService } from './services/svg.service';
 
 @Directive({
   selector: '[officeBookerDroppable]'
