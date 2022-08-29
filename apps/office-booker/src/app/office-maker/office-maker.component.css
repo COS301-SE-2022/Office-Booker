@@ -1,0 +1,12 @@
+.items-container {
+    width: 30%;
+    circle {
+        cursor: move;
+    }
+}
+
+.svg-container {
+    border: 3px dashed #000;
+    background-color: #CCC;
+    width: 70%;
+}
