@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
@@ -9,8 +10,17 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips'; 
+import { Booking, BookingServiceService, Invite, employee } from '../../../services/booking-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
+
 export interface DialogData {
   inviteEmail: string;
+  bookingId : number;
+  Invites: Invite[];
 }
 
 @Component({
@@ -21,13 +31,31 @@ export interface DialogData {
 export class InviteDialogComponent {
 
   inviteEmail: string;
+  invites: Invite[];
+  bookingId : number;
+  defaultBooking: Booking = {} as any;
+  defaultEmployee: employee = {} as any;
+  newInvite: Invite = {
+    id: -1, bookingId: -1, employeeId: -1, accepted: false, email: "null",
+    deskId: 0,
+    Booking: this.defaultBooking,
+    invitedEmail: '',
+    invitedEmployee: this.defaultEmployee
+  };
+
+
+  
+  readonly separatorKeysCodes = [ENTER] as const;
 
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, private bookingService: BookingServiceService,
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
 
       this.inviteEmail = "";
+      this.invites = data.Invites;
+      this.bookingId = data.bookingId;
     }
    
 
@@ -36,4 +64,64 @@ export class InviteDialogComponent {
   onNoClick() : void {
     this.dialogRef.close();
   }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+      
+      if (value != "") {
+        this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
+          console.log(res);
+          this.openJoinSnackBar("You have successfully sent an invite to " + value);
+          if (this.invites.length > 0) {
+            this.invites[this.invites.length] = this.invites[0];
+            this.invites[this.invites.length - 1].email = value;
+          }
+          else {
+            this.invites[0] = this.newInvite;
+            this.invites[0].email = value;
+            console.log(this.invites[0].email);
+            this.changeDetection.detectChanges();
+          }
+        }, (error) => {
+          console.log(error);
+          this.openDeleteSnackBar("An error has occurred while inviiting: " + value);
+        })
+        };
+        
+        event.chipInput?.clear();
+    
+
+    // this.changeDetection.detectChanges();
+    // this.invites[this.invites.length] = this.invites[0];
+    // this.invites[this.invites.length - 1].email = value;
+    this.changeDetection.detectChanges();
+
+  }
+
+  remove(invite: Invite): void {
+    this.bookingService.deleteInvite(invite.id).subscribe(res => {
+      res;
+    });
+    
+    for (let i =0; i<this.invites.length; i++){
+      if (this.invites[i].id == invite.id){
+        this.invites.splice(i, 1);
+      }
+    }
+  }
+
+  openJoinSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "success-snack",
+    });
+  }
+
+  openDeleteSnackBar(message: string) {
+    this.snackBar.open(message, "Ok", {
+      duration: 5000,
+      panelClass: "fail-snack",
+    });
+  }
+  
 }

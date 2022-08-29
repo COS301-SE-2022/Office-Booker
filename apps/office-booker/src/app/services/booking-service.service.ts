@@ -33,6 +33,7 @@ export interface Booking {
   employeeName: string,
   isMeetingRoom: boolean,
   isInvited: boolean,
+  Invite: Invite[],
 }
 
 export interface BookingDto {
@@ -63,6 +64,10 @@ export interface Invite {
   invitedEmployee: employee,
   deskId: number,
   Booking: Booking,
+  invitedEmail: string,
+  employeeId: number,
+  accepted: boolean,
+
 
 }
 
@@ -94,6 +99,11 @@ export class BookingServiceService {
   getAllRooms(): Observable<Room[]> {
     const url = this.baseURL + 'rooms';
     return this.http.get<Room[]>(`${url}`);
+  }
+
+  getInvitesForBooking(bookingId : number){
+    const url = this.baseURL + 'bookings/invites/' + bookingId;
+    return this.http.get<Invite[]>(`${url}`);
   }
   
   getRoomByID(roomId: number){
@@ -205,9 +215,14 @@ export class BookingServiceService {
     const body = {
       email: email
     } 
-    console.log(body);
     return this.http.post<Invite>(`${url}`, body);
   } 
+
+  deleteInvite(id: number){
+    console.log(id);
+    const url = this.baseURL + 'bookings/invites/delete/' + id;
+    return this.http.put<Invite[]>(`${url}`, {});
+  }
 
   getInvitesForUser(employeeId: number){
     const url = this.baseURL + 'bookings/invites/user/' + employeeId;

@@ -26,6 +26,8 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatChipsModule } from '@angular/material/chips'; 
+
 
 import { PersonalBookingsComponent } from './bookings/personal-bookings/personal-bookings.component';
 import { MapBookingsComponent } from './bookings/map-bookings/map-bookings.component';
@@ -40,6 +42,8 @@ import { AccountComponent } from './authentication/account/account.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { InviteDialogComponent } from './bookings/personal-bookings/invite-dialog/invite-dialog.component';
 import {OverlayModule} from '@angular/cdk/overlay';
+
+
 
 import {
   MatDialog,
@@ -128,6 +132,7 @@ export function tokenGetter() {
     MatToolbarModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
     JwtModule.forRoot({

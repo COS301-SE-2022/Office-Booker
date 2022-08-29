@@ -1,5 +1,8 @@
 <h1 class="heading">Manage your bookings</h1>
 
+<!-- test button -->
+<!-- <button type="button" (click)="testButton()">Test Button</button> -->
+
 <div class="center">
     <mat-button-toggle-group class="filters" name="bookingOrInvite" aria-label="bookingOrInvite" (change)="setBookingOrInvite($event.value)">
         <mat-button-toggle checked="true" value="booking">Bookings</mat-button-toggle>
@@ -49,7 +52,7 @@
                         </mat-card-content>
                         <br>
                         <mat-card-actions>
-                            <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                            <button class="clicker2" (click)="openDialog(booking.id, booking.Invite)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
                             <br>
                             <br>
                             <button class="clicker" (click)="deleteADeskBooking(booking.id); openDeleteSnackBar('You have deleted your booking.');" mat-raised-button color="accent">Cancel Booking</button>
@@ -83,7 +86,7 @@
                                 <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
                             </mat-card-content>
                             <mat-card-actions>
-                                <button class="clicker2" (click)="openDialog(booking.id);" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                                <button class="clicker2" (click)="openDialog(booking.id, booking.Invite);" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
                                 <br>
                                 <br>
                                 <button class="clicker" (click)="deleteADeskBooking(booking.id);  openDeleteSnackBar('You have deleted your booking.');" mat-raised-button color="accent">Cancel Booking</button>
@@ -117,7 +120,7 @@
                                 <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
                             </mat-card-content>
                             <mat-card-actions>
-                                <button class="clicker2" (click)="openDialog(booking.id)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
+                                <button class="clicker2" (click)="openDialog(booking.id, booking.Invite)" [disabled]="!booking.isMeetingRoom" mat-raised-button color="primary">Invite Others</button>
                                 <br>
                                 <br>
                                 <button class="clicker" (click)="deleteADeskBooking(booking.id); openDeleteSnackBar('You have deleted your booking.');" mat-raised-button color="accent">Cancel Booking</button>
