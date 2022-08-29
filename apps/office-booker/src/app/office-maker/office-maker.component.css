@@ -1,8 +1,5 @@
 .items-container {
     width: 30%;
-    circle {
-        cursor: move;
-    }
 }
 
 .svg-container {

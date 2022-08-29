@@ -54,8 +54,8 @@ import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
 import { DeskPopupComponent } from './bookings/map-bookings/desk-popup/desk-popup.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { OfficeMakerComponent } from './office-maker/office-maker.component';
-import { DraggableDirective } from './draggable.directive';
-import { DroppableDirective } from './droppable.directive';
+import { DraggableDirective } from './directives/draggable.directive';
+import { DroppableDirective } from './directives/droppable.directive';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
