@@ -1,0 +1,10 @@
+.items-container {
+    width: 30%;
+}
+
+.svg-container {
+    border: 3px dashed #000;
+    background-color: #CCC;
+    width: 800px;
+    height: 800px;
+}
