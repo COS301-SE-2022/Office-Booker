@@ -35,13 +35,13 @@ export class InviteDialogComponent {
   bookingId : number;
   defaultBooking: Booking = {} as any;
   defaultEmployee: employee = {} as any;
-  newInvite: Invite = {
-    id: -1, bookingId: -1, employeeId: -1, accepted: false, email: "null",
-    deskId: 0,
-    Booking: this.defaultBooking,
-    invitedEmail: '',
-    invitedEmployee: this.defaultEmployee
-  };
+  // newInvite: Invite = {
+  //   id: -1, bookingId: -1, employeeId: -1, accepted: false, email: "null",
+  //   deskId: 0,
+  //   Booking: this.defaultBooking,
+  //   invitedEmail: '',
+  //   invitedEmployee: this.defaultEmployee
+  // };
 
 
   
@@ -68,25 +68,35 @@ export class InviteDialogComponent {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
       
-      if (value != "") {
+      if (value != "") 
+      {
+        const  newInvite =  {
+          id: -1, bookingId: -1, employeeId: -1, accepted: false, email: value,
+          deskId: 0,
+          Booking: this.defaultBooking,
+          invitedEmail: value,
+          invitedEmployee: this.defaultEmployee
+        };
+
         this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
           console.log(res);
           this.openJoinSnackBar("You have successfully sent an invite to " + value);
           if (this.invites.length > 0) {
-            this.invites[this.invites.length] = this.invites[0];
-            this.invites[this.invites.length - 1].email = value;
+            
+            this.invites[this.invites.length] = newInvite;
+            this.invites[this.invites.length].email = value;
+            this.changeDetection.detectChanges();
           }
           else {
-            this.invites[0] = this.newInvite;
+            this.invites[0] = newInvite;
             this.invites[0].email = value;
-            console.log(this.invites[0].email);
             this.changeDetection.detectChanges();
           }
         }, (error) => {
           console.log(error);
           this.openDeleteSnackBar("An error has occurred while inviiting: " + value);
         })
-        };
+      };
         
         event.chipInput?.clear();
     
