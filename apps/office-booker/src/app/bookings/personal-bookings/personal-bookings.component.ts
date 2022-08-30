@@ -73,25 +73,35 @@ export class PersonalBookingsComponent {
   }
   
   openDialog(bookingId: number, Invite: Invite[]): void {
-    const dialogRef = this.dialog.open(InviteDialogComponent, {
-      width: '550px',
-      data: { inviteEmail: this.inviteEmail ,
-              Invites: Invite,
-              bookingId: bookingId,
-            }
-            
-    });
-
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.getBookings(this.currentUser.id);
-      this.inviteEmail = result;
-      if (this.inviteEmail != null) {
-        this.inviteOthers(bookingId);
+    let canInvite = true;
+    this.userBookings.forEach(user => {
+      for (let d = 0; d < this.userBookings.length; d++) {
+        if (this.userBookings[d].id == bookingId) {
+          if (this.userBookings[d].isInvited == true) {
+            canInvite = false;
+          }
+        }
       }
     });
+    if (canInvite) {
+      const dialogRef = this.dialog.open(InviteDialogComponent, {
+        width: '550px',
+        data: { inviteEmail: this.inviteEmail ,
+                Invites: Invite,
+                bookingId: bookingId,
+              }
+              
+      });
 
+      dialogRef.afterClosed().subscribe(result => {
+        this.getBookings(this.currentUser.id);
+        this.inviteEmail = result;
+        if (this.inviteEmail != null) {
+          this.inviteOthers(bookingId);
+        }
+      });
+
+    } else { this.openDeleteSnackBar("You have been invited to this meeting therefore you must contact the booking owner to invite others.") }
 
 
   }
@@ -113,7 +123,10 @@ export class PersonalBookingsComponent {
 
     this.changeDetection.detectChanges();
 
+    this.changeDetection.detectChanges();
   }
+
+  
 
   testButton() {
     // for (let i = 0; i < this.userBookings.length; i++) {
@@ -150,6 +163,7 @@ export class PersonalBookingsComponent {
         this.changeDetection.detectChanges();
       });
     })
+
   }
 
 
@@ -352,14 +366,13 @@ export class PersonalBookingsComponent {
 
   inviteOthers(bookingId: number) {
     if (this.inviteEmail != "") {
-    this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
-      //
-      this.openJoinSnackBar("You have successfully sent the invite.");
-    });
-  }
+      this.bookingService.createInvite(bookingId, this.inviteEmail).subscribe(res => {
+        //
+        this.openJoinSnackBar("You have successfully sent the invite.");
+      });
+      }
+    }
   
-
-  }
 
   acceptInvite(inviteId: number) {
 
