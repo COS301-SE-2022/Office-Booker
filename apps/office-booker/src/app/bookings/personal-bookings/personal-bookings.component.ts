@@ -275,7 +275,27 @@ export class PersonalBookingsComponent {
     return "Error";
   }
 
+  isInvite(bookingId:number) : string {
+    let isInvite = false;
+    for (let i = 0; i < this.userBookings.length; i++) {
+      if (this.userBookings[i].id == bookingId) {
+        isInvite = this.userBookings[i].isInvited;
+      }
+    }
 
+    if (isInvite == false){
+      return "Your Booking";
+
+    }
+    else if (isInvite==true){
+      return "Invited";
+    }
+    return "Error";
+  }
+
+
+
+  //gets current user information
   getCurrentUser() {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
