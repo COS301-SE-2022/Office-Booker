@@ -49,7 +49,7 @@ export class DroppableDirective {
   }
 
   private setPosition(element : any, coord: { x : any, y : any}) {
-    element.setAttribute('cx', coord.x);
-    element.setAttribute('cy', coord.y);
+    element.setAttribute('x', coord.x);
+    element.setAttribute('y', coord.y);
   }
 }
