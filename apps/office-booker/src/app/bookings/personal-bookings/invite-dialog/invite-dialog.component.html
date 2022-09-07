@@ -12,7 +12,7 @@
         <div *ngIf="invite.accepted" class="accepted">{{invite.invitedEmail}}</div>
         <div *ngIf="!invite.accepted" class="declined">{{invite.invitedEmail}}</div>
          <!-- {{invite.invitedEmail}} -->
-        <button matChipRemove>
+        <button *ngIf="!invite.accepted" matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
