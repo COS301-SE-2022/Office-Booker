@@ -92,13 +92,10 @@ export class CognitoService {
   public isAuthenticated(): void {
     if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       this.isAuthenticate = true;
-      // console.log("isAuthenticated: " + this.isAuthenticate);
-
     }
     else
     {
       this.isAuthenticate = false;
-      // console.log("isAuthenticated: " + this.isAuthenticate);
     }
   }
 
@@ -135,12 +132,10 @@ export class CognitoService {
   }
 
   public getName() : string { 
-    console.log("panic");
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     if (userData != "null") {
       this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
         this.name = res.name;
-        console.log("name: " + this.name);
       })
     }
     
@@ -223,7 +218,6 @@ export class CognitoService {
   public getCompany(): void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      // console.log(res.companyId);
       this.companyID = res.companyId;
       this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
         // console.log(res2.name);
@@ -232,7 +226,6 @@ export class CognitoService {
   }
 
   public returnCompany(): string {
-    console.log(this.company);
     return this.company;
   }
 
