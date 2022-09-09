@@ -4,7 +4,6 @@ import Amplify, { Auth } from 'aws-amplify';
 
 import { environment } from '../environments/environment';
 import { BookingServiceService } from './services/booking-service.service';
-import { ConsoleLogger } from '@nestjs/common';
 
 export interface IUser {
   username: string
@@ -161,7 +160,6 @@ export class CognitoService {
 
   public getEmailAddress(): string {
     const length = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")).length;
-    // console.log(JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser")));
     const userData = (JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))).substring(1, length - 1);
     return userData;
   }
@@ -171,7 +169,6 @@ export class CognitoService {
     if (userData != "null") {
       this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
         this.isAdmin = res.admin;
-        console.log("hasAdmin: " + this.isAdmin);
       })
   }
 
@@ -185,7 +182,6 @@ export class CognitoService {
       })
     }
 
-    console.log("Guest: " + this.isGuest);
 
   }  
 
@@ -248,7 +244,6 @@ export class CognitoService {
 
   public loggedIn() : boolean {
     this.isAuthenticated();
-    // console.log(this.authenticated())
     return this.authenticated();
   }
 
