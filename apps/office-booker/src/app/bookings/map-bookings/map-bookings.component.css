@@ -1,8 +1,9 @@
 .map-container {
     width: 800px;
     height: auto;
-    margin: 2rem;
-    float: left;
+    margin: 1rem;
+    float: center;
+
 }
 
 .side-container {
@@ -21,6 +22,12 @@
     /* margin-left: 25px; */
     justify-content: space-between;
     position: relative;
+}
+
+.options{
+    float: left;
+    margin: 1rem;
+    
 }
 
 .comparison-container {
