@@ -1,12 +1,15 @@
 <body>
     <mat-card class="options-bar">
-        <mat-form-field>
+        <mat-form-field >
             <mat-label>Select Office</mat-label>
-            <mat-select [(value)]="selected" id="select" name="company">
-                    <mat-option value="" disabled selected>Select your room</mat-option>
-                    <mat-option *ngFor="let r of currentRooms" [value]="r.name"> {{r.name}} </mat-option>
-                  </mat-select>
-                </mat-form-field>
+            <select  matNativeControl required>
+              <option value="" disabled selected>Select your room</option>
+              <option *ngFor="let r of currentRooms"  [value]="r.id"> {{r.name}} </option>
+            </select>
+          </mat-form-field>
+          <button (click)="printRooms(1)" mat-raised-button color="primary">1</button>
+          <button (click)="printRooms(2)" mat-raised-button color="primary">2</button>
+
     <mat-card-content> Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">         
     End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">         
     <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>         

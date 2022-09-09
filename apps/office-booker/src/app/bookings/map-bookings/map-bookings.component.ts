@@ -112,9 +112,9 @@ export class MapBookingsComponent {
     this.changeDetection.detectChanges();
   }
 
-  printRooms(){
-    console.log(this.currentRooms[0].id);
-    
+  printRooms(roomId: number){
+    this.desks.length = 0;
+    this.getDesksByRoomId(roomId); 
   }
 
   changeOpen(itemId: number, itemType: boolean) {
