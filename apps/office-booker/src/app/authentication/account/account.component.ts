@@ -72,7 +72,9 @@ export class AccountComponent {
 
   public forgotPassword(): void {
     this.cognitoService.resetPassword(this.user.email);
+    this.changePassword = false;
     this.isConfirm = true;
+    
   }
 
   public submitPasswordReset(): void {

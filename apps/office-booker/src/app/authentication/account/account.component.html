@@ -7,7 +7,6 @@
       <p></p>
       
       <mat-card-subtitle>
-        Please note that you need to contact your system administrator to change your email as it is linked to the company.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -17,12 +16,12 @@
          
         <mat-card-actions>
            
-          <button mat-raised-button color="primary" (click)="setNgIf('changePassword')" [disabled]="loading">
+          <button mat-raised-button color="primary" (click)="setNgIf('changeName')" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Name
           </button>
 
-          <button mat-raised-button color="primary" (click)="setNgIf('changeName')" [disabled]="loading">
+          <button mat-raised-button color="primary" (click)="setNgIf('changePassword')" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Password
           </button>
@@ -115,7 +114,7 @@
       
       </mat-card-content>
       <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="submitPasswordReset()" [disabled]="loading">
+            <button mat-raised-button color="primary" (click)="submitPasswordReset()" [disabled]="loading">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Confirm
             </button>
