@@ -59,11 +59,13 @@ export class AccountComponent {
     if(setIf == "changePassword"){
       this.changeName = false;
       this.changePassword = true;
+      this.isConfirm = false;
 
     }
     else if(setIf == "changeName"){
       this.changePassword = false;
       this.changeName = true;
+      this.isConfirm = false;
       
     }
   }
@@ -78,7 +80,8 @@ export class AccountComponent {
   }
 
   public submitPasswordReset(): void {
-    this.cognitoService.submitPasswordReset(this.user.email, this.code, this.newPassword);
+    this.cognitoService.submitPasswordReset(this.user.email, this.code, this.user.password);
+    
   }
 
   public editName(): void {
