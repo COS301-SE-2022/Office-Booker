@@ -18,6 +18,7 @@ export class AccountComponent {
   newPassword = "";
   loading = false;
   isConfirm = false;
+  changePassword = false;
 
 
   constructor(private cognitoService: CognitoService,
