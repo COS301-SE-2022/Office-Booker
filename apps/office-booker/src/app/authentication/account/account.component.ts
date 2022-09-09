@@ -17,8 +17,10 @@ export class AccountComponent {
   code = "";
   newPassword = "";
   loading = false;
+
   isConfirm = false;
   changePassword = false;
+  changeName = false;
 
 
   constructor(private cognitoService: CognitoService,
@@ -53,6 +55,21 @@ export class AccountComponent {
     });
   }
 
+  public setNgIf(setIf : string): void {
+    if(setIf == "changePassword"){
+      this.changeName = false;
+      this.changePassword = true;
+
+    }
+    else if(setIf == "changeName"){
+      this.changePassword = false;
+      this.changeName = true;
+      
+    }
+  }
+
+  
+
   public forgotPassword(): void {
     this.cognitoService.resetPassword(this.user.email);
     this.isConfirm = true;
@@ -60,6 +77,10 @@ export class AccountComponent {
 
   public submitPasswordReset(): void {
     this.cognitoService.submitPasswordReset(this.user.email, this.code, this.newPassword);
+  }
+
+  public editName(): void {
+    //;
   }
 
 }
