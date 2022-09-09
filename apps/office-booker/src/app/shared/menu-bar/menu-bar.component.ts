@@ -31,9 +31,7 @@ export class MenuBarComponent {
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
     this.name = this.cognitoService.returnName();
-    this.cognitoService.update();
-    this.name = this.getName();
-    console.log(this.name);
+    console.log("MENUBAR: " + this.name);
       
   }
 
@@ -47,18 +45,8 @@ export class MenuBarComponent {
     this.email = this.cognitoService.getEmailAddress();
     this.name = this.cognitoService.returnName();
     this.cognitoService.update();
-    this.name = this.getName();
-    console.log(this.name);
-    // this.cognitoService.getName();
+    console.log("MENUBAR: " + this.name);
 
-    this.changeDetection.detectChanges();
-    this.changeDetection.detectChanges();
-
-    this.changeDetection.detectChanges();
-
-    this.changeDetection.detectChanges();
-
-    this.changeDetection.detectChanges();
 
     
   }
@@ -71,7 +59,7 @@ export class MenuBarComponent {
   }
 
   getName() : string {
-    this.name = this.cognitoService.getName();
+    console.log("getName" + this.name);
     return this.name;
   }
   
@@ -102,6 +90,7 @@ export class MenuBarComponent {
   }
 
   isEmailAddress(): boolean {
+    this.name = this.cognitoService.returnName();
     this.isStatus();
     this.email = this.cognitoService.getEmailAddress();
     if (this.email != null && this.isAuthenticated() ){

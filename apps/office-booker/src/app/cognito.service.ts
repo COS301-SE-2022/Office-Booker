@@ -135,6 +135,7 @@ export class CognitoService {
   }
 
   public getName() : string { 
+    console.log("panic");
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     if (userData != "null") {
       this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
@@ -142,12 +143,11 @@ export class CognitoService {
         console.log("name: " + this.name);
       })
     }
-
+    
     return this.name;
   }
 
   public returnName() : string { 
-    this.getName();
     return this.name;
   }
 
