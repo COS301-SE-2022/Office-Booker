@@ -1,6 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Desk, Booking, employee, Facility } from '../../services/booking-service.service';
+import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 
 
@@ -62,6 +62,9 @@ export class MapBookingsComponent {
   hasBooking = false;
   guestBookings = 0;
 
+  //variables for the rooms
+  currentRooms: Array<Room> = [];
+
   //popup dialog variables
   option = {
     title: '',
@@ -103,9 +106,15 @@ export class MapBookingsComponent {
   }
 
   ngOnInit() {
-    this.getDesksByRoomId(1);       //gets all the desks for the current room
     this.getCurrentUser();          //fetches the logged in user
+    //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+    
     this.changeDetection.detectChanges();
+  }
+
+  printRooms(){
+    console.log(this.currentRooms[0].id);
+    
   }
 
   changeOpen(itemId: number, itemType: boolean) {
@@ -489,11 +498,28 @@ export class MapBookingsComponent {
       this.currentUser = res;
       console.log(this.currentUser);
       if (this.currentUser.guest == true) {//If the current user is a guest, check if they already have bookings
-        console.log(this.currentUser.guest);
+        console.log(this.currentUser.guest);  
         this.checkUserHasBooking();
       }
+      console.log(this.currentUser.companyId);
+      
+      this.getRooms(this.currentUser.companyId);
+      console.log(this.currentRooms[0]);
       this.changeDetection.detectChanges();
     })
+  }
+
+  getRooms(coId: number) {
+    this.bookingService.getRoomsByCompanyId(coId).subscribe(res => {
+      res.forEach(room => {
+        this.currentRooms.push(room);
+      })
+      
+      console.log(this.currentRooms[0]);
+      this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+      this.changeDetection.detectChanges();
+    })
+    
   }
 
   validateDate() {
