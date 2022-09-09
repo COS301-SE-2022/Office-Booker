@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeskPopupComponent } from './desk-popup/desk-popup.component';
 
 import { MatCheckbox } from '@angular/material/checkbox';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { json } from 'stream/consumers';
 
@@ -73,12 +73,14 @@ export class MapBookingsComponent {
     confirmText: '',
   };
 
+
+
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
     public snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,) {
       
     this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset / 60));      //used to get current time for current computer
     this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
@@ -108,10 +110,12 @@ export class MapBookingsComponent {
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
     //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
-    
     this.changeDetection.detectChanges();
   }
 
+
+
+  
   printRooms(roomId: number){
     this.desks.length = 0;
     this.getDesksByRoomId(roomId); 
