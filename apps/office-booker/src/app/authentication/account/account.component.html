@@ -1,10 +1,42 @@
 <h1 class="heading">Manage your account here</h1>
 <p class="text" >You have a current rating of {{rating | number : '1.2-2'}}</p>
+           
+<div class="card-wrapper">
+  <mat-card class="example-card">
+    <mat-card-header>What would you like to change?</mat-card-header>
+      <p></p>
+      
+      <mat-card-subtitle>
+      </mat-card-subtitle>
+
+      <mat-card-content>
+
+               
+      </mat-card-content>
+         
+        <mat-card-actions>
+           
+          <button mat-raised-button color="primary" (click)="setNgIf('changeName')" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Name
+          </button>
+
+          <button mat-raised-button color="primary" (click)="setNgIf('changePassword')" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Password
+          </button>
+          
+        </mat-card-actions>
+
+        <p></p>
+  
+  </mat-card>
+</div>
 
 
-<div class="card-wrapper" *ngIf="!isConfirm">
+<div class="card-wrapper" *ngIf="changePassword">
     <mat-card class="example-card">
-      <mat-card-header>Need to change your password?</mat-card-header>
+      <mat-card-header>Change your password</mat-card-header>
         <p></p>
         
         <mat-card-subtitle>
@@ -22,7 +54,38 @@
            
           <mat-card-actions>
              
-            <button mat-raised-button color="primary" (click)="forgotPassword()" class="btn btn-sm btn-success">
+            <button mat-raised-button color="primary" (click)="forgotPassword()" [disabled]="loading">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Submit
+            </button>
+          </mat-card-actions>
+  
+          <p></p>
+    
+    </mat-card>
+  </div>
+
+  <div class="card-wrapper" *ngIf="changeName">
+    <mat-card class="example-card">
+      <mat-card-header>Change your name</mat-card-header>
+        <p></p>
+        
+        <mat-card-subtitle>
+          Please enter updated name below.
+        </mat-card-subtitle>
+  
+        <mat-card-content>
+           
+          <mat-form-field>
+            <input matInput type="name" id="name" name="name" #name ="ngModel" [(ngModel)]="user.name" 
+              class="form-control form-control-sm" placeholder="Name">
+          </mat-form-field> 
+                 
+        </mat-card-content>
+           
+          <mat-card-actions>
+             
+            <button mat-raised-button color="primary" (click)="editName()" [disabled]="loading">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Submit
             </button>
@@ -51,7 +114,7 @@
       
       </mat-card-content>
       <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="submitPasswordReset()" class="btn btn-sm btn-success" [disabled]="loading">
+            <button mat-raised-button color="primary" (click)="submitPasswordReset()" [disabled]="loading">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Confirm
             </button>

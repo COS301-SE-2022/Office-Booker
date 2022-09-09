@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import Amplify, { Auth } from 'aws-amplify';
 
 import { environment } from '../environments/environment';
 import { BookingServiceService } from './services/booking-service.service';
+import { ConsoleLogger } from '@nestjs/common';
 
 export interface IUser {
   username: string
@@ -29,9 +30,10 @@ export class CognitoService {
   isLoggedIn = false;
   code = "";
   newPassword = "";
+  name = "";
 
 
-  constructor(private bookingService: BookingServiceService) {
+  constructor(private bookingService: BookingServiceService,) {
     Amplify.configure({
       Auth: environment.cognito,
     });
@@ -43,6 +45,7 @@ export class CognitoService {
     this.hasAdmin();
     this.isGuest = true;
     this.hasGuest();
+    this.getName();
   
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
@@ -67,6 +70,7 @@ export class CognitoService {
   public signIn(user: IUser): Promise<any> {
     return Auth.signIn(user.email, user.password)
       .then(() => {
+        this.getName();
         this.hasGuest();
         this.authenticationSubject.next(true);
       });
@@ -88,13 +92,10 @@ export class CognitoService {
   public isAuthenticated(): void {
     if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
       this.isAuthenticate = true;
-      // console.log("isAuthenticated: " + this.isAuthenticate);
-
     }
     else
     {
       this.isAuthenticate = false;
-      // console.log("isAuthenticated: " + this.isAuthenticate);
     }
   }
 
@@ -128,6 +129,34 @@ export class CognitoService {
 
   public getEmail(): Promise<string> {
     return Auth.currentUserInfo();
+  }
+
+  public getName() : string { 
+    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
+    if (userData != "null") {
+      this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
+        this.name = res.name;
+      })
+    }
+    
+    return this.name;
+  }
+
+  public returnName() : string { 
+    return this.name;
+  }
+
+  public update()
+  {
+    this.company = "";
+    this.companyID = 0;
+    this.isAuthenticate = false;
+    this.isAuthenticated();
+    this.isAdmin = false;
+    this.hasAdmin();
+    this.isGuest = true;
+    this.hasGuest();
+    this.getName();
   }
 
   public getEmailAddress(): string {
@@ -189,7 +218,6 @@ export class CognitoService {
   public getCompany(): void {
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getCompanyIdByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-      // console.log(res.companyId);
       this.companyID = res.companyId;
       this.bookingService.getCompanyByID(res.companyId).subscribe(res2 => {
         // console.log(res2.name);
@@ -198,7 +226,6 @@ export class CognitoService {
   }
 
   public returnCompany(): string {
-    console.log(this.company);
     return this.company;
   }
 

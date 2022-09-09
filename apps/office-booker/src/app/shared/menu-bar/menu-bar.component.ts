@@ -14,12 +14,13 @@ export class MenuBarComponent {
   guest = true;
   authenticated = false;
   email = "";
+  name = "";
   loggedIn = false;
   status = "";
 
 
   constructor(private app: AppComponent,
-    private cognitoService: CognitoService, 
+    private cognitoService: CognitoService, private changeDetection: ChangeDetectorRef,
     ) {
       if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
         this.loggedIn = true;
@@ -29,6 +30,8 @@ export class MenuBarComponent {
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
+    this.name = this.cognitoService.returnName();
+    console.log("MENUBAR: " + this.name);
       
   }
 
@@ -40,6 +43,10 @@ export class MenuBarComponent {
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
+    this.name = this.cognitoService.returnName();
+    this.cognitoService.update();
+    console.log("MENUBAR: " + this.name);
+
 
     
   }
@@ -49,6 +56,11 @@ export class MenuBarComponent {
     this.loggedIn = false;
     this.isAuthenticated();
     this.app.signOut();
+  }
+
+  getName() : string {
+    console.log("getName" + this.name);
+    return this.name;
   }
   
 
@@ -78,6 +90,7 @@ export class MenuBarComponent {
   }
 
   isEmailAddress(): boolean {
+    this.name = this.cognitoService.returnName();
     this.isStatus();
     this.email = this.cognitoService.getEmailAddress();
     if (this.email != null && this.isAuthenticated() ){
