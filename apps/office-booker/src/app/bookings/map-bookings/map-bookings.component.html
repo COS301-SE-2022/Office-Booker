@@ -1,16 +1,18 @@
 <body>
-    <div class="options">
-    Select Office: <button mat-button [matMenuTriggerFor]="menu">office </button>
-    <mat-menu #menu="matMenu">
-        
-    </mat-menu>
-    Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
-    End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
-    <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
-    <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
-        {{selectedItemType | titlecase}} {{selectedItemId}} </button>
-    
-    </div>
+    <mat-card class="options-bar">
+        <mat-form-field>
+            <mat-label>Select Office</mat-label>
+            <mat-select [(value)]="selected" id="select" name="company">
+                    <mat-option value="" disabled selected>Select your room</mat-option>
+                    <mat-option *ngFor="let r of currentRooms" [value]="r.name"> {{r.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+    <mat-card-content> Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">         
+    End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">         
+    <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>         
+    <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book         {{selectedItemType | titlecase}} {{selectedItemId}} </button>     
+    </mat-card-content>     
+    </mat-card>
     
     <div class="map-container">
         <svg #trigger x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
