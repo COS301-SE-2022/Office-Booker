@@ -24,11 +24,7 @@
     position: relative;
 }
 
-.options{
-    float: left;
-    margin: 1rem;
-    
-}
+
 
 .comparison-container {
     width: 90%;
@@ -251,4 +247,17 @@
 
 .body {
     /* margin: 1200px; */
+}
+
+.options-bar{
+    float: left;
+    margin: 1rem;
+
+    width: 1000px;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+    border: rgba(0, 0, 0, 0.314) 2.5px solid;
+    border-radius: 40px;
+    
 }
