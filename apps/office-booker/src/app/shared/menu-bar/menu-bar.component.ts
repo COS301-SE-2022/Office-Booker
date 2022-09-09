@@ -14,12 +14,13 @@ export class MenuBarComponent {
   guest = true;
   authenticated = false;
   email = "";
+  name = "";
   loggedIn = false;
   status = "";
 
 
   constructor(private app: AppComponent,
-    private cognitoService: CognitoService, 
+    private cognitoService: CognitoService, private changeDetection: ChangeDetectorRef,
     ) {
       if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
         this.loggedIn = true;
@@ -29,6 +30,10 @@ export class MenuBarComponent {
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
+    this.name = this.cognitoService.returnName();
+    this.cognitoService.update();
+    this.name = this.getName();
+    console.log(this.name);
       
   }
 
@@ -40,6 +45,20 @@ export class MenuBarComponent {
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
+    this.name = this.cognitoService.returnName();
+    this.cognitoService.update();
+    this.name = this.getName();
+    console.log(this.name);
+    // this.cognitoService.getName();
+
+    this.changeDetection.detectChanges();
+    this.changeDetection.detectChanges();
+
+    this.changeDetection.detectChanges();
+
+    this.changeDetection.detectChanges();
+
+    this.changeDetection.detectChanges();
 
     
   }
@@ -49,6 +68,11 @@ export class MenuBarComponent {
     this.loggedIn = false;
     this.isAuthenticated();
     this.app.signOut();
+  }
+
+  getName() : string {
+    this.name = this.cognitoService.getName();
+    return this.name;
   }
   
 

@@ -51,6 +51,7 @@ export class LoginComponent {
       this.cognitoService.hasAdmin();
       this.cognitoService.hasGuest();
       this.cognitoService.getCompany();
+      this.cognitoService.getName();
 
       this.router.navigate(['/bookings']);
     }).catch((e) => {
