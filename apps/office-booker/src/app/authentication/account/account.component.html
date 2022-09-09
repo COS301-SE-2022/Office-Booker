@@ -1,5 +1,31 @@
 <h1 class="heading">Manage your account here</h1>
 <p class="text" >You have a current rating of {{rating | number : '1.2-2'}}</p>
+           
+<div class="card-wrapper">
+  <mat-card class="example-card">
+    <mat-card-header>What would you like to change?</mat-card-header>
+      <p></p>
+      
+      <mat-card-subtitle>
+        Please note that you need to contact your system administrator to change your email as it is linked to the company.
+      </mat-card-subtitle>
+
+      <mat-card-content>
+               
+      </mat-card-content>
+         
+        <mat-card-actions>
+           
+          <button mat-raised-button color="primary" (click)="forgotPassword()" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Submit
+          </button>
+        </mat-card-actions>
+
+        <p></p>
+  
+  </mat-card>
+</div>
 
 
 <div class="card-wrapper" *ngIf="!isConfirm">

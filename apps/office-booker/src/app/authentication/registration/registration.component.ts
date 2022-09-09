@@ -97,6 +97,7 @@ public confirmSignUp(): void {
     
     this.userId = this.user.email
     this.userName = this.user.name
+    console.log(this.userName);
     this.bookingService.createUser(this.userName, this.companyId, this.userId, false).subscribe(res => {
       return res;
      
