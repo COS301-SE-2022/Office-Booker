@@ -1,5 +1,9 @@
 <body>
     <div class="options">
+    Select Office: <button mat-button [matMenuTriggerFor]="menu">office </button>
+    <mat-menu #menu="matMenu">
+        
+    </mat-menu>
     Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
     End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
     <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
