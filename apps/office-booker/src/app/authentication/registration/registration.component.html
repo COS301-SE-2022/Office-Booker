@@ -29,9 +29,15 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" [(ngModel)]="user.name" class="form-control form-control-sm" placeholder="Email">
+
+      <mat-form-field>
+          <input matInput type="name" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm" placeholder="Name">
       </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm" placeholder="Email">
+      </mat-form-field>
+
 
       <mat-form-field>
           <input matInput type="password" placeholder="Password" [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
