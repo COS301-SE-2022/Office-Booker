@@ -16,10 +16,16 @@ export default interface DialogData {
   currentUser: employee;
   selectedItemBookings: Array<Booking>;
   selectedItemType: string;
-  mapBookings: MapBookingsComponent;
   deskId: number;
-
+  selectedItemName: string;
+  selectedItemId: number;
+  hoveredItemName: string;
+  numPlugs: number,
+  numMonitors: number,
+  numProjectors: number,
+  
 }
+
 
 
 
@@ -29,11 +35,16 @@ export default interface DialogData {
   styleUrls: ['./desk-popup.component.css'],
 })
 
+
 export class DeskPopupComponent {
+
+  
   constructor(public dialogRef: MatDialogRef<DeskPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog) {
     }
 
-  // ngOnInit(): void {}
+  bookItem(id: number){
+    this.dialogRef.close();
+  }
 }

@@ -1,13 +1,13 @@
 .map-container {
-    width: 800px;
+    width: auto;
     height: auto;
     margin: 1rem;
-    float: center;
+    float: left;
 
 }
 
 .side-container {
-    /* width: 50rem; */
+    width: 50rem;
     /* margin: 0 auto; */
     /* left: -10%; */
     /* right: 10%; */
@@ -24,14 +24,10 @@
     position: relative;
 }
 
-.options{
-    float: left;
-    margin: 1rem;
-    
-}
+
 
 .comparison-container {
-    width: 90%;
+    width: 50%;
     height: auto;
     margin: 2rem;
     float: left;
@@ -265,4 +261,5 @@
     border: rgba(0, 0, 0, 0.314) 2.5px solid;
     border-radius: 40px;
 
+    
 }

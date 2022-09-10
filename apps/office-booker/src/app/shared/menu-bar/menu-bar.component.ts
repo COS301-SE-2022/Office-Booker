@@ -45,7 +45,6 @@ export class MenuBarComponent {
     this.email = this.cognitoService.getEmailAddress();
     this.name = this.cognitoService.returnName();
     this.cognitoService.update();
-    console.log("MENUBAR: " + this.name);
 
 
     
@@ -59,7 +58,6 @@ export class MenuBarComponent {
   }
 
   getName() : string {
-    console.log("getName" + this.name);
     return this.name;
   }
   
