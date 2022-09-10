@@ -536,11 +536,14 @@ export class MapBookingsComponent {
         deskId: this.selectedItemId,
         selectedItemName: this.selectedItemName,
         selectedItemId: this.selectedItemId,
+        bookItem: this.bookItem,
       }
     });
+    
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.bookItem(result);
+      console.log(result.id);
     });
   }
 

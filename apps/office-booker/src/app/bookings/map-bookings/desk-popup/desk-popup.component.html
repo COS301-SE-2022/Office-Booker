@@ -10,7 +10,7 @@
         <p>Item Name: {{this.data.selectedItemName | titlecase}}</p>
         <p>Item Facilities: </p>
         <mat-card-actions>
-            <button (click)="this.data.mapBookings.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
+            <button (click)="this.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
                 {{this.data.selectedItemType |
                 titlecase}} {{this.data.selectedItemId}}</button>
         </mat-card-actions>
@@ -22,7 +22,7 @@
                     <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
                     </div>
                     <mat-card-actions>
-                        <button (click)="this.data.mapBookings.deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
+                        <!-- <button (click)="this.data.deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button> -->
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>
@@ -37,10 +37,9 @@
   
   
   <div mat-dialog-actions>
-    <button mat-button></button>
     <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
-    <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
-    <button mat-button cdkFocusInitial></button>
+    <button mat-button [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book</button>
+    <button mat-button >Close</button>
   </div>
   
   

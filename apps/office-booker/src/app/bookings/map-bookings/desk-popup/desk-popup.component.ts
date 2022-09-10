@@ -11,15 +11,17 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { MapBookingsComponent } from '../map-bookings.component';
 import { Booking, employee } from '../../../services/booking-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export default interface DialogData {
   currentUser: employee;
   selectedItemBookings: Array<Booking>;
   selectedItemType: string;
-  mapBookings: MapBookingsComponent;
   deskId: number;
   selectedItemName: string;
   selectedItemId: number;
+  bookItem(): void;
+  
 }
 
 
@@ -33,8 +35,13 @@ export default interface DialogData {
 export class DeskPopupComponent {
   constructor(public dialogRef: MatDialogRef<DeskPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, public snackBar: MatSnackBar) {
     }
 
   // ngOnInit(): void {}
+
+  bookItem(id: number){
+    this.data.bookItem();
+    this.dialogRef.close();
+  }
 }
