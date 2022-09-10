@@ -1,13 +1,13 @@
 .map-container {
-    width: 800px;
+    width: auto;
     height: auto;
     margin: 1rem;
-    float: center;
+    float: left;
 
 }
 
 .side-container {
-    /* width: 50rem; */
+    width: 50rem;
     /* margin: 0 auto; */
     /* left: -10%; */
     /* right: 10%; */
@@ -27,7 +27,7 @@
 
 
 .comparison-container {
-    width: 90%;
+    width: 50%;
     height: auto;
     margin: 2rem;
     float: left;
@@ -250,8 +250,6 @@
 }
 
 .options-bar{
-    float: left;
-    margin: 1rem;
 
     width: 1000px;
     margin: 1rem;

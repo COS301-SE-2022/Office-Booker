@@ -545,8 +545,9 @@ export class MapBookingsComponent {
     
 
     dialogRef.afterClosed().subscribe(result => {
-      this.bookItem(result);
-      console.log(result.id);
+      if (result != null){
+        this.bookItem(result);
+      }
     });
   }
 
