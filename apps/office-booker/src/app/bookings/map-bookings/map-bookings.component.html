@@ -4,7 +4,6 @@
         <button (click)="printRooms(r.id)" mat-raised-button color="primary">{{r.id}}</button>
     </div>
     
-    
     <mat-card class="options-bar">
         <!-- <mat-form-field>
             <mat-label>Company</mat-label>
@@ -19,10 +18,10 @@
         
         <!-- <button (click)="printRooms(1)" mat-raised-button color="primary">1</button>
         <button (click)="printRooms(2)" mat-raised-button color="primary">2</button> -->
-        Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">         
-        End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">         
-        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>         
-        <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book         {{selectedItemType | titlecase}} {{selectedItemId}} </button>     
+        Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
+        End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        
+        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>     
         </mat-card-content>     
     </mat-card>
     
