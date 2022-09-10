@@ -1,5 +1,5 @@
 <div class="header">
-    <h1 mat-dialog-title>Bookings for Desk {{this.data.deskId}}</h1>
+    <h1 mat-dialog-title>Bookings for {{this.data.selectedItemType | titlecase}} {{this.data.selectedItemId}}</h1>
   </div>
   
   
@@ -7,13 +7,29 @@
     <p class="dialog-message"></p>  
     <mat-card>
       <mat-card-content>
-        <p>Item Name: {{this.data.selectedItemName | titlecase}}</p>
-        <p>Item Facilities: </p>
-        <mat-card-actions>
-            <!-- <button (click)="this.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
-                {{this.data.selectedItemType |
-                titlecase}} {{this.data.selectedItemId}}</button> -->
-        </mat-card-actions>
+        
+        <div class="card-wrapper">
+          <mat-card class="hover-info-card" id="info-card">
+              <mat-card-header>{{this.data.hoveredItemName}}</mat-card-header>
+              <mat-card-content>
+                <i class="fa fa-plug" aria-hidden="true"></i>
+                {{this.data.numPlugs}}<br>
+                <i class="fa fa-desktop" aria-hidden="true"></i>
+                {{this.data.numMonitors}}<br>
+                <i class="fa fa-plug" aria-hidden="true"></i>
+                {{this.data.numProjectors}}<br>
+                  
+              </mat-card-content>
+
+              <mat-card-actions>
+                  <span></span>
+
+
+              </mat-card-actions>
+          </mat-card>
+      </div>
+
+
         <hr>
         <div class="scrollable-section">
             <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
@@ -38,8 +54,8 @@
   
   <div mat-dialog-actions>
     <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
-    <button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book</button>
     <button mat-button >Close</button>
+    <button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book {{this.data.deskId}}</button>
   </div>
   
   

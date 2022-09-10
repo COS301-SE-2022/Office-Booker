@@ -19,6 +19,10 @@ export default interface DialogData {
   deskId: number;
   selectedItemName: string;
   selectedItemId: number;
+  hoveredItemName: string;
+  numPlugs: number,
+  numMonitors: number,
+  numProjectors: number,
   
 }
 

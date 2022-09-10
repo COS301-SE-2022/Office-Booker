@@ -536,7 +536,10 @@ export class MapBookingsComponent {
         deskId: this.selectedItemId,
         selectedItemName: this.selectedItemName,
         selectedItemId: this.selectedItemId,
-        bookItem: this.bookItem,
+        hoveredItemName: this.hoveredItemName,
+        numPlugs: this.numPlugs,
+        numMonitors: this.numMonitors,
+        numProjectors: this.numProjectors,
       }
     });
     
