@@ -528,12 +528,14 @@ export class MapBookingsComponent {
   //generates the popup dialog and sends the relevant variables needed
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
-      width: '400px',
+      width: '650px',
       data: {
         currentUser: this.currentUser,
         selectedItemBookings: this.selectedItemBookings,
         selectedItemType: this.selectedItemType,
         deskId: this.selectedItemId,
+        selectedItemName: this.selectedItemName,
+        selectedItemId: this.selectedItemId,
       }
     });
 
