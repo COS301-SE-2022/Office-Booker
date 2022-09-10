@@ -4,9 +4,10 @@
             
         Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
         End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        
         <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
-        <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
-        {{selectedItemType | titlecase}} {{selectedItemId}} </button>
+        <!-- <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
+        {{selectedItemType | titlecase}} {{selectedItemId}} </button> -->
     </mat-card-content>
     </mat-card>
     

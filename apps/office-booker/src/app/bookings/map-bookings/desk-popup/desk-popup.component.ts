@@ -28,19 +28,21 @@ export default interface DialogData {
 
 
 
+
 @Component({
   selector: 'office-booker-desk-popup',
   templateUrl: './desk-popup.component.html',
   styleUrls: ['./desk-popup.component.css'],
 })
 
+
 export class DeskPopupComponent {
+
+  
   constructor(public dialogRef: MatDialogRef<DeskPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog) {
     }
-
-  // ngOnInit(): void {}
 
   bookItem(id: number){
     this.dialogRef.close();
