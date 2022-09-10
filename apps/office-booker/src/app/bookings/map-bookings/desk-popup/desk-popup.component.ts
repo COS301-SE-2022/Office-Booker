@@ -18,7 +18,8 @@ export default interface DialogData {
   selectedItemType: string;
   mapBookings: MapBookingsComponent;
   deskId: number;
-
+  selectedItemName: string;
+  selectedItemId: number;
 }
 
 

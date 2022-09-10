@@ -5,16 +5,35 @@
   
   <div mat-dialog-content>
     <p class="dialog-message"></p>  
-    <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
+    <mat-card>
       <mat-card-content>
-          <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
-          <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
-          <mat-card-actions>
-              <button (click)="this.data.mapBookings.deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
-          </mat-card-actions>
-      </mat-card-content>
-  </mat-card>
+        <p>Item Name: {{this.data.selectedItemName | titlecase}}</p>
+        <p>Item Facilities: </p>
+        <mat-card-actions>
+            <button (click)="this.data.mapBookings.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
+                {{this.data.selectedItemType |
+                titlecase}} {{this.data.selectedItemId}}</button>
+        </mat-card-actions>
+        <hr>
+        <div class="scrollable-section">
+            <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
+                <mat-card-content>
+                    <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+                    <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
+                    </div>
+                    <mat-card-actions>
+                        <button (click)="this.data.mapBookings.deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <br>
+    </mat-card-content>
+    </mat-card>
   </div>
+
+  
+  
   
   
   <div mat-dialog-actions>

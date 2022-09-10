@@ -256,6 +256,7 @@ export class MapBookingsComponent {
       })
     })
 
+    this.openDialog();        //opens the dialog box for booking
     this.changeDetection.detectChanges();
   }
 
