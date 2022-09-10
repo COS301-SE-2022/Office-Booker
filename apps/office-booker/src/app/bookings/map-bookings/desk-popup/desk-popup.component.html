@@ -10,9 +10,9 @@
         <p>Item Name: {{this.data.selectedItemName | titlecase}}</p>
         <p>Item Facilities: </p>
         <mat-card-actions>
-            <button (click)="this.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
+            <!-- <button (click)="this.bookItem(this.data.selectedItemId)" mat-raised-button color="primary">Book
                 {{this.data.selectedItemType |
-                titlecase}} {{this.data.selectedItemId}}</button>
+                titlecase}} {{this.data.selectedItemId}}</button> -->
         </mat-card-actions>
         <hr>
         <div class="scrollable-section">
@@ -38,7 +38,7 @@
   
   <div mat-dialog-actions>
     <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
-    <button mat-button [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book</button>
+    <button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book</button>
     <button mat-button >Close</button>
   </div>
   
