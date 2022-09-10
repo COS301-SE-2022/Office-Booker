@@ -1,12 +1,15 @@
 <body>
-    <div class="options">
-    Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
-    End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
-    <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
-    <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
-        {{selectedItemType | titlecase}} {{selectedItemId}} </button>
-    
-    </div>
+    <mat-card class="options-bar">
+        <mat-card-content>
+            
+        Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
+        End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        
+        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
+        <!-- <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
+        {{selectedItemType | titlecase}} {{selectedItemId}} </button> -->
+    </mat-card-content>
+    </mat-card>
     
     <div class="map-container">
         <svg #trigger x="20" y="20" width="800" height="800" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
@@ -130,7 +133,7 @@
 
         </div> -->
         
-        <div class="card-wrapper booking-item-info-container">
+        <!-- <div class="card-wrapper booking-item-info-container">
             <mat-card class="info-to-display-container" *ngIf="selected">
                 <mat-card-content>
                     <p>Item Name: {{this.selectedItemName | titlecase}}</p>
@@ -156,7 +159,7 @@
                     <br>
                 </mat-card-content>
             </mat-card>
-        </div>
+        </div> -->
     </div>
     <div class="comparison-container">
         <div class="comparison-cards" *ngFor="let comparison of multiSelectedItemBookingsArr">

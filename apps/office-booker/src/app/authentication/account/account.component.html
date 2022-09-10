@@ -40,7 +40,7 @@
         <p></p>
         
         <mat-card-subtitle>
-          Please enter your email and a verification code will be sent to you.
+          Please enter your email and a new password. A verification code will be sent to you.
         </mat-card-subtitle>
   
         <mat-card-content>
@@ -49,6 +49,11 @@
             <input matInput type="email" id="email" name="email" #email ="ngModel" [(ngModel)]="user.email" 
               class="form-control form-control-sm" placeholder="Email">
           </mat-form-field> 
+
+          <mat-form-field>
+            <input matInput type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
+              class="form-control form-control-sm"  placeholder="New Password">
+          </mat-form-field>
                  
         </mat-card-content>
            
@@ -103,14 +108,16 @@
     <mat-card-header>Verification code</mat-card-header>
     <p></p>
     <mat-card-subtitle>
-      Please enter the verifcation code recieved via email
+      Please enter the verifcation code recieved via email.
     </mat-card-subtitle>
     
     <mat-card-content>
       <mat-form-field>
         <input matInput type="text" id="code" name="code" #code="ngModel" [(ngModel)]="user.code" 
           class="form-control form-control-sm"  placeholder="Verification Code">
-      </mat-form-field>
+        </mat-form-field>
+        
+      
       
       </mat-card-content>
       <mat-card-actions>

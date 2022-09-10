@@ -256,6 +256,7 @@ export class MapBookingsComponent {
       })
     })
 
+    this.openDialog();        //opens the dialog box for booking
     this.changeDetection.detectChanges();
   }
 
@@ -527,17 +528,26 @@ export class MapBookingsComponent {
   //generates the popup dialog and sends the relevant variables needed
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
-      width: '400px',
+      width: '650px',
       data: {
         currentUser: this.currentUser,
         selectedItemBookings: this.selectedItemBookings,
         selectedItemType: this.selectedItemType,
         deskId: this.selectedItemId,
+        selectedItemName: this.selectedItemName,
+        selectedItemId: this.selectedItemId,
+        hoveredItemName: this.hoveredItemName,
+        numPlugs: this.numPlugs,
+        numMonitors: this.numMonitors,
+        numProjectors: this.numProjectors,
       }
     });
+    
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result != null){
+        this.bookItem(result);
+      }
     });
   }
 

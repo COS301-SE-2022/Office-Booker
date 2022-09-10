@@ -1,14 +1,15 @@
 .mat-card{
-    width: 200px;
-    margin: 0.5rem;
+    width: fill;
+    margin: 0.2rem;
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
 
     text-align: center;
-    /* border-radius: 1px; */
+    position: relative;
     
 }
 
 .dialog-message{
     position: center;
+    text-align: center;
 }
