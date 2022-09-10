@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiDesksRepositoryDataAccessService {
@@ -25,6 +26,13 @@ export class ApiDesksRepositoryDataAccessService {
             where: {
                 id: deskId,
             },
+        });
+    }
+
+    //create desk in room by roomID
+    async createDeskByRoomId(desk: Prisma.DeskCreateInput) {
+        return this.prisma.desk.create({
+            data: desk,
         });
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingServiceService, Desk } from '../services/booking-service.service';
+import { Desk } from '../services/booking-service.service';
+import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   idCounterMeetingRoom = 0;
 
   desks: Array<Desk> = [];
-  constructor(private bookingService: BookingServiceService) {}
+  constructor(private makerService: OfficeMakerService) {}
 
   //ngOnInit(): void {}
 
@@ -61,6 +62,7 @@ export class OfficeMakerComponent /*implements OnInit*/ {
         newRect.Width = Number(attrb.getNamedItem('width')?.value);
         newRect.Height = Number(attrb.getNamedItem('height')?.value);
         newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
+        this.makerService.createDesk(2, newRect.LocationRow, newRect.LocationCol, newRect.Height, newRect.Width, newRect.isMeetingRoom, 10);
         console.log(newRect);
       })
     });

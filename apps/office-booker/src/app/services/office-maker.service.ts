@@ -23,7 +23,8 @@ export class OfficeMakerService {
   private baseURL = environment.API_URL + "/api/";
 
   createDesk(roomId: number, LocationRow: number, LocationCol: number, Height: number, Width: number, isMeetingRoom: boolean, capacity: number){
-    const url = this.baseURL + 'desk';
+    console.log("In service");
+    const url = this.baseURL + 'desks/';
     const body = {
       roomId: roomId,
       LocacationRow: LocationRow,
