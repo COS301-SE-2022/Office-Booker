@@ -235,11 +235,14 @@ export class CognitoService {
   }
   
   public submitPasswordReset(email: string, code: string, newPassword: string): void {
-    Auth.forgotPasswordSubmit(email, code, newPassword);
+    Auth.forgotPasswordSubmit(email, code, newPassword)
+    .catch(err => alert(err));
+    
   }
 
   public resetPassword(email : string) : void {
-    Auth.forgotPassword(email);
+    Auth.forgotPassword(email)
+    .catch(err => alert(err));
   }
 
   public loggedIn() : boolean {
