@@ -211,13 +211,6 @@
 }
 
 
-/* .mat-card {
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    border: rgba(140, 140, 140, 0.314) 2.5px solid;
-    border-radius: 6px;
-} */
-
 .card-wrapper {
     margin: 0 auto;
     width: 500px;
@@ -246,33 +239,47 @@
     text-align: center;
 }
 
-.body {
-    /* margin: 1200px; */
-}
 
 .options-bar{
     float: left;
-    margin: 1rem;
-
     width: 1000px;
-    margin: 1rem;
-    background-color: rgba(255, 255, 255, 1);
+    margin: 0.5rem;
+    /* background-color: rgba(255, 255, 255, 1); */
     text-align: center;
-    border: rgba(0, 0, 0, 0.314) 2.5px solid;
+    /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
+    /* border-radius: 40px; */
+
+    border: 1px solid #ccc;
     border-radius: 40px;
 
     
 }
 
 .time{
-    margin: 1rem;
-    border:2px solid rgb(33, 103, 245)
+    margin: 0.5rem;
+    border:1.5px solid black;
 }
 
 .filter{
-    margin: 1rem;
+    margin: 0.5rem;
 }
 
-.mat-select{
+
+.mat-form-field{
+    margin-right: 0.5rem;
+}
+
+.mat-toolbar{
+    font-size: 15px;
+    margin: 1rem;
+    padding: 20px;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+
+
+
+
+    
     
 }
