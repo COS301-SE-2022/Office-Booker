@@ -13,6 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { json } from 'stream/consumers';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 @Component({
   selector: 'office-booker-map-bookings',
   templateUrl: './map-bookings.component.html',

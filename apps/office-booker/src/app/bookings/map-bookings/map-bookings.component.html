@@ -1,5 +1,19 @@
 <body>
-    
+    <mat-toolbar>
+
+        <mat-form-field>
+            <mat-label>Room</mat-label>
+            <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
+                <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">  
+        End Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        
+        <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button> 
+
+    </mat-toolbar>
     <mat-card class="options-bar">
         <mat-card-content> 
         
@@ -10,7 +24,7 @@
         </mat-select>
         </mat-form-field>
 
-        Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
+        Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">  
         End Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
         
         <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>     
