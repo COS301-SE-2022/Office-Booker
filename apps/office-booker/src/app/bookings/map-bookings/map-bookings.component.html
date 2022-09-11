@@ -4,9 +4,8 @@
         <mat-card-content> 
         
         <mat-form-field>
-            <mat-label>Company</mat-label>
-            <mat-select (selectionChange)="onChangeFloor($event)">
-                <mat-option [value]="" disabled selected>Select your company</mat-option>
+            <mat-label>Room</mat-label>
+            <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
                 <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
         </mat-select>
         </mat-form-field>

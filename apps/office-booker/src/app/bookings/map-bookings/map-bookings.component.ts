@@ -64,6 +64,7 @@ export class MapBookingsComponent {
 
   //variables for the rooms
   currentRooms: Array<Room> = [];
+  selectedRoom = 1;
 
   //popup dialog variables
   option = {
@@ -115,6 +116,7 @@ export class MapBookingsComponent {
 
   onChangeFloor(event: { value: any; })
   {
+    this.selectedRoom = event.value;
     console.log(event.value);
     this.printRooms(event.value);
   }
