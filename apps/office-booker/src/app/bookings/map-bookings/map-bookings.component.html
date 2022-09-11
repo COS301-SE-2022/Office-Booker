@@ -1,14 +1,20 @@
 <body>
+    
     <mat-card class="options-bar">
-        <mat-card-content>
-            
-        Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
-        End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        <mat-card-content> 
         
-        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
-        <!-- <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
-        {{selectedItemType | titlecase}} {{selectedItemId}} </button> -->
-    </mat-card-content>
+        <mat-form-field>
+            <mat-label>Room</mat-label>
+            <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
+                <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
+        End Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        
+        <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>     
+        </mat-card-content>     
     </mat-card>
     
     <div class="map-container">
