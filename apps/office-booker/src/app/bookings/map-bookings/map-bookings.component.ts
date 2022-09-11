@@ -103,7 +103,7 @@ export class MapBookingsComponent {
     // this.desk = { id: 0, name: "", type: "", roomId: 0 };
     this.facilityString = "";
 
-    changeDetection.detach();
+    // changeDetection.detach();
 
   }
 
