@@ -113,7 +113,11 @@ export class MapBookingsComponent {
     this.changeDetection.detectChanges();
   }
 
-
+  onChangeFloor(event: { value: any; })
+  {
+    console.log(event.value);
+    this.printRooms(event.value);
+  }
 
   
   printRooms(roomId: number){

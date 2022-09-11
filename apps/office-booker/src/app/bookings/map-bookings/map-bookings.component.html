@@ -5,7 +5,7 @@
         
         <mat-form-field>
             <mat-label>Company</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="onChangeFloor($event)">
                 <mat-option [value]="" disabled selected>Select your company</mat-option>
                 <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
         </mat-select>
