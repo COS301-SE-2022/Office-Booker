@@ -10,10 +10,10 @@
         </mat-select>
         </mat-form-field>
 
-        Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
-        End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
+        Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
+        End Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
         
-        <button (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>     
+        <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>     
         </mat-card-content>     
     </mat-card>
     

@@ -263,3 +263,16 @@
 
     
 }
+
+.time{
+    margin: 1rem;
+    border:2px solid rgb(33, 103, 245)
+}
+
+.filter{
+    margin: 1rem;
+}
+
+.mat-select{
+    
+}
