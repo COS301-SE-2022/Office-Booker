@@ -1,19 +1,16 @@
 <body>
     
     <mat-card class="options-bar">
-        <!-- <mat-form-field>
+        <mat-card-content> 
+        
+        <mat-form-field>
             <mat-label>Company</mat-label>
-            <mat-select formControlName="Level">
+            <mat-select>
                 <mat-option [value]="" disabled selected>Select your company</mat-option>
                 <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
         </mat-select>
-        </mat-form-field> -->
-        <mat-card-content> 
+        </mat-form-field>
 
-        <!-- <option *ngFor="let r of currentRooms"  [value]="r.id"> {{r.name}} </option> -->
-        
-        <!-- <button (click)="printRooms(1)" mat-raised-button color="primary">1</button>
-        <button (click)="printRooms(2)" mat-raised-button color="primary">2</button> -->
         Start Date: <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> 
         End Date: <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
         
