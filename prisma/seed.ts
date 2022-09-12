@@ -6,6 +6,7 @@ async function main() {
     const company = await prisma.company.create({
         data: {
             name: 'Apple',
+            Emails: 'apple.com',
         },
     })
 

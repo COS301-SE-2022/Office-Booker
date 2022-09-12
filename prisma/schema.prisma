@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native"]
@@ -11,80 +8,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// companies
 model Company {
   id       Int        @id @default(autoincrement())
   name     String     @unique
-  Rooms    Room[]
+  Emails   String
   Employee Employee[]
+  Rooms    Room[]
 }
 
 model Employee {
   id              Int       @id @default(autoincrement())
   name            String
   email           String    @unique
-  company         Company   @relation(fields: [companyId], references: [id])
-  Bookings        Booking[]
   companyId       Int
   admin           Boolean
   guest           Boolean
   currentRating   Int
   ratingsReceived Int
+  company         Company   @relation(fields: [companyId], references: [id])
+  Bookings        Booking[]
   Invite          Invite[]
 }
 
-// model the structure of the office
 model Room {
   id        Int     @id @default(autoincrement())
   name      String
-  desks     Desk[]
-  Company   Company @relation(fields: [companyId], references: [id])
   companyId Int
+  Company   Company @relation(fields: [companyId], references: [id])
+  desks     Desk[]
 }
 
 model Desk {
   id            Int        @id @default(autoincrement())
-  facilities    Facility[]
-  Room          Room       @relation(fields: [roomId], references: [id])
   roomId        Int
-  Bookings      Booking[]
   LocationRow   Int
   LocationCol   Int
   Height        Int
   Width         Int
   isMeetingRoom Boolean
   capacity      Int
+  Room          Room       @relation(fields: [roomId], references: [id])
+  Bookings      Booking[]
+  facilities    Facility[]
 }
 
 model Facility {
   id         Int  @id @default(autoincrement())
-  Desk       Desk @relation(fields: [deskId], references: [id])
   deskId     Int
   plugs      Int  @default(0)
   monitors   Int  @default(0)
   projectors Int  @default(0)
+  Desk       Desk @relation(fields: [deskId], references: [id])
 }
-
-// models related to bookings
 
 model Booking {
   id         Int      @id @default(autoincrement())
-  Desk       Desk     @relation(fields: [deskId], references: [id])
   deskId     Int
   createdAt  DateTime @default(now())
   startsAt   DateTime
   endsAt     DateTime
-  Employee   Employee @relation(fields: [employeeId], references: [id])
   employeeId Int
-  Invite     Invite[]
   isInvited  Boolean  @default(false)
+  Desk       Desk     @relation(fields: [deskId], references: [id])
+  Employee   Employee @relation(fields: [employeeId], references: [id])
+  Invite     Invite[]
 }
 
 model Invite {
   id              Int      @id @default(autoincrement())
-  Booking         Booking  @relation(fields: [bookingId], references: [id])
   bookingId       Int
-  invitedEmployee Employee @relation(fields: [employeeId], references: [id])
   employeeId      Int
   accepted        Boolean  @default(false)
+  Booking         Booking  @relation(fields: [bookingId], references: [id])
+  invitedEmployee Employee @relation(fields: [employeeId], references: [id])
 }
