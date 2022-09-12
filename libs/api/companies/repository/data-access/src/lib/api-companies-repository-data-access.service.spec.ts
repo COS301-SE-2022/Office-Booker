@@ -22,14 +22,14 @@ describe('ApiCompaniesRepositoryDataAccessService', () => {
           name: 'Apple',
           Rooms: null,
           Employee: null,
-          Domain: "apple.com"
+          domain: "apple.com"
         },
         {
           id: 2,
           name: 'Microsoft',
           Rooms: null,
           Employee: null,
-          Domain: "microsoft.com"
+          domain: "microsoft.com"
         },
       ];
       prisma.company.findMany = jest.fn().mockReturnValue(companies);
