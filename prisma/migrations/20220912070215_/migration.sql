@@ -2,7 +2,7 @@
 CREATE TABLE "Company" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "Emails" TEXT NOT NULL,
+    "Domain" TEXT NOT NULL,
 
     CONSTRAINT "Company_pkey" PRIMARY KEY ("id")
 );
