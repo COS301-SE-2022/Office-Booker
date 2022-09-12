@@ -16,8 +16,10 @@ export class RegistrationComponent {
   user: IUser;
   userId : string;
   userName : string;
+  userDomain : string;
   company : string;
   companyId : number;
+  companyDomain : string;
   companies: Array<company> = [];
   option: string;
   selected : string;
@@ -31,8 +33,10 @@ export class RegistrationComponent {
   this.user = {} as IUser;
   this.userId = '';
   this.userName = '';
+  this.userDomain = '';
   this.company = '';
   this.companyId = -1;
+  this.companyDomain = '';
   this.option = '';
   this.selected = '';
 }
@@ -49,6 +53,7 @@ getCompanies(){
       const newComp = {} as company;
       newComp.id = comp.id;
       newComp.name = comp.name;
+      newComp.domain = comp.domain
       this.companies.push(newComp);
       //this.changeDetection.detectChanges();
     
@@ -59,33 +64,51 @@ getCompanies(){
 //function to sign the user up using cognito services
 public signUp(company: string): void {
   this.company = company;
+  this.userDomain = this.user.email.split('@')[1];
+  console.log(this.userDomain);
   if (this.company == ''){ //checks if the user did not select a company
     alert('Please select a company')
     
   }
   else {
-    this.loading = true;
-    this.cognitoService.signUp(this.user)
-    
 
-  .then(() => {
-    
-  this.loading = false;
-  this.isConfirm = true;
-  this.option = company;
-  console.log(this.option)
-    for(let i = 0; i < this.companies.length; i++)
-        {
-          if(this.companies[i].name == this.option){
-           this.companyId = this.companies[i].id;
-          }
-        }
+    for (let i = 0; i < this.companies.length; i++) {
+      if (this.companies[i].name == this.company){
+        this.companyId = this.companies[i].id;
+      }
+    }
 
-  }).catch((e) => {
-    alert(e)
-  this.loading = false;
-  });
-   }
+    for (let i = 0; i<this.companies.length; i++){
+      if (this.companies[i].id == this.companyId){
+        this.companyDomain = this.companies[i].domain;
+      }
+    }
+
+    if (this.companyDomain == this.userDomain){
+      this.loading = true;
+      this.cognitoService.signUp(this.user)
+      .then(() => {
+    
+      this.loading = false;
+      this.isConfirm = true;
+      this.option = company;
+      console.log(this.option)
+        for(let i = 0; i < this.companies.length; i++)
+            {
+              if(this.companies[i].name == this.option){
+              this.companyId = this.companies[i].id;
+              }
+            }
+
+      }).catch((e) => {
+        alert(e)
+      this.loading = false;
+      });
+      }
+      else {
+        alert('Your email domain "' + this.userDomain + '" does not match the company domain "' + this.companyDomain + '"');
+      }
+  }
   
 }
 
