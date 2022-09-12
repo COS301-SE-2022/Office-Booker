@@ -11,7 +11,7 @@ datasource db {
 model Company {
   id       Int        @id @default(autoincrement())
   name     String     @unique
-  domain   String
+  domain   String[]
   Employee Employee[]
   Rooms    Room[]
 }

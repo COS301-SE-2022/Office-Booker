@@ -6,21 +6,21 @@ async function main() {
     const company1 = await prisma.company.create({
         data: {
             name: 'Apple',
-            domain: 'apple.com',
+            domain: ['apple.com','apple.co.za'],
         },
     })
 
     const company2 = await prisma.company.create({
         data: {
             name: 'Google',
-            domain: 'gmail.com',
+            domain: ['gmail.com'],
         },
     })
 
     const company3 = await prisma.company.create({
         data: {
             name: 'Epi-Use',
-            domain: 'epiuse.com',
+            domain: ['epiuse.com'],
         },
     })
 
