@@ -50,14 +50,15 @@
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Register
         </button>
+        <button mat-raised-button color="primary" (click)="continueRegistration()" class="btn btn-sm btn-success" [disabled]="loading">
+            Continue registration
+      </button>
       </mat-card-actions>
       
       <p></p>
       
   </mat-card>
 </div>
-
-
 
 
 <!-- Div that appears and asks for verifcation code -->
@@ -82,6 +83,7 @@
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Confirm
             </button>
+            
       </mat-card-actions>
 
       <p></p>

@@ -13,10 +13,12 @@ export class RegistrationComponent {
 
   loading: boolean;
   isConfirm: boolean;
+  continueReg: boolean;
   user: IUser;
   userId : string;
   userName : string;
   userDomain : string;
+  domainTrue : boolean;
   company : string;
   companyId : number;
   companyDomain : string;
@@ -30,10 +32,12 @@ export class RegistrationComponent {
     ) {
   this.loading = false;
   this.isConfirm = false;
+  this.continueReg = false;
   this.user = {} as IUser;
   this.userId = '';
   this.userName = '';
   this.userDomain = '';
+  this.domainTrue = false;
   this.company = '';
   this.companyId = -1;
   this.companyDomain = '';
@@ -65,7 +69,7 @@ getCompanies(){
 public signUp(company: string): void {
   this.company = company;
   this.userDomain = this.user.email.split('@')[1];
-  console.log(this.userDomain);
+
   if (this.company == ''){ //checks if the user did not select a company
     alert('Please select a company')
     
@@ -80,11 +84,16 @@ public signUp(company: string): void {
 
     for (let i = 0; i<this.companies.length; i++){
       if (this.companies[i].id == this.companyId){
-        this.companyDomain = this.companies[i].domain;
+        for (let j = 0; j < this.companies[i].domain.length; j++){
+          if (this.userDomain == this.companies[i].domain[j])
+          {
+            this.domainTrue = true;
+          }
+        }
       }
     }
 
-    if (this.companyDomain == this.userDomain){
+    if (this.domainTrue){
       this.loading = true;
       this.cognitoService.signUp(this.user)
       .then(() => {
@@ -105,11 +114,16 @@ public signUp(company: string): void {
       this.loading = false;
       });
       }
+
       else {
-        alert('Your email domain "' + this.userDomain + '" does not match the company domain "' + this.companyDomain + '"');
+        alert('Your email domain "' + this.userDomain + '" does not match a domain accepted by ' + this.company);
       }
   }
   
+}
+
+public continueRegistration(): void {
+  this.continueReg = true;
 }
 
 // confirms sign up using cognito services and once successful, creates a user for the local database
