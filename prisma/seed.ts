@@ -10,14 +10,33 @@ async function main() {
         },
     })
 
-    //Pseudo company called guest associated with all guest accounts
-    /*const guest = await prisma.company.create({
+    const company2 = await prisma.company.create({
         data: {
-            name: 'Guest',
+            name: 'Google',
+            domain: 'gmail.com',
         },
-    })*/
+    })
+
+    const company3 = await prisma.company.create({
+        data: {
+            name: 'Epi-Use',
+            domain: 'epiuse.com',
+        },
+    })
 
     const employee1 = await prisma.employee.create({
+        data: {
+            name: 'Brett du Plessis',
+            company: { connect: { id: company.id } },
+            email: 'duplessisbrett@icloud.com',
+            admin: false,
+            guest: false,
+            currentRating: 3,
+            ratingsReceived: 5,
+        },
+    })
+
+    const employee2 = await prisma.employee.create({
         data: {
             name: 'Kryptos Kode',
             company: { connect: { id: company.id } },
@@ -29,17 +48,30 @@ async function main() {
         },
     })
 
-    const employee2 = await prisma.employee.create({
+    const employee3 = await prisma.employee.create({
         data: {
-            name: 'Brett du Plessis',
+            name: 'Brett Tuks',
             company: { connect: { id: company.id } },
-            email: 'duplessisbrett@icloud.com',
+            email: 'u19037717@tuks.co.za',
             admin: false,
             guest: false,
-            currentRating: 3,
-            ratingsReceived: 5,
+            currentRating: 5,
+            ratingsReceived: 1,
         },
     })
+
+    const employee4 = await prisma.employee.create({
+        data: {
+            name: 'Damian Tuks',
+            company: { connect: { id: company.id } },
+            email: 'u20460687@tuks.co.za',
+            admin: false,
+            guest: false,
+            currentRating: 5,
+            ratingsReceived: 1,
+        },
+    })
+    
 
 
     // create a room
