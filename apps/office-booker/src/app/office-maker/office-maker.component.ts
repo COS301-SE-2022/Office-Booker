@@ -19,6 +19,13 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   //ngOnInit(): void {}
 
   createDesk(){
+    const svg = document.getElementById("create-object");
+    let child = svg?.lastElementChild;
+    while (child){
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
     const svgns = "http://www.w3.org/2000/svg";
     const newDesk = document.createElementNS(svgns, "rect");
     newDesk.setAttribute("x", "35");
@@ -30,23 +37,28 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
     this.idCounterDesk++;
 
-    const svg = document.getElementById("create-desk");
     svg?.appendChild(newDesk);
   }
 
   createMeetingRoom(){
+    const svg = document.getElementById("create-object");
+    let child = svg?.lastElementChild;
+    while (child){
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
     const svgns = "http://www.w3.org/2000/svg";
     const newMeetingRoom = document.createElementNS(svgns, "rect");
     newMeetingRoom.setAttribute("x", "35");
     newMeetingRoom.setAttribute("y", "35");
-    newMeetingRoom.setAttribute("width", "150");
-    newMeetingRoom.setAttribute("height", "150");
+    newMeetingRoom.setAttribute("width", "100");
+    newMeetingRoom.setAttribute("height", "100");
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
     this.idCounterMeetingRoom++;
 
-    const svg = document.getElementById("create-meetingRoom");
     svg?.appendChild(newMeetingRoom);
   }
 
