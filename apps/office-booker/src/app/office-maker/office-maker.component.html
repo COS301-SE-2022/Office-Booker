@@ -1,21 +1,10 @@
 <div class="items-container">
-    <br>
-    <br>
     <div officeBookerDraggable>
-        <svg>
-            <rect x="35" y="35" width="150" height="150" fill="brown" isMeetingRoom="false" id="desk-initial"/>
+        <svg id="create-object">
+            
         </svg>
     </div>
-    <div officeBookerDraggable>
-        <svg id="create-meetingRoom" height="100" width="100">
-            <rect id="rect-blue" width="60" height="35" style="fill:rgb(0, 0, 10);" />
-        </svg>
-    </div>
-    <div officeBookerDraggable>
-        <svg height="100" width="100">
-            <rect id="rect-blue" width="60" height="35" style="fill:rgb(0, 0, 10);" />
-        </svg>
-    </div>
+
 <button (click)="createDesk()">Create New Desk</button>
 <button (click)="createMeetingRoom()">Create New Meeting Room</button>
 <button (click)="saveMap()">Save</button>
