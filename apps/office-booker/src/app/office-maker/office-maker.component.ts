@@ -62,7 +62,7 @@ export class OfficeMakerComponent /*implements OnInit*/ {
         newRect.Width = Number(attrb.getNamedItem('width')?.value);
         newRect.Height = Number(attrb.getNamedItem('height')?.value);
         newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
-        this.makerService.createDesk(2, newRect.LocationRow, newRect.LocationCol, newRect.Height, newRect.Width, newRect.isMeetingRoom, 10);
+        this.makerService.createDesk(2, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
         console.log(newRect);
       })
     });
