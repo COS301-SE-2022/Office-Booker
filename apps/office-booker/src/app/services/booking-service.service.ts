@@ -252,4 +252,10 @@ export class BookingServiceService {
     const url = this.baseURL + 'users/ratings/' + userId;
     return this.http.get<rating>(`${url}`);
   }
+
+  getRoomsByCompanyId(companyId: number){
+    const url = this.baseURL + 'rooms/company/' + companyId;
+    return this.http.get<Room[]>(`${url}`);
+  }
+
 }

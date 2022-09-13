@@ -48,6 +48,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 import { VotingBookingsComponent } from './bookings/voting-bookings/voting-bookings.component';
 import { PopupDialogComponent } from './shared/popup-dialog/popup-dialog.component';
 import { PopupDialogService } from './shared/popup-dialog/popup-dialog.service';
@@ -136,6 +137,7 @@ export function tokenGetter() {
     MatFormFieldModule,
     MatSnackBarModule,
     MatChipsModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
     JwtModule.forRoot({

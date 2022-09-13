@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card'
 import { FormsModule } from '@angular/forms'
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import {MatMenu, MatMenuModule} from '@angular/material/menu';
 import { CognitoService } from '../../cognito.service';
 
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -28,7 +28,7 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule, OverlayModule],
+                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
