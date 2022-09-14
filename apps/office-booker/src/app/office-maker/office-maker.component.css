@@ -1,5 +1,5 @@
 .items-container {
-    width: 30%;
+    width: 100%;
 }
 
 .svg-container {
@@ -7,4 +7,24 @@
     background-color: #CCC;
     width: 800px;
     height: 800px;
+}
+
+.floor-selection-container {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    display: inline-block;
+}
+
+.creation-container {  
+    display: inline-block;
+}
+
+.button-container {
+    justify-content: center;
+    width:30%;
+    display: inline-block;
+    align-items: center;
+}
+.svg-create-container {
+    display: inline-block;
 }
