@@ -4,7 +4,12 @@
             
         </svg>
     </div>
-
+    <mat-form-field>
+        <mat-label>Create Floor for which Office?</mat-label>
+        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
+            <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
+    </mat-select>
+    </mat-form-field>
 <button (click)="createDesk()">Create New Desk</button>
 <button (click)="createMeetingRoom()">Create New Meeting Room</button>
 <button (click)="saveMap()">Save</button>
@@ -13,3 +18,4 @@
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>
+
