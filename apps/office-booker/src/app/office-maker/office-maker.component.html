@@ -1,18 +1,25 @@
 <div class="items-container">
-    <div officeBookerDraggable>
-        <svg id="create-object">
-            
-        </svg>
+    <div class="floor-selection-container">
+        <mat-form-field>
+            <mat-label>Create Floor for which Office?</mat-label>
+            <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
+                <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
     </div>
-    <mat-form-field>
-        <mat-label>Create Floor for which Office?</mat-label>
-        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
-            <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
-    </mat-select>
-    </mat-form-field>
-<button (click)="createDesk()">Create New Desk</button>
-<button (click)="createMeetingRoom()">Create New Meeting Room</button>
-<button (click)="saveMap()">Save</button>
+    <div class="creation-container">
+        <div class="button-container">
+            <button mat-raised-button color="primary" (click)="createDesk()">Create New Desk</button>
+            <button mat-raised-button color="primary" (click)="createMeetingRoom()">Create New Meeting Room</button>
+            <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
+        </div>
+        <div class="svg-create-container" officeBookerDraggable>
+            <svg id="create-object">
+                
+            </svg>
+        </div>
+
+    </div>
 </div>
 <div class="svg-container" id="map" officeBookerDroppable>
     <svg id="dropzone" height="100%" width="100%">
