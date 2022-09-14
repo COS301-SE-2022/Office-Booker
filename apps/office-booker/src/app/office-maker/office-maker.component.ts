@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Desk } from '../services/booking-service.service';
+import { Desk, company} from '../services/booking-service.service';
 import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'office-booker-office-maker',
@@ -9,14 +10,22 @@ import { SVGService } from '../services/svg.service';
   templateUrl: './office-maker.component.html',
   styleUrls: ['./office-maker.component.css'],
 })
-export class OfficeMakerComponent /*implements OnInit*/ {
+export class OfficeMakerComponent implements OnInit {
   idCounterDesk = 0;
   idCounterMeetingRoom = 0;
 
-  desks: Array<Desk> = [];
-  constructor(private makerService: OfficeMakerService) {}
+  //variables for the rooms
+  currentOffice: Array<company> = [];
+  selectedOffice = 1;
 
-  //ngOnInit(): void {}
+  desks: Array<Desk> = [];
+  constructor(private makerService: OfficeMakerService, 
+    private changeDetection: ChangeDetectorRef,) {}
+
+  ngOnInit(): void {
+    this.getOffices();
+    this.changeDetection.detectChanges();
+  }
 
   createDesk(){
     const svg = document.getElementById("create-object");
@@ -78,5 +87,21 @@ export class OfficeMakerComponent /*implements OnInit*/ {
         console.log(newRect);
       })
     });
+  }
+
+  onChangeOffice(event: { value: any; })
+  {
+    this.selectedOffice = event.value;
+    console.log(event.value);
+  }
+
+  getOffices() {
+    this.makerService.getCompanies().subscribe(res => {
+      res.forEach(office => {
+        this.currentOffice.push(office);
+      })
+      this.changeDetection.detectChanges();
+    })
+    
   }
 }
