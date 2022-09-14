@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { OfficeMakerComponent } from './office-maker.component';
 
 describe('OfficeMakerComponent', () => {
@@ -8,6 +8,7 @@ describe('OfficeMakerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [OfficeMakerComponent],
     }).compileComponents();
 
