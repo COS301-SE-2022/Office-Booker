@@ -13,6 +13,11 @@ export interface Desk {
   isMeetingRoom: boolean,
 }
 
+export interface company {
+  id: number,
+  name: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,4 +40,10 @@ export class OfficeMakerService {
     }
     return this.http.post<Desk>(`${url}`, body);
   }
+
+  getCompanies(){
+    const url = this.baseURL + 'companies';
+    return this.http.get<company[]>(`${url}`);
+  }
+
 }
