@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Desk } from '../services/booking-service.service';
+import { Desk, company} from '../services/booking-service.service';
 import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'office-booker-office-maker',
@@ -9,7 +10,7 @@ import { SVGService } from '../services/svg.service';
   templateUrl: './office-maker.component.html',
   styleUrls: ['./office-maker.component.css'],
 })
-export class OfficeMakerComponent /*implements OnInit*/ {
+export class OfficeMakerComponent implements OnInit {
   clicked = false;
   drawMode = false;
   idCounterDesk = 0;
@@ -21,9 +22,14 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   roomHeight = 100;
   wallWidth = 300;
   desks: Array<Desk> = [];
-  constructor(private makerService: OfficeMakerService) {}
 
-  //ngOnInit(): void {}
+  constructor(private makerService: OfficeMakerService, 
+    private changeDetection: ChangeDetectorRef,) {}
+
+  ngOnInit(): void {
+    //this.getOffices();
+    this.changeDetection.detectChanges();
+  }
 
   createDesk(){
     const svg = document.getElementById("create-object");
@@ -69,29 +75,29 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     svg?.appendChild(newMeetingRoom);
   }
 
-  createWall(){
-    const svg = document.getElementById("create-object");
-    let child = svg?.lastElementChild;
-    while (child){
-      svg?.removeChild(child);
-      child = svg?.lastElementChild;
-    }
+  // createWall(){
+  //   const svg = document.getElementById("create-object");
+  //   let child = svg?.lastElementChild;
+  //   while (child){
+  //     svg?.removeChild(child);
+  //     child = svg?.lastElementChild;
+  //   }
 
-    const svgns = "http://www.w3.org/2000/svg";
-    const newWall = document.createElementNS(svgns, "line");
-    newWall.setAttribute("x1", "35");
-    newWall.setAttribute("y1", "35");
-    newWall.setAttribute("x2", (this.wallWidth + 35).toString());
-    newWall.setAttribute("y2", "35");
-    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
-    //newWall.setAttribute("height", "10");
-    //newWall.setAttribute("isMeetingRoom", "false");
-    newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
-    newWall.setAttribute("len", (this.wallWidth).toString())
-    newWall.setAttribute("transform", "rotate(0)");
-    this.idCounterWall++;
-    svg?.appendChild(newWall);
-  }
+  //   const svgns = "http://www.w3.org/2000/svg";
+  //   const newWall = document.createElementNS(svgns, "line");
+  //   newWall.setAttribute("x1", "35");
+  //   newWall.setAttribute("y1", "35");
+  //   newWall.setAttribute("x2", (this.wallWidth + 35).toString());
+  //   newWall.setAttribute("y2", "35");
+  //   newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+  //   //newWall.setAttribute("height", "10");
+  //   //newWall.setAttribute("isMeetingRoom", "false");
+  //   newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+  //   newWall.setAttribute("len", (this.wallWidth).toString())
+  //   newWall.setAttribute("transform", "rotate(0)");
+  //   this.idCounterWall++;
+  //   svg?.appendChild(newWall);
+  // }
 
   saveMap(){
     const map = document.querySelectorAll("svg#dropzone");
@@ -125,4 +131,23 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   printClicked(){
     console.log(this.clicked);
   }
+
+
+  //below functions to be fixed/implemented for selecting offices for a company to be able to edit
+
+  // onChangeOffice(event: { value: any; })
+  // {
+  //   this.selectedOffice = event.value;
+  //   console.log(event.value);
+  // }
+
+  // getOffices() {
+  //   this.makerService.getCompanies().subscribe(res => {
+  //     res.forEach(office => {
+  //       this.currentOffice.push(office);
+  //     })
+  //     this.changeDetection.detectChanges();
+  //   })
+    
+  // }
 }

@@ -4,12 +4,12 @@
 
         </svg>
     </div>
-    <mat-form-field>
+    <!-- <mat-form-field>
         <mat-label>Create Floor for which Office?</mat-label>
         <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
             <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
     </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <label for="quantity">Desk Width (between 1 and 500):</label>
     <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
     <br>
