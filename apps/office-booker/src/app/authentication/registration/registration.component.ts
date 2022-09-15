@@ -12,6 +12,7 @@ import { IUser, CognitoService } from '../../cognito.service';
 export class RegistrationComponent {
 
   loading: boolean;
+  registration: boolean;
   isConfirm: boolean;
   continueReg: boolean;
   user: IUser;
@@ -31,6 +32,7 @@ export class RegistrationComponent {
     private bookingService: BookingServiceService,
     ) {
   this.loading = false;
+  this.registration = true;
   this.isConfirm = false;
   this.continueReg = false;
   this.user = {} as IUser;
@@ -123,7 +125,14 @@ public signUp(company: string): void {
 }
 
 public continueRegistration(): void {
+  this.registration = false;
   this.continueReg = true;
+}
+
+public continueRegistrationCode(): void {
+  this.continueReg = false;
+  this.isConfirm = true;
+  this.cognitoService.getRegistrationCode(this.user.email);
 }
 
 // confirms sign up using cognito services and once successful, creates a user for the local database

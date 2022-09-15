@@ -245,6 +245,10 @@ export class CognitoService {
     
   }
 
+  public getRegistrationCode(email: string) : void {
+    Auth.resendSignUp(email);
+  }
+
   public resetPassword(email : string) : void {
     Auth.forgotPassword(email)
     .catch(err => alert(err));
