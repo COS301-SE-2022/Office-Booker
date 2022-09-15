@@ -242,15 +242,15 @@
 
 .options-bar{
     float: left;
-    width: 1000px;
+    width: 850px;
     margin: 0.5rem;
     /* background-color: rgba(255, 255, 255, 1); */
     text-align: center;
     /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
     /* border-radius: 40px; */
 
-    border: 1px solid #ccc;
-    border-radius: 40px;
+    border: 0.5px solid rgb(241, 241, 241);
+    border-radius: 4px;
 
     
 }
