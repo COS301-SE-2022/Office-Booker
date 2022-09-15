@@ -62,6 +62,11 @@ export class CognitoService {
 
   }
 
+  public cancelSignUp(user: IUser): Promise<any> {
+    console.log(Auth.currentUserPoolUser());
+    return Auth.deleteUser()
+  }
+
   public confirmSignUp(user: IUser): Promise<any> {
     return Auth.confirmSignUp(user.email, user.code);
   }
@@ -235,11 +240,18 @@ export class CognitoService {
   }
   
   public submitPasswordReset(email: string, code: string, newPassword: string): void {
-    Auth.forgotPasswordSubmit(email, code, newPassword);
+    Auth.forgotPasswordSubmit(email, code, newPassword)
+    .catch(err => alert(err));
+    
+  }
+
+  public getRegistrationCode(email: string) : void {
+    Auth.resendSignUp(email);
   }
 
   public resetPassword(email : string) : void {
-    Auth.forgotPassword(email);
+    Auth.forgotPassword(email)
+    .catch(err => alert(err));
   }
 
   public loggedIn() : boolean {

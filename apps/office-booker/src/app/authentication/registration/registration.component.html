@@ -1,25 +1,12 @@
 
 <div class="card-wrapper">
-    <mat-card class="example-card" *ngIf="!isConfirm">
+    <mat-card class="example-card" *ngIf="registration">
       <mat-card-header>Welcome to Office Booker!</mat-card-header>
       <p></p>
       <mat-card-subtitle>
         Please enter your details to register for an account
       </mat-card-subtitle>
       <mat-card-content>
-
-
-
-
-        <!-- <div>
-          <p>
-          <label for="companies" class="form-label">Company:</label>
-            <select value="Company" id="company" name="company" > 
-              <option value="" disabled selected>Select your company</option>
-              <option *ngFor="let comp of companies"> {{comp.name}} </option>
-            </select>
-          </p>  
-        </div> -->
 
         <mat-form-field>
           <mat-label>Company</mat-label>
@@ -50,14 +37,15 @@
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Register
         </button>
+        <button mat-raised-button color="primary" (click)="continueRegistration()" class="btn btn-sm btn-success" [disabled]="loading">
+            Continue registration
+      </button>
       </mat-card-actions>
       
       <p></p>
       
   </mat-card>
 </div>
-
-
 
 
 <!-- Div that appears and asks for verifcation code -->
@@ -82,10 +70,36 @@
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
               Confirm
             </button>
+            
       </mat-card-actions>
 
       <p></p>
-    
-  </mat-card>
-</div>
+    </mat-card>
+  </div>
   
+  <!-- Div for continuing registration -->
+  <div class="card-wrapper" *ngIf="continueReg">
+    <mat-card class="example-card">
+      <mat-card-header>Continue Registration</mat-card-header>
+      <p></p>
+      <mat-card-subtitle>
+        Enter your email to continue registration
+      </mat-card-subtitle>
+      
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm" placeholder="Email">
+        </mat-form-field>
+        
+        </mat-card-content>
+        <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="continueRegistrationCode()" class="btn btn-sm btn-success" [disabled]="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+                Continue
+              </button>
+              
+        </mat-card-actions>
+  
+        <p></p>
+      </mat-card>
+    </div>

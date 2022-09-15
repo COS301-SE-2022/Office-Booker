@@ -55,6 +55,7 @@ export interface employee {
 export interface company {
   id: number,
   name: string,
+  domain: string[],
 }
 
 export interface Invite {

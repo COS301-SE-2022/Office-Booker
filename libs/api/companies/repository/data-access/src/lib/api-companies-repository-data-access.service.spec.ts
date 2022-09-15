@@ -22,12 +22,14 @@ describe('ApiCompaniesRepositoryDataAccessService', () => {
           name: 'Apple',
           Rooms: null,
           Employee: null,
+          domain: "apple.com"
         },
         {
           id: 2,
           name: 'Microsoft',
           Rooms: null,
           Employee: null,
+          domain: "microsoft.com"
         },
       ];
       prisma.company.findMany = jest.fn().mockReturnValue(companies);
@@ -45,6 +47,7 @@ describe('ApiCompaniesRepositoryDataAccessService', () => {
         name: 'Apple',
         Rooms: null,
         Employee: null,
+        Domain: "apple.com"
       };
       prisma.company.findUnique = jest.fn().mockReturnValue(company);
       const result = await service.getCompanyById(1);

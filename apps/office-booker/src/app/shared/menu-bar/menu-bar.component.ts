@@ -31,7 +31,6 @@ export class MenuBarComponent {
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
     this.name = this.cognitoService.returnName();
-    console.log("MENUBAR: " + this.name);
       
   }
 
@@ -72,9 +71,7 @@ export class MenuBarComponent {
   }
 
   isNotGuest(): boolean {
-    // console.log("isNotGuest");
     return !(this.cognitoService.guest());
-    // return !(this.cognitoService.guest()) && this.cognitoService.loggedIn();
   }
 
   isStatus() : void { 

@@ -80,12 +80,13 @@ export class AccountComponent {
   }
 
   public submitPasswordReset(): void {
-    this.cognitoService.submitPasswordReset(this.user.email, this.code, this.user.password);
+    console.log(this.user.code);
+    this.cognitoService.submitPasswordReset(this.user.email, this.user.code, this.user.password);
     
   }
 
   public editName(): void {
-    //;
+    //TODO: Add functionality to edit name
   }
 
 }
