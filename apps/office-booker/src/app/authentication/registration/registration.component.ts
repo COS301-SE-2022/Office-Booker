@@ -103,13 +103,14 @@ public signUp(company: string): void {
       this.loading = false;
       this.isConfirm = true;
       this.option = company;
-      console.log(this.option)
         for(let i = 0; i < this.companies.length; i++)
             {
               if(this.companies[i].name == this.option){
               this.companyId = this.companies[i].id;
               }
             }
+
+          this.registration = false;
 
       }).catch((e) => {
         alert(e)
