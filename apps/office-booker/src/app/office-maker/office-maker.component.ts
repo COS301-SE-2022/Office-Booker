@@ -12,7 +12,8 @@ import { SVGService } from '../services/svg.service';
 export class OfficeMakerComponent /*implements OnInit*/ {
   idCounterDesk = 0;
   idCounterMeetingRoom = 0;
-
+  deskWidth = 65;
+  deskHeight = 35;
   desks: Array<Desk> = [];
   constructor(private makerService: OfficeMakerService) {}
 
@@ -30,8 +31,8 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     const newDesk = document.createElementNS(svgns, "rect");
     newDesk.setAttribute("x", "35");
     newDesk.setAttribute("y", "65");
-    newDesk.setAttribute("width", "65");
-    newDesk.setAttribute("height", "35");
+    newDesk.setAttribute("width", this.deskWidth.toString());//default 65
+    newDesk.setAttribute("height", this.deskHeight.toString());//default 35
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
