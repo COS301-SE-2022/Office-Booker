@@ -26,6 +26,9 @@ export class MapBookingsComponent {
   desks: Array<Desk> = [];
   roomId = 1;
   isOpen = false;
+  zoom = 800;
+  mapPosX = 0;
+  mapPosY = 0;
 
   //variables for the selected section
   selected = false;
@@ -123,7 +126,42 @@ export class MapBookingsComponent {
     this.printRooms(event.value);
   }
 
-  
+  zoomIn(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.zoom -= 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
+  zoomOut(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.zoom += 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
+  panLeft(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.mapPosX -= 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
+  panRight(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.mapPosX += 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
+  panUp(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.mapPosY += 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
+  panDown(){
+    const layout = document.getElementsByTagName("svg")[0];
+    this.mapPosY -= 70;
+    layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
+  }
+
   printRooms(roomId: number){
     this.desks.length = 0;
     this.getDesksByRoomId(roomId); 
