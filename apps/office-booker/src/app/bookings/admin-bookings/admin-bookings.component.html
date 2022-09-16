@@ -12,7 +12,7 @@
                 </mat-card-header>
                 <mat-card-content>
                     <div>Employee: {{booking.employeeName}}</div>
-                    <div>This users rating is: {{getRating(booking.employeeId) | number : '1.2-2'}} </div>
+                    <div>Rating: {{getRating(booking.employeeId) | number : '1.2-2'}} </div>
                     <div>Seat {{booking.deskId}} </div>
                     <div>{{booking.startsAt | date: 'EEEE dd MMM': 'UTC'}} </div>
                     <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
