@@ -163,6 +163,12 @@ export class BookingServiceService {
     return this.http.get<employee[]>(`${url}`);
   }
 
+  // @Get("/companies/:companyId")
+  getAllEmployeesByCompany(companyId: number){
+    const url = this.baseURL + 'users/companies/' + companyId;
+    return this.http.get<employee[]>(`${url}`);
+  }
+
   getAllBookings(){
     const url = this.baseURL + 'bookings';
     return this.http.get<Booking[]>(`${url}`);

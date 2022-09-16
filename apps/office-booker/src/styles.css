@@ -35,3 +35,9 @@ body {
 .fail-snack .mat-simple-snackbar-action {
     color: rgb(247, 105, 100) !important;
 }
+
+.redbutton{
+    background : rgb(204, 26, 70);
+    color: white;
+  }
+  

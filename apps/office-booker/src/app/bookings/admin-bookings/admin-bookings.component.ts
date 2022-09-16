@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { CognitoService } from '../../cognito.service';
 
 @Component({
   selector: 'office-booker-admin-bookings',
@@ -20,11 +21,13 @@ export class AdminBookingsComponent{
   newRating: rating = {currentRating: -1, ratingsReceived: -1};
   rating = 0;
   isMeet = false;
+  filter = "bookings";
+  settingsFilter = "none";
+  companyId = 0;
+
 
   constructor(private router: Router, private bookingService: BookingServiceService, 
-    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
-    //changeDetection.detach();
-    //console.log(this.userBookings);
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef, private cognitoService: CognitoService) {
   }
 
   ngOnInit(){
@@ -40,11 +43,12 @@ export class AdminBookingsComponent{
   }
   
   getUsers(){
-    this.bookingService.getAllEmployees().subscribe( res => {
+    this.Users.splice(0, this.Users.length);
+    this.cognitoService.getCompany();
+    this.companyId = this.cognitoService.returnCompanyID();
+    this.bookingService.getAllEmployeesByCompany(this.companyId).subscribe( res => {
       res.forEach(employee => {
         this.Users.push(employee);
-        // this.getBookings(user.id, user.name);
-        //this.changeDetection.detectChanges();
       
       });
     })
@@ -57,7 +61,6 @@ export class AdminBookingsComponent{
     for(i = 0; i < this.Users.length; i++){
     if(this.Users[i].id == employeeRate){
       this.rating = this.Users[i].currentRating/this.Users[i].ratingsReceived;
-      //console.log(this.Users[i].ratingsRecieved);
       
       return this.rating;
     }
@@ -106,7 +109,6 @@ export class AdminBookingsComponent{
   getBookings(userId: number, userName: string) {
     this.userBookings = [];
     this.bookingService.getAllBookings().subscribe(res => {
-      console.log(res);
       res.forEach(booking => {
         const newBooking = {} as Booking;
         newBooking.employeeName = userName;
@@ -136,7 +138,6 @@ export class AdminBookingsComponent{
   }
 
   getEmployeeName(employeeId: number) : string {
-    // console.log(this.Users);
     for (let i = 0; i < this.Users.length; i++) {
       if (this.Users[i].id == employeeId) {
         return this.Users[i].name;
@@ -155,7 +156,7 @@ export class AdminBookingsComponent{
           }
         }
       }
-      // this.changeDetection.detectChanges();
+      this.changeDetection.detectChanges();
     });
   }
 
@@ -193,6 +194,18 @@ export class AdminBookingsComponent{
   
 }
 
+
+setFilter(filter: string) : void{
+  this.getUsers();
+  this.filter = filter;
+  this.changeDetection.detectChanges();
+}
+
+setNgIf(filter: string) : void {
+  this.getUsers();
+  this.settingsFilter = filter;
+  this.changeDetection.detectChanges();
+}
 
 
 }

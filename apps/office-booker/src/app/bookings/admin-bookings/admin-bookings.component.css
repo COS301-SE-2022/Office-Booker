@@ -105,3 +105,38 @@
   .center{
     text-align: center;
   }
+
+  .settings-card{
+    width: 800px;
+    height: 500px;
+  }
+
+  .card-wrapper{
+    
+    margin:0 auto;
+    width: 500px;
+    padding-top: 2rem;
+    top: 4rem;
+    left: 50%;
+
+    
+    font-weight: bold;
+    text-align: center;
+
+    /* border: 3px solid #f1f1f1; */
+    /* position: absolute; */
+    /* top: 40%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* z-index: 2; */
+    /* padding: 20px; */
+
+}
+
+.mat-form-field{
+  width: 75%;
+}
+
+.clicker{
+  background : rgb(204, 26, 70);
+}

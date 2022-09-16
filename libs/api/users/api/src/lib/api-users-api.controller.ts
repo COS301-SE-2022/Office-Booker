@@ -36,7 +36,7 @@ export class ApiUsersApiController {
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Get("/company/:companyId")
+    @Get("/companies/:companyId")
     async getUsersByCompanyId(@Param('companyId') companyId: number) {
         return await this.userService.getUsersByCompanyId(companyId);
     }
