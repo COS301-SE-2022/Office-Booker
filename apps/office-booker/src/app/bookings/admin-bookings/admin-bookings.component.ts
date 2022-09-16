@@ -40,13 +40,15 @@ export class AdminBookingsComponent{
   
   getUsers(){
     this.bookingService.getAllEmployees().subscribe( res => {
-      res.forEach(user => {
-        this.Users.push(user);
-        this.getBookings(user.id, user.name);
+      res.forEach(employee => {
+        this.Users.push(employee);
+        // this.getBookings(user.id, user.name);
         //this.changeDetection.detectChanges();
       
       });
     })
+
+    this.getBookings(this.currentUser.id, this.currentUser.name);
   }
 
   getRating(employeeRate: number): number{
@@ -102,7 +104,8 @@ export class AdminBookingsComponent{
 
   getBookings(userId: number, userName: string) {
     this.userBookings = [];
-    this.bookingService.getBookingByEmployee(userId).subscribe(res => {
+    this.bookingService.getAllBookings().subscribe(res => {
+      console.log(res);
       res.forEach(booking => {
         const newBooking = {} as Booking;
         newBooking.employeeName = userName;
@@ -120,11 +123,23 @@ export class AdminBookingsComponent{
         // this.changeDetection.detectChanges();
 
         this.getMeetingRoom(booking.deskId, booking.id);
+        // this.getEmployeeName(1);
+        newBooking.employeeName = this.getEmployeeName(booking.employeeId);
 
 
       });
       // this.changeDetection.detectChanges();
     })
+  }
+
+  getEmployeeName(employeeId: number) : string {
+    // console.log(this.Users);
+    for (let i = 0; i < this.Users.length; i++) {
+      if (this.Users[i].id == employeeId) {
+        return this.Users[i].name;
+      }
+    }
+   return "Error";
   }
 
   getMeetingRoom(deskId: number, bookingId: number) : void {

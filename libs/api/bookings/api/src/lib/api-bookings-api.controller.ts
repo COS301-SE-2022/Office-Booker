@@ -36,7 +36,7 @@ export class ApiBookingsApiController {
         return await this.bookingService.getBookingsForDesk(Number(deskId));
     }
 
-    @Get('/bookings')
+    @Get('/')
     async getAllBookings() {
         return await this.bookingService.getAllBookings();
     }
