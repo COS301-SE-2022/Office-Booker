@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
@@ -21,7 +21,8 @@ export class AdminBookingsComponent{
   rating = 0;
   isMeet = false;
 
-  constructor(private router: Router, private bookingService: BookingServiceService, public snackBar: MatSnackBar) {
+  constructor(private router: Router, private bookingService: BookingServiceService, 
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
     //changeDetection.detach();
     //console.log(this.userBookings);
   }
@@ -47,7 +48,7 @@ export class AdminBookingsComponent{
       
       });
     })
-
+    this.changeDetection.detectChanges();
     this.getBookings(this.currentUser.id, this.currentUser.name);
   }
 
@@ -117,18 +118,20 @@ export class AdminBookingsComponent{
         newBooking.desk = booking.desk;
         newBooking.isInvited = booking.isInvited;
         // newBooking.Invite = this.invites;
+        newBooking.employeeName = this.getEmployeeName(booking.employeeId);
+
+        this.changeDetection.detectChanges();
 
         this.userBookings.push(newBooking);
 
-        // this.changeDetection.detectChanges();
+        this.changeDetection.detectChanges();
 
         this.getMeetingRoom(booking.deskId, booking.id);
         // this.getEmployeeName(1);
-        newBooking.employeeName = this.getEmployeeName(booking.employeeId);
 
 
       });
-      // this.changeDetection.detectChanges();
+      this.changeDetection.detectChanges();
     })
   }
 
