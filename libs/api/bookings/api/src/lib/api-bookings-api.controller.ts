@@ -36,6 +36,12 @@ export class ApiBookingsApiController {
         return await this.bookingService.getBookingsForDesk(Number(deskId));
     }
 
+    @Get('/bookings')
+    async getAllBookings() {
+        return await this.bookingService.getAllBookings();
+    }
+
+
     @Get('/user/:userId')
     async getBookingsForUser(@Param('userId') userId: string) {
         return await this.bookingService.getBookingsByUserId(Number(userId));

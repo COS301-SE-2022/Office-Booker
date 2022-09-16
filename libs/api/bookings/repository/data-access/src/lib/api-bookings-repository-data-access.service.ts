@@ -6,6 +6,9 @@ import { Prisma } from '@prisma/client';
 export class ApiBookingsRepositoryDataAccessService {
     constructor(private prisma: PrismaService) {}
 
+    async getAllBookings() {
+        return this.prisma.booking.findMany();
+    }
 
     // get all bookings for a specific desk
     async getBookingsForDesk(@Param() deskId: number) {
