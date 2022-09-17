@@ -1,4 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access';
 
-@Controller('api-walls-api')
-export class ApiWallsApiController {}
+@UseGuards(AuthGuard('jwt'))
+@Controller('walls')
+export class ApiWallsApiController {
+    constructor(private wallService: ApiWallsDataAccessService) {}
+
+    
+}
