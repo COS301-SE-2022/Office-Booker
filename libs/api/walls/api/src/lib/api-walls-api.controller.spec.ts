@@ -1,4 +1,6 @@
 import { Test } from '@nestjs/testing';
+import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access';
 import { ApiWallsApiController } from './api-walls-api.controller';
 
 describe('ApiWallsApiController', () => {
@@ -6,7 +8,7 @@ describe('ApiWallsApiController', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [],
+      providers: [ApiWallsDataAccessService, PrismaService],
       controllers: [ApiWallsApiController],
     }).compile();
 
