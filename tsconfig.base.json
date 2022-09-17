@@ -52,6 +52,7 @@
       "@office-booker/api/users/repository/data-access": [
         "libs/api/users/repository/data-access/src/index.ts"
       ],
+      "@office-booker/api/walls/api": ["libs/api/walls/api/src/index.ts"],
       "@office-booker/api/walls/data-access": [
         "libs/api/walls/data-access/src/index.ts"
       ],
