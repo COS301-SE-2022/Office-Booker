@@ -81,8 +81,7 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     newWall.setAttribute("y1", "35");
     newWall.setAttribute("x2", "500");
     newWall.setAttribute("y2", "35");
-    newWall.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:2");
-    console.log(newWall);
+    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:2");
     //newWall.setAttribute("height", "10");
     //newWall.setAttribute("isMeetingRoom", "false");
     newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
