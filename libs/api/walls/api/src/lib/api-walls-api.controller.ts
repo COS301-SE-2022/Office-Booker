@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access';
 
@@ -7,5 +7,8 @@ import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access'
 export class ApiWallsApiController {
     constructor(private wallService: ApiWallsDataAccessService) {}
 
-    
+    @Get("/room/:roomId")
+    async getWallsInRoom(@Param('roomId') roomId: string) {
+        return await this.wallService.getWallsInRoom(Number(roomId));
+    }
 }
