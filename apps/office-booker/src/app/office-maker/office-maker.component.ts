@@ -16,6 +16,8 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   deskHeight = 35;
   roomWidth = 100;
   roomHeight = 100;
+  wallWidth = 300;
+  snapping = true;
   desks: Array<Desk> = [];
   constructor(private makerService: OfficeMakerService) {}
 
@@ -63,6 +65,26 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     this.idCounterMeetingRoom++;
 
     svg?.appendChild(newMeetingRoom);
+  }
+
+  createWall(){
+    const svg = document.getElementById("create-object");
+    let child = svg?.lastElementChild;
+    while (child){
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
+    const svgns = "http://www.w3.org/2000/svg";
+    const newWall = document.createElementNS(svgns, "rect");
+    newWall.setAttribute("x", "35");
+    newWall.setAttribute("y", "35");
+    newWall.setAttribute("width", this.wallWidth.toString());//default 300
+    newWall.setAttribute("height", "10");
+    newWall.setAttribute("isMeetingRoom", "false");
+    newWall.setAttribute("id", "desk-"+this.idCounterDesk.toString());
+    this.idCounterDesk++;
+    svg?.appendChild(newWall);
   }
 
   saveMap(){
