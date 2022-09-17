@@ -36,6 +36,7 @@ model Room {
   companyId Int
   Company   Company @relation(fields: [companyId], references: [id])
   desks     Desk[]
+  Wall      Wall[]
 }
 
 model Desk {
@@ -50,6 +51,19 @@ model Desk {
   Room          Room       @relation(fields: [roomId], references: [id])
   Bookings      Booking[]
   facilities    Facility[]
+}
+
+model Wall {
+  id          Int  @id @default(autoincrement())
+  roomId      Int
+  Pos1X       Int
+  Pos1Y       Int
+  Pos2X       Int
+  Pos2Y       Int
+  LocationCol Int
+  Height      Int
+  Width       Int
+  Room        Room @relation(fields: [roomId], references: [id])
 }
 
 model Facility {
