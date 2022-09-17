@@ -10,7 +10,7 @@ class createWallDto {
     Pos2Y: number;
 }
 
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 @Controller('walls')
 export class ApiWallsApiController {
     constructor(private wallService: ApiWallsDataAccessService) {}
