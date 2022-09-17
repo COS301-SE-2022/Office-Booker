@@ -60,9 +60,6 @@ model Wall {
   Pos1Y       Int
   Pos2X       Int
   Pos2Y       Int
-  LocationCol Int
-  Height      Int
-  Width       Int
   Room        Room @relation(fields: [roomId], references: [id])
 }
 
