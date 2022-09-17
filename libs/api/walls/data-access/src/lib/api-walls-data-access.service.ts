@@ -32,4 +32,12 @@ export class ApiWallsDataAccessService {
             }
         });
     }
+
+    async deleteWall(wallId: number) {
+        return this.prisma.wall.delete({
+            where: {
+                id: wallId,
+            }
+        })
+    }
 }
