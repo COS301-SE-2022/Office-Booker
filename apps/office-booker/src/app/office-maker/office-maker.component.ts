@@ -11,13 +11,13 @@ import { SVGService } from '../services/svg.service';
 })
 export class OfficeMakerComponent /*implements OnInit*/ {
   idCounterDesk = 0;
+  idCounterWall = 0;
   idCounterMeetingRoom = 0;
   deskWidth = 65;
   deskHeight = 35;
   roomWidth = 100;
   roomHeight = 100;
   wallWidth = 300;
-  snapping = true;
   desks: Array<Desk> = [];
   constructor(private makerService: OfficeMakerService) {}
 
@@ -76,14 +76,17 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     }
 
     const svgns = "http://www.w3.org/2000/svg";
-    const newWall = document.createElementNS(svgns, "rect");
-    newWall.setAttribute("x", "35");
-    newWall.setAttribute("y", "35");
-    newWall.setAttribute("width", this.wallWidth.toString());//default 300
-    newWall.setAttribute("height", "10");
-    newWall.setAttribute("isMeetingRoom", "false");
-    newWall.setAttribute("id", "desk-"+this.idCounterDesk.toString());
-    this.idCounterDesk++;
+    const newWall = document.createElementNS(svgns, "line");
+    newWall.setAttribute("x1", "35");
+    newWall.setAttribute("y1", "35");
+    newWall.setAttribute("x2", "500");
+    newWall.setAttribute("y2", "35");
+    newWall.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:2");
+    console.log(newWall);
+    //newWall.setAttribute("height", "10");
+    //newWall.setAttribute("isMeetingRoom", "false");
+    newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+    this.idCounterWall++;
     svg?.appendChild(newWall);
   }
 

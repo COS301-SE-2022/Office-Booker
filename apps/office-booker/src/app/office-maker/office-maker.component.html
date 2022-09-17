@@ -19,10 +19,6 @@
     <br>
     <label for="quantity">Wall Width (between 1 and 1000):</label>
     <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth">
-    <br>
-    <input type="checkbox" name="snapping" value="Snapping" [(ngModel)]="snapping">
-    <label for="snapping">Snapping</label><br>
-    <br>
     <button (click)="createDesk()">Create New Desk</button>
     <button (click)="createMeetingRoom()">Create New Meeting Room</button>
     <button (click)="createWall()">Create New Wall</button>

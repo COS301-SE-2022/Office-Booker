@@ -1,17 +1,18 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import { SVGService } from '../services/svg.service';
 
 @Directive({
   selector: '[officeBookerDroppable]'
 })
 export class DroppableDirective {
+
   private draggingElement: any;
 
+  //@Input() snapping: boolean;
   constructor(private svgService: SVGService) { }
 
   @HostListener('drop', ['$event'])
   onDrop(event: any) {
-    console.log(event);
     const dropzone = event.target;
     const droppedElementId = event.dataTransfer.getData('text');
     const droppedElement = document.getElementById(droppedElementId) as any;
@@ -30,7 +31,6 @@ export class DroppableDirective {
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
-    console.log(event);
     if (this.draggingElement) {
       const svgPoint = this.svgService.getSVGPoint(event, this.draggingElement);
       this.setPosition(this.draggingElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y) });
@@ -39,7 +39,6 @@ export class DroppableDirective {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: any): void {
-    console.log(event);
     if (event.target.getAttribute('draggable')) {
       this.draggingElement = event.target;
     }
