@@ -14,6 +14,8 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   idCounterMeetingRoom = 0;
   deskWidth = 65;
   deskHeight = 35;
+  roomWidth = 100;
+  roomHeight = 100;
   desks: Array<Desk> = [];
   constructor(private makerService: OfficeMakerService) {}
 
@@ -53,8 +55,8 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     const newMeetingRoom = document.createElementNS(svgns, "rect");
     newMeetingRoom.setAttribute("x", "35");
     newMeetingRoom.setAttribute("y", "35");
-    newMeetingRoom.setAttribute("width", "100");
-    newMeetingRoom.setAttribute("height", "100");
+    newMeetingRoom.setAttribute("width", this.roomWidth.toString());//default 100
+    newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
