@@ -19,6 +19,8 @@
     "api-shared-services-prisma-data-access": "libs/api/shared/services/prisma/data-access",
     "api-users-api": "libs/api/users/api",
     "api-users-repository-data-access": "libs/api/users/repository/data-access",
+    "api-walls-api": "libs/api/walls/api",
+    "api-walls-data-access": "libs/api/walls/data-access",
     "office-booker": "apps/office-booker",
     "office-booker-e2e": "apps/office-booker-e2e"
   }
