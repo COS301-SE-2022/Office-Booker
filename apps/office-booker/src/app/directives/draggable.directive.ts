@@ -14,12 +14,6 @@ export class DraggableDirective {
     const elementToBeDraggedRect = event.target.getElementsByTagName('rect')[0];
     const elementToBeDraggedLine = event.target.getElementsByTagName('line')[0];
     if(elementToBeDraggedLine){
-      console.log(elementToBeDraggedLine);
-    }
-    if(elementToBeDraggedRect){
-      console.log(elementToBeDraggedRect);
-    }
-    if(elementToBeDraggedLine){
       event.dataTransfer.setData('text', elementToBeDraggedLine.id);
     }
     if(elementToBeDraggedRect){

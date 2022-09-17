@@ -8,7 +8,6 @@ export class DroppableDirective {
 
   private draggingElement: any;
 
-  //@Input() snapping: boolean;
   constructor(private svgService: SVGService) { }
 
   @HostListener('drop', ['$event'])
@@ -17,12 +16,25 @@ export class DroppableDirective {
     const droppedElementId = event.dataTransfer.getData('text');
     const droppedElement = document.getElementById(droppedElementId) as any;
 
-    dropzone.appendChild(droppedElement);
+    if (droppedElementId.slice(0, 4) == 'desk') {
+      dropzone.appendChild(droppedElement);
+      droppedElement.setAttribute('draggable', true);
+      const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
+      this.setPosition(droppedElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y) });
+    } else if (droppedElementId.slice(0, 4) == 'wall') {
+      dropzone.appendChild(droppedElement);
+      droppedElement.setAttribute('draggable', true);
+      const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
+      droppedElement.setAttribute('x1', this.roundNum(svgPoint.x));
+      droppedElement.setAttribute('y1', this.roundNum(svgPoint.y));
+      droppedElement.setAttribute('x2', 500 + (droppedElement.getAttribute('x1') - 35 ));
+      droppedElement.setAttribute('y2', 35 + (droppedElement.getAttribute('y1') - 35));
 
-    droppedElement.setAttribute('draggable', true);
-
-    const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
-    this.setPosition(droppedElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y)});
+      //droppedElement.setAttribute('x1', 35 + 60);
+      //droppedElement.setAttribute('y1', 35 + 100);
+      //droppedElement.setAttribute('x2', 500 + 60);
+      //droppedElement.setAttribute('y2', 35 + 100);
+    }
   }
 
   roundNum(n: number) {
