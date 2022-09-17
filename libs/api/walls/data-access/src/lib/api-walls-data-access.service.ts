@@ -12,4 +12,24 @@ export class ApiWallsDataAccessService {
             }, 
         });
     }
+
+    async getWallbyId(id: number) {
+        return this.prisma.wall.findMany({
+            where: {
+                id: id,
+            }, 
+        });
+    }
+
+    async createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number: Pos2Y: number) {
+        return this.prisma.wall.create({
+            data: {
+                roomId: roomId,
+                Pos1X: Pos1X,
+                Pos1Y: Pos1Y,
+                Pos2X: Pos2X,
+                Pos2Y: Pos2Y, 
+            }
+        });
+    }
 }
