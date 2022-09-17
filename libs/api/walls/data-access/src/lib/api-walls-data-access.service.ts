@@ -21,7 +21,7 @@ export class ApiWallsDataAccessService {
         });
     }
 
-    async createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number: Pos2Y: number) {
+    async createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number, Pos2Y: number) {
         return this.prisma.wall.create({
             data: {
                 roomId: roomId,
