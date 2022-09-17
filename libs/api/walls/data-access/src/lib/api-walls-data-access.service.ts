@@ -14,7 +14,7 @@ export class ApiWallsDataAccessService {
     }
 
     async getWallbyId(id: number) {
-        return this.prisma.wall.findMany({
+        return this.prisma.wall.findUnique({
             where: {
                 id: id,
             }, 
