@@ -21,12 +21,14 @@ import { ApiPermissionsService } from '@office-booker/api/permissions';
 import { MailService } from '@office-booker/api/mail';
 import { MailModule } from '@office-booker/api/mail';
 import { ConfigService } from '@nestjs/config';
+import { ApiWallsApiController } from '@office-booker/api/walls/api';
+import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access';
 
 @Module({
   imports: [ApiAuthorizationModule, MailModule , ConfigModule.forRoot({
     isGlobal: true,
   })],
-  controllers: [AppController, ApiRoomsApiController, ApiDesksApiController, ApiFacilitiesApiController, ApiBookingsApiController, ApiCompaniesApiController, ApiUsersApiController],
-  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, ApiPermissionsService, MailService],
+  controllers: [AppController, ApiRoomsApiController, ApiDesksApiController, ApiFacilitiesApiController, ApiBookingsApiController, ApiCompaniesApiController, ApiUsersApiController, ApiWallsApiController],
+  providers: [AppService, PrismaService, ApiRoomsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiFacilitiesRepositoryDataAccessService, ApiBookingsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, ApiPermissionsService, MailService, ApiWallsDataAccessService],
 })
 export class AppModule {}

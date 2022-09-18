@@ -89,6 +89,17 @@ async function main() {
         },
     })
 
+    // create some walls
+    const wall1 = await prisma.wall.create({
+        data: {
+            Room: { connect: { id: room.id }},
+            Pos1X: 0,
+            Pos1Y: 0,
+            Pos2X: 10,
+            Pos2Y: 15,
+        }
+    })
+
     const desk_1 = await prisma.desk.create({
         data: {
             LocationCol: 0,
