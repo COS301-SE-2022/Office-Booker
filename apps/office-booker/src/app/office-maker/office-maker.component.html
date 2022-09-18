@@ -23,8 +23,10 @@
     <button (click)="createMeetingRoom()">Create New Meeting Room</button>
     <button (click)="createWall()">Create New Wall</button>
     <button (click)="saveMap()">Save</button>
+    <button (click)="rotate()">Rotate</button>
+    <button (click)="startDraw()">Draw line</button>
 </div>
-<div class="svg-container" id="map" officeBookerDroppable>
+<div class="svg-container" id="map" (click)="clicked = !clicked" (click)="printClicked()" officeBookerDroppable [officeBookerDrawable]="clicked">
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>

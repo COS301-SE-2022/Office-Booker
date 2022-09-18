@@ -8,7 +8,7 @@ export class DroppableDirective {
 
   private draggingElement: any;
 
-  constructor(private svgService: SVGService) { }
+  constructor(private svgService: SVGService) {}
 
   @HostListener('drop', ['$event'])
   onDrop(event: any) {
@@ -22,13 +22,16 @@ export class DroppableDirective {
       const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
       this.setPosition(droppedElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y) });
     } else if (droppedElementId.slice(0, 4) == 'wall') {
+      // const a = droppedElement.getAttribute('x2') - droppedElement.getAttribute('x1');
+      // const b = droppedElement.getAttribute('y2') - droppedElement.getAttribute('y1');
+      // const dist = Math.sqrt((a * a) + (b * b));
       dropzone.appendChild(droppedElement);
       droppedElement.setAttribute('draggable', true);
       const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
       droppedElement.setAttribute('x1', this.roundNum(svgPoint.x));
       droppedElement.setAttribute('y1', this.roundNum(svgPoint.y));
-      droppedElement.setAttribute('x2', 500 + (droppedElement.getAttribute('x1') - 35));
-      droppedElement.setAttribute('y2', 35 + (droppedElement.getAttribute('y1') - 35));
+      droppedElement.setAttribute('x2', parseInt(droppedElement.getAttribute('len')) + (droppedElement.getAttribute('x1') - 35));
+      droppedElement.setAttribute('y2', (droppedElement.getAttribute('y1')));
     }
   }
 
@@ -45,10 +48,13 @@ export class DroppableDirective {
       } else {
         console.log(this.draggingElement);
         const svgPoint = this.svgService.getSVGPoint(event, this.draggingElement);
+        // const a = this.draggingElement.getAttribute('x2') - this.draggingElement.getAttribute('x1');
+        // const b = this.draggingElement.getAttribute('y2') - this.draggingElement.getAttribute('y1');
+        // const dist = Math.sqrt((a * a) + (b * b));
         this.draggingElement.setAttribute('x1', this.roundNum(svgPoint.x));
         this.draggingElement.setAttribute('y1', this.roundNum(svgPoint.y));
-        this.draggingElement.setAttribute('x2', 500 + (this.draggingElement.getAttribute('x1') - 35));
-        this.draggingElement.setAttribute('y2', 35 + (this.draggingElement.getAttribute('y1') - 35));
+        this.draggingElement.setAttribute('x2', parseInt(this.draggingElement.getAttribute('len')) + parseInt(this.draggingElement.getAttribute('x1')));
+        this.draggingElement.setAttribute('y2', (this.draggingElement.getAttribute('y1')));
       }
     }
   }

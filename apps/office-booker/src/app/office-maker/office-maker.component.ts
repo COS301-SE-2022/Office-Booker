@@ -10,6 +10,7 @@ import { SVGService } from '../services/svg.service';
   styleUrls: ['./office-maker.component.css'],
 })
 export class OfficeMakerComponent /*implements OnInit*/ {
+  clicked = false;
   idCounterDesk = 0;
   idCounterWall = 0;
   idCounterMeetingRoom = 0;
@@ -79,12 +80,14 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     const newWall = document.createElementNS(svgns, "line");
     newWall.setAttribute("x1", "35");
     newWall.setAttribute("y1", "35");
-    newWall.setAttribute("x2", "500");
+    newWall.setAttribute("x2", (this.wallWidth + 35).toString());
     newWall.setAttribute("y2", "35");
-    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:2");
+    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
     //newWall.setAttribute("height", "10");
     //newWall.setAttribute("isMeetingRoom", "false");
     newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+    newWall.setAttribute("len", (this.wallWidth).toString())
+    newWall.setAttribute("transform", "rotate(0)");
     this.idCounterWall++;
     svg?.appendChild(newWall);
   }
@@ -105,5 +108,37 @@ export class OfficeMakerComponent /*implements OnInit*/ {
         console.log(newRect);
       })
     });
+  }
+
+  rotate(){
+    const selected = document.getElementById("wall-0");
+    selected?.setAttribute("transform", "rotate(45 100 100)");
+  }
+
+  startDraw(){
+    const svg = document.getElementById("create-object");
+    let child = svg?.lastElementChild;
+    while (child){
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
+    const svgns = "http://www.w3.org/2000/svg";
+    const newWall = document.createElementNS(svgns, "line");
+    newWall.setAttribute("x1", "0");
+    newWall.setAttribute("y1", "0");
+    newWall.setAttribute("x2", "1");
+    newWall.setAttribute("y2", "1");
+    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+    newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+    newWall.setAttribute("len", '1')
+    newWall.setAttribute("transform", "rotate(0)");
+    this.idCounterWall++;
+    svg?.appendChild(newWall);
+  }
+
+  // debug function
+  printClicked(){
+    console.log(this.clicked);
   }
 }
