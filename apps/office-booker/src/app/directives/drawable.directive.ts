@@ -33,18 +33,18 @@ export class DrawableDirective {
       if (this.newWall != null) {
         this.newWall.setAttribute('draggable', true);
         const svgPoint = this.svgService.getSVGPoint(event, this.newWall);
-        this.newWall.setAttribute('x1', this.posX);
-        this.newWall.setAttribute('y1', this.posY);
-        this.newWall.setAttribute('x2', this.posX);
-        this.newWall.setAttribute('y2', this.posY);
+        this.newWall.setAttribute('x1', this.roundNum(this.posX));
+        this.newWall.setAttribute('y1', this.roundNum(this.posY));
+        this.newWall.setAttribute('x2', this.roundNum(this.posX));
+        this.newWall.setAttribute('y2', this.roundNum(this.posY));
       }
     } else {
-      console.log(this.officeBookerDrawable);
+      //console.log(this.officeBookerDrawable);
       if (this.newWall != null) {
         this.newWall.setAttribute('draggable', true);
         const svgPoint = this.svgService.getSVGPoint(event, this.newWall);
-        this.newWall.setAttribute('x2', this.posX);
-        this.newWall.setAttribute('y2', this.posY);
+        this.newWall.setAttribute('x2', this.roundNum(this.posX));
+        this.newWall.setAttribute('y2', this.roundNum(this.posY));
       }
     }
   }
@@ -61,5 +61,13 @@ export class DrawableDirective {
       this.posY = e.clientY; // Gets Mouse Y
       //console.log(posX + " " + posY);
     });
+    if (!this.officeBookerDrawable && this.newWall != null) {
+      this.newWall.setAttribute('x2', this.roundNum(this.posX));
+      this.newWall.setAttribute('y2', this.roundNum(this.posY));
+    }
+  }
+
+  roundNum(n: number) {
+    return Math.round(n / 10) * 10;
   }
 }

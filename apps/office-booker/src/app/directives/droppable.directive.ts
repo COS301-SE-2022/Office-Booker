@@ -42,7 +42,7 @@ export class DroppableDirective {
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
-    console.log("Mouse Move");
+    //console.log("Mouse Move");
     if (this.draggingElement != null) {
       if (this.draggingElement && this.draggingElement.toString().slice(0, 4) == 'desk') {
         const svgPoint = this.svgService.getSVGPoint(event, this.draggingElement);
