@@ -45,6 +45,21 @@ CREATE TABLE "Desk" (
 );
 
 -- CreateTable
+CREATE TABLE "Wall" (
+    "id" SERIAL NOT NULL,
+    "roomId" INTEGER NOT NULL,
+    "Pos1X" INTEGER NOT NULL,
+    "Pos1Y" INTEGER NOT NULL,
+    "Pos2X" INTEGER NOT NULL,
+    "Pos2Y" INTEGER NOT NULL,
+    "LocationCol" INTEGER NOT NULL,
+    "Height" INTEGER NOT NULL,
+    "Width" INTEGER NOT NULL,
+
+    CONSTRAINT "Wall_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Facility" (
     "id" SERIAL NOT NULL,
     "deskId" INTEGER NOT NULL,
@@ -92,6 +107,9 @@ ALTER TABLE "Room" ADD CONSTRAINT "Room_companyId_fkey" FOREIGN KEY ("companyId"
 
 -- AddForeignKey
 ALTER TABLE "Desk" ADD CONSTRAINT "Desk_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Wall" ADD CONSTRAINT "Wall_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Facility" ADD CONSTRAINT "Facility_deskId_fkey" FOREIGN KEY ("deskId") REFERENCES "Desk"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
