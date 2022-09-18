@@ -116,6 +116,7 @@ export class OfficeMakerComponent /*implements OnInit*/ {
   }
 
   startDraw(){
+    console.log("Draw mode on");
     const svg = document.getElementById("create-object");
     let child = svg?.lastElementChild;
     while (child){

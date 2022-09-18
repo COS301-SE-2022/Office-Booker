@@ -26,7 +26,7 @@
     <button (click)="rotate()">Rotate</button>
     <button (click)="startDraw()">Draw line</button>
 </div>
-<div class="svg-container" id="map" (click)="clicked = !clicked" (click)="printClicked()" officeBookerDroppable [officeBookerDrawable]="clicked">
+<div class="svg-container" id="map" (click)="clicked = !clicked" officeBookerDroppable [officeBookerDrawable]="clicked">
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>

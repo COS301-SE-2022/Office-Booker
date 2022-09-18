@@ -11,7 +11,9 @@ export class DraggableDirective {
 
   @HostListener('dragstart', ['$event'])
   onDragStart(event: any) {
+    console.log("Drag Start");
     const elementToBeDraggedRect = event.target.getElementsByTagName('rect')[0];
+    console.log(elementToBeDraggedRect);
     const elementToBeDraggedLine = event.target.getElementsByTagName('line')[0];
     if(elementToBeDraggedLine){
       event.dataTransfer.setData('text', elementToBeDraggedLine.id);
@@ -23,6 +25,7 @@ export class DraggableDirective {
 
   @HostListener('document:dragover', ['$event'])
   onDragOver(event: any) {
+    console.log("Drag Over");
     event.preventDefault();
   }
 
