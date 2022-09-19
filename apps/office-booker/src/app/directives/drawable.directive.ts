@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, HostListener } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { SVGService } from '../services/svg.service';
 
 @Directive({
@@ -9,11 +9,15 @@ import { SVGService } from '../services/svg.service';
 export class DrawableDirective {
   @Input() officeBookerDrawable = false;
   @Input() draw = false;
+  @Output() deleteLineId = new EventEmitter<string>();
 
   posX = 0;
   posY = 0;
   newWall: any;
   line: any;
+  idCounterWall = 0;
+  firstClick = false;
+  secondClick = false;
 
   @HostListener('click', ['$event'])
   onclick(event: any) {
@@ -27,7 +31,9 @@ export class DrawableDirective {
         this.newWall.setAttribute("x2", "1");
         this.newWall.setAttribute("y2", "1");
         this.newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
-        this.newWall.setAttribute("id", "wall-0");
+        
+
+        
         //newWall.setAttribute("len", '1')
         //newWall.setAttribute("transform", "rotate(0)");
         dropzone.appendChild(this.newWall);
@@ -40,9 +46,14 @@ export class DrawableDirective {
         }
       } else {
         if (this.newWall != null) {
+          console.log(this.idCounterWall);
           this.newWall.setAttribute('draggable', true);
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
+          this.newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+          const newWallId = "wall-"+this.idCounterWall.toString();    //needed to pass through the selectitem function, as this.newWall.id is then the latest one
+          this.newWall.onclick = () => this.selectItem(newWallId);
+          this.idCounterWall++;
         }
       }
     }
@@ -66,4 +77,11 @@ export class DrawableDirective {
   roundNum(n: number) {
     return Math.round(n / 10) * 10;
   }
+
+  selectItem(itemId: string) {
+    if(!this.draw){
+      this.deleteLineId.emit(itemId);
+    }
+  }
+
 }

@@ -21,15 +21,19 @@ export class DroppableDirective {
     droppedElement.setAttribute('draggable', true);
 
     const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
-    this.setPosition(droppedElement, { x: svgPoint.x, y: svgPoint.y  });
+    this.setPosition(droppedElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y)});
   }
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event : any): void {
     if (this.draggingElement) {
       const svgPoint = this.svgService.getSVGPoint(event, this.draggingElement);
-      this.setPosition(this.draggingElement, { x: svgPoint.x, y: svgPoint.y  });
+      this.setPosition(this.draggingElement, { x: this.roundNum(svgPoint.x), y: this.roundNum(svgPoint.y)});
     }
+  }
+
+  roundNum(n: number) {
+    return Math.round(n / 10) * 10;
   }
 
   @HostListener('mousedown', ['$event'])
