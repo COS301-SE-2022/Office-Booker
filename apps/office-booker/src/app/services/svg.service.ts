@@ -5,15 +5,24 @@ import { Injectable } from '@angular/core';
 export class SVGService {
   //constructor() {}
 
-  getSVGPoint(event : any, element : any): SVGPoint {
+  getSVGPoint(event: any, element: any): SVGPoint {
     // get the mouse coordinates and set them to the SVG point
-    const point = element.viewportElement.createSVGPoint();
-    point.x = event.clientX;
-    point.y = event.clientY;
-
-    const CTM = element.viewportElement.getScreenCTM();
-    const svgPoint = point.matrixTransform(CTM.inverse());
-
-    return svgPoint;
+    if (element.toString().slice(8, -1) == "SVGRectElement") {
+      const point = element.viewportElement.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      console.log(event);
+      const CTM = element.viewportElement.getScreenCTM();
+      const svgPoint = point.matrixTransform(CTM.inverse());
+      console.log(svgPoint);
+      return svgPoint;
+    } else {
+      const point = element.viewportElement.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      const CTM = element.viewportElement.getScreenCTM();
+      const svgPoint = point.matrixTransform(CTM.inverse());
+      return svgPoint;
+    }
   }
 }

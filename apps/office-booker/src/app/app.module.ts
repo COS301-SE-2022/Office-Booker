@@ -57,6 +57,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { OfficeMakerComponent } from './office-maker/office-maker.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { DroppableDirective } from './directives/droppable.directive';
+import { DrawableDirective } from './directives/drawable.directive';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -114,6 +115,7 @@ export function tokenGetter() {
     OfficeMakerComponent,
     DraggableDirective,
     DroppableDirective,
+    DrawableDirective
   ],
   imports: [
     OverlayModule,
