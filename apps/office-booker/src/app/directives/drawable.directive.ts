@@ -41,7 +41,6 @@ export class DrawableDirective {
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
         }
       } else {
-        //console.log(this.officeBookerDrawable);
         if (this.newWall != null) {
           this.newWall.setAttribute('draggable', true);
           const svgPoint = this.svgService.getSVGPoint(event, this.newWall);
@@ -52,19 +51,13 @@ export class DrawableDirective {
     }
   }
 
-  @HostListener('mouseenter', ['$event'])
-  onMouseEnter(event: any) {
-    console.log(this.officeBookerDrawable);
-  }
-
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
     if (this.draw) {
-      document.addEventListener("mousemove", (e) => {
-        this.posX = e.clientX; // Gets Mouse X
-        this.posY = e.clientY; // Gets Mouse Y
-        //console.log(posX + " " + posY);
-      });
+
+      const rect = event.currentTarget.getBoundingClientRect();
+      this.posX = event.clientX - rect.left; //x position within the element.
+      this.posY  = event.clientY - rect.top;  //y position within the element.
 
       if (!this.officeBookerDrawable && this.newWall != null) {
         this.newWall.setAttribute('x2', this.roundNum(this.posX));
