@@ -4,7 +4,12 @@
 
         </svg>
     </div>
-
+    <!-- <mat-form-field>
+        <mat-label>Create Floor for which Office?</mat-label>
+        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
+            <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
+    </mat-select>
+    </mat-form-field> -->
     <label for="quantity">Desk Width (between 1 and 500):</label>
     <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
     <br>
@@ -25,9 +30,11 @@
     <button (click)="saveMap()">Save</button>
     <button (click)="rotate()">Rotate</button>
     <button (click)="startDraw()">Draw line</button>
+    <button (click)="deleteItem()">Delete Item</button>
 </div>
 
-<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode">
+<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" >
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>
+
