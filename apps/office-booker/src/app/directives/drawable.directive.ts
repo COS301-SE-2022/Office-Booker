@@ -14,7 +14,6 @@ export class DrawableDirective {
   posY = 0;
   newWall: any;
   line: any;
-  constructor(private svgService: SVGService) { }
 
   @HostListener('click', ['$event'])
   onclick(event: any) {
@@ -34,7 +33,6 @@ export class DrawableDirective {
         dropzone.appendChild(this.newWall);
         if (this.newWall != null) {
           this.newWall.setAttribute('draggable', true);
-          const svgPoint = this.svgService.getSVGPoint(event, this.newWall);
           this.newWall.setAttribute('x1', this.roundNum(this.posX));
           this.newWall.setAttribute('y1', this.roundNum(this.posY));
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
@@ -43,7 +41,6 @@ export class DrawableDirective {
       } else {
         if (this.newWall != null) {
           this.newWall.setAttribute('draggable', true);
-          const svgPoint = this.svgService.getSVGPoint(event, this.newWall);
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
         }
