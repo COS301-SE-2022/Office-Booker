@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Desk, company} from '../services/booking-service.service';
 import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
@@ -22,6 +22,9 @@ export class OfficeMakerComponent implements OnInit {
   roomHeight = 100;
   wallWidth = 300;
   desks: Array<Desk> = [];
+  selectedItemId = "default";
+  
+  @Input() deleteLine = "default";
 
   constructor(private makerService: OfficeMakerService, 
     private changeDetection: ChangeDetectorRef,) {}
@@ -48,9 +51,24 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
+    newDesk.onclick = () => this.selectItem(newDesk.id);
     this.idCounterDesk++;
 
     svg?.appendChild(newDesk);
+  }
+
+  selectItem(itemId: string) {
+    this.selectedItemId = itemId;
+    console.log(this.selectedItemId);
+  }
+
+  deleteItem() {
+    if(this.selectedItemId != "default"){
+      const deleteItem = document.getElementById(this.selectedItemId);
+      deleteItem?.remove();
+      console.log(deleteItem);
+      this.selectedItemId = "default";
+    }
   }
 
   createMeetingRoom(){
@@ -70,6 +88,7 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
+    newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
     this.idCounterMeetingRoom++;
 
     svg?.appendChild(newMeetingRoom);
