@@ -38,7 +38,6 @@ export class DrawableDirective {
         //newWall.setAttribute("transform", "rotate(0)");
         dropzone.appendChild(this.newWall);
         if (this.newWall != null) {
-          console.log("First IF");
           this.newWall.setAttribute('draggable', true);
           this.newWall.setAttribute('x1', this.roundNum(this.posX));
           this.newWall.setAttribute('y1', this.roundNum(this.posY));
@@ -47,7 +46,6 @@ export class DrawableDirective {
         }
       } else {
         if (this.newWall != null) {
-          console.log("seocnd if");
           console.log(this.idCounterWall);
           this.newWall.setAttribute('draggable', true);
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
