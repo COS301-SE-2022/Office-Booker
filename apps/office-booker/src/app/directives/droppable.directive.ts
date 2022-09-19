@@ -1,3 +1,4 @@
+
 import { Directive, HostListener } from '@angular/core';
 import { SVGService } from '../services/svg.service';
 
@@ -53,3 +54,4 @@ export class DroppableDirective {
     element.setAttribute('y', coord.y);
   }
 }
+

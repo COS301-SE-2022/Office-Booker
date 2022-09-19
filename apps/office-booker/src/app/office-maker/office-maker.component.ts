@@ -10,10 +10,16 @@ import { SVGService } from '../services/svg.service';
   styleUrls: ['./office-maker.component.css'],
 })
 export class OfficeMakerComponent /*implements OnInit*/ {
+  clicked = false;
+  drawMode = false;
   idCounterDesk = 0;
+  idCounterWall = 0;
   idCounterMeetingRoom = 0;
   deskWidth = 65;
   deskHeight = 35;
+  roomWidth = 100;
+  roomHeight = 100;
+  wallWidth = 300;
   desks: Array<Desk> = [];
   constructor(private makerService: OfficeMakerService) {}
 
@@ -53,14 +59,38 @@ export class OfficeMakerComponent /*implements OnInit*/ {
     const newMeetingRoom = document.createElementNS(svgns, "rect");
     newMeetingRoom.setAttribute("x", "35");
     newMeetingRoom.setAttribute("y", "35");
-    newMeetingRoom.setAttribute("width", "100");
-    newMeetingRoom.setAttribute("height", "100");
+    newMeetingRoom.setAttribute("width", this.roomWidth.toString());//default 100
+    newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
     this.idCounterMeetingRoom++;
 
     svg?.appendChild(newMeetingRoom);
+  }
+
+  createWall(){
+    const svg = document.getElementById("create-object");
+    let child = svg?.lastElementChild;
+    while (child){
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
+    const svgns = "http://www.w3.org/2000/svg";
+    const newWall = document.createElementNS(svgns, "line");
+    newWall.setAttribute("x1", "35");
+    newWall.setAttribute("y1", "35");
+    newWall.setAttribute("x2", (this.wallWidth + 35).toString());
+    newWall.setAttribute("y2", "35");
+    newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+    //newWall.setAttribute("height", "10");
+    //newWall.setAttribute("isMeetingRoom", "false");
+    newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
+    newWall.setAttribute("len", (this.wallWidth).toString())
+    newWall.setAttribute("transform", "rotate(0)");
+    this.idCounterWall++;
+    svg?.appendChild(newWall);
   }
 
   saveMap(){
@@ -79,5 +109,20 @@ export class OfficeMakerComponent /*implements OnInit*/ {
         console.log(newRect);
       })
     });
+  }
+
+  rotate(){
+    const selected = document.getElementById("wall-0");
+    selected?.setAttribute("transform", "rotate(45 100 100)");
+  }
+
+  startDraw(){
+    this.drawMode = !this.drawMode;
+    console.log(this.drawMode);
+  }
+
+  // debug function
+  printClicked(){
+    console.log(this.clicked);
   }
 }
