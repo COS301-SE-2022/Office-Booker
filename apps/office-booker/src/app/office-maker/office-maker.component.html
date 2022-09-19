@@ -17,16 +17,17 @@
     <label for="quantity">Room Height (between 1 and 1000):</label>
     <input type="number" name="height" min="1" max="1000" [(ngModel)]="roomHeight">
     <br>
-    <label for="quantity">Wall Width (between 1 and 1000):</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth">
+    <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
+    <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
     <button (click)="createDesk()">Create New Desk</button>
     <button (click)="createMeetingRoom()">Create New Meeting Room</button>
-    <button (click)="createWall()">Create New Wall</button>
+    <!-- <button (click)="createWall()">Create New Wall</button> -->
     <button (click)="saveMap()">Save</button>
     <button (click)="rotate()">Rotate</button>
     <button (click)="startDraw()">Draw line</button>
 </div>
-<div class="svg-container" id="map" (click)="clicked = !clicked" officeBookerDroppable [officeBookerDrawable]="clicked">
+
+<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode">
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>
