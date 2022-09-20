@@ -45,6 +45,8 @@ export class CognitoService {
     this.isGuest = true;
     this.hasGuest();
     this.getName();
+    this.getCompany();
+
   
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);

@@ -29,7 +29,7 @@ export class ApiUsersRepositoryDataAccessService {
     async getUsersByCompanyId(@Param() companyId: number) {
         return this.prisma.employee.findMany({
             where: {
-                companyId,
+                companyId: companyId,
             },
         });
     }

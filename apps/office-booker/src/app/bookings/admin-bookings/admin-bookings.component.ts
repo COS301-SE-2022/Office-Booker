@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
 import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { CognitoService } from '../../cognito.service';
 
 @Component({
   selector: 'office-booker-admin-bookings',
@@ -19,10 +20,14 @@ export class AdminBookingsComponent{
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false, currentRating: 0, ratingsReceived: 0};
   newRating: rating = {currentRating: -1, ratingsReceived: -1};
   rating = 0;
+  isMeet = false;
+  filter = "bookings";
+  settingsFilter = "none";
+  companyId = 0;
 
-  constructor(private router: Router, private bookingService: BookingServiceService, public snackBar: MatSnackBar) {
-    //changeDetection.detach();
-    //console.log(this.userBookings);
+
+  constructor(private router: Router, private bookingService: BookingServiceService, 
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef, private cognitoService: CognitoService) {
   }
 
   ngOnInit(){
@@ -38,14 +43,17 @@ export class AdminBookingsComponent{
   }
   
   getUsers(){
-    this.bookingService.getAllEmployees().subscribe( res => {
-      res.forEach(user => {
-        this.Users.push(user);
-        this.getBookings(user.id, user.name);
-        //this.changeDetection.detectChanges();
+    this.Users.splice(0, this.Users.length);
+    this.cognitoService.getCompany();
+    this.companyId = this.cognitoService.returnCompanyID();
+    this.bookingService.getAllEmployeesByCompany(this.companyId).subscribe( res => {
+      res.forEach(employee => {
+        this.Users.push(employee);
       
       });
     })
+    this.changeDetection.detectChanges();
+    this.getBookings(this.currentUser.id, this.currentUser.name);
   }
 
   getRating(employeeRate: number): number{
@@ -53,7 +61,6 @@ export class AdminBookingsComponent{
     for(i = 0; i < this.Users.length; i++){
     if(this.Users[i].id == employeeRate){
       this.rating = this.Users[i].currentRating/this.Users[i].ratingsReceived;
-      //console.log(this.Users[i].ratingsRecieved);
       
       return this.rating;
     }
@@ -61,7 +68,7 @@ export class AdminBookingsComponent{
     return this.rating;
   }
 
-  getDesksByRoomId(roomId: number){
+  getDesksByRoomId(roomId: number) {
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
       res.forEach(desk => {
         const newDesk = {} as Desk;
@@ -70,13 +77,13 @@ export class AdminBookingsComponent{
         newDesk.LocationRow = desk.LocationRow;
         newDesk.roomId = desk.roomId;
         newDesk.bookings = [];
+        newDesk.isMeetingRoom = desk.isMeetingRoom;
         this.getBookingsByDeskId(desk.id);
 
         this.desks.push(newDesk);
-        //this.changeDetection.detectChanges();
       });
     })
-    
+
   }
 
   getBookingsByDeskId(deskId: number) {
@@ -99,51 +106,78 @@ export class AdminBookingsComponent{
     })
   }
 
-  getBookings(userId: number, name: string){
+  getBookings(userId: number, userName: string) {
+    this.userBookings = [];
+    this.bookingService.getAllBookings().subscribe(res => {
+      res.forEach(booking => {
+        const newBooking = {} as Booking;
+        newBooking.employeeName = userName;
+        newBooking.id = booking.id;
+        newBooking.deskId = booking.deskId;
+        newBooking.startsAt = booking.startsAt;
+        newBooking.endsAt = booking.endsAt;
+        newBooking.employeeId = booking.employeeId;
+        newBooking.desk = booking.desk;
+        newBooking.isInvited = booking.isInvited;
+        // newBooking.Invite = this.invites;
+        newBooking.employeeName = this.getEmployeeName(booking.employeeId);
 
-    this.bookingService.getBookingByEmployee(userId).subscribe(res => {
-       res.forEach(booking => {
-         console.log(booking);
-         const newBooking = {} as Booking;
-         newBooking.id = booking.id;
-         newBooking.deskId = booking.deskId;
-         newBooking.startsAt = booking.startsAt;
-         newBooking.endsAt = booking.endsAt;
-         newBooking.employeeId = booking.employeeId;
-         newBooking.employeeName = name;
-         this.userBookings.push(newBooking);
-         //this.changeDetection.detectChanges();
-        });
-        //this.changeDetection.detectChanges();
-      })   
- }
+        this.changeDetection.detectChanges();
+
+        this.userBookings.push(newBooking);
+
+        this.changeDetection.detectChanges();
+
+        this.getMeetingRoom(booking.deskId, booking.id);
+        // this.getEmployeeName(1);
 
 
-//  getCurrentUser(){
-//    const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
-//    this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
-//       console.log(res);
-//       this.currentUser = res;
-//       //console.log(this.currentUser.id);
-//       this.userNumb = this.currentUser.id;
-//       this.getBookings(this.currentUser.id);
-//       //this.changeDetection.detectChanges();
-      
-//    }) 
-// }
+      });
+      this.changeDetection.detectChanges();
+    })
+  }
 
-//  getUsers(){
-//   this.bookingService.getAllEmployees().subscribe(res => {
-//     res.forEach(user => {
-//       const newUser = {} as employee;
-//       newUser.id = user.id;
-//       newUser.name = user.name;
-//       newUser.email = user.email;
-//       newUser.companyId = user.companyId;
-//       this.Users.push(newUser);
-//     });
-//   })
-// }
+  getEmployeeName(employeeId: number) : string {
+    for (let i = 0; i < this.Users.length; i++) {
+      if (this.Users[i].id == employeeId) {
+        return this.Users[i].name;
+      }
+    }
+   return "Error";
+  }
+
+  getMeetingRoom(deskId: number, bookingId: number) : void {
+    this.desks.forEach(desk => {
+      if (desk.id == deskId) {
+        for (let i = 0; i < this.userBookings.length; i++){
+
+          if (this.userBookings[i].id == bookingId) {
+            this.userBookings[i].isMeetingRoom = desk.isMeetingRoom;
+          }
+        }
+      }
+      this.changeDetection.detectChanges();
+    });
+  }
+
+  isMeetingRoom(deskId: number) : string{
+    for (let i = 0; i < this.desks.length; i++) {
+      if (this.desks[i].id == deskId) {
+        this.isMeet = this.desks[i].isMeetingRoom;
+      }
+    }
+
+    if (this.isMeet==false){
+      return "Desk";
+
+    }
+    else if (this.isMeet==true){
+      return "Meeting Room";
+    }
+    return "Error";
+  }
+
+
 
  deleteADeskBooking(bookingId: number) {
   this.bookingService.deleteBooking(bookingId).subscribe(res => {
@@ -160,6 +194,18 @@ export class AdminBookingsComponent{
   
 }
 
+
+setFilter(filter: string) : void{
+  this.getUsers();
+  this.filter = filter;
+  this.changeDetection.detectChanges();
+}
+
+setNgIf(filter: string) : void {
+  this.getUsers();
+  this.settingsFilter = filter;
+  this.changeDetection.detectChanges();
+}
 
 
 }

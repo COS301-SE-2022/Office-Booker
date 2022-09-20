@@ -16,4 +16,7 @@ export class ApiCompaniesApiController {
     async getCompanyById(@Param('companyId') companyId: string) {
         return await this.companyService.getCompanyById(Number(companyId));
     }
+    
+
+    
 }
