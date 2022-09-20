@@ -36,7 +36,7 @@ jobs:
       - name: Install packages
         run: yarn install --frozen-lockfile
 
-      - name: Build the project
+      - name: Build the frontend package and the backend package
         run: yarn nx run-many --target=build --projects=api,office-booker --parallel
 
       - name: Set up QEMU
@@ -51,14 +51,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build frontend
+      - name: Build frontend image
         run: docker build -f ./apps/office-booker/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend
 
-      - name: Push frontend
+      - name: Push frontend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
 
-      - name: Build backend
+      - name: Build backend image
         run: docker build -f ./apps/office-booker/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/backend
 
-      - name: Push backend
+      - name: Push backend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
