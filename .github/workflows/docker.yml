@@ -51,8 +51,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: user/app:latest
+      - name: Build frontend
+        run: docker build -f ./apps/office-booker/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+
+      - name: Push frontend
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+
+      - name: Build backend
+        run: docker build -f ./apps/office-booker/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/backend
+
+      - name: Push backend
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
