@@ -9,6 +9,36 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+        #Checking out to the develop branch
+      - name: Checkout develop
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+        #Installs node.js
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+        #installs yarn
+      - name: Install yarn
+        run: npm install yarn -g
+
+      - name: Cache Yarn Packages
+        id: cache-yarn-packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache
+          key: yarn-packages-${{ hashFiles('**/yarn.lock') }}
+
+        #installs the yarn lockfile
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Build the project
+        run: yarn nx run-many --target=build --projects=api,office-booker --parallel
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
