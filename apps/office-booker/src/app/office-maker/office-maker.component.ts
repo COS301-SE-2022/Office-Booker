@@ -59,7 +59,8 @@ export class OfficeMakerComponent implements OnInit {
 
   selectItem(itemId: string) {
     this.selectedItemId = itemId;
-    console.log(this.selectedItemId);
+    document.getElementById(itemId)?.setAttribute("border", "black");
+    console.log("select item: " + this.selectedItemId);
   }
 
   deleteItem() {
@@ -142,7 +143,15 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   startDraw(){
+    // if (document.getElementById("startdraw") != null) {
+    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
+    // }
     this.drawMode = !this.drawMode;
+    if (this.drawMode == true) {
+      document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
+    } else if (this.drawMode == false) {
+      document.getElementById("startdraw")?.setAttribute("style", "border: 0px");
+    }
     console.log(this.drawMode);
   }
 

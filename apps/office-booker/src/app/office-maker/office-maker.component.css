@@ -25,6 +25,11 @@
     display: inline-block;
     align-items: center;
 }
+
 .svg-create-container {
     display: inline-block;
+}
+
+.selectedItem {
+    border: 3px solid rgb(255, 0, 0);
 }

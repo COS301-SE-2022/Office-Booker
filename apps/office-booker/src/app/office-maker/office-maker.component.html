@@ -32,10 +32,14 @@
 
 
     <!-- <button (click)="createWall()">Create New Wall</button> -->
-    <button (click)="saveMap()">Save</button>
-    <button (click)="rotate()">Rotate</button>
-    <button (click)="startDraw()">Draw line</button>
-    <button (click)="deleteItem()">Delete Item</button>
+    <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
+
+    <button mat-raised-button color="primary" (click)="rotate()">Rotate</button>
+
+    <button mat-raised-button color="primary" id="startdraw" (click)="startDraw()">Draw Walls</button>
+
+    <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>
+
 </div>
 
 <div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" >
