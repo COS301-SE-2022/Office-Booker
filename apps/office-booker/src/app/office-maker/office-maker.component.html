@@ -24,8 +24,13 @@
     <br>
     <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
     <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
-    <button (click)="createDesk()">Create New Desk</button>
-    <button (click)="createMeetingRoom()">Create New Meeting Room</button>
+
+    
+    <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
+    <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
+
+
+
     <!-- <button (click)="createWall()">Create New Wall</button> -->
     <button (click)="saveMap()">Save</button>
     <button (click)="rotate()">Rotate</button>
