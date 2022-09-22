@@ -58,18 +58,15 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
-    if (this.selectedItemId == itemId)
-    {
-      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,255,0);stroke-width:0");
+    if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
+      document.getElementById(this.selectedItemId)?.setAttribute("style", "stroke:rgb(0,255,0);stroke-width:0");
       this.selectedItemId = "default";
-    } else {
       this.selectedItemId = itemId;
-      console.log(itemId);
-      // document.getElementById(itemId)?.setAttribute("style", "border: 10px red solid");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+    } else if (this.selectedItemId == "default") {
+      this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
     }
-
-
     console.log("select item: " + this.selectedItemId);
   }
 
@@ -104,30 +101,6 @@ export class OfficeMakerComponent implements OnInit {
 
     svg?.appendChild(newMeetingRoom);
   }
-
-  // createWall(){
-  //   const svg = document.getElementById("create-object");
-  //   let child = svg?.lastElementChild;
-  //   while (child){
-  //     svg?.removeChild(child);
-  //     child = svg?.lastElementChild;
-  //   }
-
-  //   const svgns = "http://www.w3.org/2000/svg";
-  //   const newWall = document.createElementNS(svgns, "line");
-  //   newWall.setAttribute("x1", "35");
-  //   newWall.setAttribute("y1", "35");
-  //   newWall.setAttribute("x2", (this.wallWidth + 35).toString());
-  //   newWall.setAttribute("y2", "35");
-  //   newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
-  //   //newWall.setAttribute("height", "10");
-  //   //newWall.setAttribute("isMeetingRoom", "false");
-  //   newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
-  //   newWall.setAttribute("len", (this.wallWidth).toString())
-  //   newWall.setAttribute("transform", "rotate(0)");
-  //   this.idCounterWall++;
-  //   svg?.appendChild(newWall);
-  // }
 
   saveMap(){
     const map = document.querySelectorAll("svg#dropzone");
