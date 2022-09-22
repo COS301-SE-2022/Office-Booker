@@ -5,7 +5,7 @@ import { Module, NotFoundException } from '@nestjs/common';
 import exp = require('constants');
 import * as crypto from 'crypto';
 
-describe('ApiRoomsRepositoryDataAccessService', () => {
+describe('ApiRoomsRepositoryDataAccessService Unit Tests', () => {
   let service: ApiRoomsRepositoryDataAccessService;
   let prisma;
 
@@ -31,6 +31,25 @@ describe('ApiRoomsRepositoryDataAccessService', () => {
       expect(await service.getRoomById(1)).toEqual({ id: 1, name: 'room 1', desks: null });
       expect(prisma.room.findUnique).toHaveBeenCalledWithObjectMatchingHash('b315a9cdc13f6b86864c4cbccc985e4d');
     });
+  });
+});
+
+describe('ApiRoomsRepositoryDataAccessService Integration Tests', () => {
+  let service: ApiRoomsRepositoryDataAccessService;
+  let prisma;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
+    }).compile();
+    service = await module.get<ApiRoomsRepositoryDataAccessService>(ApiRoomsRepositoryDataAccessService);
+    prisma = await module.get<PrismaService>(PrismaService);
+  });
+
+  it('should return an array of rooms', async () => {
+      const rooms = await service.getRooms();
+      const testRoom = { id: 3, name: 'Test Room', companyId: 4 };
+      expect(rooms).toEqual({ id: 3, name: 'Test Room', companyId: 4 });
   });
 });
 
@@ -89,19 +108,3 @@ expect.extend({
     }
   }
 });
-
-/*describe('ApiRoomsRepositoryDataAccessService', () => {
-  let service: ApiRoomsRepositoryDataAccessService;
-
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
-    }).compile();
-
-    service = module.get(ApiRoomsRepositoryDataAccessService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeTruthy();
-  });
-});*/
