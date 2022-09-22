@@ -48,8 +48,12 @@ describe('ApiRoomsRepositoryDataAccessService Integration Tests', () => {
 
   it('should return an array of rooms', async () => {
       const rooms = await service.getRooms();
-      const testRoom = { id: 3, name: 'Test Room', companyId: 4 };
-      expect(rooms).toEqual({ id: 3, name: 'Test Room', companyId: 4 });
+      expect(rooms.length).toBeGreaterThan(0);
+  });
+
+  it('should return a room', async () => {
+    const testRoom = { id: 3, name: 'Test Room', companyId: 4 };
+    expect(await service.getRoomById(3)).toEqual(testRoom);
   });
 });
 
