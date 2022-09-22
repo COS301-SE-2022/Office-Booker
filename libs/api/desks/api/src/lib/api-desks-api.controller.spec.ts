@@ -3,7 +3,7 @@ import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/re
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiDesksApiController } from './api-desks-api.controller';
 
-describe('ApiDesksApiController', () => {
+describe('ApiDesksApiController Unit Testing', () => {
   let controller: ApiDesksApiController;
   let service: ApiDesksRepositoryDataAccessService;
 
