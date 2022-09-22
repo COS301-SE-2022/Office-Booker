@@ -146,14 +146,11 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	});
 
 	describe('Testing Create, Get and delete functions - Integration', () => {
+		// TODO: not creating in here, check that
 		it('should create and get a booking', async () => {
-			
-
-			// await service.createBooking(booking);
-			const result = await service.getBookingById(3);
+			const result = await service.getBookingById(receivedBooking.id);
 			expect(result).toEqual(result);
 			
-			console.log("create and get");
 		});
 
 		it('should get all the bookings from specified desk', async () => {
