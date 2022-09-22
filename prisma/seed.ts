@@ -24,6 +24,13 @@ async function main() {
         },
     })
 
+    const company4 = await prisma.company.create({
+        data: {
+            name: 'Tester Inc',
+            domain: ['gmail.com'],
+        },
+    })
+
     const employee1 = await prisma.employee.create({
         data: {
             name: 'Brett du Plessis',
@@ -72,7 +79,7 @@ async function main() {
         },
     })
     
-
+   
 
     // create a room
     const room = await prisma.room.create({
@@ -88,6 +95,8 @@ async function main() {
             Company: { connect: { id: company1.id } },
         },
     })
+
+    
 
     // create some walls
     const wall1 = await prisma.wall.create({
@@ -532,6 +541,8 @@ async function main() {
         },
     })
 
+
+
     const facility_1 = await prisma.facility.create({
         data: {
             Desk: {
@@ -557,6 +568,8 @@ async function main() {
             projectors: 0,
         }
     })
+
+
 }
 
 main()
