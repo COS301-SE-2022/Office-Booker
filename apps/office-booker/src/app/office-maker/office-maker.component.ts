@@ -58,10 +58,16 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
-    this.selectedItemId = itemId;
-    console.log(itemId);
-    // document.getElementById(itemId)?.setAttribute("style", "border: 10px red solid");
-    document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+    if (this.selectedItemId == itemId)
+    {
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,255,0);stroke-width:0");
+      this.selectedItemId = "default";
+    } else {
+      this.selectedItemId = itemId;
+      console.log(itemId);
+      // document.getElementById(itemId)?.setAttribute("style", "border: 10px red solid");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+    }
 
 
     console.log("select item: " + this.selectedItemId);

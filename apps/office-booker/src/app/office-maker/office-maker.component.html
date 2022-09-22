@@ -11,7 +11,7 @@
             <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
             <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
             <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
-            <button mat-raised-button color="primary" (click)="rotate()">Rotate</button>
+            <!-- <button mat-raised-button color="primary" (click)="rotate()">Rotate</button> -->
             <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
             <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>        </mat-card-content>
     </mat-card>
@@ -41,7 +41,7 @@
 
     </div>
 
-<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" >
+<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" [class.selected]="drawMode" >
     <svg id="dropzone" height="100%" width="100%">
     </svg>
 </div>
