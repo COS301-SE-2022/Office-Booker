@@ -27,7 +27,7 @@ async function main() {
     const company4 = await prisma.company.create({
         data: {
             name: 'Tester Inc',
-            domain: ['gmail.com'],
+            domain: ['tester.com'],
         },
     })
 
