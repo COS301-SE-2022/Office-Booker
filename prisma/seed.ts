@@ -79,7 +79,29 @@ async function main() {
         },
     })
     
-   
+    const employee5 = await prisma.employee.create({
+        data: {
+            name: 'User 1',
+            company: { connect: { id: company4.id } },
+            email: 'user1@gmail.com',
+            admin: false,
+            guest: false,
+            currentRating: 5,
+            ratingsReceived: 1,
+        },
+    })
+
+    const employee6 = await prisma.employee.create({
+        data: {
+            name: 'User 2',
+            company: { connect: { id: company4.id } },
+            email: 'user2@gmail.com',
+            admin: false,
+            guest: false,
+            currentRating: 10,
+            ratingsReceived: 3,
+        },
+    })
 
     // create a room
     const room = await prisma.room.create({
