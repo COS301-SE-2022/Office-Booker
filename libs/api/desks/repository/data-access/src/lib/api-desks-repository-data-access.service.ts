@@ -35,4 +35,13 @@ export class ApiDesksRepositoryDataAccessService {
             data: desk,
         });
     }
+
+    // delete a desk
+    async deleteDesk(deskId: number) {
+        return this.prisma.desk.delete({
+            where: {
+                id: deskId,
+            },
+        });
+    }
 }

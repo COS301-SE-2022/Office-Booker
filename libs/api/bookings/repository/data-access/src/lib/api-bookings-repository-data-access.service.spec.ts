@@ -83,62 +83,94 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	});
 });
 
-// describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
-// 	let apiBookingsRepositoryDataAccessService;
-// 	let apiDeskRepositoryDataAccessService;
-// 	let apiUserRepositoryDataAccessService;
-// 	let prisma;
 
-// 	beforeEach(async () => {
-// 		const module: TestingModule = await Test.createTestingModule({
-// 			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
-// 		}).compile();
-// 		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
-// 		apiDeskRepositoryDataAccessService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
-// 		apiUserRepositoryDataAccessService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
-// 		prisma = await module.get<PrismaService>(PrismaService);
-// 	});
 
-// 	describe('Testing Create, Get and delete functions - Integration', () => {
-// 		it('should create and get a booking', async () => {
-// 			// const room: Prisma.RoomCreateNestedOneWithoutDesksInput = {
+describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
+	let service;
+	let deskService;
+	let userService;
+	let prisma;
+	let receivedUser;
+	let receivedDesk;
+	let receivedBooking;
 
-// 			// }
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
+		}).compile();
+		service = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+		deskService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
+		userService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+		prisma = await module.get<PrismaService>(PrismaService);
+		
+		const user = {
+			name: 'Test User',
+			company: {
+			  connect: {
+				  id: 4,
+			  },
+			},
+			Bookings: undefined,
+			email: 'testuser1@gmail.com',
+			admin: false,
+			guest: false,
+			currentRating: 5,
+			ratingsReceived: 1
+		  };		
+		  
+		  await userService.createUser(user); 
+		  receivedUser = await userService.getUserByEmail(user.email);
 
-// 			// const desk: Prisma.DeskCreateNestedOneWithoutBookingsInput = {
-// 			// }
+		  const desk = { Room: { connect: { id: 1},}, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
+		  const createdDesk = await deskService.createDeskByRoomId(desk);
+		  receivedDesk = await deskService.getDeskById(createdDesk.id);
 
-// 			// const company: Prisma.CompanyCreateNestedOneWithoutEmployeeInput = {
+		  const booking =  {
+			createdAt:'2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T14:52:09.509Z',
+			endsAt: '2022-05-26T14:52:09.509Z',
 
-// 			// }
+			Desk: { connect: { id: receivedDesk.id } },
+			Employee: { connect: { id: receivedUser.id } },
+			}
+	
+		const createdBooking = await service.createBooking(booking);
 
-// 			// const user: Prisma.EmployeeCreateNestedOneWithoutBookingsInput = {
-// 			// }
+		receivedBooking = await service.getBookingById(createdBooking.id);
+	});
 
-// 			// const booking: Prisma.BookingCreateInput = {
-// 			// 	createdAt:'2022-06-26T14:52:09.509Z',
-// 			// 	endsAt: '2022-05-26T14:52:09.509Z',
-// 			// 	startsAt: '2022-05-26T14:52:09.509Z',
-// 			// 	Desk: desk,
-// 			// 	Employee: user,
-// 			// }
+	afterEach(async () => {
+		await service.deleteBooking(receivedBooking.id);
+		await deskService.deleteDesk(receivedDesk.id);
+		await userService.deleteUser(receivedUser.id);
+	});
 
-// 			// await apiBookingsRepositoryDataAccessService.createBooking(booking);
-// 			// const result = await apiBookingsRepositoryDataAccessService.getBookingById(3);
-// 			// expect(result).toEqual(result);
-// 		});
-// 		it('should get all the bookings from specified desk', async () => {
-// 			const testVal = await apiBookingsRepositoryDataAccessService.getBookingsForDesk(28);
-// 			expect(testVal).toHaveLength(1);
-// 		});
-// 		it('should delete a booking and return null', async () => {
-// 			it('should delete a booking of a specified booking ID', async () => {
-// 				await apiBookingsRepositoryDataAccessService.deleteBooking(3);
-// 				expect(await apiBookingsRepositoryDataAccessService.getBookingById(3).toHaveLength(0));
-// 			});
-// 		});
-// 	});
-// });
+	describe('Testing Create, Get and delete functions - Integration', () => {
+		it('should create and get a booking', async () => {
+			
+
+			// await service.createBooking(booking);
+			const result = await service.getBookingById(3);
+			expect(result).toEqual(result);
+			
+			console.log("create and get");
+		});
+
+		it('should get all the bookings from specified desk', async () => {
+			const testVal = await service.getBookingsForDesk(receivedDesk.id);
+			expect(testVal).toHaveLength(1);
+			
+		});
+
+		it('should delete a booking and return null', async () => {
+				const deletedBooking = await service.deleteBooking(receivedBooking.id);
+				expect(deletedBooking).toEqual(receivedBooking);
+				await service.createBooking(receivedBooking);
+		});
+	});
+	
+});
+
 
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
