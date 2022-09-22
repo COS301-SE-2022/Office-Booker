@@ -58,7 +58,7 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
 
       - name: Build backend image
-        run: docker build -f ./apps/office-booker/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/backend
+        run: docker build -f ./apps/api/Dockerfile . -t ${{ secrets.DOCKERHUB_USERNAME }}/backend
 
       - name: Push backend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
