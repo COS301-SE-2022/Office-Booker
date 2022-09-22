@@ -1,7 +1,10 @@
 import { Context, ActualPrisma } from '../../../../../context';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from './api-bookings-repository-data-access.service';
+import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { Prisma } from '@prisma/client';
 //'libs/api/authorization/src/lib/jwt.strategy';
 import * as crypto from 'crypto';
 import exp = require('constants');
@@ -80,39 +83,62 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	});
 });
 
-describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
-	let apiBookingsRepositoryDataAccessService;
-	let prisma;
+// describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
+// 	let apiBookingsRepositoryDataAccessService;
+// 	let apiDeskRepositoryDataAccessService;
+// 	let apiUserRepositoryDataAccessService;
+// 	let prisma;
 
-	beforeEach(async () => {
-		const module: TestingModule = await Test.createTestingModule({
-			providers: [ApiBookingsRepositoryDataAccessService, PrismaService],
-		}).compile();
-		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
-		prisma = await module.get<PrismaService>(PrismaService);
-	});
+// 	beforeEach(async () => {
+// 		const module: TestingModule = await Test.createTestingModule({
+// 			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
+// 		}).compile();
+// 		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+// 		apiDeskRepositoryDataAccessService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
+// 		apiUserRepositoryDataAccessService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+// 		prisma = await module.get<PrismaService>(PrismaService);
+// 	});
 
-	describe('Testing Create, Get and delete functions - Integration', () => {
-		it('should create and get a booking', async () => {
-			const bookingItem = [
-				{ id: 3, Desk: null, deskId: 28, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
-			]
-			console.log(await apiBookingsRepositoryDataAccessService.createBooking(bookingItem));
-			const result = await apiBookingsRepositoryDataAccessService.getBookingById(3);
-			expect(result).toEqual(bookingItem);
-		});
-		it('should get all the bookings from specified desk', async () => {
-			const testVal = await apiBookingsRepositoryDataAccessService.getBookingsForDesk(28);
-			expect(testVal).toHaveLength(1);
-		});
-		it('should delete a booking and return null', async () => {
-			it('should delete a booking of a specified booking ID', async () => {
-				await apiBookingsRepositoryDataAccessService.deleteBooking(3);
-				expect(await apiBookingsRepositoryDataAccessService.getBookingById(3).toHaveLength(0));
-			});
-		});
-	});
-});
+// 	describe('Testing Create, Get and delete functions - Integration', () => {
+// 		it('should create and get a booking', async () => {
+// 			// const room: Prisma.RoomCreateNestedOneWithoutDesksInput = {
+
+// 			// }
+
+// 			// const desk: Prisma.DeskCreateNestedOneWithoutBookingsInput = {
+// 			// }
+
+// 			// const company: Prisma.CompanyCreateNestedOneWithoutEmployeeInput = {
+
+// 			// }
+
+// 			// const user: Prisma.EmployeeCreateNestedOneWithoutBookingsInput = {
+// 			// }
+
+// 			// const booking: Prisma.BookingCreateInput = {
+// 			// 	createdAt:'2022-06-26T14:52:09.509Z',
+// 			// 	endsAt: '2022-05-26T14:52:09.509Z',
+// 			// 	startsAt: '2022-05-26T14:52:09.509Z',
+// 			// 	Desk: desk,
+// 			// 	Employee: user,
+// 			// }
+
+// 			// await apiBookingsRepositoryDataAccessService.createBooking(booking);
+// 			// const result = await apiBookingsRepositoryDataAccessService.getBookingById(3);
+// 			// expect(result).toEqual(result);
+// 		});
+// 		it('should get all the bookings from specified desk', async () => {
+// 			const testVal = await apiBookingsRepositoryDataAccessService.getBookingsForDesk(28);
+// 			expect(testVal).toHaveLength(1);
+// 		});
+// 		it('should delete a booking and return null', async () => {
+// 			it('should delete a booking of a specified booking ID', async () => {
+// 				await apiBookingsRepositoryDataAccessService.deleteBooking(3);
+// 				expect(await apiBookingsRepositoryDataAccessService.getBookingById(3).toHaveLength(0));
+// 			});
+// 		});
+// 	});
+// });
 
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
