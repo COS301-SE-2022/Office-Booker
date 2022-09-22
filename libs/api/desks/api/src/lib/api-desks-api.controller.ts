@@ -20,7 +20,6 @@ export class ApiDesksApiController {
 
     @Get()
     async getAll() {
-        console.log("adasdasd");
         return await this.deskService.getDesks();
     }
 
