@@ -1,15 +1,28 @@
 <div class="items-container">
     <div officeBookerDraggable>
-        <svg id="create-object">
+        <svg id="create-object" class="createObject">
 
         </svg>
     </div>
+
+    <mat-card class="options-bar">
+        <mat-card-content>
+
+            <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
+            <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
+            <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
+            <button mat-raised-button color="primary" (click)="rotate()">Rotate</button>
+            <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
+            <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>        </mat-card-content>
+    </mat-card>
+
     <!-- <mat-form-field>
         <mat-label>Create Floor for which Office?</mat-label>
         <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
             <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
     </mat-select>
     </mat-form-field> -->
+    <mat-card class="options-bar">
     <label for="quantity">Desk Width (between 1 and 500):</label>
     <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
     <br>
@@ -24,23 +37,9 @@
     <br>
     <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
     <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
+    </mat-card>
 
-    
-    <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
-    <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
-
-
-
-    <!-- <button (click)="createWall()">Create New Wall</button> -->
-    <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
-
-    <button mat-raised-button color="primary" (click)="rotate()">Rotate</button>
-
-    <button mat-raised-button color="primary" id="startdraw" (click)="startDraw()">Draw Walls</button>
-
-    <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>
-
-</div>
+    </div>
 
 <div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" >
     <svg id="dropzone" height="100%" width="100%">

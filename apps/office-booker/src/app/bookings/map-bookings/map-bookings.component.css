@@ -268,18 +268,3 @@
 .mat-form-field{
     margin-right: 0.5rem;
 }
-
-.mat-toolbar{
-    font-size: 15px;
-    margin: 1rem;
-    padding: 20px;
-    align-items: center;
-    width: 100%;
-    flex-direction: row;
-
-
-
-
-    
-    
-}

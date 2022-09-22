@@ -1,5 +1,8 @@
 .items-container {
-    width: 100%;
+    width: 40%;
+    float: right;
+    margin: 2rem;
+    border: black solid 1px;
 }
 
 .svg-container {
@@ -19,6 +22,11 @@
     display: inline-block;
 }
 
+.createObject{
+    margin: 1rem;
+    border:rgb(255, 0, 0) solid 3px;
+}
+
 .button-container {
     justify-content: center;
     width:30%;
@@ -30,6 +38,29 @@
     display: inline-block;
 }
 
-.selectedItem {
+.selected {
     border: 3px solid rgb(255, 0, 0);
+}
+
+.options-bar{
+    float: right;
+    width: 500px;
+    margin: 1.5rem;
+    /* background-color: rgba(255, 255, 255, 1); */
+    text-align: center;
+    /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
+    /* border-radius: 40px; */
+
+    border: 5px solid rgb(172, 21, 21);
+    border-radius: 4px;
+
+    
+}
+
+.mat-raised-button{
+    margin: 0.5rem;
+}
+
+.svg-container{
+    margin: 2rem;
 }
