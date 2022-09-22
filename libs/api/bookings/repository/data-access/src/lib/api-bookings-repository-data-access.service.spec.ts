@@ -1,13 +1,15 @@
+import { Context, ActualPrisma } from '../../../../../context';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from './api-bookings-repository-data-access.service';
+import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { createBooking } from '../functions';
-import { prismaMock } from './../singleton'
-import { NotFoundException } from '@nestjs/common';
-import exp = require('constants');
+import { Prisma } from '@prisma/client';
+//'libs/api/authorization/src/lib/jwt.strategy';
 import * as crypto from 'crypto';
+import exp = require('constants');
 
-describe('ApiBookingsRepositoryDataAccessService', () => {
+describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	let apiBookingsRepositoryDataAccessService;
 	let prisma;
 
@@ -19,7 +21,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		prisma = await module.get<PrismaService>(PrismaService);
 	});
 
-	describe('getBookingsForDesk', () => {
+	describe('getBookingsForDesk unit test', () => {
 		it('should get all the bookings from specified desk', async () => {
 			prisma.booking.findMany = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -30,7 +32,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('getBookingById', () => {
+	describe('getBookingById unit test', () => {
 		it('should get a booking corresponding to a booking ID', async () => {
 			prisma.booking.findUnique = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -41,7 +43,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('getCurrentBookingsForDesk', () => {
+	describe('getCurrentBookingsForDesk unit test', () => {
 		it('should return all bookings for a desk at the current time', async () => {
 			prisma.booking.findMany = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -52,9 +54,9 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('createBooking', () => {
+	describe('createBooking unit test', () => {
 		const bookingItem = [
-			{id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
+			{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
 		]
 		it('should create a booking', async () => {
 			prisma.booking.create = jest.fn().mockReturnValueOnce([
@@ -66,7 +68,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('deleteBooking', () => {
+	describe('deleteBooking unit test', () => {
 		const bookingItem = [
 			{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
 		]
@@ -80,6 +82,63 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 });
+
+// describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
+// 	let apiBookingsRepositoryDataAccessService;
+// 	let apiDeskRepositoryDataAccessService;
+// 	let apiUserRepositoryDataAccessService;
+// 	let prisma;
+
+// 	beforeEach(async () => {
+// 		const module: TestingModule = await Test.createTestingModule({
+// 			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
+// 		}).compile();
+// 		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+// 		apiDeskRepositoryDataAccessService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
+// 		apiUserRepositoryDataAccessService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+// 		prisma = await module.get<PrismaService>(PrismaService);
+// 	});
+
+// 	describe('Testing Create, Get and delete functions - Integration', () => {
+// 		it('should create and get a booking', async () => {
+// 			// const room: Prisma.RoomCreateNestedOneWithoutDesksInput = {
+
+// 			// }
+
+// 			// const desk: Prisma.DeskCreateNestedOneWithoutBookingsInput = {
+// 			// }
+
+// 			// const company: Prisma.CompanyCreateNestedOneWithoutEmployeeInput = {
+
+// 			// }
+
+// 			// const user: Prisma.EmployeeCreateNestedOneWithoutBookingsInput = {
+// 			// }
+
+// 			// const booking: Prisma.BookingCreateInput = {
+// 			// 	createdAt:'2022-06-26T14:52:09.509Z',
+// 			// 	endsAt: '2022-05-26T14:52:09.509Z',
+// 			// 	startsAt: '2022-05-26T14:52:09.509Z',
+// 			// 	Desk: desk,
+// 			// 	Employee: user,
+// 			// }
+
+// 			// await apiBookingsRepositoryDataAccessService.createBooking(booking);
+// 			// const result = await apiBookingsRepositoryDataAccessService.getBookingById(3);
+// 			// expect(result).toEqual(result);
+// 		});
+// 		it('should get all the bookings from specified desk', async () => {
+// 			const testVal = await apiBookingsRepositoryDataAccessService.getBookingsForDesk(28);
+// 			expect(testVal).toHaveLength(1);
+// 		});
+// 		it('should delete a booking and return null', async () => {
+// 			it('should delete a booking of a specified booking ID', async () => {
+// 				await apiBookingsRepositoryDataAccessService.deleteBooking(3);
+// 				expect(await apiBookingsRepositoryDataAccessService.getBookingById(3).toHaveLength(0));
+// 			});
+// 		});
+// 	});
+// });
 
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
@@ -100,7 +159,7 @@ expect.extend({
 			typeof received.calls.count === 'function';
 
 		const receivedIsSpy = isSpy(received);
-		const receivedName = receivedIsSpy ? 'spy' : received.getMockName();
+		//const receivedName = receivedIsSpy ? 'spy' : received.getMockName();
 
 		const calls = receivedIsSpy
 			? received.calls.all().map((x: any) => x.args)

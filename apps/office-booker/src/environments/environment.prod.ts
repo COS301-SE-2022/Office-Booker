@@ -6,5 +6,5 @@ export const environment = {
     userPoolWebClientId: '4fq13t0k4n7rrpuvjk6tua951c',
   },
   production: true,
-  API_URL: 'https://api.officebooker.co.za'
+  API_URL: 'http://localhost:3333/api'
 }
