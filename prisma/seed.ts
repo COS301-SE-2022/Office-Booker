@@ -626,7 +626,31 @@ async function main() {
         }
     })
 
+    const facility_3 = await prisma.facility.create({
+        data: {
+            Desk: {
+                connect: {
+                    id: desk_29.id,
+                }
+            },
+            plugs: 2,
+            monitors: 1,
+            projectors: 1,
+        }
+    })
 
+    const facility_4 = await prisma.facility.create({
+        data: {
+            Desk: {
+                connect: {
+                    id: desk_28.id,
+                }
+            },
+            plugs: 1,
+            monitors: 2,
+            projectors: 0,
+        }
+    })
 }
 
 main()
