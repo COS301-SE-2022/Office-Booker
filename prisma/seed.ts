@@ -568,7 +568,37 @@ async function main() {
         },
     })
 
+    const desk_28 = await prisma.desk.create({
+        data: {
+            LocationCol: 540,
+            LocationRow: 0,
+            Room: {
+                connect: {
+                    id: room3.id,
+                },
+            },
+            Width: 300,
+            Height: 200,
+            isMeetingRoom: true,
+            capacity: 10,
+        },
+    })
 
+    const desk_29 = await prisma.desk.create({
+        data: {
+            LocationCol: 0,
+            LocationRow: 210,
+            Room: {
+                connect: {
+                    id: room3.id,
+                },
+            },
+            Width: 30,
+            Height: 50,
+            isMeetingRoom: false,
+            capacity: 15,
+        },
+    })
 
     const facility_1 = await prisma.facility.create({
         data: {
