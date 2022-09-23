@@ -40,6 +40,16 @@ describe('ApiDesksApiController Integration Testing', () => {
   let controller: ApiDesksApiController;
   let service: ApiDesksRepositoryDataAccessService;
 
+  class createDeskDto {
+    roomId: number;
+    LocationRow: number;
+    LocationCol: number;
+    Height: number;
+    Width: number;
+    isMeetingRoom: boolean;
+    capacity: number;
+}
+
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiDesksApiController],
@@ -54,7 +64,7 @@ describe('ApiDesksApiController Integration Testing', () => {
     expect(res.length).toBeGreaterThan(0);
   })
 
-  it("calling getDeskByRoomId method", async () => {
+  it("testing getDeskByRoomId method", async () => {
     const res = await controller.getDesksInRoom('3');
     expect(res).toEqual([
       {
