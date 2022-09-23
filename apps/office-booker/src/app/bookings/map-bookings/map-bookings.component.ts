@@ -264,6 +264,9 @@ export class MapBookingsComponent {
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
+      
+      console.log("API CALLED");
+
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if (booking) {      //if a booking exists at all even one, change the boolean to true
