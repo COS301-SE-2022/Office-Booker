@@ -2,7 +2,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
-
+import {map, Subscription, timer} from 'rxjs';
 
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -79,7 +79,8 @@ export class MapBookingsComponent {
     confirmText: '',
   };
 
-
+  //timer variable
+  timerSubscription: Subscription = new Subscription;
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -110,13 +111,14 @@ export class MapBookingsComponent {
     this.facilityString = "";
 
     // changeDetection.detach();
-
+  
   }
 
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
     //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
+  
   }
 
   onChangeFloor(event: { value: any; })
@@ -164,6 +166,7 @@ export class MapBookingsComponent {
 
   printRooms(roomId: number){
     this.desks.length = 0;
+
     this.getDesksByRoomId(roomId); 
   }
 
@@ -242,7 +245,13 @@ export class MapBookingsComponent {
         newDesk.Height = desk.Height;
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
-        this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+
+        this.timerSubscription = timer(0, 10000).pipe(
+          map(() => {
+            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+          })
+        ).subscribe();
+        
 
         this.desks.push(newDesk);       //adds to desk array
 
