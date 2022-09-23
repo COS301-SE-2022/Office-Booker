@@ -85,6 +85,7 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 
 
 
+
 describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	let service;
 	let deskService;
@@ -145,7 +146,7 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 		await userService.deleteUser(receivedUser.id);
 	});
 
-	describe('Testing Create, Get and delete functions - Integration', () => {
+	describe('Booking Integration Tests', () => {
 		// TODO: not creating in here, check that
 		it('should create and get a booking', async () => {
 			const result = await service.getBookingById(receivedBooking.id);
