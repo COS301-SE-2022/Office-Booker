@@ -7,7 +7,7 @@ import { MailModule } from '@office-booker/api/mail';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
-describe('ApiUsersApiController', () => {
+describe('ApiUsersApiController Unit Tests', () => {
   let controller: ApiUsersApiController;
   let service: ApiUsersRepositoryDataAccessService;
 
@@ -82,19 +82,97 @@ describe('ApiUsersApiController', () => {
   })
 });
 
-/*describe('ApiUsersApiController', () => {
+describe('ApiUsersApiController Integration Tests', () => {
   let controller: ApiUsersApiController;
+  let service: ApiUsersRepositoryDataAccessService;
+  let id: number;
+  let del = false;
 
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiUsersRepositoryDataAccessService, PrismaService],
+  beforeAll(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      imports: [MailService, MailModule, ConfigModule.forRoot({
+        isGlobal: true,
+      })],
       controllers: [ApiUsersApiController],
+      providers: [ApiUsersRepositoryDataAccessService, PrismaService, MailService, ConfigService],
     }).compile();
-
-    controller = module.get(ApiUsersApiController);
+    controller = app.get<ApiUsersApiController>(ApiUsersApiController);
+    service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });
-});*/
+  // afterAll(async () => {
+  //   if (del) {
+  //     const res = await controller.getUserById(id);
+  //     if (res != null) {
+  //       await controller.deleteUser(id);
+  //     }
+  //   }
+  // });
+
+  it("calling getUsers method", async () => {
+    const res = await controller.getUsers();
+    expect(res.length).toBeGreaterThan(0);
+  })
+
+  it("calling getUserById method", async () => {
+    const res = await controller.getUserById(5);
+    expect(res).toEqual({
+      id: 5,
+      name: 'User 1',
+      email: 'user1@gmail.com',
+      companyId: 4,
+      admin: false,
+      guest: false,
+      currentRating: 5,
+      ratingsReceived: 1
+    });
+  })
+
+  it("calling getUsersByCompanyId method", async () => {
+    const res = await controller.getUsersByCompanyId(4);
+    expect(res).toEqual([
+      {
+        id: 5,
+        name: 'User 1',
+        email: 'user1@gmail.com',
+        companyId: 4,
+        admin: false,
+        guest: false,
+        currentRating: 5,
+        ratingsReceived: 1
+      },
+      {
+        id: 6,
+        name: 'User 2',
+        email: 'user2@gmail.com',
+        companyId: 4,
+        admin: false,
+        guest: false,
+        currentRating: 10,
+        ratingsReceived: 3
+      },
+    ]);
+  })
+
+  it("calling createUser method", async () => {
+    const postData = {
+      name: 'Test User',
+      companyId: 4,
+      email: 'email',
+      admin: false,
+      guest: false
+    }
+    const res = await controller.createUser(postData);
+    expect(res.name).toEqual('Test User');
+    expect(res.email).toEqual('email');
+    expect(res.companyId).toEqual(4);
+    id = res.id
+  })
+
+  it("calling deleteUser method", async () => {
+    del = true;
+    await controller.deleteUser(id);
+    const res = await controller.getUserById(id);
+    expect(res).toBe(null);
+  })
+});

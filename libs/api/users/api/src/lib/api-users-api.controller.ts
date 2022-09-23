@@ -51,7 +51,6 @@ export class ApiUsersApiController {
 
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
-        console.log("Im here");
         const { name , companyId, email, guest } = postData;
         this.mailService.sendUserConfirmation(email);
         return await this.userService.createUser({
