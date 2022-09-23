@@ -24,6 +24,13 @@ async function main() {
         },
     })
 
+    const company4 = await prisma.company.create({
+        data: {
+            name: 'Tester Inc',
+            domain: ['tester.com'],
+        },
+    })
+
     const employee1 = await prisma.employee.create({
         data: {
             name: 'Brett du Plessis',
@@ -72,7 +79,29 @@ async function main() {
         },
     })
     
+    const employee5 = await prisma.employee.create({
+        data: {
+            name: 'User 1',
+            company: { connect: { id: company4.id } },
+            email: 'user1@gmail.com',
+            admin: false,
+            guest: false,
+            currentRating: 5,
+            ratingsReceived: 1,
+        },
+    })
 
+    const employee6 = await prisma.employee.create({
+        data: {
+            name: 'User 2',
+            company: { connect: { id: company4.id } },
+            email: 'user2@gmail.com',
+            admin: false,
+            guest: false,
+            currentRating: 10,
+            ratingsReceived: 3,
+        },
+    })
 
     // create a room
     const room = await prisma.room.create({
@@ -86,6 +115,13 @@ async function main() {
         data: {
             name: 'Second Room',
             Company: { connect: { id: company1.id } },
+        },
+    })
+
+    const room3 = await prisma.room.create({
+        data: {
+            name: 'Test Room',
+            Company: { connect: { id: company4.id } },
         },
     })
 
@@ -532,6 +568,38 @@ async function main() {
         },
     })
 
+    const desk_28 = await prisma.desk.create({
+        data: {
+            LocationCol: 540,
+            LocationRow: 0,
+            Room: {
+                connect: {
+                    id: room3.id,
+                },
+            },
+            Width: 300,
+            Height: 200,
+            isMeetingRoom: true,
+            capacity: 10,
+        },
+    })
+
+    const desk_29 = await prisma.desk.create({
+        data: {
+            LocationCol: 0,
+            LocationRow: 210,
+            Room: {
+                connect: {
+                    id: room3.id,
+                },
+            },
+            Width: 30,
+            Height: 50,
+            isMeetingRoom: false,
+            capacity: 15,
+        },
+    })
+
     const facility_1 = await prisma.facility.create({
         data: {
             Desk: {
@@ -554,6 +622,32 @@ async function main() {
             },
             plugs: 2,
             monitors: 1,
+            projectors: 0,
+        }
+    })
+
+    const facility_3 = await prisma.facility.create({
+        data: {
+            Desk: {
+                connect: {
+                    id: desk_29.id,
+                }
+            },
+            plugs: 2,
+            monitors: 1,
+            projectors: 1,
+        }
+    })
+
+    const facility_4 = await prisma.facility.create({
+        data: {
+            Desk: {
+                connect: {
+                    id: desk_28.id,
+                }
+            },
+            plugs: 1,
+            monitors: 2,
             projectors: 0,
         }
     })
