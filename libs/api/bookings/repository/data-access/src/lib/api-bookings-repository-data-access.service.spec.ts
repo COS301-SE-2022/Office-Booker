@@ -94,6 +94,10 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	let receivedUser;
 	let receivedDesk;
 	let receivedBooking;
+	let receivedInviteUser
+	let invite;
+	let createdInvite;
+	let receivedInvite;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -117,10 +121,24 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 			guest: false,
 			currentRating: 5,
 			ratingsReceived: 1
-		  };		
+		  };	
+		  
+		const inviteUser = {
+			name: 'Invite User',
+			company: { connect: { id: 4 } },
+			Bookings: undefined,
+			email: 'inviteuser@gmail.com',
+			admin: false,
+			guest: false,
+			currentRating: 5,
+			ratingsReceived: 1
+		};
 		  
 		  await userService.createUser(user); 
 		  receivedUser = await userService.getUserByEmail(user.email);
+
+		  await userService.createUser(inviteUser);
+		  receivedInviteUser = await userService.getUserByEmail(inviteUser.email);
 
 		  const desk = { Room: { connect: { id: 1},}, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
 		  const createdDesk = await deskService.createDeskByRoomId(desk);
@@ -138,36 +156,100 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 		const createdBooking = await service.createBooking(booking);
 
 		receivedBooking = await service.getBookingById(createdBooking.id);
+
+		const createdInvite = await service.createInvite(receivedBooking.id, receivedInviteUser.email);
+		receivedInvite = await service.getInviteById(createdInvite.id);
 	});
 
 	afterEach(async () => {
+	
+		await service.deleteInvite(receivedInvite.id);
 		await service.deleteBooking(receivedBooking.id);
 		await deskService.deleteDesk(receivedDesk.id);
 		await userService.deleteUser(receivedUser.id);
+		await userService.deleteUser(receivedInviteUser.id);
 	});
 
-	describe('Booking Integration Tests', () => {
-		// TODO: not creating in here, check that
-		it('should create and get a booking', async () => {
-			const result = await service.getBookingById(receivedBooking.id);
-			expect(result).toEqual(result);
-			
+	describe('Bookings Integration Tests', () => {
+		it('should get all bookings', async () => {
+			const bookings = await service.getAllBookings();
+			expect(bookings).toBeDefined();
+			expect(bookings.length).toBeGreaterThan(0);
 		});
 
-		it('should get all the bookings from specified desk', async () => {
+		it('should get all the bookings for specified desk', async () => {
 			const testVal = await service.getBookingsForDesk(receivedDesk.id);
 			expect(testVal).toHaveLength(1);
 			
 		});
 
+		it('should get a booking by id', async () => {
+			const result = await service.getBookingById(receivedBooking.id);
+			expect(result).toEqual(receivedBooking);
+		});
+
+		//TODO: getCurrentBookingsForDesk (not used anywhere)
+
+		it('should create a booking', async () => {
+			const bookingNew =  {
+				createdAt:'2022-06-26T14:52:09.509Z',
+				startsAt: '2022-05-26T16:52:09.509Z',
+				endsAt: '2022-05-26T16:52:09.509Z',
+	
+				Desk: { connect: { id: receivedDesk.id } },
+				Employee: { connect: { id: receivedUser.id } },
+				}
+		
+			const createdBooking = await service.createBooking(bookingNew);
+			expect(createdBooking).toBeDefined();
+			await service.deleteBooking(createdBooking.id);
+
+		});
+
+		it('should delete a booking', async () => {
+			const bookingNew =  {
+				createdAt:'2022-06-26T14:52:09.509Z',
+				startsAt: '2022-05-26T16:52:09.509Z',
+				endsAt: '2022-05-26T16:52:09.509Z',
+	
+				Desk: { connect: { id: receivedDesk.id } },
+				Employee: { connect: { id: receivedUser.id } },
+				}
+		
+			const createdBooking = await service.createBooking(bookingNew);
+			expect(createdBooking).toBeDefined();
+			const deletedBooking = await service.deleteBooking(createdBooking.id);
+			expect(deletedBooking).toBeDefined();
+		});
+
+		it('should get bookings by user id', async () => {
+			const bookings = await service.getBookingsByUserId(receivedUser.id);
+			expect(bookings).toBeDefined();
+			expect(bookings.length).toBeGreaterThan(0);
+		});
+
 		it('should delete a booking and return null', async () => {
-				const deletedBooking = await service.deleteBooking(receivedBooking.id);
-				expect(deletedBooking).toEqual(receivedBooking);
-				await service.createBooking(receivedBooking);
+				expect(receivedInvite).toBeDefined();
+				//will get deleted in after each
+		});
+	});
+
+	describe('Invites Integration Tests', () => {
+		it('should create an invite', async () => {
+			expect(receivedInvite).toBeDefined();
+		});
+
+		it('should get invites for booking', async () => {
+			const invites = await service.getInvitesForBooking(receivedBooking.id);
+			expect(invites).toBeDefined();
+			expect(invites.length).toBeGreaterThan(0);
 		});
 	});
 	
 });
+
+
+
 
 
 declare global {
