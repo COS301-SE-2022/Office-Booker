@@ -15,6 +15,9 @@ import { json } from 'stream/consumers';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { Observable } from 'rxjs';
+
+
 @Component({
   selector: 'office-booker-map-bookings',
   templateUrl: './map-bookings.component.html',
@@ -79,6 +82,8 @@ export class MapBookingsComponent {
     confirmText: '',
   };
 
+  allBookings: Observable<Booking[]>;
+
 
 
   constructor(private bookingService: BookingServiceService,
@@ -108,6 +113,8 @@ export class MapBookingsComponent {
     this.numProjectors = 0;
     // this.desk = { id: 0, name: "", type: "", roomId: 0 };
     this.facilityString = "";
+
+    this.allBookings = this.bookingService.getAllCurrencies();
 
     // changeDetection.detach();
 

@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+
+import { OnDestroy } from '@angular/core';
+import { timer, Subscription, Subject } from 'rxjs';
+import {  } from '@angular/common/http';
+import { switchMap, tap, share, retry, takeUntil } from 'rxjs/operators';
+
 export interface Room {
   id: number;
   name: string;
@@ -93,9 +99,27 @@ export interface rating{
 
 export class BookingServiceService {
 
-  constructor(private http: HttpClient) { }
-
+  private allBookings: Observable<Booking[]>;
+  private stopPolling = new Subject();
   private baseURL = environment.API_URL + "/api/";
+
+
+  constructor(private http: HttpClient) { 
+    const url = this.baseURL + 'bookings';
+    this.allBookings = timer(0, 3000).pipe(
+      switchMap(() => this.http.get<Booking[]>(`${url}`)),
+      retry(),
+      tap(console.log),
+      share(),
+    );
+  }
+
+  getAllCurrencies(): Observable<Booking[]> {
+    return this.allBookings.pipe(   
+      tap(() => console.log('data sent to subscriber'))
+    );
+  }
+
 
   getAllRooms(): Observable<Room[]> {
     const url = this.baseURL + 'rooms';

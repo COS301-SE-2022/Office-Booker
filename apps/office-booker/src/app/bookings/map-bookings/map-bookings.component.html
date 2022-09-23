@@ -1,4 +1,10 @@
 <body>
+    <div *ngIf="allBookings | async as allBookings">
+        <h4 *ngFor="let booking of allBookings">
+            {{booking.id}}
+        </h4>
+    </div>
+    
     <mat-card class="options-bar">
         <mat-card-content>
 
