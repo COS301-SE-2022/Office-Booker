@@ -282,6 +282,7 @@ export class MapBookingsComponent {
               const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
               bookingDate.setHours(bookingDate.getHours() - 2);
               if (bookingDate > comparisonDate) {
+                this.desks[i].bookings = []; 
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
                 this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
