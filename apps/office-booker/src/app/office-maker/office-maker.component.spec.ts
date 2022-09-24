@@ -3,6 +3,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { OfficeMakerComponent } from './office-maker.component';
 import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('OfficeMakerComponent', () => {
   let component: OfficeMakerComponent;
@@ -10,7 +15,7 @@ describe('OfficeMakerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule],
       declarations: [OfficeMakerComponent],
       providers: [PopupDialogService,
         { provide: MatDialogRef, useValue: {}},

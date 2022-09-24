@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 describe('BookingsComponent', () => {
@@ -31,7 +32,8 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule],
+                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule
+              , BrowserAnimationsModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
