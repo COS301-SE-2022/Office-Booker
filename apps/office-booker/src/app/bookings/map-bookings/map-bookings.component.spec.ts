@@ -31,7 +31,7 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule, MatLabel],
+                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
