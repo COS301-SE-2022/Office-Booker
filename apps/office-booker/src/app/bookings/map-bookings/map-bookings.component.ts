@@ -246,7 +246,7 @@ export class MapBookingsComponent {
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        this.timerSubscription = timer(0, 10000).pipe(
+        this.timerSubscription = timer(0, 6000).pipe(
           map(() => {
             this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
           })
