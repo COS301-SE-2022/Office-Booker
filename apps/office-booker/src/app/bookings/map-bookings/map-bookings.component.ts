@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { json } from 'stream/consumers';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/form-field';
 
 @Component({
   selector: 'office-booker-map-bookings',
