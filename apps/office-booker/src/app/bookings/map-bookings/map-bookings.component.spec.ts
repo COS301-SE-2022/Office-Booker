@@ -21,7 +21,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 
 describe('BookingsComponent', () => {
@@ -31,7 +31,7 @@ describe('BookingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule],
+                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule, MatLabel],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
