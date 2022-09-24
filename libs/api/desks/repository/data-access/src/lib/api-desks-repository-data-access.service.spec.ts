@@ -33,5 +33,4 @@ describe('ApiDesksRepositoryDataAccessService', () => {
       console.log(await service.getDesksInRoom(1));
     });
   });
-
 });
