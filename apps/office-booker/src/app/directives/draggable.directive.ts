@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Directive({
   selector: '[officeBookerDraggable]'
