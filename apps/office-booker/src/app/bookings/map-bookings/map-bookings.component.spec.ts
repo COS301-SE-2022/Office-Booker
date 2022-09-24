@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card'
 import { FormsModule } from '@angular/forms'
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatMenu, MatMenuModule} from '@angular/material/menu';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { CognitoService } from '../../cognito.service';
 
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -19,6 +19,9 @@ import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.servi
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 
 
 describe('BookingsComponent', () => {
