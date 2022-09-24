@@ -15,6 +15,8 @@ import { json } from 'stream/consumers';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormField } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'office-booker-map-bookings',
