@@ -14,6 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { json } from 'stream/consumers';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'office-booker-map-bookings',
@@ -80,7 +83,7 @@ export class MapBookingsComponent {
   };
 
   //timer variable
-  timerSubscription: Subscription = new Subscription;
+  // timerSubscription: Subscription = new Subscription;
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -246,11 +249,11 @@ export class MapBookingsComponent {
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        this.timerSubscription = timer(0, 6000).pipe(
-          map(() => {
-            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-          })
-        ).subscribe();
+        // this.timerSubscription = timer(0, 6000).pipe(
+        //   map(() => {
+        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+        //   })
+        // ).subscribe();
         
 
         this.desks.push(newDesk);       //adds to desk array

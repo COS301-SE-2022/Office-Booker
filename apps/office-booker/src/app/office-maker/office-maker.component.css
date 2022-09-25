@@ -1,12 +1,26 @@
 .items-container {
-    width: 100%;
+    width: 40%;
+    float: right;
+    margin: 2rem;
+        /* border: black solid 1px; */
+    border: 3px solid rgb(255, 255, 0, 1);
+    background: rgba(255, 255, 255, 0);
+
+
 }
 
 .svg-container {
+    /* margin: 1rem; */
+    margin-left: 1rem;
+    margin-right: 1rem;
     border: 3px dashed #000;
     background-color: #CCC;
-    width: 800px;
+    width: 1600px;
     height: 800px;
+    float: left;
+    border: 3px solid rgb(255, 255, 0, 1);
+    
+
 }
 
 .floor-selection-container {
@@ -17,14 +31,111 @@
 
 .creation-container {  
     display: inline-block;
+    background: rgba(255, 255, 255, 0);
+
 }
+
+
 
 .button-container {
     justify-content: center;
     width:30%;
     display: inline-block;
     align-items: center;
+    border: 3px solid rgb(255, 255, 0, 1);
+
 }
+
 .svg-create-container {
     display: inline-block;
+    border: 3px solid rgb(125, 0, 0, 1);
+
 }
+
+.selected {
+    border: 3px solid rgb(255, 0, 0);
+}
+
+.options-bar{
+    float: left;
+    width: 1600px;
+    margin: 1rem;
+    /* background-color: rgba(255, 255, 255, 1); */
+    text-align: center;
+    /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
+    /* border-radius: 40px; */
+    /* display: inline; */
+
+    border: 1px solid rgb(241, 241, 241);
+    border-radius: 4px;
+    padding: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border: 3px solid rgb(255, 255, 0, 1);
+    background: rgba(255, 255, 255, 0);
+
+
+}
+
+.generateBlock{
+    margin-right: 5rem;
+    /* display: inline-block; */
+    /* left: 0; */
+    
+    /* border:rgb(125, 0, 0, 1) dotted 2px; */
+    display: inline;
+    position: relative;
+    height:35px; 
+    width: 100px;
+}
+
+.mat-raised-button{
+    margin: 0.5rem;
+}
+/* 
+.svg-container{
+    margin: 2rem;
+    border: 3px solid rgb(255, 255, 0, 1);
+} */
+
+.office-booker-draggable{
+    /* top: 0; */
+    display: inline;
+    position: absolute;
+    /* border:rgb(255, 255, 0) solid 3px; */
+    /* right: 0; */
+}
+
+.createObject{
+    
+    height:35px; 
+    width: 75px;
+    margin-top: 9px;   
+    
+    /* border:rgb(255, 0, 0) solid 3px; */
+}
+
+label{
+    margin: 0.5rem;
+}
+
+mat-form-field{
+    margin: 0.5rem;
+}
+
+.desk {
+    fill: rgb(106, 148, 233);
+    transition: all 0.1s;
+    transform-origin: 5% 5%;
+}
+
+.meetingRoom {
+    fill: rgb(126, 126, 126);
+    transition: all 0.1s;
+    transform-origin: 5% 5%;
+}
+
+.circle {
+    fill: rgb(148, 248, 134);
+}
+

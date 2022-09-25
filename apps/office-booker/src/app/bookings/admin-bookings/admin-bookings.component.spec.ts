@@ -4,7 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatCardModule } from '@angular/material/card'
 import { AdminBookingsComponent } from './admin-bookings.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 
 describe('AdminBookingsComponent', () => {
   let component: AdminBookingsComponent;
@@ -14,7 +16,7 @@ describe('AdminBookingsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AdminBookingsComponent],
       imports: [RouterTestingModule, MatCardModule, HttpClientTestingModule, MatSnackBarModule, 
-        MatGridListModule]
+        MatGridListModule, MatButtonToggleModule]
     }).compileComponents();
   });
 
