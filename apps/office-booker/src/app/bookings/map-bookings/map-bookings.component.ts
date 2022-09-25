@@ -260,12 +260,12 @@ export class MapBookingsComponent implements OnDestroy{
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
 
-        this.timerSubscription.push(timer(0, 6000).pipe(
-          map(() => {
-            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-          })
-        ).subscribe()
-        );
+        // this.timerSubscription.push(timer(0, 6000).pipe(
+        //   map(() => {
+        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+        //   })
+        // ).subscribe()
+        // );
 
 
         this.desks.push(newDesk);       //adds to desk array
@@ -277,12 +277,17 @@ export class MapBookingsComponent implements OnDestroy{
   }
 
   getBookingsByDeskId(deskId: number) {
+
+     for (let i = 0; i < this.desks.length; i++) {       //loops through the desks array
+        this.desks[i].bookings = []; 
+      }
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
-    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
+    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if (booking) {      //if a booking exists at all even one, change the boolean to true
+          // console.log(booking);
           const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
           bookingDate.setHours(bookingDate.getHours() - 2);   //booking is saved plus two somehow
 
@@ -290,6 +295,7 @@ export class MapBookingsComponent implements OnDestroy{
             bookingReturn = true;
           }
         }
+        
         for (let i = 0; i < this.desks.length; i++)      //loop through each desk in the array to make sure you find the correct desk
         {
           if (this.desks[i].id == deskId) {       //find correct desk using the id of the desk
@@ -298,7 +304,6 @@ export class MapBookingsComponent implements OnDestroy{
               const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
               bookingDate.setHours(bookingDate.getHours() - 2);
               if (bookingDate > comparisonDate) {
-                this.desks[i].bookings = []; 
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
                 this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
