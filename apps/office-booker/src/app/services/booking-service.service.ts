@@ -130,6 +130,18 @@ export class BookingServiceService {
     return this.http.get<Facility>(`${url}`);
   }
 
+  updateFacilities(deskId: number, plugs: number, monitors: number, projectors: number){
+    const url = this.baseURL + 'facilities/desk/' + deskId;
+    console.log(plugs, monitors, projectors);
+    const body = { 
+      plugs: plugs,
+      monitors: monitors,
+      projectors: projectors
+    }
+    console.log(body);
+    return this.http.put<Facility>(`${url}`, body);
+  }
+
   getBookingsByDeskId(deskId: number){
     const url = this.baseURL + 'bookings/desk/' + deskId;
     return this.http.get<Booking[]>(`${url}`);

@@ -403,6 +403,14 @@ export class OfficeMakerComponent implements OnInit {
 
 
       dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        this.numPlugs = result.numPlugs;
+        this.numMonitors = result.numMonitors;
+        this.numProjectors = result.numProjectors;
+        this.deskId = result.deskId;
+        this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
+          console.log(res);
+        });
         //
       });
 

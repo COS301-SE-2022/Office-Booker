@@ -13,7 +13,7 @@
 </svg>
 
 <mat-form-field>
-  <input matInput type="number" id="numPlugs" name="number"class="form-control form-control-sm" placeholder={{this.data.numPlugs}}>
+  <input matInput type="number" id="numPlugs" name="number" [(ngModel)]="data.numPlugs" class="form-control form-control-sm" >
 </mat-form-field>
 
 <br>
@@ -28,7 +28,7 @@
 </svg>
 
 <mat-form-field>
-  <input matInput type="number" id="numPlugs" name="number"class="form-control form-control-sm" placeholder={{this.data.numMonitors}}>
+  <input matInput type="number" id="numPlugs" name="number" [(ngModel)]="data.numMonitors" class="form-control form-control-sm" >
 </mat-form-field>
 
 <br>
@@ -53,7 +53,7 @@
 </svg>
 
 <mat-form-field>
-  <input matInput type="number" id="numPlugs" name="number"class="form-control form-control-sm" placeholder={{this.data.numProjectors}}>
+  <input matInput type="number" id="numPlugs" name="number" [(ngModel)]="data.numProjectors" class="form-control form-control-sm" >
 </mat-form-field>
 
   <!-- <mat-form-field>
@@ -69,5 +69,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" >Close</button>
-  <button mat-button [mat-dialog-close] cdkFocusInitial>Save</button>
+  <button mat-button [mat-dialog-close] [mat-dialog-close]="data" cdkFocusInitial>Save</button>
 </div>

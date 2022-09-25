@@ -13,4 +13,18 @@ export class ApiFacilitiesRepositoryDataAccessService {
             },
         });
     }
+
+   async updateFacilitiesForDesk(@Param() deskId: number, updatePlugs: number, 
+                                    updateMonitors: number, updateProjectors: number) {
+        return this.prisma.facility.updateMany({
+            where: {
+                deskId: deskId,
+            },
+            data: {
+                plugs: updatePlugs,
+                monitors: updateMonitors,
+                projectors: updateProjectors,
+            },
+        });
+    }
 }
