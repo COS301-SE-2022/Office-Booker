@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
 import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
@@ -20,7 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   templateUrl: './map-bookings.component.html',
   styleUrls: ['./map-bookings.component.css'],
 })
-export class MapBookingsComponent {
+export class MapBookingsComponent implements OnDestroy{
 
   //map based variables
   desks: Array<Desk> = [];
@@ -80,7 +80,7 @@ export class MapBookingsComponent {
   };
 
   //timer variable
-  timerSubscription: Subscription = new Subscription;
+  private timerSubscription: Subscription[] = [];
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -119,6 +119,15 @@ export class MapBookingsComponent {
     //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
   
+  }
+
+  ngOnDestroy(){
+    console.log("stop timer");
+    // unsubscribe timer
+
+      this.timerSubscription.forEach((sub) => sub.unsubscribe());
+    
+    
   }
 
   onChangeFloor(event: { value: any; })
@@ -246,12 +255,12 @@ export class MapBookingsComponent {
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        this.timerSubscription = timer(0, 6000).pipe(
+        this.timerSubscription.push(timer(0, 6000).pipe(
           map(() => {
             this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
           })
-        ).subscribe();
-        
+        ).subscribe()
+        );
 
         this.desks.push(newDesk);       //adds to desk array
 
