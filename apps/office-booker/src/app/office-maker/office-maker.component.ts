@@ -115,6 +115,7 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
+    newDesk.classList.add("new");
     newDesk.onclick = () => this.selectItem(newDesk.id);
     this.idCounterDesk++;
    
@@ -171,6 +172,7 @@ export class OfficeMakerComponent implements OnInit {
     map.forEach(node => {
       const rects = node.children;
       Array.from(rects).forEach(rect => {
+        if (rect.classList.contains("new")){
         const attrb = rect.attributes;
         const newRect = {} as Desk;
         newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
@@ -178,10 +180,12 @@ export class OfficeMakerComponent implements OnInit {
         newRect.Width = Number(attrb.getNamedItem('width')?.value);
         newRect.Height = Number(attrb.getNamedItem('height')?.value);
         newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
-        this.makerService.createDesk(2, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
+        this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
         console.log(newRect);
+        }
       })
     });
+    alert("Map saved");
   }
 
   rotate(){

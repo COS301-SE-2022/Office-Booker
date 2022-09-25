@@ -4,6 +4,8 @@
     margin: 2rem;
         /* border: black solid 1px; */
     border: 3px solid rgb(255, 255, 0, 1);
+    background: rgba(255, 255, 255, 0);
+
 
 }
 
@@ -17,6 +19,7 @@
     height: 800px;
     float: left;
     border: 3px solid rgb(255, 255, 0, 1);
+    
 
 }
 
@@ -28,6 +31,8 @@
 
 .creation-container {  
     display: inline-block;
+    background: rgba(255, 255, 255, 0);
+
 }
 
 
@@ -67,6 +72,8 @@
     padding-top: 16px;
     padding-bottom: 16px;
     border: 3px solid rgb(255, 255, 0, 1);
+    background: rgba(255, 255, 255, 0);
+
 
 }
 
