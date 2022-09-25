@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
 import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
@@ -23,7 +23,7 @@ import { MatSelect } from '@angular/material/select';
   templateUrl: './map-bookings.component.html',
   styleUrls: ['./map-bookings.component.css'],
 })
-export class MapBookingsComponent {
+export class MapBookingsComponent implements OnDestroy{
 
   //map based variables
   desks: Array<Desk> = [];
@@ -83,7 +83,9 @@ export class MapBookingsComponent {
   };
 
   //timer variable
-  // timerSubscription: Subscription = new Subscription;
+
+  private timerSubscription: Subscription[] = [];
+
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -122,6 +124,14 @@ export class MapBookingsComponent {
     //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
   
+  }
+
+  ngOnDestroy(){
+    // unsubscribe timer
+
+      this.timerSubscription.forEach((sub) => sub.unsubscribe());
+    
+    
   }
 
   onChangeFloor(event: { value: any; })
@@ -249,12 +259,14 @@ export class MapBookingsComponent {
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        // this.timerSubscription = timer(0, 6000).pipe(
-        //   map(() => {
-        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-        //   })
-        // ).subscribe();
-        
+
+        this.timerSubscription.push(timer(0, 6000).pipe(
+          map(() => {
+            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+          })
+        ).subscribe()
+        );
+
 
         this.desks.push(newDesk);       //adds to desk array
 
@@ -267,8 +279,6 @@ export class MapBookingsComponent {
   getBookingsByDeskId(deskId: number) {
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
-      
-      console.log("API CALLED");
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
