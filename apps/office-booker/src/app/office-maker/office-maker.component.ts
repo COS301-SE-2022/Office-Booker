@@ -161,6 +161,7 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
+    newMeetingRoom.classList.add("new");
     newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
     this.idCounterMeetingRoom++;
 
