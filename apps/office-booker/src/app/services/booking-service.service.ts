@@ -19,6 +19,9 @@ export interface Desk {
   bookings: Booking[],
   isMeetingRoom: boolean,
   ownBooking: boolean,
+  numPlugs: number,
+  numMonitors: number,
+  numProjectors: number,
 }
 
 export interface Booking {

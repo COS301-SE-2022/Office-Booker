@@ -4,9 +4,18 @@ import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { BookingServiceService } from '../services/booking-service.service';
-import { DeskPopupComponent } from '../bookings/map-bookings/desk-popup/desk-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { Facility } from '@prisma/client';
+
+
+export interface DialogData {
+  numPlugs: number;
+  numMonitors: number;
+  numProjectors: number;
+  deskId: number;
+}
 
 @Component({
   selector: 'office-booker-office-maker',
@@ -17,7 +26,9 @@ import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service'
 export class OfficeMakerComponent implements OnInit {
   clicked = false;
   drawMode = false;
+  editMode = false;
   idCounterDesk = 0;
+  
   idCounterWall = 0;
   idCounterMeetingRoom = 0;
   deskWidth = 50;
@@ -26,10 +37,18 @@ export class OfficeMakerComponent implements OnInit {
   roomHeight = 200;
   wallWidth = 300;
   desks: Array<Desk> = [];
+  facilities: Array<Facility> = [];
   selectedItemId = "default";
 
   currentRooms: Array<Room> = [];
   selectedRoom = 1;
+
+  numPlugs: number;
+  numMonitors: number;
+  numProjectors: number;
+  deskId: number;
+  facilityString: string;
+
 
   option = {
     title: 'CONFIRM.DOWNLOAD.JOB.TITLE',
@@ -48,7 +67,13 @@ export class OfficeMakerComponent implements OnInit {
     private bookingService: BookingServiceService, 
     public dialog: MatDialog, 
     private popupDialogService: PopupDialogService,
-    ) {}
+    ) {
+      this.numPlugs = 99;
+      this.numMonitors = 99;
+      this.numProjectors = 99;
+      this.deskId = -1;
+      this.facilityString = "error";
+    }
 
   ngOnInit(): void {
     //this.getOffices();
@@ -57,7 +82,7 @@ export class OfficeMakerComponent implements OnInit {
     this.changeDetection.detectChanges();
   }
 
-  getCurrentUser() {             //used to get the current logged in user for using the userId, and potentially other information at a later date
+  getCurrentUser() { //used to get the current logged in user for using the userId, and potentially other information at a later date
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.currentUser = res;
@@ -67,11 +92,12 @@ export class OfficeMakerComponent implements OnInit {
       
       this.getRooms(this.currentUser.companyId);
       console.log(this.currentRooms[0]);
-      this.generateDesks();
 
       this.changeDetection.detectChanges();
     })
   }
+
+  
 
   generateDesks(){ 
     const svg = document.getElementById("dropzone");
@@ -81,18 +107,26 @@ export class OfficeMakerComponent implements OnInit {
     console.log(this.desks);
     for (let i=0; i<this.desks.length; i++)
     {
-      const newDesk = document.createElementNS(svgns, "rect");
-      newDesk.setAttribute("x", this.desks[i].LocationCol.toString());
-      newDesk.setAttribute("y", this.desks[i].LocationRow.toString());
-      newDesk.setAttribute("width", this.desks[i].Width.toString() ); //default 65
-      newDesk.setAttribute("height", this.desks[i].Height.toString() ); //default 35
-      newDesk.setAttribute("fill", "grey");
-      newDesk.setAttribute("isMeetingRoom", "false");
-      newDesk.setAttribute("id", this.desks[i].id.toString());
-      newDesk.classList.add("preMade");
-      newDesk.onclick = () => this.selectItem(newDesk.id);
-      console.log("new desk created");
+      this.getFacilitiesForDesk(this.desks[i].id);
+        console.log(this.numPlugs);
+        const newDesk = document.createElementNS(svgns, "rect");
+        newDesk.setAttribute("x", this.desks[i].LocationCol.toString());
+        newDesk.setAttribute("y", this.desks[i].LocationRow.toString());
+        newDesk.setAttribute("width", this.desks[i].Width.toString() ); //default 65
+        newDesk.setAttribute("height", this.desks[i].Height.toString() ); //default 35
+        newDesk.setAttribute("fill", "grey");
+        newDesk.setAttribute("isMeetingRoom", "false");
+        newDesk.setAttribute("id", this.desks[i].id.toString());
+        newDesk.classList.add("preMade");
+        newDesk.onclick = () => this.selectItem(newDesk.id);
+        newDesk.setAttribute("numPlugs", this.numPlugs.toString());
+        newDesk.setAttribute("numMonitors", this.numMonitors.toString());
+        newDesk.setAttribute("numProjectors", this.numProjectors.toString());
+
+        this.changeDetection.detectChanges();
+      
       svg?.appendChild(newDesk);
+      
 
     }
   }
@@ -123,7 +157,16 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
-    if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
+
+    if (this.editMode == true) {
+      // this.getFacilitiesForDesk(parseInt(itemId));
+      console.log(this.editMode);
+      this.selectedItemId = itemId;
+      this.startEdit(itemId);
+
+    }
+    else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
+      console.log("item selected not editMode");
       document.getElementById(this.selectedItemId)?.setAttribute("style", "stroke:rgb(0,255,0);stroke-width:0");
       this.selectedItemId = "default";
       this.selectedItemId = itemId;
@@ -132,7 +175,7 @@ export class OfficeMakerComponent implements OnInit {
       this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
     }
-    console.log("select item: " + this.selectedItemId);
+    // console.log("select item: " + this.selectedItemId);
   }
 
   deleteItem() {
@@ -207,6 +250,76 @@ export class OfficeMakerComponent implements OnInit {
     console.log(this.drawMode);
   }
 
+  setEdit(){
+    this.editMode = !this.editMode;
+    console.log(this.editMode);
+  }
+
+  startEdit(itemId: string){
+    // if (document.getElementById("startdraw") != null) {
+    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
+    // }
+    console.log("start edit");
+        this.selectedItemId = itemId;
+        
+        this.openDialog(parseInt(itemId));
+      
+    
+    // if (this.drawMode == true) {
+    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
+    // } else if (this.drawMode == false) {
+    //   document.getElementById("startdraw")?.setAttribute("style", "border: 0px");
+    // }
+    
+  }
+
+  getFacilitiesForDesk(deskId: number) {
+    if (deskId != 0) 
+    {
+      this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
+        console.log(res);
+        this.facilities.push(res);
+        this.facilityString = JSON.stringify(res);//converts response to string
+        if (JSON.stringify(res) != "[]") {
+          //split the parsed string to extract the varaiables we need
+          const myArray = JSON.stringify(res).split(",");
+          const id = myArray[0].split(":");
+          const plugsString = myArray[2].split(":")[1];
+          const monitorsString = myArray[3].split(":")[1];
+          const projectorsString = myArray[4].split(":")[1].replace(/\D/g, '');
+          //change the extarcted strings into numbers
+          // this.numPlugs = Number(plugsString);
+          // this.numMonitors = Number(monitorsString);
+          // this.numProjectors = Number(projectorsString);
+          // console.log("get facilities: " + this.numPlugs + " " + this.numMonitors + " " + this.numProjectors);
+          const facility = {} as Facility;
+          facility.deskId = deskId;
+          facility.plugs = Number(plugsString);
+          facility.monitors = Number(monitorsString);
+          facility.projectors = Number(projectorsString);
+          facility.id = Number(id);
+          this.facilities.push(facility);
+          this.changeDetection.detectChanges();
+       
+        this.changeDetection.detectChanges();
+      
+    }
+    else {
+      //if deskId is 0, set all to 0
+      console.log("bottom");
+      this.numPlugs = 0;
+      this.numMonitors = 0;
+      this.numProjectors = 0;
+      this.changeDetection.detectChanges();
+
+    }
+
+
+  });
+}
+}
+  
+
   // debug function
   printClicked(){
     console.log(this.clicked);
@@ -228,6 +341,7 @@ export class OfficeMakerComponent implements OnInit {
   getDesksByRoomId(roomId: number) {
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
       res.forEach(desk => {
+        this.getFacilitiesForDesk(desk.id);
         const newDesk = {} as Desk;       //new desk object to hold a new and possibly empty variable
         newDesk.id = desk.id;             //assigns each property individually
         newDesk.LocationCol = desk.LocationCol;
@@ -237,6 +351,9 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.Height = desk.Height;
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
+        newDesk.numPlugs = this.numPlugs;
+        newDesk.numMonitors = this.numMonitors;
+        newDesk.numProjectors = this.numProjectors;
 
         this.desks.push(newDesk);       //adds to desk array
 
@@ -258,17 +375,39 @@ export class OfficeMakerComponent implements OnInit {
     })
   }
 
-  selectToBook(deskId: number, itemType: boolean) {       //used to find the info for the selected desk
+  openDialog(x: number): void {    
+    console.log("open dialog");
+    console.log(this.facilities[0].plugs);
     
-    this.openDialog(deskId, itemType);        //opens the dialog box for booking
+    // this.desks.find(d => d.id == x)?.numPlugs
     this.changeDetection.detectChanges();
-  }
+    
+    // console.log(this.numMonitors + " " + this.numPlugs + " " + this.numProjectors);
 
-  openDialog(deskId: number, itemType: boolean): void {
-    if (itemType === true) {this.option.title = "Meeting Room " + deskId}
-    else if (itemType === false) {this.option.title = "Desk " + deskId}
-    this.popupDialogService.open(this.option);
-  }
+    // console.log("data before sent: " + this.desks.find(d => d.id == x)?.id + " " 
+    //                                  + this.desks.find(d => d.id == x)?.numPlugs + " " 
+    //                                  + this.desks.find(d => d.id == x)?.numMonitors + " "
+    //                                  + this.desks.find(d => d.id == x)?.numProjectors);
+
+      const dialogRef = this.dialog.open(EditDialogComponent, {
+        width: '550px',
+        data: { numPlugs: this.facilities.find(d => d.deskId == x)?.plugs,
+                numMonitors: this.facilities.find(d => d.deskId == x)?.monitors,
+                numProjectors: this.facilities.find(d => d.deskId == x)?.projectors,
+                deskId: x
+              }
+
+              
+              
+            });
+
+
+      dialogRef.afterClosed().subscribe(result => {
+        //
+      });
+
+    }
+
 
 
   //below functions to be fixed/implemented for selecting offices for a company to be able to edit
