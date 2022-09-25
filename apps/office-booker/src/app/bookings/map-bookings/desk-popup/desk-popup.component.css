@@ -1,11 +1,22 @@
 .mat-card{
     width: fill;
-    margin: 0.2rem;
+    margin: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
 
     text-align: center;
     position: relative;
+   
+    /* border-bottom:black 2px solid; */
+    /* padding-top:2rem; */
+    /* padding-bottom:2rem; */
+    /* padding-left:20rem;
+    padding-right:20rem; */
+    /* height: 410px; */
+    /* justify-content: center;  */
+    /* display: inline-block; */
     
 }
 
@@ -13,3 +24,29 @@
     position: center;
     text-align: center;
 }
+
+.dialogContent{
+    /* overflow: hidden; */
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+/* overflow-y: scroll; */
+    /* margin:1rem; */
+    
+   
+    /* border-bottom:black 2px solid; */
+    /* padding-top:2rem; */
+    /* padding-bottom:2rem; */
+    /* padding-left:20rem;
+    padding-right:20rem; */
+    /* height: 410px; */
+    /* justify-content: center;  */
+    /* display: inline-block; */
+}
+
+.dialogContent::-webkit-scrollbar{
+
+    display: none;
+}
+

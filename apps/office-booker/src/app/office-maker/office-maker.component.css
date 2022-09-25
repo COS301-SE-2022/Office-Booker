@@ -53,7 +53,12 @@
 }
 
 .selected {
-    border: 3px solid rgb(255, 0, 0);
+    /* border: 3px solid rgb(0, 255, 0); */
+    background: #e5e5e5;   
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
+    box-shadow: inset 0px 0px 5px #c1c1c1;    
+    outline: none;
 }
 
 .options-bar{
@@ -62,7 +67,6 @@
     margin: 1rem;
     /* background-color: rgba(255, 255, 255, 1); */
     text-align: center;
-    /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
     /* border-radius: 40px; */
     /* display: inline; */
 
@@ -71,7 +75,6 @@
     padding: 0;
     padding-top: 16px;
     padding-bottom: 16px;
-    border: 3px solid rgb(255, 255, 0, 1);
     background: rgba(255, 255, 255, 0);
 
 
@@ -108,9 +111,9 @@
 
 .createObject{
     
-    height:35px; 
+    height:30px; 
     width: 75px;
-    margin-top: 9px;   
+    margin-top: 22px;   
     
     /* border:rgb(255, 0, 0) solid 3px; */
 }

@@ -203,7 +203,7 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
-    newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
+    newMeetingRoom.setAttribute("id", "meetingRoom-"+this.idCounterMeetingRoom.toString());
     newMeetingRoom.classList.add("new");
     newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
     this.idCounterMeetingRoom++;
@@ -230,11 +230,6 @@ export class OfficeMakerComponent implements OnInit {
       })
     });
     alert("Map saved");
-  }
-
-  rotate(){
-    const selected = document.getElementById("wall-0");
-    selected?.setAttribute("transform", "rotate(45 100 100)");
   }
 
   startDraw(){
@@ -296,7 +291,7 @@ export class OfficeMakerComponent implements OnInit {
           facility.deskId = deskId;
           facility.plugs = Number(plugsString);
           facility.monitors = Number(monitorsString);
-          facility.projectors = Number(projectorsString);
+          facility.projectors = Number(projectorsString); 
           facility.id = Number(id);
           this.facilities.push(facility);
           this.changeDetection.detectChanges();
@@ -403,14 +398,25 @@ export class OfficeMakerComponent implements OnInit {
 
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-        this.numPlugs = result.numPlugs;
-        this.numMonitors = result.numMonitors;
-        this.numProjectors = result.numProjectors;
-        this.deskId = result.deskId;
-        this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
-          console.log(res);
-        });
+        // console.log(result);
+        if (result){
+          this.numPlugs = result.numPlugs;
+          this.numMonitors = result.numMonitors;
+          this.numProjectors = result.numProjectors;
+          this.deskId = result.deskId;
+          this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
+            console.log(res);
+            for (let i=0; i<this.facilities.length; i++) {
+              if (this.facilities[i].deskId == this.deskId) {
+                this.facilities[i].plugs = this.numPlugs;
+                this.facilities[i].monitors = this.numMonitors;
+                this.facilities[i].projectors = this.numProjectors;
+              }
+            }
+            this.changeDetection.detectChanges();
+          });
+        }
+        
         //
       });
 
