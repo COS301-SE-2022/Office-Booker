@@ -203,7 +203,7 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
-    newMeetingRoom.setAttribute("id", "desk-"+this.idCounterMeetingRoom.toString());
+    newMeetingRoom.setAttribute("id", "meetingRoom-"+this.idCounterMeetingRoom.toString());
     newMeetingRoom.classList.add("new");
     newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
     this.idCounterMeetingRoom++;
@@ -230,11 +230,6 @@ export class OfficeMakerComponent implements OnInit {
       })
     });
     alert("Map saved");
-  }
-
-  rotate(){
-    const selected = document.getElementById("wall-0");
-    selected?.setAttribute("transform", "rotate(45 100 100)");
   }
 
   startDraw(){
