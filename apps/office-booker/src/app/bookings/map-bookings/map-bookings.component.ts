@@ -637,7 +637,7 @@ export class MapBookingsComponent implements OnDestroy{
   //generates the popup dialog and sends the relevant variables needed
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
-      width: '650px',
+      width: '500px',
       data: {
         currentUser: this.currentUser,
         selectedItemBookings: this.selectedItemBookings,

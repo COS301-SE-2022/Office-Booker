@@ -3,13 +3,13 @@
 </div>
   
   
-  <div mat-dialog-content>
+  <div mat-dialog-content class="dialogContent">
     <!-- <p class="dialog-message"></p>   -->
-    <mat-card>
-      <mat-card-content>
+    <!-- <mat-card>
+      <mat-card-content> -->
         
         <mat-card>
-          <mat-card-header>{{this.data.hoveredItemName}}</mat-card-header>
+          <mat-card-header>Faciltiies for {{this.data.hoveredItemName}}</mat-card-header>
           <p></p>
           <mat-card-content>
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
@@ -69,14 +69,14 @@
                     <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
                     </div>
                     <mat-card-actions>
-                        <!-- <button (click)="this.data.deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button> -->
+                        <button mat-raised-button color="warn" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>
         </div>
         <br>
-    </mat-card-content>
-    </mat-card>
+    <!-- </mat-card-content>
+    </mat-card> -->
   </div>
 
   
