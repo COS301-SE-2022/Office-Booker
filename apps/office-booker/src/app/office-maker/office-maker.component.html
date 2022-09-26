@@ -59,18 +59,8 @@
 
 
 
-<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" [class.selected]="" >
-
-    <svg id="dropzone" height="100%" width="100%">
-        
-        <!-- <g *ngFor="let desk of desks">
-            <rect type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin" class="desk" rx="2"
-                [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.ownedBooking]="desk.ownBooking"
-                [class.desk]="!desk.isMeetingRoom" [class.deskBooked]="desk.booking"
-                [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width" [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
-            
-        </g> -->
-        
-    </svg>
+<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" 
+    [draw]="drawMode" (deleteLineId)="selectItem($event)" [class.selected]="" >
+    <svg id="dropzone" height="100%" width="100%"></svg>
 </div>
 
