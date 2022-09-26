@@ -32,7 +32,6 @@ export class GuestLoginComponent {
     this.loading = true;
     this.cognitoService.signIn(this.user)
     .then(() => {
-      //console.log("Sign in fucntion sets permissions")
       this.cognitoService.setAuthenticated(true);
       this.cognitoService.hasAdmin();
       

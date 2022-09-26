@@ -20,7 +20,6 @@ export class ApiDesksApiController {
 
     @Get()
     async getAll() {
-        console.log("adasdasd");
         return await this.deskService.getDesks();
     }
 
@@ -31,7 +30,6 @@ export class ApiDesksApiController {
 
     @Post('/')
     async createDeskInRoom(@Body() postData: createDeskDto) {
-        console.log("Hello");
         const { roomId, LocationRow, LocationCol, Height, Width, isMeetingRoom, capacity } = postData;
         return await this.deskService.createDeskByRoomId({
             Room: {

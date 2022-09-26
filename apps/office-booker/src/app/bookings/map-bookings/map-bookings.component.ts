@@ -140,7 +140,6 @@ export class MapBookingsComponent implements OnDestroy{
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
-    console.log(event.value);
     this.printRooms(event.value);
   }
 
@@ -238,7 +237,6 @@ export class MapBookingsComponent implements OnDestroy{
 
   checkUserHasBooking() {
     this.bookingService.getBookingByEmployee(this.currentUser.id).subscribe(res => {
-      console.log(res);
       if (res.length > 0) {
         this.hasBooking = true;//If guest already has a booking
       }
@@ -290,7 +288,6 @@ export class MapBookingsComponent implements OnDestroy{
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
-        console.log(booking);
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if (booking) {      //if a booking exists at all even one, change the boolean to true
           const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
@@ -385,7 +382,6 @@ export class MapBookingsComponent implements OnDestroy{
 
   filterBookings() {         //filters the bookings based on the selected date
     const validDate = this.validateDate();
-    console.log(this.validateDate());
     this.isFiltered = true;
     if (validDate) {
 
@@ -515,15 +511,12 @@ export class MapBookingsComponent implements OnDestroy{
   }
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
-    console.log(this.hasBooking);
-    console.log(this.guestBookings);
     if (this.guestBookings < 1) {
       const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
         return desk.id == deskId;
       });
       let bookingClash = false;         //boolean for if a clash in bookings exist
       const ownBookingAnotherDeskClash = this.ownBookingClash(startDate, endDate);
-      console.log(ownBookingAnotherDeskClash);
       currentDesk[0].bookings.forEach(booking => {        //goes through all the bookings for the currently selected desk
         const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
         const startDateCheck = new Date(booking.startsAt);
@@ -604,15 +597,10 @@ export class MapBookingsComponent implements OnDestroy{
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.currentUser = res;
-      console.log(this.currentUser);
       if (this.currentUser.guest == true) {//If the current user is a guest, check if they already have bookings
-        console.log(this.currentUser.guest);  
         this.checkUserHasBooking();
       }
-      console.log(this.currentUser.companyId);
-      
       this.getRooms(this.currentUser.companyId);
-      console.log(this.currentRooms[0]);
       this.changeDetection.detectChanges();
     })
   }
@@ -623,7 +611,6 @@ export class MapBookingsComponent implements OnDestroy{
         this.currentRooms.push(room);
       })
       
-      console.log(this.currentRooms[0]);
       this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
       this.changeDetection.detectChanges();
     })
@@ -671,7 +658,6 @@ export class MapBookingsComponent implements OnDestroy{
     this.comparison = !this.comparison;
     if (this.comparison) {
         this.multiSelectedItemBookingsArr = [];      
-        console.log("settingsFilter")
         document.getElementById('svg-map')?.setAttribute("style", "width: 50% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
         document.getElementById('map-container')?.setAttribute("style", "width: auto ; margin: 1rem;");
 

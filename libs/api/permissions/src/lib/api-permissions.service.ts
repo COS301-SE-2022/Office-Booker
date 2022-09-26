@@ -17,7 +17,6 @@ export class ApiPermissionsService {
         const desk = await this.deskService.getDeskById(deskId);
         const room = await this.roomService.getRoomById(desk.roomId);
         const company = await this.companyService.getCompanyById(room.companyId);
-        // console.log("user and desk companies match!")
         return user.companyId === company.id;
     }
 }

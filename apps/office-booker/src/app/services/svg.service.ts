@@ -11,10 +11,8 @@ export class SVGService {
       const point = element.viewportElement.createSVGPoint();
       point.x = event.clientX;
       point.y = event.clientY;
-      console.log(event);
       const CTM = element.viewportElement.getScreenCTM();
       const svgPoint = point.matrixTransform(CTM.inverse());
-      console.log(svgPoint);
       return svgPoint;
     } else {
       const point = element.viewportElement.createSVGPoint();

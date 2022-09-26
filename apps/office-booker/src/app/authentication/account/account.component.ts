@@ -80,7 +80,6 @@ export class AccountComponent {
   }
 
   public submitPasswordReset(): void {
-    console.log(this.user.code);
     this.cognitoService.submitPasswordReset(this.user.email, this.user.code, this.user.password);
     
   }

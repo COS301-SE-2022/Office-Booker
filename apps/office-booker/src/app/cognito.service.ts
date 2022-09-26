@@ -65,7 +65,6 @@ export class CognitoService {
   }
 
   public cancelSignUp(user: IUser): Promise<any> {
-    console.log(Auth.currentUserPoolUser());
     return Auth.deleteUser()
   }
 

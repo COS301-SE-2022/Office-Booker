@@ -132,13 +132,11 @@ export class BookingServiceService {
 
   updateFacilities(deskId: number, plugs: number, monitors: number, projectors: number){
     const url = this.baseURL + 'facilities/desk/' + deskId;
-    console.log(plugs, monitors, projectors);
     const body = { 
       plugs: plugs,
       monitors: monitors,
       projectors: projectors
     }
-    console.log(body);
     return this.http.put<Facility>(`${url}`, body);
   }
 
@@ -232,7 +230,6 @@ export class BookingServiceService {
       email: email,
       guest: guest
     } 
-    console.log(body);
     return this.http.post<employee>(`${url}`, body);
   }  
 
@@ -245,7 +242,6 @@ export class BookingServiceService {
   } 
 
   deleteInvite(id: number){
-    console.log(id);
     const url = this.baseURL + 'bookings/invites/delete/' + id;
     return this.http.put<Invite[]>(`${url}`, {});
   }

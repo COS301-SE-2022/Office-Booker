@@ -79,7 +79,6 @@ export class InviteDialogComponent {
         };
 
         this.bookingService.createInvite(this.bookingId, value).subscribe(res => {
-          console.log(res);
           this.openJoinSnackBar("You have successfully sent an invite to " + value);
           if (this.invites.length > 0) {
             
@@ -93,7 +92,6 @@ export class InviteDialogComponent {
             this.changeDetection.detectChanges();
           }
         }, (error) => {
-          console.log(error);
           this.openDeleteSnackBar("An error has occurred while inviiting: " + value);
         })
       };
