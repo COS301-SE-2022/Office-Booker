@@ -11,6 +11,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 describe('DeskPopupComponent', () => {
@@ -21,7 +23,7 @@ describe('DeskPopupComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DeskPopupComponent],
       imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, 
-        BrowserAnimationsModule, HttpClientTestingModule],
+        BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
