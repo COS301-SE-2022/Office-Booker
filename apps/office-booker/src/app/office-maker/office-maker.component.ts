@@ -150,6 +150,7 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
     newDesk.classList.add("new");
+    newDesk.classList.add("objectGrab");
     newDesk.onclick = () => this.selectItem(newDesk.id);
     this.idCounterDesk++;
    
@@ -166,7 +167,16 @@ export class OfficeMakerComponent implements OnInit {
 
     }
     else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
-      document.getElementById(this.selectedItemId)?.setAttribute("style", "stroke:rgb(0,255,0);stroke-width:0");
+      console.log("item selected not editMode");
+      const selectedItem =  document.getElementById(this.selectedItemId);
+     
+      if(selectedItem?.tagName == "rect"){
+        selectedItem.setAttribute("style", "stroke-width:0")
+      }
+        else{
+          selectedItem?.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+        }
+      
       this.selectedItemId = "default";
       this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
@@ -282,7 +292,6 @@ export class OfficeMakerComponent implements OnInit {
     if (deskId != 0) 
     {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
-        console.log(res);
         this.facilities.push(res);
         this.facilityString = JSON.stringify(res);//converts response to string
         if (JSON.stringify(res) != "[]") {
@@ -311,7 +320,6 @@ export class OfficeMakerComponent implements OnInit {
     }
     else {
       //if deskId is 0, set all to 0
-      console.log("bottom");
       this.numPlugs = 0;
       this.numMonitors = 0;
       this.numProjectors = 0;
