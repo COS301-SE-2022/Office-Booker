@@ -2,8 +2,7 @@
     width: auto;
     height: auto;
     margin: 1rem;
-    float: left;
-
+    
 }
 
 .side-container {
@@ -27,11 +26,11 @@
 
 
 .comparison-container {
-    width: 50%;
-    height: auto;
+    width: 40%;
+    height: top;
     margin: 2rem;
-    float: left;
-    display: flex;
+    float: right;
+    display: inline-block;
 }
 
 .comparison-card {
@@ -253,4 +252,13 @@
 
 .nav-buttons{
     
+}
+
+.selected {
+    /* border: 3px solid rgb(0, 255, 0); */
+    background: #e5e5e5;   
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
+    box-shadow: inset 0px 0px 5px #c1c1c1;    
+    outline: none;
 }

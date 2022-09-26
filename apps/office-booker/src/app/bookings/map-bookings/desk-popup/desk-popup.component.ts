@@ -52,7 +52,6 @@ export class DeskPopupComponent {
     this.dialogRef.close();
   }
   deleteBooking(itemId: number) {        //function when delete booking is called from a button
-    console.log(itemId);
     this.deleteADeskBooking(itemId);        //calls the function with the api function
 
     this.changeDetection.detectChanges();
