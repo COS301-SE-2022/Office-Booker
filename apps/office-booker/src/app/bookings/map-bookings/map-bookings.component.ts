@@ -374,6 +374,7 @@ export class MapBookingsComponent implements OnDestroy{
     const validDate = this.validateDate();
     console.log(this.desks);
     if (validDate) {
+
       if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
         this.desks.forEach(desk => {
           if (desk.booking) {
@@ -455,6 +456,8 @@ export class MapBookingsComponent implements OnDestroy{
           this.changeDetection.detectChanges();
         })
       }
+
+      this.openSuccessSnackBar("Successfully filtered");
     }
     else {
       this.openFailSnackBar("Invalid date range selected");
