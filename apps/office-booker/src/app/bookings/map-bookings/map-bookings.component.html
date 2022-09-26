@@ -11,7 +11,10 @@
 
             Start Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate"> End Date: <input class="time" type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
 
-            <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter Bookings</button>
+            <button class="filter" (click)="filterBookings()" mat-raised-button color="primary">Filter</button>
+            <!-- Checkbox to enable comparison mode to be used when popup is fully working -->
+            <button class="filter" (click)="comparisonMode()" [class.selected]="comparison" mat-raised-button color="primary">Compare</button>
+
 
             <button class="nav-buttons" (click)="zoomIn()" mat-raised-button color="primary"><i
                 class="fa fa-search-plus"></i></button>
@@ -28,8 +31,8 @@
         </mat-card-content>
     </mat-card>
 
-    <div class="map-container">
-        <svg #trigger x="20" y="20" width="1600" height="800" viewPort="0 0 0 0" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
+    <div class="map-container" id="map-container">
+        <svg #trigger id="svg-map" x="20" y="20" width="1600" height="800" viewPort="0 0 0 0" style="border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px">
             <g *ngFor="let desk of desks">
                 <rect type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin" class="desk" rx="2"
                     [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.ownedBooking]="desk.ownBooking"
@@ -46,6 +49,30 @@
             <g>
             </g>
         </svg>
+        <div class="comparison-container">
+            <div class="comparison-cards" *ngFor="let comparison of multiSelectedItemBookingsArr">
+                <mat-card>
+                    <div class="close-button">
+                        <mat-card-actions>
+                            <button mat-icon-button color="warn" (click)="unselectComparison(comparison[0].deskId)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-card-actions>
+    
+                    </div>
+                    <mat-card-header>{{comparison[0].isMeetingRoom ? "Meeting Room" : "Desk"}} {{comparison[0].deskId}}
+                    </mat-card-header>
+                    <br>
+                    <mat-card-content>
+                        <div class="card-content" *ngFor="let booking of comparison">
+                            <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+                            <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+    
+            </div>
+        </div>
     </div>
 
     <!-- This button triggers the overlay and is it's origin -->
@@ -115,89 +142,5 @@
         </div>
     </ng-template>
 
-    <div class="side-container">
-        <div class="office-floor-container">
-        </div>
-
-        <!-- Checkbox to enable comparison mode to be used when popup is fully working -->
-        <!-- <div class="card-wrapper date-time-container">
-        <mat-checkbox>Compare</mat-checkbox>
-    </div> -->
-
-        <p></p>
-
-        <!-- <div class="card-wrapper date-time-container">
-            <mat-card class="example-card">
-                <mat-card-content>
-                    <form>
-                        <p>Start Date: </p>
-                        <input type="datetime-local" [(ngModel)]="grabbedStartDate" name="grabbedStartDate">
-                        <p>End Date: </p>
-                        <input type="datetime-local" [(ngModel)]="grabbedEndDate" name="grabbedEndDate">
-                        <br>
-                        <br>
-                        <br>
-                        <mat-card-actions>
-                            <button (click)="filterBookings()" mat-raised-button color="primary">
-                                Filter Bookings</button>
-                        </mat-card-actions>
-                    </form>
-
-                </mat-card-content>
-            </mat-card>
-
-        </div> -->
-
-        <!-- <div class="card-wrapper booking-item-info-container">
-            <mat-card class="info-to-display-container" *ngIf="selected">
-                <mat-card-content>
-                    <p>Item Name: {{this.selectedItemName | titlecase}}</p>
-                    <p>Item Facilities: </p>
-                    <mat-card-actions>
-                        <button (click)="bookItem(selectedItemId)" mat-raised-button color="primary">Book
-                            {{selectedItemType |
-                            titlecase}} {{selectedItemId}}</button>
-                    </mat-card-actions>
-                    <hr>
-                    <div class="scrollable-section">
-                        <mat-card class="booking-container" *ngFor="let booking of selectedItemBookings">
-                            <mat-card-content>
-                                <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
-                                <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
-                                </div>
-                                <mat-card-actions>
-                                    <button (click)="deleteBooking(booking.id)" mat-raised-button color="warn" *ngIf="currentUser.id === booking.employeeId">Cancel Booking</button>
-                                </mat-card-actions>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <br>
-                </mat-card-content>
-            </mat-card>
-        </div> -->
-    </div>
-    <div class="comparison-container">
-        <div class="comparison-cards" *ngFor="let comparison of multiSelectedItemBookingsArr">
-            <mat-card>
-                <div class="close-button">
-                    <mat-card-actions>
-                        <button mat-icon-button color="warn" (click)="unselectComparison(comparison[0].deskId)">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    </mat-card-actions>
-
-                </div>
-                <mat-card-header>{{comparison[0].isMeetingRoom ? "Meeting Room" : "Desk"}} {{comparison[0].deskId}}
-                </mat-card-header>
-                <br>
-                <mat-card-content>
-                    <div class="card-content" *ngFor="let booking of comparison">
-                        <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
-                        <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-        </div>
-    </div>
+    
 </body>

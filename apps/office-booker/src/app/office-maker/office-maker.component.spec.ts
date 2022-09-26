@@ -9,6 +9,7 @@ import { MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('OfficeMakerComponent', () => {
   let component: OfficeMakerComponent;
@@ -17,7 +18,7 @@ describe('OfficeMakerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule
-                , BrowserAnimationsModule],
+                , BrowserAnimationsModule, MatSnackBarModule],
       declarations: [OfficeMakerComponent],
       providers: [PopupDialogService,
         { provide: MatDialogRef, useValue: {}},
