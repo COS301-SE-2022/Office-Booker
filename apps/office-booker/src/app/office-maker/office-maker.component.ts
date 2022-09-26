@@ -120,6 +120,8 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.setAttribute("isMeetingRoom", "false");
         newDesk.setAttribute("id", this.desks[i].id.toString());
         newDesk.classList.add("preMade");
+        newDesk.classList.add("desk");
+        // newDesk.style.cursor = "pointer";
         newDesk.onclick = () => this.selectItem(newDesk.id);
         newDesk.setAttribute("numPlugs", this.numPlugs.toString());
         newDesk.setAttribute("numMonitors", this.numMonitors.toString());
@@ -156,7 +158,9 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
+    newDesk.style.cursor = "pointer";
     newDesk.classList.add("new");
+    newDesk.classList.add("desk");
     newDesk.classList.add("objectGrab");
     newDesk.onclick = () => this.selectItem(newDesk.id);
     this.idCounterDesk++;
@@ -218,6 +222,8 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
+    newMeetingRoom.style.cursor = "pointer";
+
     newMeetingRoom.setAttribute("id", "meetingRoom-"+this.idCounterMeetingRoom.toString());
     newMeetingRoom.classList.add("new");
     newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
