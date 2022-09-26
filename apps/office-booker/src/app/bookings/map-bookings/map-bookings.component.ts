@@ -467,7 +467,6 @@ export class MapBookingsComponent implements OnDestroy{
         })
       }
 
-      this.openSuccessSnackBar("Successfully filtered");
     }
     else {
       this.openFailSnackBar("Invalid date range selected");
