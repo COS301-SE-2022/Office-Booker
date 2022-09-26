@@ -85,6 +85,7 @@ export class MapBookingsComponent implements OnDestroy{
   //timer variable
 
   private timerSubscription: Subscription[] = [];
+  comparison = false;
 
 
   constructor(private bookingService: BookingServiceService,
@@ -334,22 +335,29 @@ export class MapBookingsComponent implements OnDestroy{
       }
     })
 
-    if (this.multiSelectedItemId.length < 5) {      //limits comparison to 5
-      if (!(this.multiSelectedItemId.includes(itemId))) {     //checks id doesnt already exist in the array
-        this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
-      }
-    }
-    this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
-    this.multiSelectedItemId.forEach(id => {
-      this.desks.forEach(desk => {          //loops through each id and each desk
-        if (desk.id == id && desk.booking) {              //to match id's for pushing the bookings on to the array
-          this.multiSelectedItemBookingsArr.push(desk.bookings);
-        }
-      })
-    })
+    if (this.comparison) {
+      this.multiSelectedItemBookingsArr = [];
 
-    this.openDialog();        //opens the dialog box for booking
-    this.changeDetection.detectChanges();
+      if (this.multiSelectedItemId.length < 5) {      //limits comparison to 5
+        if (!(this.multiSelectedItemId.includes(itemId))) {     //checks id doesnt already exist in the array
+          this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
+        }
+      }
+      this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
+      this.multiSelectedItemId.forEach(id => {
+        this.desks.forEach(desk => {          //loops through each id and each desk
+          if (desk.id == id && desk.booking) {              //to match id's for pushing the bookings on to the array
+            this.multiSelectedItemBookingsArr.push(desk.bookings);
+          }
+        })
+      })
+    } else {
+      this.openDialog();        //opens the dialog box for booking
+      this.changeDetection.detectChanges();
+    }
+
+    // this.openDialog();        //opens the dialog box for booking
+    // this.changeDetection.detectChanges();
   }
 
   unselectComparison(itemId: number) {
@@ -374,6 +382,7 @@ export class MapBookingsComponent implements OnDestroy{
     const validDate = this.validateDate();
     console.log(this.desks);
     if (validDate) {
+
       if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
         this.desks.forEach(desk => {
           if (desk.booking) {
@@ -455,6 +464,8 @@ export class MapBookingsComponent implements OnDestroy{
           this.changeDetection.detectChanges();
         })
       }
+
+      this.openSuccessSnackBar("Successfully filtered");
     }
     else {
       this.openFailSnackBar("Invalid date range selected");
@@ -620,6 +631,30 @@ export class MapBookingsComponent implements OnDestroy{
     })
   }
 
+  comparisonMode()
+  {
+    this.comparison = !this.comparison;
+    if (this.comparison) {
+        this.multiSelectedItemBookingsArr = [];      
+        console.log("settingsFilter")
+        document.getElementById('svg-map')?.setAttribute("style", "width: 50% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
+        document.getElementById('map-container')?.setAttribute("style", "width: auto ; margin: 1rem;");
+
+      
+    }
+    if (this.comparison == false) {
+      this.multiSelectedItemBookingsArr = [];
+      document.getElementById('svg-map')?.setAttribute("style", "width: 100% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
+      document.getElementById('map-container')?.setAttribute("style", "width: auto; margin: 1rem;");
+
+      
+    }
+
+    this.multiSelectedItemBookingsArr = [];
+
+    
+  }
+
   openSuccessSnackBar(message: string) {
     this.snackBar.open(message, "Ok", {
       duration: 5000,
@@ -649,6 +684,7 @@ export class MapBookingsComponent implements OnDestroy{
         numPlugs: this.numPlugs,
         numMonitors: this.numMonitors,
         numProjectors: this.numProjectors,
+        desks: this.desks,
       }
     });
     

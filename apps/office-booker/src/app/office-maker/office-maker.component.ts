@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { Facility } from '@prisma/client';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface DialogData {
@@ -67,6 +68,7 @@ export class OfficeMakerComponent implements OnInit {
     private bookingService: BookingServiceService, 
     public dialog: MatDialog, 
     private popupDialogService: PopupDialogService,
+    public snackBar: MatSnackBar
     ) {
       this.numPlugs = 99;
       this.numMonitors = 99;
@@ -128,6 +130,11 @@ export class OfficeMakerComponent implements OnInit {
       svg?.appendChild(newDesk);
       
 
+    }
+    for (let i = 0; i < this.currentRooms.length; i++) {
+      if (this.currentRooms[i].id === this.selectedRoom) {
+      this.openSuccessSnackBar("Generated " + this.currentRooms[i].name);
+      }
     }
   }
 
@@ -272,7 +279,6 @@ export class OfficeMakerComponent implements OnInit {
     if (deskId != 0) 
     {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
-        console.log(res);
         this.facilities.push(res);
         this.facilityString = JSON.stringify(res);//converts response to string
         if (JSON.stringify(res) != "[]") {
@@ -301,7 +307,6 @@ export class OfficeMakerComponent implements OnInit {
     }
     else {
       //if deskId is 0, set all to 0
-      console.log("bottom");
       this.numPlugs = 0;
       this.numMonitors = 0;
       this.numProjectors = 0;
@@ -323,12 +328,12 @@ export class OfficeMakerComponent implements OnInit {
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
-    console.log(event.value);
     this.printRooms(event.value);
   }
 
   printRooms(roomId: number){
     this.desks.length = 0;
+    this.selectedRoom = roomId;
 
     this.getDesksByRoomId(roomId); 
   }
@@ -422,6 +427,19 @@ export class OfficeMakerComponent implements OnInit {
 
     }
 
+    openSuccessSnackBar(message: string) {
+      this.snackBar.open(message, "Ok", {
+        duration: 5000,
+        panelClass: "success-snack"
+      });
+    }
+  
+    openFailSnackBar(message: string) {
+      this.snackBar.open(message, "Ok", {
+        duration: 5000,
+        panelClass: "fail-snack"
+      });
+    }
 
 
   //below functions to be fixed/implemented for selecting offices for a company to be able to edit
