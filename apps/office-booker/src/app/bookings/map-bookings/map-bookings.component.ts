@@ -652,6 +652,7 @@ export class MapBookingsComponent implements OnDestroy{
         numPlugs: this.numPlugs,
         numMonitors: this.numMonitors,
         numProjectors: this.numProjectors,
+        desks: this.desks,
       }
     });
     
