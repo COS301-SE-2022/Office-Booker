@@ -505,6 +505,8 @@ export class MapBookingsComponent implements OnDestroy{
         return desk.id == deskId;
       });
       let bookingClash = false;         //boolean for if a clash in bookings exist
+      const ownBookingAnotherDeskClash = this.ownBookingClash(startDate, endDate);
+      console.log(ownBookingAnotherDeskClash);
       currentDesk[0].bookings.forEach(booking => {        //goes through all the bookings for the currently selected desk
         const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
         const startDateCheck = new Date(booking.startsAt);
@@ -520,28 +522,33 @@ export class MapBookingsComponent implements OnDestroy{
       })
 
       if (!bookingClash) {        //if there are no clashes from above
-        const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
-        const endsAt = endDate.toISOString();
-        this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
-          for (let i = 0; i < this.desks.length; i++) {
-            if (this.desks[i].id == deskId) {       //at the same time it needs to go through all the desks to find the correct desk matching with id
-              this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
-              this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
-              this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
-              this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
-              if (this.currentUser.guest) {
-                this.guestBookings++;
+        if(!ownBookingAnotherDeskClash){
+
+          const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
+          const endsAt = endDate.toISOString();
+          this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
+            for (let i = 0; i < this.desks.length; i++) {
+              if (this.desks[i].id == deskId) {       //at the same time it needs to go through all the desks to find the correct desk matching with id
+                this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
+                this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
+                this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
+                this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
+                if (this.currentUser.guest) {
+                  this.guestBookings++;
+                }
               }
             }
-          }
-          this.openSuccessSnackBar("Booking created");
-          this.changeDetection.detectChanges();
-        });
-        this.hasBooking = true;
+            this.openSuccessSnackBar("Booking created");
+            this.changeDetection.detectChanges();
+          });
+          this.hasBooking = true;
+        }
+        else {  //clash when have an existing booking at another desk
+          this.openFailSnackBar("Already have another booking at this time");
+        }
       }
       else {        //if clash alert
         this.openFailSnackBar("Booking overlaps with another booking");
-
       }
     } else {
       this.openFailSnackBar("Guest can only book one at a time");
@@ -608,6 +615,28 @@ export class MapBookingsComponent implements OnDestroy{
 
   validateDate() {
     return this.grabbedStartDate < this.grabbedEndDate;
+  }
+
+  ownBookingClash(bookingDateStart: Date, bookingDateEnd: Date){
+    let bookingClash = false;
+    this.desks.forEach(desk => {
+      desk.bookings.forEach(booking => {
+        if (booking.employeeId == this.currentUser.id) {
+          const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
+          const startDateCheck = new Date(booking.startsAt);
+          if (endDateCheck >= bookingDateStart && startDateCheck <= bookingDateStart) {       //if the booking end date is greater than the start of the attempted start booking date and start date of booking is less than the attempted start booking date
+            bookingClash = true;                                            //ie if the attempted booking date starts before the end of a booking but after the start of the same booking
+          }
+          else if (startDateCheck <= bookingDateEnd && endDateCheck >= bookingDateEnd) {      //if the booking start date is less than the end of the attempted end booking date and the end date is greater than the end of the attempted end booking date
+            bookingClash = true;                                            //ie if the attempted booking date ends after the start of a booking but before the end of the same booking 
+          }
+          else if (bookingDateStart <= startDateCheck && bookingDateEnd >= endDateCheck) {     // if the start of the attempted start booking date is less than the start date of the booking and the end of attempted booking end date is greater than the end date of the booking
+            bookingClash = true;                                               //ie when the start of the attempted booking date is before the start of an existing booking and the end of the attempted booking date is after end date the of the same existing booking
+          }
+        }
+      });
+    });
+    return bookingClash;
   }
 
   checkOwnBookings() {
