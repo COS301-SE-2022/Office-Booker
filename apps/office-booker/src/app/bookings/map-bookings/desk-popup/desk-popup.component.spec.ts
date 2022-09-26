@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+
 
 describe('DeskPopupComponent', () => {
   let component: DeskPopupComponent;
@@ -18,7 +20,8 @@ describe('DeskPopupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DeskPopupComponent],
-      imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, BrowserAnimationsModule],
+      imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, 
+        BrowserAnimationsModule, HttpClientTestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {}},
         { provide: MatDialog, useValue: {}},
