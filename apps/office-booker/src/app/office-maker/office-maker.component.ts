@@ -97,9 +97,15 @@ export class OfficeMakerComponent implements OnInit {
 
   generateDesks(){ 
     const svg = document.getElementById("dropzone");
+
+    let child = svg?.lastElementChild;
+    while (child){      //clears svg zone before getting elements (so changing between offices doesnt show previous office layout)
+      svg?.removeChild(child);
+      child = svg?.lastElementChild;
+    }
+
     const svgns = "http://www.w3.org/2000/svg";
 
-    console.log(this.desks);
     for (let i=0; i<this.desks.length; i++)
     {
       this.getFacilitiesForDesk(this.desks[i].id);
