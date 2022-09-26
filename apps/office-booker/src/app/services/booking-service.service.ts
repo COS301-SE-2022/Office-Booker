@@ -19,6 +19,9 @@ export interface Desk {
   bookings: Booking[],
   isMeetingRoom: boolean,
   ownBooking: boolean,
+  numPlugs: number,
+  numMonitors: number,
+  numProjectors: number,
 }
 
 export interface Booking {
@@ -125,6 +128,18 @@ export class BookingServiceService {
   getFacilitiesByDeskId(deskId: number){
     const url = this.baseURL + 'facilities/desk/' + deskId;
     return this.http.get<Facility>(`${url}`);
+  }
+
+  updateFacilities(deskId: number, plugs: number, monitors: number, projectors: number){
+    const url = this.baseURL + 'facilities/desk/' + deskId;
+    console.log(plugs, monitors, projectors);
+    const body = { 
+      plugs: plugs,
+      monitors: monitors,
+      projectors: projectors
+    }
+    console.log(body);
+    return this.http.put<Facility>(`${url}`, body);
   }
 
   getBookingsByDeskId(deskId: number){

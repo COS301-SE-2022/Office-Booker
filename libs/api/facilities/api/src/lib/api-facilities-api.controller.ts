@@ -1,7 +1,13 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiFacilitiesRepositoryDataAccessService } from '@office-booker/api/facilities/repository/data-access';
 
+
+class UpdateFacilitiesDto {
+    plugs: number;
+    monitors: number;
+    projectors: number;
+}
 @UseGuards(AuthGuard('jwt'))
 @Controller('facilities')
 export class ApiFacilitiesApiController {
@@ -12,4 +18,9 @@ export class ApiFacilitiesApiController {
         return await this.facilityService.getFacilitiesForDesk(Number(deskId));
     }
 
+    @Put('/desk/:deskId')
+    async updateFacilitiesForDesk(@Param('deskId') deskId: string, @Body() updateFacilitiesDto: UpdateFacilitiesDto) {
+        const {plugs, monitors, projectors} = updateFacilitiesDto;
+        return await this.facilityService.updateFacilitiesForDesk(Number(deskId), Number(plugs), Number(monitors), Number(projectors));
+    }
 }

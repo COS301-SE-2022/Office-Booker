@@ -1,40 +1,76 @@
-<div class="items-container">
-    <div officeBookerDraggable>
-        <svg id="create-object">
+<mat-card class="options-bar">
 
-        </svg>
+    <div class="generateBlock">
+        <div officeBookerDraggable class="office-booker-draggable">
+            <svg id="create-object" class="createObject">       
+            </svg>
+        </div> 
     </div>
+
+        <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button>
+
+    <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
+    <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
+    <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
+    <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
+
+    <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>  
+            
+    <button mat-raised-button color="primary" (click)="deleteItem()">Desk Size</button>  
+    <button mat-raised-button color="primary" (click)="deleteItem()">Meeting Room Size</button>  
+    
+
     <!-- <mat-form-field>
         <mat-label>Create Floor for which Office?</mat-label>
-        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)">
+        <mat-select>Floor 1</mat-select>
+        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)"> 
             <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
-    </mat-select>
+     </mat-select>
     </mat-form-field> -->
-    <label for="quantity">Desk Width (between 1 and 500):</label>
+
+    <mat-form-field>
+        <mat-label>Room</mat-label>
+        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
+            <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
+
+    
+    <!-- <label for="quantity">Desk Width</label>
     <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
-    <br>
-    <label for="quantity">Desk Height (between 1 and 500):</label>
+    <label for="quantity">Desk Height</label>
     <input type="number" name="height" min="1" max="500" [(ngModel)]="deskHeight">
-    <br>
-    <label for="quantity">Room Width (between 1 and 1000):</label>
+    <label for="quantity">Room Width</label>
     <input type="number" name="width" min="1" max="1000" [(ngModel)]="roomWidth">
-    <br>
-    <label for="quantity">Room Height (between 1 and 1000):</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="roomHeight">
-    <br>
+    <label for="quantity">Room Height</label>
+    <input type="number" name="height" min="1" max="1000" [(ngModel)]="roomHeight"> -->
     <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
     <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
-    <button (click)="createDesk()">Create New Desk</button>
-    <button (click)="createMeetingRoom()">Create New Meeting Room</button>
-    <!-- <button (click)="createWall()">Create New Wall</button> -->
-    <button (click)="saveMap()">Save</button>
-    <button (click)="rotate()">Rotate</button>
-    <button (click)="startDraw()">Draw line</button>
-    <button (click)="deleteItem()">Delete Item</button>
-</div>
 
-<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" >
+
+
+</mat-card>
+
+
+    
+    
+
+
+
+<div class="svg-container" id="map" officeBookerDroppable (click)="clicked = !clicked" [officeBookerDrawable]="clicked" [draw]="drawMode" (deleteLineId)="selectItem($event)" [class.selected]="" >
+
     <svg id="dropzone" height="100%" width="100%">
+        
+        <!-- <g *ngFor="let desk of desks">
+            <rect type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin" class="desk" rx="2"
+                [attr.x]="desk.LocationCol" [attr.y]="desk.LocationRow" [class.ownedBooking]="desk.ownBooking"
+                [class.desk]="!desk.isMeetingRoom" [class.deskBooked]="desk.booking"
+                [class.meetingRoom]="desk.isMeetingRoom" [attr.width]="desk.Width" [attr.height]="desk.Height" (click)="selectToBook(desk.id, desk.isMeetingRoom)"></rect>
+            
+        </g> -->
+        
     </svg>
 </div>
 

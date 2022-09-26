@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
 import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
@@ -14,13 +14,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { json } from 'stream/consumers';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'office-booker-map-bookings',
   templateUrl: './map-bookings.component.html',
   styleUrls: ['./map-bookings.component.css'],
 })
-export class MapBookingsComponent {
+export class MapBookingsComponent implements OnDestroy{
 
   //map based variables
   desks: Array<Desk> = [];
@@ -80,7 +83,10 @@ export class MapBookingsComponent {
   };
 
   //timer variable
-  timerSubscription: Subscription = new Subscription;
+
+  private timerSubscription: Subscription[] = [];
+  comparison = false;
+
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -116,9 +122,17 @@ export class MapBookingsComponent {
 
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
-    //this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+    // this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
   
+  }
+
+  ngOnDestroy(){
+    // unsubscribe timer
+
+      this.timerSubscription.forEach((sub) => sub.unsubscribe());
+    
+    
   }
 
   onChangeFloor(event: { value: any; })
@@ -246,12 +260,16 @@ export class MapBookingsComponent {
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        this.timerSubscription = timer(0, 6000).pipe(
-          map(() => {
-            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-          })
-        ).subscribe();
-        
+        // this.timerSubscription.push(timer(0, 6000).pipe(
+        //   map(() => {
+        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+        //   })
+        // ).subscribe()
+        // );
+
+        this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
+
+
 
         this.desks.push(newDesk);       //adds to desk array
 
@@ -262,14 +280,17 @@ export class MapBookingsComponent {
   }
 
   getBookingsByDeskId(deskId: number) {
+
+     for (let i = 0; i < this.desks.length; i++) {       //loops through the desks array
+        this.desks[i].bookings = []; 
+      }
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
-    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
-      
-      console.log("API CALLED");
+    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if (booking) {      //if a booking exists at all even one, change the boolean to true
+          // console.log(booking);
           const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
           bookingDate.setHours(bookingDate.getHours() - 2);   //booking is saved plus two somehow
 
@@ -277,6 +298,7 @@ export class MapBookingsComponent {
             bookingReturn = true;
           }
         }
+        
         for (let i = 0; i < this.desks.length; i++)      //loop through each desk in the array to make sure you find the correct desk
         {
           if (this.desks[i].id == deskId) {       //find correct desk using the id of the desk
@@ -285,7 +307,6 @@ export class MapBookingsComponent {
               const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
               bookingDate.setHours(bookingDate.getHours() - 2);
               if (bookingDate > comparisonDate) {
-                this.desks[i].bookings = []; 
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
                 this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
@@ -314,22 +335,29 @@ export class MapBookingsComponent {
       }
     })
 
-    if (this.multiSelectedItemId.length < 5) {      //limits comparison to 5
-      if (!(this.multiSelectedItemId.includes(itemId))) {     //checks id doesnt already exist in the array
-        this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
-      }
-    }
-    this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
-    this.multiSelectedItemId.forEach(id => {
-      this.desks.forEach(desk => {          //loops through each id and each desk
-        if (desk.id == id && desk.booking) {              //to match id's for pushing the bookings on to the array
-          this.multiSelectedItemBookingsArr.push(desk.bookings);
-        }
-      })
-    })
+    if (this.comparison) {
+      this.multiSelectedItemBookingsArr = [];
 
-    this.openDialog();        //opens the dialog box for booking
-    this.changeDetection.detectChanges();
+      if (this.multiSelectedItemId.length < 5) {      //limits comparison to 5
+        if (!(this.multiSelectedItemId.includes(itemId))) {     //checks id doesnt already exist in the array
+          this.multiSelectedItemId.push(itemId);        //adds the id to the selection array
+        }
+      }
+      this.multiSelectedItemBookingsArr = [];       //avoids the doubling up of already added items, by clearing the array first
+      this.multiSelectedItemId.forEach(id => {
+        this.desks.forEach(desk => {          //loops through each id and each desk
+          if (desk.id == id && desk.booking) {              //to match id's for pushing the bookings on to the array
+            this.multiSelectedItemBookingsArr.push(desk.bookings);
+          }
+        })
+      })
+    } else {
+      this.openDialog();        //opens the dialog box for booking
+      this.changeDetection.detectChanges();
+    }
+
+    // this.openDialog();        //opens the dialog box for booking
+    // this.changeDetection.detectChanges();
   }
 
   unselectComparison(itemId: number) {
@@ -354,6 +382,7 @@ export class MapBookingsComponent {
     const validDate = this.validateDate();
     console.log(this.desks);
     if (validDate) {
+
       if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
         this.desks.forEach(desk => {
           if (desk.booking) {
@@ -435,6 +464,8 @@ export class MapBookingsComponent {
           this.changeDetection.detectChanges();
         })
       }
+
+      this.openSuccessSnackBar("Successfully filtered");
     }
     else {
       this.openFailSnackBar("Invalid date range selected");
@@ -485,6 +516,8 @@ export class MapBookingsComponent {
         return desk.id == deskId;
       });
       let bookingClash = false;         //boolean for if a clash in bookings exist
+      const ownBookingAnotherDeskClash = this.ownBookingClash(startDate, endDate);
+      console.log(ownBookingAnotherDeskClash);
       currentDesk[0].bookings.forEach(booking => {        //goes through all the bookings for the currently selected desk
         const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
         const startDateCheck = new Date(booking.startsAt);
@@ -500,28 +533,33 @@ export class MapBookingsComponent {
       })
 
       if (!bookingClash) {        //if there are no clashes from above
-        const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
-        const endsAt = endDate.toISOString();
-        this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
-          for (let i = 0; i < this.desks.length; i++) {
-            if (this.desks[i].id == deskId) {       //at the same time it needs to go through all the desks to find the correct desk matching with id
-              this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
-              this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
-              this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
-              this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
-              if (this.currentUser.guest) {
-                this.guestBookings++;
+        if(!ownBookingAnotherDeskClash){
+
+          const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
+          const endsAt = endDate.toISOString();
+          this.bookingService.createBooking(deskId, this.currentUser.id, startsAt, endsAt).subscribe(booking => {     //creates a booking with API
+            for (let i = 0; i < this.desks.length; i++) {
+              if (this.desks[i].id == deskId) {       //at the same time it needs to go through all the desks to find the correct desk matching with id
+                this.desks[i].booking = true;       //makes sure the booking boolean is true if there existed non before
+                this.desks[i].bookings.push(booking);     //to add the new booking to the array for the desk
+                this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
+                this.desks[i].ownBooking = booking.employeeId == this.currentUser.id;
+                if (this.currentUser.guest) {
+                  this.guestBookings++;
+                }
               }
             }
-          }
-          this.openSuccessSnackBar("Booking created");
-          this.changeDetection.detectChanges();
-        });
-        this.hasBooking = true;
+            this.openSuccessSnackBar("Booking created");
+            this.changeDetection.detectChanges();
+          });
+          this.hasBooking = true;
+        }
+        else {  //clash when have an existing booking at another desk
+          this.openFailSnackBar("Already have another booking at this time");
+        }
       }
       else {        //if clash alert
         this.openFailSnackBar("Booking overlaps with another booking");
-
       }
     } else {
       this.openFailSnackBar("Guest can only book one at a time");
@@ -590,6 +628,28 @@ export class MapBookingsComponent {
     return this.grabbedStartDate < this.grabbedEndDate;
   }
 
+  ownBookingClash(bookingDateStart: Date, bookingDateEnd: Date){
+    let bookingClash = false;
+    this.desks.forEach(desk => {
+      desk.bookings.forEach(booking => {
+        if (booking.employeeId == this.currentUser.id) {
+          const endDateCheck = new Date(booking.endsAt);      //conversions needed for comparison
+          const startDateCheck = new Date(booking.startsAt);
+          if (endDateCheck >= bookingDateStart && startDateCheck <= bookingDateStart) {       //if the booking end date is greater than the start of the attempted start booking date and start date of booking is less than the attempted start booking date
+            bookingClash = true;                                            //ie if the attempted booking date starts before the end of a booking but after the start of the same booking
+          }
+          else if (startDateCheck <= bookingDateEnd && endDateCheck >= bookingDateEnd) {      //if the booking start date is less than the end of the attempted end booking date and the end date is greater than the end of the attempted end booking date
+            bookingClash = true;                                            //ie if the attempted booking date ends after the start of a booking but before the end of the same booking 
+          }
+          else if (bookingDateStart <= startDateCheck && bookingDateEnd >= endDateCheck) {     // if the start of the attempted start booking date is less than the start date of the booking and the end of attempted booking end date is greater than the end date of the booking
+            bookingClash = true;                                               //ie when the start of the attempted booking date is before the start of an existing booking and the end of the attempted booking date is after end date the of the same existing booking
+          }
+        }
+      });
+    });
+    return bookingClash;
+  }
+
   checkOwnBookings() {
     this.desks.forEach(desk => {
       desk.bookings.forEach(booking => {
@@ -598,6 +658,30 @@ export class MapBookingsComponent {
         }
       });
     })
+  }
+
+  comparisonMode()
+  {
+    this.comparison = !this.comparison;
+    if (this.comparison) {
+        this.multiSelectedItemBookingsArr = [];      
+        console.log("settingsFilter")
+        document.getElementById('svg-map')?.setAttribute("style", "width: 50% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
+        document.getElementById('map-container')?.setAttribute("style", "width: auto ; margin: 1rem;");
+
+      
+    }
+    if (this.comparison == false) {
+      this.multiSelectedItemBookingsArr = [];
+      document.getElementById('svg-map')?.setAttribute("style", "width: 100% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
+      document.getElementById('map-container')?.setAttribute("style", "width: auto; margin: 1rem;");
+
+      
+    }
+
+    this.multiSelectedItemBookingsArr = [];
+
+    
   }
 
   openSuccessSnackBar(message: string) {
@@ -617,7 +701,7 @@ export class MapBookingsComponent {
   //generates the popup dialog and sends the relevant variables needed
   openDialog(): void {
     const dialogRef = this.dialog.open(DeskPopupComponent, {
-      width: '650px',
+      width: '500px',
       data: {
         currentUser: this.currentUser,
         selectedItemBookings: this.selectedItemBookings,
@@ -629,6 +713,7 @@ export class MapBookingsComponent {
         numPlugs: this.numPlugs,
         numMonitors: this.numMonitors,
         numProjectors: this.numProjectors,
+        desks: this.desks,
       }
     });
     

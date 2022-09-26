@@ -58,6 +58,7 @@ import { OfficeMakerComponent } from './office-maker/office-maker.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { DroppableDirective } from './directives/droppable.directive';
 import { DrawableDirective } from './directives/drawable.directive';
+import { EditDialogComponent } from './office-maker/edit-dialog/edit-dialog.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -72,7 +73,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'voting-bookings', component: VotingBookingsComponent },
-  { path: 'office-maker', component: OfficeMakerComponent},
+  { path: 'office-maker', component: OfficeMakerComponent },
   { path: 'landing-page', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
 ];
@@ -115,7 +116,8 @@ export function tokenGetter() {
     OfficeMakerComponent,
     DraggableDirective,
     DroppableDirective,
-    DrawableDirective
+    DrawableDirective,
+    EditDialogComponent,
   ],
   imports: [
     OverlayModule,
