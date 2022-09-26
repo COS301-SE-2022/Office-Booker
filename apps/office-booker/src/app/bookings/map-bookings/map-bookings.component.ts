@@ -65,6 +65,8 @@ export class MapBookingsComponent implements OnDestroy{
   defaultTimeOneHour = new Date();
   timeZoneOffset = new Date().getTimezoneOffset();
 
+  isFiltered = false;
+
   //user to have user id and rest if necessary
   currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
   hasBooking = false;
@@ -288,9 +290,9 @@ export class MapBookingsComponent implements OnDestroy{
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
+        console.log(booking);
         const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
         if (booking) {      //if a booking exists at all even one, change the boolean to true
-          // console.log(booking);
           const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
           bookingDate.setHours(bookingDate.getHours() - 2);   //booking is saved plus two somehow
 
@@ -316,6 +318,9 @@ export class MapBookingsComponent implements OnDestroy{
 
             }
           }
+        }
+        if(this.isFiltered){
+          const delayFilter = setTimeout(() => {this.filterBookings();}, 1000);
         }
         this.changeDetection.detectChanges();
       });
@@ -380,7 +385,8 @@ export class MapBookingsComponent implements OnDestroy{
 
   filterBookings() {         //filters the bookings based on the selected date
     const validDate = this.validateDate();
-    console.log(this.desks);
+    console.log(this.validateDate());
+    this.isFiltered = true;
     if (validDate) {
 
       if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
