@@ -84,6 +84,7 @@ describe('ApiBookingsApiController Integration Tests', () => {
   let service: ApiBookingsRepositoryDataAccessService;
   let bookingId: number;
   beforeAll(async () => {
+    jest.setTimeout(10000);
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiBookingsApiController],
       providers: [ApiBookingsRepositoryDataAccessService, ApiPermissionsService, ApiDesksRepositoryDataAccessService, ApiRoomsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
