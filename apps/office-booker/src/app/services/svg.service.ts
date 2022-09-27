@@ -14,13 +14,14 @@ export class SVGService {
       const CTM = element.viewportElement.getScreenCTM();
       const svgPoint = point.matrixTransform(CTM.inverse());
       return svgPoint;
-    } else {
-      const point = element.viewportElement.createSVGPoint();
+    
+  }
+
+  const point = element.viewportElement.createSVGPoint();
       point.x = event.clientX;
       point.y = event.clientY;
       const CTM = element.viewportElement.getScreenCTM();
       const svgPoint = point.matrixTransform(CTM.inverse());
       return svgPoint;
-    }
-  }
+}
 }
