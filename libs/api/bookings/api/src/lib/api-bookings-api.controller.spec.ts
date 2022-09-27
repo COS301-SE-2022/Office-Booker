@@ -84,7 +84,6 @@ describe('ApiBookingsApiController Integration Tests', () => {
   let service: ApiBookingsRepositoryDataAccessService;
   let bookingId: number;
   beforeAll(async () => {
-    jest.setTimeout(10000);
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ApiBookingsApiController],
       providers: [ApiBookingsRepositoryDataAccessService, ApiPermissionsService, ApiDesksRepositoryDataAccessService, ApiRoomsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
@@ -93,7 +92,7 @@ describe('ApiBookingsApiController Integration Tests', () => {
     service = app.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
   });
   it("testing createBooking method", async () => {
-    //const dto = new CreateBookingDto();
+    jest.setTimeout(10000);
     const postData = {
       startsAt: new Date('2022-09-23T11:08:04.952Z'),
       endsAt: new Date('2022-09-23T11:08:04.952Z'),
