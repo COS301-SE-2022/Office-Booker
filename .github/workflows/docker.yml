@@ -62,10 +62,3 @@ jobs:
 
       - name: Push backend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
-
-      - name: Update the running containers
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://update.officebooker.co.za/v1/update'
-          method: 'POST'
-          bearerToken: ${{ secrets.UPDATE_API_TOKEN }}
