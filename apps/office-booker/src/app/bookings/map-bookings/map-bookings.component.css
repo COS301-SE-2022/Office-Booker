@@ -1,6 +1,6 @@
 .map-container {
-    width: auto;
-    height: auto;
+    width: 1600px;
+    height: 800px;
     margin: 1rem;
     
 }
@@ -222,17 +222,21 @@
 
 .options-bar{
     float: left;
-    width: fill;
-    margin: 0.5rem;
+    width: 1600px;
+    margin: 1rem;
     /* background-color: rgba(255, 255, 255, 1); */
     text-align: center;
-    /* border: rgba(0, 0, 0, 0.314) 2.5px solid; */
     /* border-radius: 40px; */
+    /* display: inline; */
 
-    border: 0.5px solid rgb(241, 241, 241);
+    border: 1px solid rgb(241, 241, 241);
     border-radius: 4px;
+    padding: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background: rgba(255, 255, 255, 0);
 
-    
+
 }
 
 .time{

@@ -340,6 +340,7 @@ export class OfficeMakerComponent implements OnInit {
   {
     this.selectedRoom = event.value;
     this.printRooms(event.value);
+    
   }
 
   printRooms(roomId: number){

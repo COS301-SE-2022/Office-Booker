@@ -1,13 +1,19 @@
 <mat-card class="options-bar">
 
+    <mat-form-field>
+        <mat-label>Room</mat-label>
+        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
+            <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <div class="generateBlock">
         <div officeBookerDraggable class="office-booker-draggable">
             <svg id="create-object" class="createObject">       
             </svg>
         </div> 
     </div>
-
-        <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button>
+  
+    <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button>
 
     <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
     <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
@@ -28,12 +34,7 @@
      </mat-select>
     </mat-form-field> -->
 
-    <mat-form-field>
-        <mat-label>Room</mat-label>
-        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
-            <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+    
 
     <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
 
