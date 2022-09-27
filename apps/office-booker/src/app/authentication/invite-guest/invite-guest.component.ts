@@ -66,11 +66,10 @@ export class InviteGuestComponent /*implements OnInit*/ {
           this.exists = true;
         }
         else {
-          //this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
-          this.exists = false;
-
-          // return data;
-          //});
+          this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
+            this.exists = false;
+            return data;
+          });
         }
       });
       //return
