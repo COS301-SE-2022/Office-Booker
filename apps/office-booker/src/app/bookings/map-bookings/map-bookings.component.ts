@@ -318,7 +318,7 @@ export class MapBookingsComponent implements OnDestroy{
         }
         if(this.isFiltered){
           const delayFilter = setTimeout(() => {this.filterBookings();}, 1000);
-          delayFilter;
+          delayFilter.ref;
         }
         this.changeDetection.detectChanges();
       });
