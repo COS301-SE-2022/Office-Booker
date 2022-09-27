@@ -52,8 +52,6 @@ export class VotingBookingsComponent{
   }
   
   updateUserRatings(user: number, ratings: rating): boolean{ // this function updates the users rating.
-    console.log(ratings.ratingsReceived);
-
     this.bookingService.updateRatings(user, ratings.currentRating, ratings.ratingsReceived).subscribe(stuff => {
       //This API call will update the user with a new rating score and increase their total ratings received by 1.
       

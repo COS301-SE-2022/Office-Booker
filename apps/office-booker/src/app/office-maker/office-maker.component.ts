@@ -120,6 +120,8 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.setAttribute("isMeetingRoom", "false");
         newDesk.setAttribute("id", this.desks[i].id.toString());
         newDesk.classList.add("preMade");
+        newDesk.classList.add("desk");
+        // newDesk.style.cursor = "pointer";
         newDesk.onclick = () => this.selectItem(newDesk.id);
         newDesk.setAttribute("numPlugs", this.numPlugs.toString());
         newDesk.setAttribute("numMonitors", this.numMonitors.toString());
@@ -156,7 +158,9 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
+    newDesk.style.cursor = "pointer";
     newDesk.classList.add("new");
+    newDesk.classList.add("desk");
     newDesk.classList.add("objectGrab");
     newDesk.onclick = () => this.selectItem(newDesk.id);
     this.idCounterDesk++;
@@ -168,13 +172,11 @@ export class OfficeMakerComponent implements OnInit {
 
     if (this.editMode == true) {
       // this.getFacilitiesForDesk(parseInt(itemId));
-      console.log(this.editMode);
       this.selectedItemId = itemId;
       this.startEdit(itemId);
 
     }
     else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
-      console.log("item selected not editMode");
       const selectedItem =  document.getElementById(this.selectedItemId);
      
       if(selectedItem?.tagName == "rect"){
@@ -191,7 +193,6 @@ export class OfficeMakerComponent implements OnInit {
       this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
     }
-    // console.log("select item: " + this.selectedItemId);
   }
 
   deleteItem() {
@@ -218,6 +219,8 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
     newMeetingRoom.setAttribute("fill", "brown");
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
+    newMeetingRoom.style.cursor = "pointer";
+
     newMeetingRoom.setAttribute("id", "meetingRoom-"+this.idCounterMeetingRoom.toString());
     newMeetingRoom.classList.add("new");
     newMeetingRoom.onclick = () => this.selectItem(newMeetingRoom.id);
@@ -244,10 +247,8 @@ export class OfficeMakerComponent implements OnInit {
             } 
           }
           else if(officeObj.nodeName == "line"){
-            console.log("entered create wall");
             const attrb = officeObj.attributes;
             const newLine = {} as Wall;
-            console.log(attrb);
             newLine.Pos1X = Number(attrb.getNamedItem('x1')?.value);
             newLine.Pos1Y = Number(attrb.getNamedItem('y1')?.value);
             newLine.Pos2X = Number(attrb.getNamedItem('x2')?.value);
@@ -269,19 +270,16 @@ export class OfficeMakerComponent implements OnInit {
     // } else if (this.drawMode == false) {
     //   document.getElementById("startdraw")?.setAttribute("style", "border: 0px");
     // }
-    console.log(this.drawMode);
   }
 
   setEdit(){
     this.editMode = !this.editMode;
-    console.log(this.editMode);
   }
 
   startEdit(itemId: string){
     // if (document.getElementById("startdraw") != null) {
     //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
     // }
-    console.log("start edit");
         this.selectedItemId = itemId;
         
         this.openDialog(parseInt(itemId));
@@ -312,7 +310,6 @@ export class OfficeMakerComponent implements OnInit {
           // this.numPlugs = Number(plugsString);
           // this.numMonitors = Number(monitorsString);
           // this.numProjectors = Number(projectorsString);
-          // console.log("get facilities: " + this.numPlugs + " " + this.numMonitors + " " + this.numProjectors);
           const facility = {} as Facility;
           facility.deskId = deskId;
           facility.plugs = Number(plugsString);
@@ -339,12 +336,6 @@ export class OfficeMakerComponent implements OnInit {
 }
 }
   
-
-  // debug function
-  printClicked(){
-    console.log(this.clicked);
-  }
-
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
@@ -388,27 +379,16 @@ export class OfficeMakerComponent implements OnInit {
       res.forEach(room => {
         this.currentRooms.push(room);
       })
-      
-      console.log(this.currentRooms[0]);
       this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
       this.changeDetection.detectChanges();
     })
   }
 
   openDialog(x: number): void {    
-    console.log("open dialog");
-    console.log(this.facilities[0].plugs);
     
     // this.desks.find(d => d.id == x)?.numPlugs
     this.changeDetection.detectChanges();
     
-    // console.log(this.numMonitors + " " + this.numPlugs + " " + this.numProjectors);
-
-    // console.log("data before sent: " + this.desks.find(d => d.id == x)?.id + " " 
-    //                                  + this.desks.find(d => d.id == x)?.numPlugs + " " 
-    //                                  + this.desks.find(d => d.id == x)?.numMonitors + " "
-    //                                  + this.desks.find(d => d.id == x)?.numProjectors);
-
       const dialogRef = this.dialog.open(EditDialogComponent, {
         width: '550px',
         data: { numPlugs: this.facilities.find(d => d.deskId == x)?.plugs,
@@ -423,14 +403,12 @@ export class OfficeMakerComponent implements OnInit {
 
 
       dialogRef.afterClosed().subscribe(result => {
-        // console.log(result);
         if (result){
           this.numPlugs = result.numPlugs;
           this.numMonitors = result.numMonitors;
           this.numProjectors = result.numProjectors;
           this.deskId = result.deskId;
           this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
-            console.log(res);
             for (let i=0; i<this.facilities.length; i++) {
               if (this.facilities[i].deskId == this.deskId) {
                 this.facilities[i].plugs = this.numPlugs;
@@ -467,7 +445,6 @@ export class OfficeMakerComponent implements OnInit {
   // onChangeOffice(event: { value: any; })
   // {
   //   this.selectedOffice = event.value;
-  //   console.log(event.value);
   // }
 
   // getOffices() {

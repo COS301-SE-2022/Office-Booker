@@ -67,7 +67,6 @@ export class ApiBookingsApiController {
         const { startsAt, endsAt, deskId, userId } = postData;
 
         if (!this.permissionService.userAndDesk(Number(userId), Number(deskId))) {
-            console.log("User and desk don't match");
             throw new Error('You are not allowed to create a booking for this desk.');
         }
 

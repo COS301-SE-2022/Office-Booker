@@ -40,8 +40,6 @@ export class EditDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog, private bookingService: BookingServiceService,
     public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
-      console.log(data);
-
       this.numPlugs = data.numPlugs;
       this.numMonitors  = data.numMonitors;
       this.numProjectors = data.numProjectors;

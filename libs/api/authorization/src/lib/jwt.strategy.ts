@@ -22,7 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       issuer: authConfig.authority,
       algorithms: ['RS256'],
     });
-    console.log(authConfig)
   }
 
   public async validate(payload: any) {
