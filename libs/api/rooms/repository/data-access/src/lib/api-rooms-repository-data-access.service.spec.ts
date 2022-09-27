@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiRoomsRepositoryDataAccessService } from './api-rooms-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { Module, NotFoundException } from '@nestjs/common';
-import exp = require('constants');
 import * as crypto from 'crypto';
 
 describe('ApiRoomsRepositoryDataAccessService Unit Tests', () => {

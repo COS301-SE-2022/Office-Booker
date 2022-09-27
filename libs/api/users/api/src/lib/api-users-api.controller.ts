@@ -41,8 +41,6 @@ export class ApiUsersApiController {
         return await this.userService.getUsersByCompanyId(companyId);
     }
 
-
-    //@UseGuards(AuthGuard('jwt'))
     @Post("/email")
     async getUserByEmail(@Body() emailDto: emailDto) {
         const { email } = emailDto;

@@ -100,15 +100,6 @@ describe('ApiUsersApiController Integration Tests', () => {
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
   });
 
-  // afterAll(async () => {
-  //   if (del) {
-  //     const res = await controller.getUserById(id);
-  //     if (res != null) {
-  //       await controller.deleteUser(id);
-  //     }
-  //   }
-  // });
-
   it("calling getUsers method", async () => {
     const res = await controller.getUsers();
     expect(res.length).toBeGreaterThan(0);
