@@ -122,10 +122,17 @@
     display: inline;
     position: absolute;
     background-color: rgb(197, 197, 197)  ;
-    border:rgb(0, 0, 0) dashed 3px;
+    /* border:rgb(0, 0, 0) dashed 3px; */
     /* right: 0; */
     /* padding-left: 5rem; */
     /* margin: 1rem; */
+}
+
+.office-booker-draggable:hover
+{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+   
 }
 
 .createObject{
