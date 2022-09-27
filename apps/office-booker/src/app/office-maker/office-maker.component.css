@@ -96,13 +96,14 @@
     /* display: inline-block; */
     /* left: 0; */
     
-    border:rgb(125, 0, 0, 1) solid 2px;
+    /* border:rgb(125, 0, 0, 1) solid 2px; */
     display: inline;
     position: relative;
     /* height:100px;  */
     /* width: 70px; */
     /* margin: 1rem; */
     margin-right: 6rem;
+    margin-left: 1.5rem;
 
 
 
@@ -119,10 +120,12 @@
 
 .office-booker-draggable{
     /* top: 0; */
+    height: 50px;
+    width: 70px;
     display: inline;
     position: absolute;
     background-color: rgb(197, 197, 197)  ;
-    /* border:rgb(0, 0, 0) dashed 3px; */
+    border:rgb(0, 0, 0) dashed 3px;
     /* right: 0; */
     /* padding-left: 5rem; */
     /* margin: 1rem; */
@@ -136,9 +139,9 @@
 }
 
 .createObject{
-    height:30px; 
-    width: 75px;
-    margin-top: 22px;
+    height:fill; 
+    width: fill;
+    /* margin-top: 22px; */
     /* border:rgb(255, 0, 0) solid 3px; */
 }
 

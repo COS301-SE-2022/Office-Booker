@@ -30,7 +30,7 @@ export class MapBookingsComponent implements OnDestroy{
   roomId = 1;
   isOpen = false;
   zoom = 800;
-  mapPosX = 0;
+  mapPosX = 500;
   mapPosY = 0;
 
   //variables for the selected section
@@ -139,43 +139,54 @@ export class MapBookingsComponent implements OnDestroy{
 
   onChangeFloor(event: { value: any; })
   {
+    // const layout = document.getElementsByTagName("svg")[0];
+    // this.zoom = 800;
+    // this.mapPosX = 300;
+    // this.mapPosY = 0;
+    // layout.viewBox.baseVal.x = 0;
+    // layout.viewBox.baseVal.y = 0;
+    
+    // layout.viewBox.baseVal.width = 1000;
+    // layout.viewBox.baseVal.height = 1000;
+    // layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
     this.selectedRoom = event.value;
     this.printRooms(event.value);
   }
 
   zoomIn(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.zoom -= 70;
+    this.zoom -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   zoomOut(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.zoom += 70;
+    this.zoom += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panLeft(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosX -= 70;
+    this.mapPosX -= 60;
+    
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panRight(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosX += 70;
+    this.mapPosX += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panUp(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosY += 70;
+    this.mapPosY += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panDown(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosY -= 70;
+    this.mapPosY -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 

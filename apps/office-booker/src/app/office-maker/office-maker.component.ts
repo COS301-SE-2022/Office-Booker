@@ -107,29 +107,7 @@ export class OfficeMakerComponent implements OnInit {
     {
       this.getDesksByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
 
-    //   console.log("HELLO")
-    //     console.log(this.currentRooms[i].id);
-    //     this.bookingService.getDesksByRoomId(this.currentRooms[i].id).subscribe(res => {
-    //       res.forEach(desk => {
-    //         // this.getFacilitiesF/orDesk(desk.id);
-    //         const newDesk = {} as Desk;       //new desk object to hold a new and possibly empty variable
-    //         newDesk.id = desk.id;             //assigns each property individually
-    //         newDesk.LocationCol = desk.LocationCol;
-    //         newDesk.LocationRow = desk.LocationRow;
-    //         newDesk.roomId = desk.roomId;
-    //         newDesk.bookings = [];            //the potentially empty variable needs to be instantiated
-    //         newDesk.Height = desk.Height;
-    //         newDesk.Width = desk.Width;
-    //         newDesk.isMeetingRoom = desk.isMeetingRoom;
-    //         newDesk.numPlugs = this.numPlugs;
-    //         newDesk.numMonitors = this.numMonitors;
-    //         newDesk.numProjectors = this.numProjectors;
-    
-    //         this.allDesks.push(newDesk);       //adds to all desk array
-    
-    //         this.changeDetection.detectChanges();
-    //       });
-    //     })
+   
     }
   
     
@@ -193,8 +171,8 @@ export class OfficeMakerComponent implements OnInit {
     const svgns = "http://www.w3.org/2000/svg";
     const newDesk = document.createElementNS(svgns, "rect");
    
-    newDesk.setAttribute("x", "20");
-    newDesk.setAttribute("y", "0");
+    newDesk.setAttribute("x", "10");
+    newDesk.setAttribute("y", "10");
     newDesk.setAttribute("width", this.deskWidth.toString());//default 65
     newDesk.setAttribute("height", this.deskHeight.toString());//default 35
     newDesk.setAttribute("fill", "green");
