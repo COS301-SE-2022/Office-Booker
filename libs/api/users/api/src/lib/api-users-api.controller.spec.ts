@@ -86,7 +86,6 @@ describe('ApiUsersApiController Integration Tests', () => {
   let controller: ApiUsersApiController;
   let service: ApiUsersRepositoryDataAccessService;
   let id: number;
-  let del = false;
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -161,7 +160,6 @@ describe('ApiUsersApiController Integration Tests', () => {
   })
 
   it("calling deleteUser method", async () => {
-    del = true;
     await controller.deleteUser(id);
     const res = await controller.getUserById(id);
     expect(res).toBe(null);
