@@ -3,7 +3,7 @@
         <mat-card-content>
 
             <mat-form-field>
-                <mat-label>Room</mat-label>
+                <mat-label>Floor</mat-label>
                 <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
                     <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
                 </mat-select>
