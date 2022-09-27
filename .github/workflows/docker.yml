@@ -69,3 +69,4 @@ jobs:
           url: 'https://update.officebooker.co.za/v1/update'
           method: 'POST'
           bearerToken: ${{ secrets.UPDATE_API_TOKEN }}
+          preventFailureOnNoResponse: true
