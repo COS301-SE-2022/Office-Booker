@@ -56,7 +56,6 @@ export class OfficeMakerService {
   }
 
   createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number, Pos2Y: number){
-    console.log("entered service file");
     const url = this.baseURL + 'walls';
     const body = {
       roomId: roomId,

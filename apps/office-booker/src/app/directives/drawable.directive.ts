@@ -46,7 +46,6 @@ export class DrawableDirective {
         }
       } else {
         if (this.newWall != null) {
-          console.log(this.idCounterWall);
           this.newWall.setAttribute('draggable', true);
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
