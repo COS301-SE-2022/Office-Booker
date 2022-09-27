@@ -37,12 +37,13 @@ export class OfficeMakerComponent implements OnInit {
   roomWidth = 200;
   roomHeight = 200;
   wallWidth = 300;
+  allDesks: Array<Desk> = [];
   desks: Array<Desk> = [];
   facilities: Array<Facility> = [];
   selectedItemId = "default";
 
   currentRooms: Array<Room> = [];
-  selectedRoom = 1;
+  selectedRoom = 0;
 
   numPlugs: number;
   numMonitors: number;
@@ -81,6 +82,9 @@ export class OfficeMakerComponent implements OnInit {
     //this.getOffices();
     // this.getRooms(this.currentUser.companyId);
     this.getCurrentUser();
+    
+  
+
     this.changeDetection.detectChanges();
   }
 
@@ -93,6 +97,42 @@ export class OfficeMakerComponent implements OnInit {
 
       this.changeDetection.detectChanges();
     })
+  }
+
+  getAllDesksOnAllFloors()
+  {
+    this.allDesks = [];
+    
+    for (let i = 0; i < 2; i++)
+    {
+      this.getDesksByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
+
+    //   console.log("HELLO")
+    //     console.log(this.currentRooms[i].id);
+    //     this.bookingService.getDesksByRoomId(this.currentRooms[i].id).subscribe(res => {
+    //       res.forEach(desk => {
+    //         // this.getFacilitiesF/orDesk(desk.id);
+    //         const newDesk = {} as Desk;       //new desk object to hold a new and possibly empty variable
+    //         newDesk.id = desk.id;             //assigns each property individually
+    //         newDesk.LocationCol = desk.LocationCol;
+    //         newDesk.LocationRow = desk.LocationRow;
+    //         newDesk.roomId = desk.roomId;
+    //         newDesk.bookings = [];            //the potentially empty variable needs to be instantiated
+    //         newDesk.Height = desk.Height;
+    //         newDesk.Width = desk.Width;
+    //         newDesk.isMeetingRoom = desk.isMeetingRoom;
+    //         newDesk.numPlugs = this.numPlugs;
+    //         newDesk.numMonitors = this.numMonitors;
+    //         newDesk.numProjectors = this.numProjectors;
+    
+    //         this.allDesks.push(newDesk);       //adds to all desk array
+    
+    //         this.changeDetection.detectChanges();
+    //       });
+    //     })
+    }
+  
+    
   }
 
   
@@ -108,17 +148,18 @@ export class OfficeMakerComponent implements OnInit {
 
     const svgns = "http://www.w3.org/2000/svg";
 
-    for (let i=0; i<this.desks.length; i++)
+    for (let i=0; i<this.allDesks.length; i++)
     {
-      this.getFacilitiesForDesk(this.desks[i].id);
+      if (this.allDesks[i].roomId == this.selectedRoom){
+      // this.getFacilitiesForDesk(this.allDesks[i].id);
         const newDesk = document.createElementNS(svgns, "rect");
-        newDesk.setAttribute("x", this.desks[i].LocationCol.toString());
-        newDesk.setAttribute("y", this.desks[i].LocationRow.toString());
-        newDesk.setAttribute("width", this.desks[i].Width.toString() ); //default 65
-        newDesk.setAttribute("height", this.desks[i].Height.toString() ); //default 35
+        newDesk.setAttribute("x", this.allDesks[i].LocationCol.toString());
+        newDesk.setAttribute("y", this.allDesks[i].LocationRow.toString());
+        newDesk.setAttribute("width", this.allDesks[i].Width.toString() ); //default 65
+        newDesk.setAttribute("height", this.allDesks[i].Height.toString() ); //default 35
         newDesk.setAttribute("fill", "grey");
         newDesk.setAttribute("isMeetingRoom", "false");
-        newDesk.setAttribute("id", this.desks[i].id.toString());
+        newDesk.setAttribute("id", this.allDesks[i].id.toString());
         newDesk.classList.add("preMade");
         newDesk.classList.add("desk");
         // newDesk.style.cursor = "pointer";
@@ -129,8 +170,9 @@ export class OfficeMakerComponent implements OnInit {
 
         this.changeDetection.detectChanges();
       
-      svg?.appendChild(newDesk);
       
+      svg?.appendChild(newDesk);
+      }
 
     }
     for (let i = 0; i < this.currentRooms.length; i++) {
@@ -151,7 +193,7 @@ export class OfficeMakerComponent implements OnInit {
     const svgns = "http://www.w3.org/2000/svg";
     const newDesk = document.createElementNS(svgns, "rect");
    
-    newDesk.setAttribute("x", "0");
+    newDesk.setAttribute("x", "20");
     newDesk.setAttribute("y", "0");
     newDesk.setAttribute("width", this.deskWidth.toString());//default 65
     newDesk.setAttribute("height", this.deskHeight.toString());//default 35
@@ -339,18 +381,27 @@ export class OfficeMakerComponent implements OnInit {
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
-    this.printRooms(event.value);
-    
+
+    // this.printRooms(event.value);
+    // this.getDesks(this.selectedRoom);
+
+    this.generateDesks();
   }
 
-  printRooms(roomId: number){
-    this.desks.length = 0;
-    this.selectedRoom = roomId;
+  getDesks(roomId: number) {
+    this.allDesks = [];
+    // allDesks
+    console.log(this.desks);
+    for (let i=0; i< this.desks.length; i++) {
+      if (this.desks[i].roomId == roomId) {
+        this.allDesks.push(this.desks[i]);
+      }
+    }
 
-    this.getDesksByRoomId(roomId); 
   }
 
   getDesksByRoomId(roomId: number) {
+    // this.getRooms(this.currentUser.companyId);
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
       res.forEach(desk => {
         this.getFacilitiesForDesk(desk.id);
@@ -367,7 +418,7 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.numMonitors = this.numMonitors;
         newDesk.numProjectors = this.numProjectors;
 
-        this.desks.push(newDesk);       //adds to desk array
+        this.allDesks.push(newDesk);       //adds to desk array
 
         this.changeDetection.detectChanges();
       });
@@ -375,12 +426,13 @@ export class OfficeMakerComponent implements OnInit {
 
   }
 
-  getRooms(coId: number) {
+  getRooms(coId: number,) {
     this.bookingService.getRoomsByCompanyId(coId).subscribe(res => {
       res.forEach(room => {
-        this.currentRooms.push(room);
+        console.log(this.currentRooms.push(room));
       })
-      this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+      this.getAllDesksOnAllFloors();
+      // this.getDesksByRoomId(1); //gets all the desks for the current room
       this.changeDetection.detectChanges();
     })
   }
@@ -441,20 +493,4 @@ export class OfficeMakerComponent implements OnInit {
     }
 
 
-  //below functions to be fixed/implemented for selecting offices for a company to be able to edit
-
-  // onChangeOffice(event: { value: any; })
-  // {
-  //   this.selectedOffice = event.value;
-  // }
-
-  // getOffices() {
-  //   this.makerService.getCompanies().subscribe(res => {
-  //     res.forEach(office => {
-  //       this.currentOffice.push(office);
-  //     })
-  //     this.changeDetection.detectChanges();
-  //   })
-    
-  // }
 }
