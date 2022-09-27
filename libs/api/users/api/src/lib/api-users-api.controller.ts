@@ -50,7 +50,7 @@ export class ApiUsersApiController {
     @Post('/')
     async createUser(@Body() postData: createUserDto) {
         const { name , companyId, email, guest } = postData;
-        this.mailService.sendUserConfirmation(email);
+        //this.mailService.sendUserConfirmation(email);
         return await this.userService.createUser({
             name: name,
             company: {
