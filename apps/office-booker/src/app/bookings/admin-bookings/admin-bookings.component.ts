@@ -15,6 +15,7 @@ export class AdminBookingsComponent{
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
   Users: Array<employee> = [];
+  Domains: Array<string> = [];
   employeeName = "";
   userNumb = -1;
   currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false, currentRating: 0, ratingsReceived: 0};
@@ -52,6 +53,9 @@ export class AdminBookingsComponent{
       
       });
     })
+    this.bookingService.getCompanyByID(this.companyId).subscribe(res => {
+      this.Domains = res.domain;
+    });
     this.changeDetection.detectChanges();
     this.getBookings(this.currentUser.id, this.currentUser.name);
   }
