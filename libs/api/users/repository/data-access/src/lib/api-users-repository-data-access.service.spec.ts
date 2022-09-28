@@ -100,22 +100,4 @@ describe('ApiUsersRepositoryDataAccessService', () => {
       expect(await service.createUser(user)).toEqual(user);
     });
   });
-
 });
-
-
-/*describe('ApiUsersRepositoryDataAccessService', () => {
-  let service: ApiUsersRepositoryDataAccessService;
-
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiUsersRepositoryDataAccessService, PrismaService],
-    }).compile();
-
-    service = module.get(ApiUsersRepositoryDataAccessService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeTruthy();
-  });
-});*/
