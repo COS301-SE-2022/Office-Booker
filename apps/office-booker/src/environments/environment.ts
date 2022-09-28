@@ -9,7 +9,7 @@ export const environment = {
     userPoolWebClientId: '4fq13t0k4n7rrpuvjk6tua951c',
   },
   production: false,
-  API_URL: 'https://api.officebooker.co.za/api',
+  API_URL: 'https://api.officebooker.co.za',
 }
 
 /*

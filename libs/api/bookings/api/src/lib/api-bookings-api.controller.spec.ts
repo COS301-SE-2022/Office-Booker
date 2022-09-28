@@ -92,7 +92,6 @@ describe('ApiBookingsApiController Integration Tests', () => {
     service = app.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
   });
   it("testing createBooking method", async () => {
-    jest.setTimeout(10000);
     const postData = {
       startsAt: new Date('2022-09-23T11:08:04.952Z'),
       endsAt: new Date('2022-09-23T11:08:04.952Z'),

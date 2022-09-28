@@ -84,11 +84,12 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	let deskService;
 	let userService;
 	let receivedUser1;
-	let receivedDesk;
-	let receivedBooking;
+	let createdDeskId;
+	let createdBookingId;
 	let receivedUser2
-	let receivedInvite;
+	let createdInviteId;
 	let bookingToBeDeleted;
+	let tempCreatedBooking;
 
 	beforeAll(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -100,60 +101,37 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	});
 
 	beforeEach(async () => {
-		const user1 = {
-			name: 'BookingsTestuser1',
-			company: {
-				connect: {
-					id: 4,
-				},
-			},
-			Bookings: undefined,
-			email: 'testuser1@gmail.com',
-			admin: false,
-			guest: false,
-			currentRating: 5,
-			ratingsReceived: 1
-		};
-		const user2 = {
-			name: 'BookingsTestuser2',
-			company: {
-				connect: {
-					id: 4
-				},
-			},
-			Bookings: undefined,
-			email: 'testuser2@gmail.com',
-			admin: false,
-			guest: false,
-			currentRating: 5,
-			ratingsReceived: 1
-		};
-		//await userService.createUser(user1);
-		//receivedUser1 = await userService.getUserByEmail(user1.email);
-		//await userService.createUser(user2);
-		//receivedUser2 = await userService.getUserByEmail(user2.email);
 		const desk = { Room: { connect: { id: 3 }, }, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
 		const createdDesk = await deskService.createDeskByRoomId(desk);
-		receivedDesk = await deskService.getDeskById(createdDesk.id);
+		createdDeskId = createdDesk.id;
 		const booking = {
 			createdAt: '2022-06-26T14:52:09.509Z',
 			startsAt: '2022-05-26T14:52:09.509Z',
 			endsAt: '2022-05-26T14:52:09.509Z',
-			Desk: { connect: { id: receivedDesk.id } },
+			Desk: { connect: { id: createdDeskId } },
 			Employee: { connect: { id: 5 } },
 		}
 		const createdBooking = await service.createBooking(booking);
-		receivedBooking = await service.getBookingById(createdBooking.id);
-		const createdInvite = await service.createInvite(receivedBooking.id, 'user2@gmail.com');
-		receivedInvite = await service.getInviteById(createdInvite.id);
+		createdBookingId = createdBooking.id;
+		const createdInvite = await service.createInvite(createdBooking.id, 'user2@gmail.com');
+		createdInviteId = createdInvite.id;
+
+		if(tempCreatedBooking != null){
+			const res = await service.deleteBooking(tempCreatedBooking)
+			tempCreatedBooking = null;
+			console.log("DELETED: " + res);
+		}
 	});
 
 	afterEach(async () => {
-		await service.deleteInvite(receivedInvite.id);
-		await service.deleteBooking(receivedBooking.id);
-		await deskService.deleteDesk(receivedDesk.id);
-		//await userService.deleteUser(receivedUser1.id);
-		//await userService.deleteUser(receivedUser2.id);
+		await service.deleteInvite(createdInviteId);
+		await service.deleteBooking(createdBookingId);
+		await deskService.deleteDesk(createdDeskId);
+		if(tempCreatedBooking != null){
+			const res = await service.deleteBooking(tempCreatedBooking)
+			tempCreatedBooking = null;
+			console.log("DELETED: " + res);
+		}
 	});
 
 	it('should get all bookings', async () => {
@@ -163,14 +141,14 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	});
 
 	it('should get all the bookings for specified desk', async () => {
-		const testVal = await service.getBookingsForDesk(receivedDesk.id);
+		const testVal = await service.getBookingsForDesk(createdDeskId);
 		expect(testVal).toHaveLength(1);
 
 	});
 
 	it('should get a booking by id', async () => {
-		const result = await service.getBookingById(receivedBooking.id);
-		expect(result).toEqual(receivedBooking);
+		const result = await service.getBookingById(createdBookingId);
+		expect(result.employeeId).toEqual(5);
 	});
 
 	it('should create a booking', async () => {
@@ -178,13 +156,16 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 			createdAt: '2022-06-26T14:52:09.509Z',
 			startsAt: '2022-05-26T16:52:09.509Z',
 			endsAt: '2022-05-26T16:52:09.509Z',
-			Desk: { connect: { id: receivedDesk.id } },
+			Desk: { connect: { id: createdDeskId } },
 			Employee: { connect: { id: 5 } },
 		}
 		const createdBooking = await service.createBooking(bookingNew);
+		tempCreatedBooking = createdBooking.id;
 		expect(createdBooking).toBeDefined();
-		await service.deleteBooking(createdBooking.id);
-		console.log("Deleted Booking");
+		const res = await service.deleteBooking(createdBooking.id);
+		if(res != null){
+			tempCreatedBooking = null;
+		}
 	});
 
 	it('should delete a booking', async () => {
@@ -192,12 +173,16 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 			createdAt: '2022-06-26T14:52:09.509Z',
 			startsAt: '2022-05-26T16:52:09.509Z',
 			endsAt: '2022-05-26T16:52:09.509Z',
-			Desk: { connect: { id: receivedDesk.id } },
+			Desk: { connect: { id: createdDeskId } },
 			Employee: { connect: { id: 5 } },
 		}
 		const createdBooking = await service.createBooking(bookingNew);
+		tempCreatedBooking = createdBooking.id;
 		expect(createdBooking).toBeDefined();
 		const deletedBooking = await service.deleteBooking(createdBooking.id);
+		if(deletedBooking != null){
+			tempCreatedBooking = null;
+		}
 		expect(deletedBooking).toBeDefined();
 	});
 
@@ -207,16 +192,12 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 		expect(bookings.length).toBeGreaterThan(0);
 	});
 
-	it('should delete a booking and return null', async () => {
-		expect(receivedInvite).toBeDefined();
-	});
-
 	it('should create an invite', async () => {
-		expect(receivedInvite).toBeDefined();
+		expect(createdInviteId).toBeDefined();
 	});
 
 	it('should get invites for booking', async () => {
-		const invites = await service.getInvitesForBooking(receivedBooking.id);
+		const invites = await service.getInvitesForBooking(createdBookingId);
 		expect(invites).toBeDefined();
 		expect(invites.length).toBeGreaterThan(0);
 	});
