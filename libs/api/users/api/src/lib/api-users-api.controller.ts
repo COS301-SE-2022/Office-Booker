@@ -93,6 +93,6 @@ export class ApiUsersApiController {
     @Put("/name/:userId")
     async changeUserName(@Param('userId') userId: number, @Body() postData: userDto) {
         const { name } = postData;
-        return await this.userService.changeUserName(userId, name);
+        return this.userService.changeUserName(userId, name);
     }
 }

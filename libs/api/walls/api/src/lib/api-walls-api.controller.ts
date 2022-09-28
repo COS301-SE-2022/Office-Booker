@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/c
 import { AuthGuard } from '@nestjs/passport';
 import { ApiWallsDataAccessService } from '@office-booker/api/walls/data-access';
 
-class createWallDto {
+class CreateWallDto {
     roomId: number;
     Pos1X: number;
     Pos1Y: number;
@@ -17,22 +17,22 @@ export class ApiWallsApiController {
 
     @Get("/room/:roomId")
     async getWallsInRoom(@Param('roomId') roomId: string) {
-        return await this.wallService.getWallsInRoom(Number(roomId));
+        return this.wallService.getWallsInRoom(Number(roomId));
     }
 
     @Get("/wall/:wallId")
     async getWallsById(@Param('wallId') wallId: string) {
-        return await this.wallService.getWallbyId(Number(wallId));
+        return this.wallService.getWallbyId(Number(wallId));
     }
 
     @Post("/")
-    async createWall(@Body() postData: createWallDto) {
+    async createWall(@Body() postData: CreateWallDto) {
         const {roomId, Pos1X, Pos1Y, Pos2X, Pos2Y} = postData;
-        return await this.wallService.createWall(roomId, Pos1X, Pos1Y, Pos2X, Pos2Y);
+        return this.wallService.createWall(roomId, Pos1X, Pos1Y, Pos2X, Pos2Y);
     }
 
     @Delete("/wall/:wallId")
     async deleteWallbyId(@Param('wallId') wallId: string) {
-        return await this.wallService.deleteWall(Number(wallId));
+        return this.wallService.deleteWall(Number(wallId));
     }
 }
