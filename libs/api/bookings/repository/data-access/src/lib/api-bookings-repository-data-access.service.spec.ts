@@ -1,10 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from './api-bookings-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { createBooking } from '../functions';
-import { prismaMock } from './../singleton'
-import { NotFoundException } from '@nestjs/common';
-import exp = require('constants');
 import * as crypto from 'crypto';
 
 describe('ApiBookingsRepositoryDataAccessService', () => {
@@ -15,8 +11,8 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [ApiBookingsRepositoryDataAccessService, PrismaService],
 		}).compile();
-		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
-		prisma = await module.get<PrismaService>(PrismaService);
+		apiBookingsRepositoryDataAccessService = module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+		prisma = module.get<PrismaService>(PrismaService);
 	});
 
 	describe('getBookingsForDesk', () => {
@@ -100,7 +96,6 @@ expect.extend({
 			typeof received.calls.count === 'function';
 
 		const receivedIsSpy = isSpy(received);
-		const receivedName = receivedIsSpy ? 'spy' : received.getMockName();
 
 		const calls = receivedIsSpy
 			? received.calls.all().map((x: any) => x.args)

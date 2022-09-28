@@ -52,11 +52,6 @@ export class ApiBookingsApiController {
         return this.bookingService.getBookingById(Number(bookingId));
     }
 
-    @Get('/desk/current/:deskId')
-    async getCurrentBookingsForDesk(@Param('deskId') deskId: string) {
-        return this.bookingService.getCurrentBookingsForDesk(Number(deskId));
-    }
-
     @Delete('/:bookingId')
     async deleteBooking(@Param('bookingId') bookingId: string) {
         return this.bookingService.deleteBooking(Number(bookingId));
