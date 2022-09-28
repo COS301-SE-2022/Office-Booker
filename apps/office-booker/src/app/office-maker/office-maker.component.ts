@@ -420,13 +420,7 @@ export class OfficeMakerComponent implements OnInit {
   getWallsByRoomId(roomId: number){
     this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
       res.forEach(wall => {
-        const newWall = {} as Wall;       
-        newWall.id = wall.id;             
-        newWall.roomId = wall.roomId;
-        newWall.Pos1X = wall.Pos1X;
-        newWall.Pos1Y = wall.Pos1Y;
-        newWall.Pos2X = wall.Pos2X;
-        newWall.Pos2Y = wall.Pos2Y;
+        const newWall = {id: wall.id, roomId: wall.roomId, Pos1X: wall.Pos1X, Pos1Y: wall.Pos1Y, Pos2X: wall.Pos2X, Pos2Y: wall.Pos2Y}; 
 
         this.walls.push(newWall);
 
