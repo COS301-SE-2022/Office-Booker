@@ -121,6 +121,11 @@ export class ApiBookingsApiController {
         return this.bookingService.deleteInvite(Number(inviteId));
     }
 
+    @Get('/canVote/:userId')
+    async getBookingsUserCanVoteOn(@Param('userId') userId: string) {
+        return this.bookingService.getBookingsUserCanVoteOn(Number(userId));
+    }
+
     @Get('/votes/booking/:bookingId')
     async getUsersVotedOnBooking(@Param('bookingId') bookingId: string) {
         return this.bookingService.getUsersVotedOnBooking(Number(bookingId));
