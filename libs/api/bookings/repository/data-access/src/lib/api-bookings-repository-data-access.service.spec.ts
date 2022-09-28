@@ -4,7 +4,6 @@ import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/re
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
-import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 
 describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	let apiBookingsRepositoryDataAccessService;
