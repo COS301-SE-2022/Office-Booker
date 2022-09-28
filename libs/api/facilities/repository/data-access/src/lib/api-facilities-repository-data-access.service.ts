@@ -3,7 +3,7 @@ import { PrismaService } from '@office-booker/api/shared/services/prisma/data-ac
 
 @Injectable()
 export class ApiFacilitiesRepositoryDataAccessService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
     // get facilities of a desk
     async getFacilitiesForDesk(@Param() deskId: number) {
@@ -14,8 +14,8 @@ export class ApiFacilitiesRepositoryDataAccessService {
         });
     }
 
-   async updateFacilitiesForDesk(@Param() deskId: number, updatePlugs: number, 
-                                    updateMonitors: number, updateProjectors: number) {
+    async updateFacilitiesForDesk(@Param() deskId: number, updatePlugs: number,
+        updateMonitors: number, updateProjectors: number) {
         return this.prisma.facility.updateMany({
             where: {
                 deskId: deskId,
