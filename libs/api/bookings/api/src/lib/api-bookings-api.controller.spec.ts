@@ -6,9 +6,10 @@ import { ApiPermissionsService } from '@office-booker/api/permissions';
 import { ApiRoomsRepositoryDataAccessService } from '@office-booker/api/rooms/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
+import exp = require('constants');
 import { ApiBookingsApiController } from './api-bookings-api.controller';
 
-describe('ApiBookingsApiController', () => {
+describe('ApiBookingsApiController Unit Tests', () => {
   let controller: ApiBookingsApiController;
   let service: ApiBookingsRepositoryDataAccessService;
   beforeAll(async () => {
@@ -57,7 +58,6 @@ describe('ApiBookingsApiController', () => {
   it("calling createBooking method", () => {
     const deskId = "1";
     const userId = "2";
-    //const dto = new CreateBookingDto();
     const postData = {
       startsAt: new Date(),
       endsAt: new Date(),
@@ -75,5 +75,45 @@ describe('ApiBookingsApiController', () => {
       endsAt: postData.endsAt,
       startsAt: postData.startsAt,
     });
+  })
+});
+
+describe('ApiBookingsApiController Integration Tests', () => {
+  let controller: ApiBookingsApiController;
+  let service: ApiBookingsRepositoryDataAccessService;
+  let bookingId: number;
+  beforeAll(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [ApiBookingsApiController],
+      providers: [ApiBookingsRepositoryDataAccessService, ApiPermissionsService, ApiDesksRepositoryDataAccessService, ApiRoomsRepositoryDataAccessService, ApiCompaniesRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
+    }).compile();
+    controller = app.get<ApiBookingsApiController>(ApiBookingsApiController);
+    service = app.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+  });
+  it("testing createBooking method", async () => {
+    const postData = {
+      startsAt: new Date('2022-09-23T11:08:04.952Z'),
+      endsAt: new Date('2022-09-23T11:08:04.952Z'),
+      deskId: Number('28'),
+      userId: Number('5'),
+    }
+    const res = await controller.createBooking(postData);
+    expect(res.startsAt).toEqual(postData.startsAt);
+    expect(res.endsAt).toEqual(postData.endsAt);
+    expect(res.deskId).toEqual(postData.deskId);
+    expect(res.employeeId).toEqual(postData.userId);
+    bookingId = res.id;
+  })
+  it("testing getBookingsForDesk method", async () => {
+    const res = await controller.getBookingsForDesk('28');
+    expect(res[0].deskId).toEqual(28);
+    expect(res[0].startsAt).toEqual(new Date('2022-09-23T11:08:04.952Z'));
+    expect(res[0].endsAt).toEqual(new Date('2022-09-23T11:08:04.952Z'));
+    expect(res[0].employeeId).toEqual(5);
+  })
+  it("testing deleteBooking method", async () => {
+    await controller.deleteBooking(bookingId + "");
+    const res = await controller.getBookingById(bookingId.toString());
+    expect(res).toEqual(null);
   })
 });

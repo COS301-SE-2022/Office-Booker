@@ -3,7 +3,7 @@ import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/re
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiDesksApiController } from './api-desks-api.controller';
 
-describe('ApiDesksApiController', () => {
+describe('ApiDesksApiController Unit Testing', () => {
   let controller: ApiDesksApiController;
   let service: ApiDesksRepositoryDataAccessService;
 
@@ -33,5 +33,39 @@ describe('ApiDesksApiController', () => {
     const roomId = "1";
     controller.getDesksInRoom(roomId);
     expect(service.getDesksInRoom).toHaveBeenCalledWith(Number(roomId));
+  })
+});
+
+describe('ApiDesksApiController Integration Testing', () => {
+  let controller: ApiDesksApiController;
+  let service: ApiDesksRepositoryDataAccessService;
+
+  class createDeskDto {
+    roomId: number;
+    LocationRow: number;
+    LocationCol: number;
+    Height: number;
+    Width: number;
+    isMeetingRoom: boolean;
+    capacity: number;
+}
+
+  beforeAll(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [ApiDesksApiController],
+      providers: [ApiDesksRepositoryDataAccessService, PrismaService],
+    }).compile();
+    controller = app.get<ApiDesksApiController>(ApiDesksApiController);
+    service = app.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
+  });  
+
+  it("testing getDesks method", async () => {
+    const res = await controller.getAll();
+    expect(res.length).toBeGreaterThan(0);
+  })
+
+  it("testing getDeskByRoomId method", async () => {
+    const res = await controller.getDesksInRoom('3');
+    expect(res.length).toBeGreaterThan(0);
   })
 });
