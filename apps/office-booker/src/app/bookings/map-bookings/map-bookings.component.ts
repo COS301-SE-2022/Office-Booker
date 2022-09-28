@@ -116,16 +116,13 @@ export class MapBookingsComponent implements OnDestroy{
     this.numPlugs = 0;
     this.numMonitors = 0;
     this.numProjectors = 0;
-    // this.desk = { id: 0, name: "", type: "", roomId: 0 };
     this.facilityString = "";
 
-    // changeDetection.detach();
   
   }
 
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
-    // this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
   
   }
@@ -140,16 +137,7 @@ export class MapBookingsComponent implements OnDestroy{
 
   onChangeFloor(event: { value: any; })
   {
-    // const layout = document.getElementsByTagName("svg")[0];
-    // this.zoom = 800;
-    // this.mapPosX = 300;
-    // this.mapPosY = 0;
-    // layout.viewBox.baseVal.x = 0;
-    // layout.viewBox.baseVal.y = 0;
     
-    // layout.viewBox.baseVal.width = 1000;
-    // layout.viewBox.baseVal.height = 1000;
-    // layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
     this.selectedRoom = event.value;
     this.printRooms(event.value);
   }
@@ -366,7 +354,6 @@ export class MapBookingsComponent implements OnDestroy{
     this.desks.forEach(desk => {
       if (desk.id == itemId) {
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
-        //this.selectedItemBookings = this.selectedItemBookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());    //sorts display bookings in ascending order (earliest first)
       }
     })
 
@@ -390,9 +377,6 @@ export class MapBookingsComponent implements OnDestroy{
       this.openDialog();        //opens the dialog box for booking
       this.changeDetection.detectChanges();
     }
-
-    // this.openDialog();        //opens the dialog box for booking
-    // this.changeDetection.detectChanges();
   }
 
   unselectComparison(itemId: number) {
