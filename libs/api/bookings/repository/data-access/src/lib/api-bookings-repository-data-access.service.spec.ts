@@ -1,13 +1,9 @@
-import { Context, ActualPrisma } from '../../../../../context';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from './api-bookings-repository-data-access.service';
 import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { Prisma } from '@prisma/client';
-//'libs/api/authorization/src/lib/jwt.strategy';
 import * as crypto from 'crypto';
-import exp = require('constants');
 
 describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	let apiBookingsRepositoryDataAccessService;
@@ -83,37 +79,32 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	});
 });
 
-
-
-
 describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	let service;
 	let deskService;
 	let userService;
-	let prisma;
-	let receivedUser;
+	let receivedUser1;
 	let receivedDesk;
 	let receivedBooking;
-	let receivedInviteUser
-	let invite;
-	let createdInvite;
+	let receivedUser2
 	let receivedInvite;
 
-	beforeEach(async () => {
+	beforeAll(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
 		}).compile();
 		service = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
 		deskService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
 		userService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
-		prisma = await module.get<PrismaService>(PrismaService);
-		
-		const user = {
-			name: 'Test User',
+	});
+
+	beforeEach(async () => {
+		const user1 = {
+			name: 'BookingsTestuser1',
 			company: {
-			  connect: {
-				  id: 4,
-			  },
+				connect: {
+					id: 4,
+				},
 			},
 			Bookings: undefined,
 			email: 'testuser1@gmail.com',
@@ -121,136 +112,113 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 			guest: false,
 			currentRating: 5,
 			ratingsReceived: 1
-		  };	
-		  
-		const inviteUser = {
-			name: 'Invite User',
-			company: { connect: { id: 4 } },
+		};
+		const user2 = {
+			name: 'BookingsTestuser2',
+			company: {
+				connect: {
+					id: 4
+				},
+			},
 			Bookings: undefined,
-			email: 'inviteuser@gmail.com',
+			email: 'testuser2@gmail.com',
 			admin: false,
 			guest: false,
 			currentRating: 5,
 			ratingsReceived: 1
 		};
-		  
-		  await userService.createUser(user); 
-		  receivedUser = await userService.getUserByEmail(user.email);
-
-		  await userService.createUser(inviteUser);
-		  receivedInviteUser = await userService.getUserByEmail(inviteUser.email);
-
-		  const desk = { Room: { connect: { id: 1},}, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
-		  const createdDesk = await deskService.createDeskByRoomId(desk);
-		  receivedDesk = await deskService.getDeskById(createdDesk.id);
-
-		  const booking =  {
-			createdAt:'2022-06-26T14:52:09.509Z',
+		await userService.createUser(user1);
+		receivedUser1 = await userService.getUserByEmail(user1.email);
+		await userService.createUser(user2);
+		receivedUser2 = await userService.getUserByEmail(user2.email);
+		const desk = { Room: { connect: { id: 1 }, }, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
+		const createdDesk = await deskService.createDeskByRoomId(desk);
+		receivedDesk = await deskService.getDeskById(createdDesk.id);
+		const booking = {
+			createdAt: '2022-06-26T14:52:09.509Z',
 			startsAt: '2022-05-26T14:52:09.509Z',
 			endsAt: '2022-05-26T14:52:09.509Z',
-
 			Desk: { connect: { id: receivedDesk.id } },
-			Employee: { connect: { id: receivedUser.id } },
-			}
-	
+			Employee: { connect: { id: receivedUser1.id } },
+		}
 		const createdBooking = await service.createBooking(booking);
-
 		receivedBooking = await service.getBookingById(createdBooking.id);
-
-		const createdInvite = await service.createInvite(receivedBooking.id, receivedInviteUser.email);
+		const createdInvite = await service.createInvite(receivedBooking.id, receivedUser2.email);
 		receivedInvite = await service.getInviteById(createdInvite.id);
 	});
 
 	afterEach(async () => {
-	
 		await service.deleteInvite(receivedInvite.id);
 		await service.deleteBooking(receivedBooking.id);
 		await deskService.deleteDesk(receivedDesk.id);
-		await userService.deleteUser(receivedUser.id);
-		await userService.deleteUser(receivedInviteUser.id);
+		await userService.deleteUser(receivedUser1.id);
+		await userService.deleteUser(receivedUser2.id);
 	});
 
-	describe('Bookings Integration Tests', () => {
-		it('should get all bookings', async () => {
-			const bookings = await service.getAllBookings();
-			expect(bookings).toBeDefined();
-			expect(bookings.length).toBeGreaterThan(0);
-		});
-
-		it('should get all the bookings for specified desk', async () => {
-			const testVal = await service.getBookingsForDesk(receivedDesk.id);
-			expect(testVal).toHaveLength(1);
-			
-		});
-
-		it('should get a booking by id', async () => {
-			const result = await service.getBookingById(receivedBooking.id);
-			expect(result).toEqual(receivedBooking);
-		});
-
-		//TODO: getCurrentBookingsForDesk (not used anywhere)
-
-		it('should create a booking', async () => {
-			const bookingNew =  {
-				createdAt:'2022-06-26T14:52:09.509Z',
-				startsAt: '2022-05-26T16:52:09.509Z',
-				endsAt: '2022-05-26T16:52:09.509Z',
-	
-				Desk: { connect: { id: receivedDesk.id } },
-				Employee: { connect: { id: receivedUser.id } },
-				}
-		
-			const createdBooking = await service.createBooking(bookingNew);
-			expect(createdBooking).toBeDefined();
-			await service.deleteBooking(createdBooking.id);
-
-		});
-
-		it('should delete a booking', async () => {
-			const bookingNew =  {
-				createdAt:'2022-06-26T14:52:09.509Z',
-				startsAt: '2022-05-26T16:52:09.509Z',
-				endsAt: '2022-05-26T16:52:09.509Z',
-	
-				Desk: { connect: { id: receivedDesk.id } },
-				Employee: { connect: { id: receivedUser.id } },
-				}
-		
-			const createdBooking = await service.createBooking(bookingNew);
-			expect(createdBooking).toBeDefined();
-			const deletedBooking = await service.deleteBooking(createdBooking.id);
-			expect(deletedBooking).toBeDefined();
-		});
-
-		it('should get bookings by user id', async () => {
-			const bookings = await service.getBookingsByUserId(receivedUser.id);
-			expect(bookings).toBeDefined();
-			expect(bookings.length).toBeGreaterThan(0);
-		});
-
-		it('should delete a booking and return null', async () => {
-				expect(receivedInvite).toBeDefined();
-				//will get deleted in after each
-		});
+	it('should get all bookings', async () => {
+		const bookings = await service.getAllBookings();
+		expect(bookings).toBeDefined();
+		expect(bookings.length).toBeGreaterThan(0);
 	});
 
-	describe('Invites Integration Tests', () => {
-		it('should create an invite', async () => {
-			expect(receivedInvite).toBeDefined();
-		});
+	it('should get all the bookings for specified desk', async () => {
+		const testVal = await service.getBookingsForDesk(receivedDesk.id);
+		expect(testVal).toHaveLength(1);
 
-		it('should get invites for booking', async () => {
-			const invites = await service.getInvitesForBooking(receivedBooking.id);
-			expect(invites).toBeDefined();
-			expect(invites.length).toBeGreaterThan(0);
-		});
 	});
-	
+
+	it('should get a booking by id', async () => {
+		const result = await service.getBookingById(receivedBooking.id);
+		expect(result).toEqual(receivedBooking);
+	});
+
+	it('should create a booking', async () => {
+		const bookingNew = {
+			createdAt: '2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T16:52:09.509Z',
+			endsAt: '2022-05-26T16:52:09.509Z',
+			Desk: { connect: { id: receivedDesk.id } },
+			Employee: { connect: { id: receivedUser1.id } },
+		}
+		const createdBooking = await service.createBooking(bookingNew);
+		expect(createdBooking).toBeDefined();
+		await service.deleteBooking(createdBooking.id);
+	});
+
+	it('should delete a booking', async () => {
+		const bookingNew = {
+			createdAt: '2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T16:52:09.509Z',
+			endsAt: '2022-05-26T16:52:09.509Z',
+			Desk: { connect: { id: receivedDesk.id } },
+			Employee: { connect: { id: receivedUser1.id } },
+		}
+		const createdBooking = await service.createBooking(bookingNew);
+		expect(createdBooking).toBeDefined();
+		const deletedBooking = await service.deleteBooking(createdBooking.id);
+		expect(deletedBooking).toBeDefined();
+	});
+
+	it('should get bookings by user id', async () => {
+		const bookings = await service.getBookingsByUserId(receivedUser1.id);
+		expect(bookings).toBeDefined();
+		expect(bookings.length).toBeGreaterThan(0);
+	});
+
+	it('should delete a booking and return null', async () => {
+		expect(receivedInvite).toBeDefined();
+	});
+
+	it('should create an invite', async () => {
+		expect(receivedInvite).toBeDefined();
+	});
+
+	it('should get invites for booking', async () => {
+		const invites = await service.getInvitesForBooking(receivedBooking.id);
+		expect(invites).toBeDefined();
+		expect(invites.length).toBeGreaterThan(0);
+	});
 });
-
-
-
-
 
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
