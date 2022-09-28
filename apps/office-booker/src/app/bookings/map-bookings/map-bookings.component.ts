@@ -193,6 +193,7 @@ export class MapBookingsComponent implements OnDestroy{
 
   printRooms(roomId: number){
     this.desks.length = 0;
+    this.walls.length = 0;
 
     this.getDesksByRoomId(roomId); 
     this.getWallsByRoomId(roomId);
