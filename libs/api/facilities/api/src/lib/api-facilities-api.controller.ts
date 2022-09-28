@@ -8,6 +8,7 @@ class UpdateFacilitiesDto {
     monitors: number;
     projectors: number;
 }
+
 @UseGuards(AuthGuard('jwt'))
 @Controller('facilities')
 export class ApiFacilitiesApiController {

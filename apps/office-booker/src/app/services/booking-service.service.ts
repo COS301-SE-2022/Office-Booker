@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 export interface Room {
   id: number;
   name: string;
+  companyId: number;
 }
 
 export interface Desk {
@@ -242,6 +243,14 @@ export class BookingServiceService {
     return this.http.post<employee>(`${url}`, body);
   }  
 
+  updateName(id: number, name: string){
+    const url = this.baseURL + 'users/' + id;
+    const body = {
+      name: name
+    }
+    return this.http.put<employee>(`${url}`, body);
+  }
+
   createInvite(bookingId: number, email: string){
     const url = this.baseURL + 'bookings/invites/' + bookingId;
     const body = {
@@ -287,6 +296,14 @@ export class BookingServiceService {
   getRoomsByCompanyId(companyId: number){
     const url = this.baseURL + 'rooms/company/' + companyId;
     return this.http.get<Room[]>(`${url}`);
+  }
+
+  updateRooms(id: string, name: string){
+    const url = this.baseURL + 'users/name/' + id;
+    const body = {
+      name: name
+    }
+    return this.http.put<employee>(`${url}`, body)
   }
 
   getWallsByRoomId(roomId: number){

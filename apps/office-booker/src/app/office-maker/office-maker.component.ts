@@ -9,6 +9,8 @@ import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service'
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { Facility, Wall } from '@prisma/client';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewFloorDialogComponent } from './new-floor-dialog/new-floor-dialog.component';
+import { eventNames } from 'process';
 
 
 export interface DialogData {
@@ -28,22 +30,33 @@ export class OfficeMakerComponent implements OnInit {
   clicked = false;
   drawMode = false;
   editMode = false;
+  sizeChanger = false;
   idCounterDesk = 0;
   
   idCounterWall = 0;
   idCounterMeetingRoom = 0;
-  deskWidth = 50;
-  deskHeight = 30;
+
+  width = 50;
+  height = 30;
   roomWidth = 200;
   roomHeight = 200;
+  deskWidth = 50;
+  deskHeight = 30;
+
+  selectedItemWidth = 0;
+  selectedItemHeight = 0;
+
   wallWidth = 300;
+  allDesks: Array<Desk> = [];
+  allWalls: Array<Wall> = [];
   desks: Array<Desk> = [];
   walls: Array<Wall> = [];
   facilities: Array<Facility> = [];
   selectedItemId = "default";
 
   currentRooms: Array<Room> = [];
-  selectedRoom = 1;
+  selectedRoom = -1;
+  newFloorName = "";
 
   numPlugs: number;
   numMonitors: number;
@@ -82,6 +95,9 @@ export class OfficeMakerComponent implements OnInit {
     //this.getOffices();
     // this.getRooms(this.currentUser.companyId);
     this.getCurrentUser();
+    
+  
+
     this.changeDetection.detectChanges();
   }
 
@@ -94,6 +110,25 @@ export class OfficeMakerComponent implements OnInit {
 
       this.changeDetection.detectChanges();
     })
+  }
+
+  getAllDesksOnAllFloors() {
+    this.allDesks = [];
+    
+    for (let i = 0; i < this.currentRooms.length; i++)
+    {
+      this.getDesksByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
+    }
+  }
+
+  getAllWallsOnAllFloors() {
+    this.allWalls = [];
+    
+    for (let i = 0; i < this.currentRooms.length; i++)
+    {
+      console.log(i)
+      this.getWallsByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
+    }
   }
 
   
@@ -109,17 +144,18 @@ export class OfficeMakerComponent implements OnInit {
 
     const svgns = "http://www.w3.org/2000/svg";
 
-    for (let i=0; i<this.desks.length; i++)
+    for (let i=0; i<this.allDesks.length; i++)
     {
-      this.getFacilitiesForDesk(this.desks[i].id);
+      if (this.allDesks[i].roomId == this.selectedRoom){
+      // this.getFacilitiesForDesk(this.allDesks[i].id);
         const newDesk = document.createElementNS(svgns, "rect");
-        newDesk.setAttribute("x", this.desks[i].LocationCol.toString());
-        newDesk.setAttribute("y", this.desks[i].LocationRow.toString());
-        newDesk.setAttribute("width", this.desks[i].Width.toString() ); //default 65
-        newDesk.setAttribute("height", this.desks[i].Height.toString() ); //default 35
+        newDesk.setAttribute("x", this.allDesks[i].LocationCol.toString());
+        newDesk.setAttribute("y", this.allDesks[i].LocationRow.toString());
+        newDesk.setAttribute("width", this.allDesks[i].Width.toString() ); //default 65
+        newDesk.setAttribute("height", this.allDesks[i].Height.toString() ); //default 35
         newDesk.setAttribute("fill", "grey");
         newDesk.setAttribute("isMeetingRoom", "false");
-        newDesk.setAttribute("id", "desk-" + this.desks[i].id.toString());
+        newDesk.setAttribute("id", "desk-" + this.allDesks[i].id.toString());
         newDesk.classList.add("preMade");
         newDesk.classList.add("desk");
         // newDesk.style.cursor = "pointer";
@@ -130,12 +166,13 @@ export class OfficeMakerComponent implements OnInit {
 
         this.changeDetection.detectChanges();
       
-      svg?.appendChild(newDesk);
       
+      svg?.appendChild(newDesk);
+      }
 
     }
     this.generateWalls();
-    console.log(this.walls);
+
     for (let i = 0; i < this.currentRooms.length; i++) {
       if (this.currentRooms[i].id === this.selectedRoom) {
       this.openSuccessSnackBar("Generated " + this.currentRooms[i].name);
@@ -148,16 +185,19 @@ export class OfficeMakerComponent implements OnInit {
 
     const svgns = "http://www.w3.org/2000/svg";
 
-    for (let i=0; i<this.walls.length; i++)
+    console.log(this.allWalls);
+
+    for (let i=0; i<this.allWalls.length; i++)
     {
+      if (this.allWalls[i].roomId == this.selectedRoom){
         const newWall = document.createElementNS(svgns, "line");
-        newWall.setAttribute("x1", this.walls[i].Pos1X.toString());
-        newWall.setAttribute("y1", this.walls[i].Pos1Y.toString());
-        newWall.setAttribute("x2", this.walls[i].Pos2X.toString());
-        newWall.setAttribute("y2", this.walls[i].Pos2Y.toString());
+        newWall.setAttribute("x1", this.allWalls[i].Pos1X.toString());
+        newWall.setAttribute("y1", this.allWalls[i].Pos1Y.toString());
+        newWall.setAttribute("x2", this.allWalls[i].Pos2X.toString());
+        newWall.setAttribute("y2", this.allWalls[i].Pos2Y.toString());
         newWall.setAttribute("stroke", "grey");
         newWall.setAttribute("stroke-width", "4");
-        newWall.setAttribute("id", "wall-" + this.walls[i].id.toString());
+        newWall.setAttribute("id", "wall-" + this.allWalls[i].id.toString());
         newWall.classList.add("preMade");
         newWall.classList.add("wall");
         
@@ -166,6 +206,7 @@ export class OfficeMakerComponent implements OnInit {
         this.changeDetection.detectChanges();
       
       svg?.appendChild(newWall);
+      }
       
 
     }
@@ -182,11 +223,11 @@ export class OfficeMakerComponent implements OnInit {
     const svgns = "http://www.w3.org/2000/svg";
     const newDesk = document.createElementNS(svgns, "rect");
    
-    newDesk.setAttribute("x", "0");
-    newDesk.setAttribute("y", "0");
-    newDesk.setAttribute("width", this.deskWidth.toString());//default 65
-    newDesk.setAttribute("height", this.deskHeight.toString());//default 35
-    newDesk.setAttribute("fill", "green");
+    newDesk.setAttribute("x", "10");
+    newDesk.setAttribute("y", "10");
+    newDesk.setAttribute("width", this.deskWidth.toString());
+    newDesk.setAttribute("height", this.deskHeight.toString());
+    newDesk.setAttribute("fill", "black");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
     newDesk.style.cursor = "pointer";
@@ -200,12 +241,10 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
-
     if (this.editMode == true) {
       // this.getFacilitiesForDesk(parseInt(itemId));
       this.selectedItemId = itemId;
       this.startEdit(itemId);
-
     }
     else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
       const selectedItem =  document.getElementById(this.selectedItemId);
@@ -219,10 +258,10 @@ export class OfficeMakerComponent implements OnInit {
       
       this.selectedItemId = "default";
       this.selectedItemId = itemId;
-      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5;");
     } else if (this.selectedItemId == "default") {
       this.selectedItemId = itemId;
-      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5");
     }
   }
 
@@ -259,7 +298,8 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("y", "0");
     newMeetingRoom.setAttribute("width", this.roomWidth.toString());//default 100
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
-    newMeetingRoom.setAttribute("fill", "brown");
+    newMeetingRoom.setAttribute("fill", "rgb(50,80,175)");
+
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.style.cursor = "pointer";
 
@@ -272,46 +312,54 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   saveMap(){
+    console.log(this.selectedRoom);
+    if (this.selectedRoom == -1) {
+      this.openFailSnackBar("Please use the room selector in the top left corner");
+    } 
+    else if (this.selectedRoom == 0) {
+      this.openRoomNameDialog();
+      
+    }
+    else {
+      this.saveMapItems();
+     }
+    }
+
+  saveMapItems(){
     const map = document.querySelectorAll("svg#dropzone");
-    map.forEach(node => {
-      const officeObjects = node.children;
-      Array.from(officeObjects).forEach(officeObj => {
-        if (officeObj.classList.contains("new")){
-          if(officeObj.nodeName == "rect"){
-            const attrb = officeObj.attributes;
-            const newRect = {} as Desk;
-            newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
-            newRect.LocationRow = Number(attrb.getNamedItem('y')?.value);
-            newRect.Width = Number(attrb.getNamedItem('width')?.value);
-            newRect.Height = Number(attrb.getNamedItem('height')?.value);
-            newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
-            this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
-            } 
-          }
-          else if(officeObj.nodeName == "line"){
-            const attrb = officeObj.attributes;
-            const newLine = {} as Wall;
-            newLine.Pos1X = Number(attrb.getNamedItem('x1')?.value);
-            newLine.Pos1Y = Number(attrb.getNamedItem('y1')?.value);
-            newLine.Pos2X = Number(attrb.getNamedItem('x2')?.value);
-            newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
-            this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
-          }
-      })
-    });
-    alert("Map saved");
-  }
+      map.forEach(node => {
+        const officeObjects = node.children;
+        Array.from(officeObjects).forEach(officeObj => {
+          if (officeObj.classList.contains("new")){
+            if(officeObj.nodeName == "rect"){
+              const attrb = officeObj.attributes;
+              const newRect = {} as Desk;
+              newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
+              newRect.LocationRow = Number(attrb.getNamedItem('y')?.value);
+              newRect.Width = Number(attrb.getNamedItem('width')?.value);
+              newRect.Height = Number(attrb.getNamedItem('height')?.value);
+              newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
+              this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
+              } 
+            }
+            else if(officeObj.nodeName == "line"){
+              const attrb = officeObj.attributes;
+              const newLine = {} as Wall;
+              newLine.Pos1X = Number(attrb.getNamedItem('x1')?.value);
+              newLine.Pos1Y = Number(attrb.getNamedItem('y1')?.value);
+              newLine.Pos2X = Number(attrb.getNamedItem('x2')?.value);
+              newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
+              this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
+            }
+        })
+      });
+      this.openSuccessSnackBar("Map saved");
+    }
+    
+    
 
   startDraw(){
-    // if (document.getElementById("startdraw") != null) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
-    // }
     this.drawMode = !this.drawMode;
-    // if (this.drawMode == true) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
-    // } else if (this.drawMode == false) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 0px");
-    // }
   }
 
   setEdit(){
@@ -319,20 +367,8 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   startEdit(itemId: string){
-    // if (document.getElementById("startdraw") != null) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
-    // }
         this.selectedItemId = itemId;
-        
         this.openDialog(parseInt(itemId));
-      
-    
-    // if (this.drawMode == true) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 10px red solid");
-    // } else if (this.drawMode == false) {
-    //   document.getElementById("startdraw")?.setAttribute("style", "border: 0px");
-    // }
-    
   }
 
   getFacilitiesForDesk(deskId: number) {
@@ -348,7 +384,7 @@ export class OfficeMakerComponent implements OnInit {
           const plugsString = myArray[2].split(":")[1];
           const monitorsString = myArray[3].split(":")[1];
           const projectorsString = myArray[4].split(":")[1].replace(/\D/g, '');
-          //change the extarcted strings into numbers
+          //change the extracted strings into numbers
           // this.numPlugs = Number(plugsString);
           // this.numMonitors = Number(monitorsString);
           // this.numProjectors = Number(projectorsString);
@@ -381,18 +417,24 @@ export class OfficeMakerComponent implements OnInit {
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
-    this.printRooms(event.value);
+    this.generateDesks();
   }
 
-  printRooms(roomId: number){
-    this.desks.length = 0;
-    this.selectedRoom = roomId;
+  getDesks(roomId: number) {
+    this.allDesks = [];
+    // allDesks
+    for (let i=0; i< this.desks.length; i++) {
+      if (this.desks[i].roomId == roomId) {
+        this.allDesks.push(this.desks[i]);
+      }
+    }
 
     this.getDesksByRoomId(roomId); 
     this.getWallsByRoomId(roomId);
   }
 
   getDesksByRoomId(roomId: number) {
+    // this.getRooms(this.currentUser.companyId);
     this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
       res.forEach(desk => {
         this.getFacilitiesForDesk(desk.id);
@@ -409,7 +451,7 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.numMonitors = this.numMonitors;
         newDesk.numProjectors = this.numProjectors;
 
-        this.desks.push(newDesk);       //adds to desk array
+        this.allDesks.push(newDesk);       //adds to desk array
 
         this.changeDetection.detectChanges();
       });
@@ -420,9 +462,10 @@ export class OfficeMakerComponent implements OnInit {
   getWallsByRoomId(roomId: number){
     this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
       res.forEach(wall => {
+        console.log(wall);
         const newWall = {id: wall.id, roomId: wall.roomId, Pos1X: wall.Pos1X, Pos1Y: wall.Pos1Y, Pos2X: wall.Pos2X, Pos2Y: wall.Pos2Y}; 
 
-        this.walls.push(newWall);
+        this.allWalls.push(newWall);
 
         this.changeDetection.detectChanges();
       });
@@ -434,11 +477,92 @@ export class OfficeMakerComponent implements OnInit {
       res.forEach(room => {
         this.currentRooms.push(room);
       })
-      this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
-      this.getWallsByRoomId(this.currentRooms[0].id);
+      this.getAllDesksOnAllFloors();
+      this.getAllWallsOnAllFloors();
+      // this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
       this.changeDetection.detectChanges();
     })
   }
+
+  openSizeChanger(){
+    this.sizeChanger = !this.sizeChanger;
+    
+    if (this.sizeChanger) {
+        document.getElementById('map')?.setAttribute("style", "width: 75% !important; ");
+
+    }
+    if (this.sizeChanger == false) {
+      document.getElementById('map')?.setAttribute("style", "width: auto% !important; ");
+
+      
+    }
+
+
+    
+  }
+
+  onSliderChangeHeight(event: any) {  
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("height", event.value);
+    }
+
+  }
+
+  onSliderChangeWidth(event: any) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("width", event.value);
+    }
+
+  }
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }
+
+  setNewDeskSize(){
+    this.deskWidth = this.width;
+    this.deskHeight = this.height;
+    this.openSuccessSnackBar("Default Desk size set");
+  }
+
+  setNewRoomSize(){
+    this.roomHeight = this.height;
+    this.roomWidth = this.width;
+    this.openSuccessSnackBar("Default Meeting Room size set");
+
+  }
+
+  flip(){
+    const temp = this.width;
+    this.width = this.height
+    this.height = temp;
+    this.flipValueHeight(this.height);
+    this.flipValueWidth(this.width);
+  }
+
+  flipValueHeight(newHeight: number) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("height", newHeight.toString());
+    }
+
+  }
+
+  flipValueWidth(newWidth: number) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("width", newWidth.toString());
+    }
+
+  }
+
+
 
   openDialog(x: number): void {    
     
@@ -452,8 +576,6 @@ export class OfficeMakerComponent implements OnInit {
                 numProjectors: this.facilities.find(d => d.deskId == x)?.projectors,
                 deskId: x
               }
-
-              
               
             });
 
@@ -481,6 +603,33 @@ export class OfficeMakerComponent implements OnInit {
 
     }
 
+  openRoomNameDialog(): void {
+      this.changeDetection.detectChanges();
+    
+    const dialogRef = this.dialog.open(NewFloorDialogComponent, {
+      width: '550px',
+      data: { 
+            }
+            
+          });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        this.newFloorName = result.newFloorName;
+        this.makerService.createRoom(this.newFloorName, this.currentUser.companyId.toString()).subscribe(result => {
+          this.currentRooms.push(result);
+          this.selectedRoom = result.id;
+          this.saveMapItems();
+      }); 
+      } else {
+        this.newFloorName = "error";
+      }
+      this.changeDetection.detectChanges();
+      //
+    });
+    }
+
     openSuccessSnackBar(message: string) {
       this.snackBar.open(message, "Ok", {
         duration: 5000,
@@ -496,20 +645,4 @@ export class OfficeMakerComponent implements OnInit {
     }
 
 
-  //below functions to be fixed/implemented for selecting offices for a company to be able to edit
-
-  // onChangeOffice(event: { value: any; })
-  // {
-  //   this.selectedOffice = event.value;
-  // }
-
-  // getOffices() {
-  //   this.makerService.getCompanies().subscribe(res => {
-  //     res.forEach(office => {
-  //       this.currentOffice.push(office);
-  //     })
-  //     this.changeDetection.detectChanges();
-  //   })
-    
-  // }
 }
