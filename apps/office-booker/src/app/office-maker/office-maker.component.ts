@@ -119,7 +119,7 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.setAttribute("height", this.desks[i].Height.toString() ); //default 35
         newDesk.setAttribute("fill", "grey");
         newDesk.setAttribute("isMeetingRoom", "false");
-        newDesk.setAttribute("id", this.desks[i].id.toString());
+        newDesk.setAttribute("id", "desk-" + this.desks[i].id.toString());
         newDesk.classList.add("preMade");
         newDesk.classList.add("desk");
         // newDesk.style.cursor = "pointer";
@@ -157,7 +157,7 @@ export class OfficeMakerComponent implements OnInit {
         newWall.setAttribute("y2", this.walls[i].Pos2Y.toString());
         newWall.setAttribute("stroke", "grey");
         newWall.setAttribute("stroke-width", "2");
-        newWall.setAttribute("id", this.walls[i].id.toString());
+        newWall.setAttribute("id", "wall-" + this.walls[i].id.toString());
         newWall.classList.add("preMade");
         newWall.classList.add("wall");
         
@@ -229,6 +229,17 @@ export class OfficeMakerComponent implements OnInit {
   deleteItem() {
     if(this.selectedItemId != "default"){
       const deleteItem = document.getElementById(this.selectedItemId);
+      if(deleteItem?.classList.contains("preMade")){
+        if(deleteItem.classList.contains("desk")){
+         const deskId = parseInt(this.selectedItemId.replace("desk-", ""));
+         this.makerService.deleteDeskById(deskId).subscribe();
+        }
+        else if(deleteItem.classList.contains("wall")){
+          const wallId = parseInt(this.selectedItemId.replace("wall-", ""));
+          this.makerService.deleteWallById(wallId).subscribe();
+        }
+      }
+      
       deleteItem?.remove();
       this.selectedItemId = "default";
     }
