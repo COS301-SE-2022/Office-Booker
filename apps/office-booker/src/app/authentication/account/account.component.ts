@@ -42,8 +42,6 @@ export class AccountComponent {
       this.userNumb = this.currentUser.id;
       this.getRating();
       this.changeDetection.detectChanges();
-
-
     })
   }
 
@@ -86,6 +84,8 @@ export class AccountComponent {
 
   public editName(): void {
     //TODO: Add functionality to edit name
+
+    this.bookingService
   }
 
 }

@@ -186,7 +186,7 @@ export class OfficeMakerComponent implements OnInit {
     newDesk.setAttribute("y", "10");
     newDesk.setAttribute("width", this.deskWidth.toString());
     newDesk.setAttribute("height", this.deskHeight.toString());
-    newDesk.setAttribute("fill", "green");
+    newDesk.setAttribute("fill", "black");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
     newDesk.style.cursor = "pointer";
@@ -217,10 +217,10 @@ export class OfficeMakerComponent implements OnInit {
       
       this.selectedItemId = "default";
       this.selectedItemId = itemId;
-      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5;");
     } else if (this.selectedItemId == "default") {
       this.selectedItemId = itemId;
-      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(0,0,255);stroke-width:5");
+      document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5");
     }
   }
 
@@ -246,7 +246,8 @@ export class OfficeMakerComponent implements OnInit {
     newMeetingRoom.setAttribute("y", "0");
     newMeetingRoom.setAttribute("width", this.roomWidth.toString());//default 100
     newMeetingRoom.setAttribute("height", this.roomHeight.toString());//deafult 100
-    newMeetingRoom.setAttribute("fill", "brown");
+    newMeetingRoom.setAttribute("fill", "rgb(50,80,175)");
+
     newMeetingRoom.setAttribute("isMeetingRoom", "true");
     newMeetingRoom.style.cursor = "pointer";
 
@@ -452,9 +453,7 @@ export class OfficeMakerComponent implements OnInit {
     
   }
 
-  onSliderChangeHeight(event: any) {
-    console.log(event);
-  
+  onSliderChangeHeight(event: any) {  
     if (this.selectedItemId != "default" )
     {
       document.getElementById(this.selectedItemId)?.setAttribute("height", event.value);
@@ -468,7 +467,7 @@ export class OfficeMakerComponent implements OnInit {
       document.getElementById(this.selectedItemId)?.setAttribute("width", event.value);
     }
 
-    }
+  }
 
   formatLabel(value: number) {
     if (value >= 1000) {
@@ -477,6 +476,45 @@ export class OfficeMakerComponent implements OnInit {
 
     return value;
   }
+
+  setNewDeskSize(){
+    this.deskWidth = this.width;
+    this.deskHeight = this.height;
+    this.openSuccessSnackBar("Default Desk size set");
+  }
+
+  setNewRoomSize(){
+    this.roomHeight = this.height;
+    this.roomWidth = this.width;
+    this.openSuccessSnackBar("Default Meeting Room size set");
+
+  }
+
+  flip(){
+    const temp = this.width;
+    this.width = this.height
+    this.height = temp;
+    this.flipValueHeight(this.height);
+    this.flipValueWidth(this.width);
+  }
+
+  flipValueHeight(newHeight: number) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("height", newHeight.toString());
+    }
+
+  }
+
+  flipValueWidth(newWidth: number) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("width", newWidth.toString());
+    }
+
+  }
+
+
 
   openDialog(x: number): void {    
     

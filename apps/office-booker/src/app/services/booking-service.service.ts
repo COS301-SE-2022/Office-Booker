@@ -281,4 +281,12 @@ export class BookingServiceService {
     return this.http.get<Room[]>(`${url}`);
   }
 
+  updateRooms(id: string, name: string){
+    const url = this.baseURL + 'users/name/' + id;
+    const body = {
+      name: name
+    }
+    return this.http.put<employee>(`${url}`, body)
+  }
+
 }

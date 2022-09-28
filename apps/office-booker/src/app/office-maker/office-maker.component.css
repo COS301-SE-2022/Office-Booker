@@ -53,7 +53,7 @@
 
 .selected {
     /* border: 3px solid rgb(0, 255, 0); */
-    background: #e5e5e5;   
+    background: rgba(67, 80, 175, 0.665);   
     -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
     box-shadow: inset 0px 0px 5px #c1c1c1;    
@@ -63,7 +63,7 @@
 }
 
 .selected:hover{
-    background: #e5e5e5;   
+    background: rgba(67, 80, 175, 0.665);     
     -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
     box-shadow: inset 0px 0px 5px #c1c1c1;    
@@ -207,3 +207,8 @@ mat-form-field{
 
 
 }
+
+.delete{
+    background : rgb(204, 26, 70);
+    color: white;
+  }

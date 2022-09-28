@@ -23,7 +23,7 @@
     <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
     <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
 
-    <button mat-raised-button color="warn" (click)="deleteItem()">Delete Item</button>  
+    <button class="delete" mat-raised-button (click)="deleteItem()">Delete Item</button>  
             
     <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button>  
 
@@ -65,7 +65,8 @@
             (change)="onSliderChangeWidth($event)"
             [(ngModel)]="width"
             ></mat-slider>
-
+            <br>
+            <button mat-raised-button color="primary" (click)="flip()" >Swap Values</button>
             <br>
             <h2>Height</h2>
             <p>{{height}}</p>
@@ -83,8 +84,11 @@
                 aria-label="units"
                 (change)="onSliderChangeHeight($event)"
                 [(ngModel)]="height"></mat-slider>
-    
-                <br>
+        
+            <button mat-raised-button color="primary" (click)="setNewDeskSize()" >Default desk size</button>
+            <button mat-raised-button color="primary" (click)="setNewRoomSize()" >Default room size</button>
+            
+            <br>
 
 <!-- 
         <label for="quantity">Width</label>
