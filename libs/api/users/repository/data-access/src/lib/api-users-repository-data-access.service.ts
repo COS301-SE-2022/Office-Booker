@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiUsersRepositoryDataAccessService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
     async getUsers() {
         return this.prisma.employee.findMany();
@@ -72,4 +72,14 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
+    async changeUserName(@Param() userID: number, name: string) {
+        return this.prisma.employee.update({
+            where: {
+                id: userID,
+            },
+            data: {
+                name: name,
+            },
+        });
+    }
 }
