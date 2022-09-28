@@ -59,6 +59,7 @@ import { DraggableDirective } from './directives/draggable.directive';
 import { DroppableDirective } from './directives/droppable.directive';
 import { DrawableDirective } from './directives/drawable.directive';
 import { EditDialogComponent } from './office-maker/edit-dialog/edit-dialog.component';
+import { NewFloorDialogComponent } from './office-maker/new-floor-dialog/new-floor-dialog.component';
 
 const routes: Routes = [
   { path: 'bookings', component: MapBookingsComponent },
@@ -118,6 +119,7 @@ export function tokenGetter() {
     DroppableDirective,
     DrawableDirective,
     EditDialogComponent,
+    NewFloorDialogComponent,
   ],
   imports: [
     OverlayModule,

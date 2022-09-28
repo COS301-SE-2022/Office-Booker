@@ -9,6 +9,7 @@ import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service'
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { Facility, Wall } from '@prisma/client';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewFloorDialogComponent } from './new-floor-dialog/new-floor-dialog.component';
 
 
 export interface DialogData {
@@ -255,6 +256,7 @@ export class OfficeMakerComponent implements OnInit {
       this.openFailSnackBar("Please use the room selector in the top left corner");
     } 
     else if (this.selectedRoom == 0) {
+      this.openRoomNameDialog();
       this.makerService.createRoom("Floor 3", this.currentUser.companyId.toString()).subscribe();
     }
     
@@ -459,6 +461,26 @@ export class OfficeMakerComponent implements OnInit {
         //
       });
 
+    }
+
+    openRoomNameDialog(): void {
+      this.changeDetection.detectChanges();
+    
+    const dialogRef = this.dialog.open(NewFloorDialogComponent, {
+      width: '550px',
+      data: { 
+            }
+            
+          });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        //
+      }
+      
+      //
+    });
     }
 
     openSuccessSnackBar(message: string) {
