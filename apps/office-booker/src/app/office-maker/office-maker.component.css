@@ -18,8 +18,7 @@
     width: 1600px;
     height: 800px;
     float: left;
-    
-    
+
 
 }
 
@@ -48,7 +47,7 @@
 
 .svg-create-container {
     display: inline-block;
-    border: 3px solid rgb(125, 0, 0, 1);
+    /* border: 3px solid rgb(125, 0, 0, 1); */
 
 }
 
@@ -72,6 +71,8 @@
     cursor: pointer;
 }
 
+
+
 .options-bar{
     float: left;
     width: 1600px;
@@ -91,44 +92,26 @@
 
 }
 
-.generateBlock{
-    /* margin-right: 5rem; */
-    /* display: inline-block; */
-    /* left: 0; */
-    
-    /* border:rgb(125, 0, 0, 1) solid 2px; */
+.generateBlock {
     display: inline;
     position: relative;
-    /* height:100px;  */
-    /* width: 70px; */
-    /* margin: 1rem; */
     margin-right: 6rem;
     margin-left: 1.5rem;
-
-
-
 }
 
 .mat-raised-button{
     margin: 0.5rem;
 }
-/* 
-.svg-container{
-    margin: 2rem;
-    border: 3px solid rgb(255, 255, 0, 1);
-} */
+
 
 .office-booker-draggable{
-    /* top: 0; */
     height: 50px;
     width: 70px;
     display: inline;
     position: absolute;
     background-color: rgb(197, 197, 197)  ;
     border:rgb(0, 0, 0) dashed 3px;
-    /* right: 0; */
-    /* padding-left: 5rem; */
-    /* margin: 1rem; */
+
 }
 
 .office-booker-draggable:hover
@@ -141,8 +124,7 @@
 .createObject{
     height:fill; 
     width: fill;
-    /* margin-top: 22px; */
-    /* border:rgb(255, 0, 0) solid 3px; */
+
 }
 
 label{
@@ -178,3 +160,50 @@ mat-form-field{
     fill: rgb(148, 248, 134);
 }
 
+.size-container {
+    /* width: fill; */
+    height: top;
+    /* margin: 2rem; */
+    float: right;
+    display: inline-block;
+}
+
+.size-card{
+    width: 20rem;
+    height: auto;
+      
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+  
+    border: rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-radius: 6px;
+  
+    display: inline-block;
+    color:rgb(0, 0, 0);
+    margin-right: 1rem;
+    /* margin-left: 0.2rem; */
+    
+  }
+
+  mat-slider {
+    width: fill;
+  }
+
+  .options-bar{
+    float: left;
+    width: 1600px;
+    margin: 1rem;
+    /* background-color: rgba(255, 255, 255, 1); */
+    text-align: center;
+    /* border-radius: 40px; */
+    /* display: inline; */
+
+    border: 1px solid rgb(241, 241, 241);
+    border-radius: 4px;
+    padding: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background: rgba(255, 255, 255, 0);
+
+
+}

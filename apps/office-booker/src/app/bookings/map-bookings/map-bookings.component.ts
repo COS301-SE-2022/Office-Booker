@@ -664,8 +664,7 @@ export class MapBookingsComponent implements OnDestroy{
     })
   }
 
-  comparisonMode()
-  {
+  comparisonMode(){
     this.comparison = !this.comparison;
     if (this.comparison) {
         this.multiSelectedItemBookingsArr = [];      

@@ -23,25 +23,11 @@
     <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
     <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
 
-    <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>  
+    <button mat-raised-button color="warn" (click)="deleteItem()">Delete Item</button>  
             
-    <button mat-raised-button color="primary" (click)="deleteItem()">Desk Size</button>  
-    <button mat-raised-button color="primary" (click)="deleteItem()">Meeting Room Size</button>  
-
+    <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button>  
 
     <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
-
-    
-    <!-- <label for="quantity">Desk Width</label>
-    <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
-    <label for="quantity">Desk Height</label>
-    <input type="number" name="height" min="1" max="500" [(ngModel)]="deskHeight">
-    <label for="quantity">Room Width</label>
-    <input type="number" name="width" min="1" max="1000" [(ngModel)]="roomWidth">
-    <label for="quantity">Room Height</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="roomHeight"> -->
-    <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
 
 
 
@@ -58,3 +44,58 @@
     <svg id="dropzone" height="100%" width="100%"></svg>
 </div>
 
+
+
+<div class="size-container" *ngIf="sizeChanger">
+    <mat-card class="size-card">
+
+        <h2>Width</h2>
+        <p>{{width}}</p>
+        <mat-slider
+            thumbLabel = "Width"
+            label="Width"
+            [displayWith]="formatLabel"
+            tickInterval="1"
+            step="1"
+            color="primary"
+            min="30"
+            max="500"
+            [value]="width"
+            aria-label="units"
+            (change)="onSliderChangeWidth($event)"
+            [(ngModel)]="width"
+            ></mat-slider>
+
+            <br>
+            <h2>Height</h2>
+            <p>{{height}}</p>
+            <mat-slider
+                thumbLabel = "Height"
+                label="Height"
+                [displayWith]="formatLabel"
+                tickInterval="1"
+                step="1"
+                color="primary"
+                min="30"
+                max="500"
+                [value]="height"
+
+                aria-label="units"
+                (change)="onSliderChangeHeight($event)"
+                [(ngModel)]="height"></mat-slider>
+    
+                <br>
+
+<!-- 
+        <label for="quantity">Width</label>
+        <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
+        <br> -->
+
+        <!-- <label for="quantity">Height</label>
+        <input type="number" name="height" min="1" max="500" [(ngModel)]="height">
+        <br>  -->
+
+    </mat-card>
+
+
+</div>

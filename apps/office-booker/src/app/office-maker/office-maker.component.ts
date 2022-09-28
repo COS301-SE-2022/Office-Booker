@@ -10,6 +10,7 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { Facility, Wall } from '@prisma/client';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewFloorDialogComponent } from './new-floor-dialog/new-floor-dialog.component';
+import { eventNames } from 'process';
 
 
 export interface DialogData {
@@ -29,14 +30,22 @@ export class OfficeMakerComponent implements OnInit {
   clicked = false;
   drawMode = false;
   editMode = false;
+  sizeChanger = false;
   idCounterDesk = 0;
   
   idCounterWall = 0;
   idCounterMeetingRoom = 0;
-  deskWidth = 50;
-  deskHeight = 30;
+
+  width = 50;
+  height = 30;
   roomWidth = 200;
   roomHeight = 200;
+  deskWidth = 50;
+  deskHeight = 30;
+
+  selectedItemWidth = 0;
+  selectedItemHeight = 0;
+
   wallWidth = 300;
   allDesks: Array<Desk> = [];
   desks: Array<Desk> = [];
@@ -175,8 +184,8 @@ export class OfficeMakerComponent implements OnInit {
    
     newDesk.setAttribute("x", "10");
     newDesk.setAttribute("y", "10");
-    newDesk.setAttribute("width", this.deskWidth.toString());//default 65
-    newDesk.setAttribute("height", this.deskHeight.toString());//default 35
+    newDesk.setAttribute("width", this.deskWidth.toString());
+    newDesk.setAttribute("height", this.deskHeight.toString());
     newDesk.setAttribute("fill", "green");
     newDesk.setAttribute("isMeetingRoom", "false");
     newDesk.setAttribute("id", "desk-"+this.idCounterDesk.toString());
@@ -191,12 +200,10 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
-
     if (this.editMode == true) {
       // this.getFacilitiesForDesk(parseInt(itemId));
       this.selectedItemId = itemId;
       this.startEdit(itemId);
-
     }
     else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
       const selectedItem =  document.getElementById(this.selectedItemId);
@@ -428,6 +435,49 @@ export class OfficeMakerComponent implements OnInit {
     })
   }
 
+  openSizeChanger(){
+    this.sizeChanger = !this.sizeChanger;
+    
+    if (this.sizeChanger) {
+        document.getElementById('map')?.setAttribute("style", "width: 75% !important; ");
+
+    }
+    if (this.sizeChanger == false) {
+      document.getElementById('map')?.setAttribute("style", "width: auto% !important; ");
+
+      
+    }
+
+
+    
+  }
+
+  onSliderChangeHeight(event: any) {
+    console.log(event);
+  
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("height", event.value);
+    }
+
+  }
+
+  onSliderChangeWidth(event: any) {
+    if (this.selectedItemId != "default" )
+    {
+      document.getElementById(this.selectedItemId)?.setAttribute("width", event.value);
+    }
+
+    }
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }
+
   openDialog(x: number): void {    
     
     // this.desks.find(d => d.id == x)?.numPlugs
@@ -467,7 +517,7 @@ export class OfficeMakerComponent implements OnInit {
 
     }
 
-    openRoomNameDialog(): void {
+  openRoomNameDialog(): void {
       this.changeDetection.detectChanges();
     
     const dialogRef = this.dialog.open(NewFloorDialogComponent, {
