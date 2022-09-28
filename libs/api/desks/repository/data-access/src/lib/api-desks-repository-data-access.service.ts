@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { Prisma } from '@prisma/client';
 
@@ -36,8 +36,7 @@ export class ApiDesksRepositoryDataAccessService {
         });
     }
 
-    // delete a desk
-    async deleteDesk(deskId: number) {
+    async deleteDeskById(@Param() deskId: number){
         return this.prisma.desk.delete({
             where: {
                 id: deskId,

@@ -106,14 +106,14 @@ async function main() {
     // create a room
     const room = await prisma.room.create({
         data: {
-            name: 'Main Room',
+            name: 'Ground Floor',
             Company: { connect: { id: company1.id } },
         },
     })
 
     const room2 = await prisma.room.create({
         data: {
-            name: 'Second Room',
+            name: 'First Floor',
             Company: { connect: { id: company1.id } },
         },
     })
