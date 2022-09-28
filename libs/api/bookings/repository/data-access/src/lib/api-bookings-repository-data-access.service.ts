@@ -152,6 +152,18 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
+    async getBookingsUserCanVoteOn(userId: number) {
+        return this.prisma.booking.findMany({
+            where: {
+                BookingVotedOn: {
+                    none: {
+                        employeeId: userId,
+                    },
+                },
+            },
+        });
+    }
+
     // get the users who have already voted on a specific booking
     async getUsersVotedOnBooking(bookingId: number) {
         return this.prisma.booking.findUnique({
@@ -169,16 +181,11 @@ export class ApiBookingsRepositoryDataAccessService {
     }
 
     async isUserAllowedToVote(userId: number, bookingId: number) {
-        //check if this user has made a vote already
         const users = await this.getUsersVotedOnBooking(bookingId);
-        //console.log(users.BookingVotedOn);
-        console.log("user trying is: " + userId);
-        const allowed = !users.BookingVotedOn.some((element) => {
+        return !users.BookingVotedOn.some((element) => {
             console.log(element.Employee.id);
             return element.Employee.id == userId;
         });
-        console.log(allowed);
-        return false;
     }
 
     async createVoteOnBooking(bookingId: number, userId: number, current: number, ratings: number) {
