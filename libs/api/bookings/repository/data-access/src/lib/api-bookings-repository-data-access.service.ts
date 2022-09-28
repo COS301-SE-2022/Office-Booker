@@ -153,11 +153,21 @@ export class ApiBookingsRepositoryDataAccessService {
     }
 
     async getBookingsUserCanVoteOn(userId: number) {
+        const usersCompanyId = (await this.userService.getUserById(userId)).companyId;
+
         return this.prisma.booking.findMany({
             where: {
                 BookingVotedOn: {
                     none: {
-                        employeeId: userId,
+                        employeeId: userId, // do not show bookings the user has already voted on
+                    },
+                },
+                NOT: {
+                    employeeId: userId, // a user cannot vote on their own booking
+                },
+                Desk: {
+                    Room: {
+                        companyId: usersCompanyId, // only show bookings which are in the same company as the user
                     },
                 },
             },
@@ -197,7 +207,7 @@ export class ApiBookingsRepositoryDataAccessService {
             },
         });
 
-        //update the users rating
-        return this.userService.updateUserRating(userId, current, ratings);
+        //update the users rating TODO: change to the user that owns the booking
+        return this.userService.updateUserRating((await this.getBookingById(bookingId)).employeeId, current, ratings);
     }
 }
