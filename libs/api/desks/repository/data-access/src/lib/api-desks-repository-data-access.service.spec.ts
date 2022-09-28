@@ -29,5 +29,4 @@ describe('ApiDesksRepositoryDataAccessService', () => {
       expect(await service.getDesksInRoom(1)).toEqual([{ "LocationCol": 2, "LocationRow": 2, "id": 2, "roomId": 1 }, { "LocationCol": 1, "LocationRow": 1, "id": 1, "roomId": 1 }]);
     });
   });
-
 });

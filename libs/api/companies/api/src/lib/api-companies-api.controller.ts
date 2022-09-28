@@ -13,6 +13,8 @@ export class ApiCompaniesApiController {
 
     @Get('/:companyId')
     async getCompanyById(@Param('companyId') companyId: string) {
+
         return this.companyService.getCompanyById(Number(companyId));
     }    
+
 }

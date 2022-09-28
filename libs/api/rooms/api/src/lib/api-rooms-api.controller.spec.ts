@@ -3,7 +3,7 @@ import { ApiRoomsRepositoryDataAccessService } from '@office-booker/api/rooms/re
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiRoomsApiController } from './api-rooms-api.controller';
 
-describe('ApiRoomsApiController', () => {
+describe('ApiRoomsApiController Unit Tests', () => {
   let controller: ApiRoomsApiController;
   let service: ApiRoomsRepositoryDataAccessService;
 
@@ -34,3 +34,28 @@ describe('ApiRoomsApiController', () => {
     expect(service.getRoomById).toHaveBeenCalledWith(Number(roomId));
   })
 });
+
+describe('ApiRoomsApiController Integration Tests', () => {
+  let controller: ApiRoomsApiController;
+  let service: ApiRoomsRepositoryDataAccessService;
+
+  beforeAll(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [ApiRoomsApiController],
+      providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
+    }).compile();
+    controller = app.get<ApiRoomsApiController>(ApiRoomsApiController);
+    service = app.get<ApiRoomsRepositoryDataAccessService>(ApiRoomsRepositoryDataAccessService);
+  });
+
+  it("testing getRooms method", async () => {
+    const res = await controller.getAll();
+    expect(res.length).toBeGreaterThan(0);
+  })
+
+  it("testing getRoomById method", async () => {
+    const res = await controller.getRoomById('3');
+    expect(res).toEqual({ id: 3, name: 'Test Room', companyId: 4 });
+  })
+});
+

@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ApiFacilitiesRepositoryDataAccessService } from './api-facilities-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
+import { Prisma } from '@prisma/client';
 
 describe('ApiFacilitiesRepositoryDataAccessService', () => {
   let service: ApiFacilitiesRepositoryDataAccessService;
@@ -87,5 +88,32 @@ expect.extend({
       };
     }
   }
+});
+
+describe('ApiFacilitiesRepositoryDataAccessService Integration Tests', () => {
+  let service: ApiFacilitiesRepositoryDataAccessService;
+  let prisma;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      providers: [ApiFacilitiesRepositoryDataAccessService, PrismaService],
+    }).compile();
+    service = module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should return an array of facilities', async () => {
+    const facilities = await service.getFacilitiesForDesk(2);
+    console.log(facilities);
+    expect(facilities.length).toBeGreaterThan(0);
+    expect(facilities).toEqual([
+      { id: 2, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
+    ]);
+  });
+
 });
 

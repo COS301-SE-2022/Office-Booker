@@ -3,7 +3,7 @@ import { ApiRoomsRepositoryDataAccessService } from './api-rooms-repository-data
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
 
-describe('ApiRoomsRepositoryDataAccessService', () => {
+describe('ApiRoomsRepositoryDataAccessService Unit Tests', () => {
   let service: ApiRoomsRepositoryDataAccessService;
   let prisma;
 
@@ -29,6 +29,29 @@ describe('ApiRoomsRepositoryDataAccessService', () => {
       expect(await service.getRoomById(1)).toEqual({ id: 1, name: 'room 1', desks: null });
       expect(prisma.room.findUnique).toHaveBeenCalledWithObjectMatchingHash('b315a9cdc13f6b86864c4cbccc985e4d');
     });
+  });
+});
+
+describe('ApiRoomsRepositoryDataAccessService Integration Tests', () => {
+  let service: ApiRoomsRepositoryDataAccessService;
+  let prisma;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
+    }).compile();
+    service = await module.get<ApiRoomsRepositoryDataAccessService>(ApiRoomsRepositoryDataAccessService);
+    prisma = await module.get<PrismaService>(PrismaService);
+  });
+
+  it('should return an array of rooms', async () => {
+      const rooms = await service.getRooms();
+      expect(rooms.length).toBeGreaterThan(0);
+  });
+
+  it('should return a room', async () => {
+    const testRoom = { id: 3, name: 'Test Room', companyId: 4 };
+    expect(await service.getRoomById(3)).toEqual(testRoom);
   });
 });
 
@@ -87,3 +110,4 @@ expect.extend({
     }
   }
 });
+

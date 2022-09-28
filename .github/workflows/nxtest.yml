@@ -60,8 +60,8 @@ jobs:
         if: inputs.testtype == 'build' && inputs.test == 'affected'
         run: yarn nx affected:build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
 
-      - name: Unit test affected
-        if: inputs.testtype == 'unit' && inputs.test == 'affected'
+      - name: Unit + integration test affected
+        if: inputs.testtype == 'unit + integration' && inputs.test == 'affected'
         run: yarn nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
 
       - name: E2E test affected

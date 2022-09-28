@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiBookingsRepositoryDataAccessService } from './api-bookings-repository-data-access.service';
+import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
 
-describe('ApiBookingsRepositoryDataAccessService', () => {
+describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 	let apiBookingsRepositoryDataAccessService;
 	let prisma;
 
@@ -15,7 +17,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		prisma = module.get<PrismaService>(PrismaService);
 	});
 
-	describe('getBookingsForDesk', () => {
+	describe('getBookingsForDesk unit test', () => {
 		it('should get all the bookings from specified desk', async () => {
 			prisma.booking.findMany = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -26,7 +28,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('getBookingById', () => {
+	describe('getBookingById unit test', () => {
 		it('should get a booking corresponding to a booking ID', async () => {
 			prisma.booking.findUnique = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -37,7 +39,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('getCurrentBookingsForDesk', () => {
+	describe('getCurrentBookingsForDesk unit test', () => {
 		it('should return all bookings for a desk at the current time', async () => {
 			prisma.booking.findMany = jest.fn().mockReturnValueOnce([
 				{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
@@ -48,9 +50,9 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('createBooking', () => {
+	describe('createBooking unit test', () => {
 		const bookingItem = [
-			{id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
+			{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
 		]
 		it('should create a booking', async () => {
 			prisma.booking.create = jest.fn().mockReturnValueOnce([
@@ -62,7 +64,7 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 		});
 	});
 
-	describe('deleteBooking', () => {
+	describe('deleteBooking unit test', () => {
 		const bookingItem = [
 			{ id: 3, Desk: null, deskId: 2, createdAt: '2022-06-26T14:52:09.509Z', startsAt: '2022-05-26T14:52:09.509Z', endsAt: '2022-05-26T14:52:09.509Z' },
 		]
@@ -74,6 +76,130 @@ describe('ApiBookingsRepositoryDataAccessService', () => {
 			//Custom matcher to verify that the underlying query hasn't changed and results are still valid.
 			expect(prisma.booking.delete).toHaveBeenCalledWithObjectMatchingHash('6aa533d8e94bba6f7491185cf76a5bbb');
 		});
+	});
+});
+
+describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
+	let service;
+	let deskService;
+	let userService;
+	let receivedUser1;
+	let createdDeskId;
+	let createdBookingId;
+	let receivedUser2
+	let createdInviteId;
+	let bookingToBeDeleted;
+	let tempCreatedBooking;
+
+	beforeAll(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			providers: [ApiBookingsRepositoryDataAccessService, ApiDesksRepositoryDataAccessService, ApiUsersRepositoryDataAccessService, PrismaService],
+		}).compile();
+		service = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+		deskService = await module.get<ApiDesksRepositoryDataAccessService>(ApiDesksRepositoryDataAccessService);
+		userService = await module.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+	});
+
+	beforeEach(async () => {
+		const desk = { Room: { connect: { id: 3 }, }, LocationRow: 0, LocationCol: 0, Height: 100, Width: 100, isMeetingRoom: false, capacity: 1 };
+		const createdDesk = await deskService.createDeskByRoomId(desk);
+		createdDeskId = createdDesk.id;
+		const booking = {
+			createdAt: '2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T14:52:09.509Z',
+			endsAt: '2022-05-26T14:52:09.509Z',
+			Desk: { connect: { id: createdDeskId } },
+			Employee: { connect: { id: 5 } },
+		}
+		const createdBooking = await service.createBooking(booking);
+		createdBookingId = createdBooking.id;
+		const createdInvite = await service.createInvite(createdBooking.id, 'user2@gmail.com');
+		createdInviteId = createdInvite.id;
+
+		if(tempCreatedBooking != null){
+			const res = await service.deleteBooking(tempCreatedBooking)
+			tempCreatedBooking = null;
+			console.log("DELETED: " + res);
+		}
+	});
+
+	afterEach(async () => {
+		await service.deleteInvite(createdInviteId);
+		await service.deleteBooking(createdBookingId);
+		await deskService.deleteDesk(createdDeskId);
+		if(tempCreatedBooking != null){
+			const res = await service.deleteBooking(tempCreatedBooking)
+			tempCreatedBooking = null;
+			console.log("DELETED: " + res);
+		}
+	});
+
+	it('should get all bookings', async () => {
+		const bookings = await service.getAllBookings();
+		expect(bookings).toBeDefined();
+		expect(bookings.length).toBeGreaterThan(0);
+	});
+
+	it('should get all the bookings for specified desk', async () => {
+		const testVal = await service.getBookingsForDesk(createdDeskId);
+		expect(testVal).toHaveLength(1);
+
+	});
+
+	it('should get a booking by id', async () => {
+		const result = await service.getBookingById(createdBookingId);
+		expect(result.employeeId).toEqual(5);
+	});
+
+	it('should create a booking', async () => {
+		const bookingNew = {
+			createdAt: '2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T16:52:09.509Z',
+			endsAt: '2022-05-26T16:52:09.509Z',
+			Desk: { connect: { id: createdDeskId } },
+			Employee: { connect: { id: 5 } },
+		}
+		const createdBooking = await service.createBooking(bookingNew);
+		tempCreatedBooking = createdBooking.id;
+		expect(createdBooking).toBeDefined();
+		const res = await service.deleteBooking(createdBooking.id);
+		if(res != null){
+			tempCreatedBooking = null;
+		}
+	});
+
+	it('should delete a booking', async () => {
+		const bookingNew = {
+			createdAt: '2022-06-26T14:52:09.509Z',
+			startsAt: '2022-05-26T16:52:09.509Z',
+			endsAt: '2022-05-26T16:52:09.509Z',
+			Desk: { connect: { id: createdDeskId } },
+			Employee: { connect: { id: 5 } },
+		}
+		const createdBooking = await service.createBooking(bookingNew);
+		tempCreatedBooking = createdBooking.id;
+		expect(createdBooking).toBeDefined();
+		const deletedBooking = await service.deleteBooking(createdBooking.id);
+		if(deletedBooking != null){
+			tempCreatedBooking = null;
+		}
+		expect(deletedBooking).toBeDefined();
+	});
+
+	it('should get bookings by user id', async () => {
+		const bookings = await service.getBookingsByUserId(5);
+		expect(bookings).toBeDefined();
+		expect(bookings.length).toBeGreaterThan(0);
+	});
+
+	it('should create an invite', async () => {
+		expect(createdInviteId).toBeDefined();
+	});
+
+	it('should get invites for booking', async () => {
+		const invites = await service.getInvitesForBooking(createdBookingId);
+		expect(invites).toBeDefined();
+		expect(invites.length).toBeGreaterThan(0);
 	});
 });
 
@@ -96,6 +222,8 @@ expect.extend({
 			typeof received.calls.count === 'function';
 
 		const receivedIsSpy = isSpy(received);
+		//const receivedName = receivedIsSpy ? 'spy' : received.getMockName();
+
 
 		const calls = receivedIsSpy
 			? received.calls.all().map((x: any) => x.args)

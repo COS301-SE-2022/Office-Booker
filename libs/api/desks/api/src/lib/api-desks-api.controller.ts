@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Post, Body, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
 
