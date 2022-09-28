@@ -46,4 +46,9 @@ export class ApiDesksApiController {
 
         });
     }
+
+    @Delete('/:deskId')
+    async deleteDesk(@Param('deskId') deskId: string) {
+        return await this.deskService.deleteDeskById(Number(deskId));
+    }
 }
