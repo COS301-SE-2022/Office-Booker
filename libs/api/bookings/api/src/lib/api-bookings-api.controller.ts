@@ -31,7 +31,7 @@ class VotingDto {
     ratingsReceived: number;
 }
 
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
@@ -133,7 +133,6 @@ export class ApiBookingsApiController {
 
     @Post('/votes/booking/:bookingId')
     async createVoteOnBooking(@Param('bookingId') bookingId: string, @Body() postData: VotingDto) {
-        //console.log(bookingId);
         const { userId, currentRating, ratingsReceived } = postData;
         if (await this.bookingService.isUserAllowedToVote(userId, Number(bookingId))) {
             return this.bookingService.createVoteOnBooking(Number(bookingId), userId, currentRating, ratingsReceived);

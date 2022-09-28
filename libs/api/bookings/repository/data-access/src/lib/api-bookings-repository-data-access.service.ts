@@ -207,7 +207,7 @@ export class ApiBookingsRepositoryDataAccessService {
             },
         });
 
-        //update the users rating TODO: change to the user that owns the booking
+        //update the users rating
         return this.userService.updateUserRating((await this.getBookingById(bookingId)).employeeId, current, ratings);
     }
 }
