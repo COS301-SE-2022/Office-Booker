@@ -250,34 +250,39 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   saveMap(){
-    const map = document.querySelectorAll("svg#dropzone");
-    map.forEach(node => {
-      const officeObjects = node.children;
-      Array.from(officeObjects).forEach(officeObj => {
-        if (officeObj.classList.contains("new")){
-          if(officeObj.nodeName == "rect"){
-            const attrb = officeObj.attributes;
-            const newRect = {} as Desk;
-            newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
-            newRect.LocationRow = Number(attrb.getNamedItem('y')?.value);
-            newRect.Width = Number(attrb.getNamedItem('width')?.value);
-            newRect.Height = Number(attrb.getNamedItem('height')?.value);
-            newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
-            this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
-            } 
-          }
-          else if(officeObj.nodeName == "line"){
-            const attrb = officeObj.attributes;
-            const newLine = {} as Wall;
-            newLine.Pos1X = Number(attrb.getNamedItem('x1')?.value);
-            newLine.Pos1Y = Number(attrb.getNamedItem('y1')?.value);
-            newLine.Pos2X = Number(attrb.getNamedItem('x2')?.value);
-            newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
-            this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
-          }
-      })
-    });
-    alert("Map saved");
+    if (this.selectedRoom == -1) {
+      this.openFailSnackBar("Please use the room selector in the top left corner");
+    } 
+    else {
+      const map = document.querySelectorAll("svg#dropzone");
+      map.forEach(node => {
+        const officeObjects = node.children;
+        Array.from(officeObjects).forEach(officeObj => {
+          if (officeObj.classList.contains("new")){
+            if(officeObj.nodeName == "rect"){
+              const attrb = officeObj.attributes;
+              const newRect = {} as Desk;
+              newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
+              newRect.LocationRow = Number(attrb.getNamedItem('y')?.value);
+              newRect.Width = Number(attrb.getNamedItem('width')?.value);
+              newRect.Height = Number(attrb.getNamedItem('height')?.value);
+              newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
+              this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
+              } 
+            }
+            else if(officeObj.nodeName == "line"){
+              const attrb = officeObj.attributes;
+              const newLine = {} as Wall;
+              newLine.Pos1X = Number(attrb.getNamedItem('x1')?.value);
+              newLine.Pos1Y = Number(attrb.getNamedItem('y1')?.value);
+              newLine.Pos2X = Number(attrb.getNamedItem('x2')?.value);
+              newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
+              this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
+            }
+        })
+      });
+      this.openSuccessSnackBar("Map saved");
+    }
   }
 
   startDraw(){
@@ -359,10 +364,6 @@ export class OfficeMakerComponent implements OnInit {
   onChangeFloor(event: { value: any; })
   {
     this.selectedRoom = event.value;
-
-    // this.printRooms(event.value);
-    // this.getDesks(this.selectedRoom);
-
     this.generateDesks();
   }
 
