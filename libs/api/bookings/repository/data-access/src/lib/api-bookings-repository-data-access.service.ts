@@ -1,10 +1,11 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
-import { Prisma } from '@prisma/client';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
+import { Employee, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiBookingsRepositoryDataAccessService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService, private userService: ApiUsersRepositoryDataAccessService) {}
 
     async getAllBookings() {
         return this.prisma.booking.findMany();
@@ -167,4 +168,26 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
+    async createVoteOnBooking(@Param() bookingId: number, @Param() userId: number, current: number, ratings: number) {
+        //check if this user has made a vote already
+        const users = await this.getUsersVotedOnBooking(bookingId);
+        const notAllowed = users.BookingVotedOn.some((element) => {
+            return element.Employee.id == userId;
+        });
+
+        if(notAllowed) {
+            return false;
+        }
+
+        //make a votedonbookingobject
+        await this.prisma.bookingVotedOn.create({
+            data: {
+                bookingId,
+                employeeId: userId,
+            },
+        });
+
+        //update the users rating
+        return this.userService.updateUserRating(userId, current, ratings);
+    }
 }
