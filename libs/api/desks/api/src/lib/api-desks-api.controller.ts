@@ -2,7 +2,7 @@ import { Controller, Get, Param, UseGuards, Post, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiDesksRepositoryDataAccessService } from '@office-booker/api/desks/repository/data-access';
 
-class createDeskDto {
+class CreateDeskDto {
     roomId: number;
     LocationRow: number;
     LocationCol: number;
@@ -20,18 +20,18 @@ export class ApiDesksApiController {
 
     @Get()
     async getAll() {
-        return await this.deskService.getDesks();
+        return this.deskService.getDesks();
     }
 
     @Get('/room/:roomId')
     async getDesksInRoom(@Param('roomId') roomId: string) {
-        return await this.deskService.getDesksInRoom(Number(roomId));
+        return this.deskService.getDesksInRoom(Number(roomId));
     }
 
     @Post('/')
-    async createDeskInRoom(@Body() postData: createDeskDto) {
+    async createDeskInRoom(@Body() postData: CreateDeskDto) {
         const { roomId, LocationRow, LocationCol, Height, Width, isMeetingRoom, capacity } = postData;
-        return await this.deskService.createDeskByRoomId({
+        return this.deskService.createDeskByRoomId({
             Room: {
                 connect: {
                     id: roomId,
