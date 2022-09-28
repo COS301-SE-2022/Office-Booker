@@ -5,6 +5,7 @@ import exp = require('constants');
 import * as crypto from 'crypto';
 import { ApiCompaniesRepositoryDataAccessService } from '@office-booker/api/companies/repository/data-access';
 
+
 describe('ApiUsersRepositoryDataAccessService', () => {
   let service: ApiUsersRepositoryDataAccessService;
   let prisma;
@@ -103,9 +104,7 @@ describe('ApiUsersRepositoryDataAccessService', () => {
       expect(await service.createUser(user)).toEqual(user);
     });
   });
-
 });
-
 
 describe('ApiUsersRepositoryDataAccessService Integration Tests', () => {
   let service: ApiUsersRepositoryDataAccessService;
@@ -276,3 +275,4 @@ describe('ApiUsersRepositoryDataAccessService Integration Tests', () => {
 
 
 });
+

@@ -13,8 +13,8 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [ApiBookingsRepositoryDataAccessService, PrismaService],
 		}).compile();
-		apiBookingsRepositoryDataAccessService = await module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
-		prisma = await module.get<PrismaService>(PrismaService);
+		apiBookingsRepositoryDataAccessService = module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
+		prisma = module.get<PrismaService>(PrismaService);
 	});
 
 	describe('getBookingsForDesk unit test', () => {
@@ -223,6 +223,7 @@ expect.extend({
 
 		const receivedIsSpy = isSpy(received);
 		//const receivedName = receivedIsSpy ? 'spy' : received.getMockName();
+
 
 		const calls = receivedIsSpy
 			? received.calls.all().map((x: any) => x.args)

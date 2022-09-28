@@ -47,3 +47,4 @@ describe('ApiFacilitiesApiController Integration Testing', () => {
     expect(res).toEqual([{ id: 4, deskId: 28, plugs: 1, monitors: 2, projectors: 0 }]);
   });
 });
+
