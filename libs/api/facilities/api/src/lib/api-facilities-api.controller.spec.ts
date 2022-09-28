@@ -28,20 +28,3 @@ describe('ApiFacilitiesApiController', () => {
     expect(service.getFacilitiesForDesk).toHaveBeenCalledWith(Number(deskId));
   });
 });
-
-/*describe('ApiFacilitiesApiController', () => {
-  let controller: ApiFacilitiesApiController;
-
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiFacilitiesRepositoryDataAccessService, PrismaService],
-      controllers: [ApiFacilitiesApiController],
-    }).compile();
-
-    controller = module.get(ApiFacilitiesApiController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });
-});*/

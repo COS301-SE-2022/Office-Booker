@@ -3,18 +3,18 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { MailService } from '@office-booker/api/mail';
 
-class createUserDto {
+class CreateUserDto {
     name: string;
     companyId: number;
     email: string;
     guest: boolean;
 }
 
-class emailDto {
+class EmailDto {
     email: string;
 }
 
-class ratingDto {
+class RatingDto {
     currentRating:   number;
     ratingsReceived: number;
 }
@@ -30,34 +30,34 @@ export class ApiUsersApiController {
     @UseGuards(AuthGuard('jwt'))
     @Get("/")
     async getUsers() {
-        return await this.userService.getUsers();
+        return this.userService.getUsers();
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Get("/:userId")
     async getUserById(@Param('userId') userId: number) {
-        return await this.userService.getUserById(userId);
+        return this.userService.getUserById(userId);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Get("/companies/:companyId")
     async getUsersByCompanyId(@Param('companyId') companyId: number) {
-        return await this.userService.getUsersByCompanyId(companyId);
+        return this.userService.getUsersByCompanyId(companyId);
     }
 
 
     //@UseGuards(AuthGuard('jwt'))
     @Post("/email")
-    async getUserByEmail(@Body() emailDto: emailDto) {
+    async getUserByEmail(@Body() emailDto: EmailDto) {
         const { email } = emailDto;
-        return await this.userService.getUserByEmail(email);
+        return this.userService.getUserByEmail(email);
     }
 
     @Post('/')
-    async createUser(@Body() postData: createUserDto) {
+    async createUser(@Body() postData: CreateUserDto) {
         const { name , companyId, email, guest } = postData;
         this.mailService.sendUserConfirmation(email);
-        return await this.userService.createUser({
+        return this.userService.createUser({
             name: name,
             company: {
                 connect: {
@@ -75,24 +75,24 @@ export class ApiUsersApiController {
     @UseGuards(AuthGuard('jwt'))
     @Delete("/:userId")
     async deleteUser(@Param('userId') userId: number) {
-        return await this.userService.deleteUser(userId);
+        return this.userService.deleteUser(userId);
     }
 
     @Get("/ratings/:userId")
     async getRatingsForUser(@Param('userId') userId: number) {
-        return await this.userService.getUserRating(userId);
+        return this.userService.getUserRating(userId);
     }
 
     @Put("/ratings/:userId")
-    async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: ratingDto) {
+    async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: RatingDto) {
         const { currentRating, ratingsReceived } = ratingDto;
-        return await this.userService.updateUserRating(userId, currentRating, ratingsReceived);
+        return this.userService.updateUserRating(userId, currentRating, ratingsReceived);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Put("/name/:userId")
     async changeUserName(@Param('userId') userId: number, @Body() postData: userDto) {
         const { name } = postData;
-        return await this.userService.changeUserName(userId, name);
+        return this.userService.changeUserName(userId, name);
     }
 }

@@ -33,17 +33,4 @@ describe('ApiCompaniesApiController', () => {
     controller.getCompanyById(companyId);
     expect(service.getCompanyById).toHaveBeenCalledWith(Number(companyId));
   });
-
-  /*beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiCompaniesRepositoryDataAccessService, PrismaService],
-      controllers: [ApiCompaniesApiController],
-    }).compile();
-
-    controller = module.get(ApiCompaniesApiController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });*/
 });

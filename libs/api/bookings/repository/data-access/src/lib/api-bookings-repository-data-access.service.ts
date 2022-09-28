@@ -19,6 +19,15 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
+    async getCurrentBookingsForDesk(@Param() deskId: number) {
+        // do we need this method?
+        return this.prisma.booking.findMany({
+            where: {
+                deskId,
+            },
+        });
+    }
+
     // get a specific booking by its ids
     // for instance if a user wants to see a booking he created
     async getBookingById(@Param() bookingId: number) {
@@ -29,18 +38,6 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
-    // TODO: should be able to filter bookings by the current time
-    // we could check if there is a booking for right now
-    async getCurrentBookingsForDesk(@Param() deskId: number) {
-        return this.prisma.booking.findMany({
-            where: {
-                deskId,
-                //endTime: null,
-            },
-        });
-    }
-
-    // TODO: create a booking
     // should we have entities?
     async createBooking(@Param() booking: Prisma.BookingCreateInput) {
         return this.prisma.booking.create({
@@ -65,9 +62,6 @@ export class ApiBookingsRepositoryDataAccessService {
             },
         });
     }
-
-    // TODO: modify bookings?
-
 
     // invites
 

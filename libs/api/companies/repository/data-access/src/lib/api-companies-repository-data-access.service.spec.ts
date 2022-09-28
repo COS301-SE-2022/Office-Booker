@@ -55,16 +55,4 @@ describe('ApiCompaniesRepositoryDataAccessService', () => {
       expect(result).toEqual(company);
     });
   });
-
-  /*beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiCompaniesRepositoryDataAccessService, PrismaService],
-    }).compile();
-
-    service = module.get(ApiCompaniesRepositoryDataAccessService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeTruthy();
-  });*/
 });

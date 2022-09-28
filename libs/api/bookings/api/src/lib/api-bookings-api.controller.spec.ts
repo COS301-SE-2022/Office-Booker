@@ -57,7 +57,6 @@ describe('ApiBookingsApiController', () => {
   it("calling createBooking method", () => {
     const deskId = "1";
     const userId = "2";
-    //const dto = new CreateBookingDto();
     const postData = {
       startsAt: new Date(),
       endsAt: new Date(),
