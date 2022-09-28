@@ -120,7 +120,7 @@ describe('ApiUsersApiController Integration Tests', () => {
 
   it("calling getUsersByCompanyId method", async () => {
     const res = await controller.getUsersByCompanyId(4);
-    expect(res).toEqual([
+    expect(res).toContain([
       {
         id: 5,
         name: 'User 1',
