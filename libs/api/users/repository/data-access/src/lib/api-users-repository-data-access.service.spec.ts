@@ -1,8 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from './api-users-repository-data-access.service';
-import exp = require('constants');
-import * as crypto from 'crypto';
 
 describe('ApiUsersRepositoryDataAccessService', () => {
   let service: ApiUsersRepositoryDataAccessService;
