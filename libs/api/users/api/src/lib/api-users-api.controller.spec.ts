@@ -98,7 +98,9 @@ describe('ApiUsersApiController Integration Tests', () => {
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+  });
 
+  beforeEach(async () => {   
     idArr = [];
     const res = await controller.getUsersByCompanyId(4);
     res.forEach(employee => {
@@ -111,7 +113,7 @@ describe('ApiUsersApiController Integration Tests', () => {
     }
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     idArr = [];
     const res = await controller.getUsersByCompanyId(4);
     res.forEach(employee => {
