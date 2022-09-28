@@ -34,22 +34,3 @@ describe('ApiRoomsApiController', () => {
     expect(service.getRoomById).toHaveBeenCalledWith(Number(roomId));
   })
 });
-
-
-
-/*describe('ApiRoomsApiController', () => {
-  let controller: ApiRoomsApiController;
-
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
-      controllers: [ApiRoomsApiController],
-    }).compile();
-
-    controller = module.get(ApiRoomsApiController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });
-});*/
