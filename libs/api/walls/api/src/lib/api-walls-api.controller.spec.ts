@@ -39,21 +39,4 @@ describe('ApiWallsApiController Unit Tests', () => {
     controller.getWallsInRoom('5');
     expect(service.getWallsInRoom).toHaveBeenCalled();
   });
-
-  // it("calling getWallsById method", () => {
-  //   controller.getWallsById('5');
-  //   expect(service.getWallbyId).toHaveBeenCalled();
-  // });
-
-  // it("calling createWall method", () => {
-  //   const wall: createWallDto = {
-  //     roomId: 1,
-  //     Pos1X: 1,
-  //     Pos1Y: 1,
-  //     Pos2X: 1,
-  //     Pos2Y: 1
-  //   }
-  //   controller.createWall(wall);
-  //   expect(service.createWall).toHaveBeenCalled();
-  // });
 });

@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
-import { MailService, MailModule } from '@office-booker/api/mail';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
@@ -23,11 +22,11 @@ describe('ApiUsersApiController Unit Tests', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
-      imports: [MailService, MailModule, ConfigModule.forRoot({
+      imports: [ConfigModule.forRoot({
         isGlobal: true,
       })],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, MailService, ConfigService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, ConfigService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
@@ -89,11 +88,11 @@ describe('ApiUsersApiController Integration Tests', () => {
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [MailService, MailModule, ConfigModule.forRoot({
+      imports: [ ConfigModule.forRoot({
         isGlobal: true,
       })],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, PrismaService, MailService, ConfigService],
+      providers: [ApiUsersRepositoryDataAccessService, PrismaService, ConfigService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
