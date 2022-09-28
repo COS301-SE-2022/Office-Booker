@@ -156,7 +156,7 @@ export class OfficeMakerComponent implements OnInit {
         newWall.setAttribute("x2", this.walls[i].Pos2X.toString());
         newWall.setAttribute("y2", this.walls[i].Pos2Y.toString());
         newWall.setAttribute("stroke", "grey");
-        newWall.setAttribute("stroke-width", "2");
+        newWall.setAttribute("stroke-width", "4");
         newWall.setAttribute("id", "wall-" + this.walls[i].id.toString());
         newWall.classList.add("preMade");
         newWall.classList.add("wall");
