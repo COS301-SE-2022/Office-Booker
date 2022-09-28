@@ -12,4 +12,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../coverage/libs/api/rooms/api',
+  "verbose": true,
+  "testTimeout": 1000000
 };
