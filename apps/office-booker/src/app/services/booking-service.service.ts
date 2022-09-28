@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 export interface Room {
   id: number;
   name: string;
+  companyId: number;
 }
 
 export interface Desk {

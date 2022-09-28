@@ -26,4 +26,13 @@ export class ApiRoomsRepositoryDataAccessService {
             },
         });
     }
+
+    async createNewRoom(companyId: number, name: string) {
+        return this.prisma.room.create({
+            data: {
+                name: name,
+                companyId: companyId,
+            },
+        });
+    }
 }

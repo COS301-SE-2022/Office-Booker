@@ -250,9 +250,14 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   saveMap(){
+    console.log(this.selectedRoom);
     if (this.selectedRoom == -1) {
       this.openFailSnackBar("Please use the room selector in the top left corner");
     } 
+    else if (this.selectedRoom == 0) {
+      this.makerService.createRoom("Floor 3", this.currentUser.companyId.toString()).subscribe();
+    }
+    
     else {
       const map = document.querySelectorAll("svg#dropzone");
       map.forEach(node => {
@@ -370,7 +375,6 @@ export class OfficeMakerComponent implements OnInit {
   getDesks(roomId: number) {
     this.allDesks = [];
     // allDesks
-    console.log(this.desks);
     for (let i=0; i< this.desks.length; i++) {
       if (this.desks[i].roomId == roomId) {
         this.allDesks.push(this.desks[i]);
@@ -408,7 +412,7 @@ export class OfficeMakerComponent implements OnInit {
   getRooms(coId: number,) {
     this.bookingService.getRoomsByCompanyId(coId).subscribe(res => {
       res.forEach(room => {
-        console.log(this.currentRooms.push(room));
+        this.currentRooms.push(room);
       })
       this.getAllDesksOnAllFloors();
       // this.getDesksByRoomId(1); //gets all the desks for the current room
