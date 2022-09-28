@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBookingsRepositoryDataAccessService } from '@office-booker/api/bookings/repository/data-access';
 import { IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -31,7 +31,7 @@ class VotingDto {
     ratingsReceived: number;
 }
 
-@UseGuards(AuthGuard('jwt'))
+//@UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
     constructor(private bookingService: ApiBookingsRepositoryDataAccessService,
@@ -122,13 +122,18 @@ export class ApiBookingsApiController {
     }
 
     @Get('/votes/booking/:bookingId')
-    async getUsersVotedOnBooking(@Param() bookingId: number) {
-        return this.bookingService.getUsersVotedOnBooking(bookingId);
+    async getUsersVotedOnBooking(@Param('bookingId') bookingId: string) {
+        return this.bookingService.getUsersVotedOnBooking(Number(bookingId));
     }
 
     @Post('/votes/booking/:bookingId')
-    async createVoteOnBooking(@Param() bookingId: number, @Body() postData: VotingDto) {
+    async createVoteOnBooking(@Param('bookingId') bookingId: string, @Body() postData: VotingDto) {
+        //console.log(bookingId);
         const { userId, currentRating, ratingsReceived } = postData;
-        return this.bookingService.createVoteOnBooking(bookingId, userId, currentRating, ratingsReceived);
+        if (await this.bookingService.isUserAllowedToVote(userId, Number(bookingId))) {
+            return this.bookingService.createVoteOnBooking(Number(bookingId), userId, currentRating, ratingsReceived);
+        } else {
+            throw new BadRequestException("This user has already voted on this booking.");
+        }
     }
 }
