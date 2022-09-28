@@ -30,7 +30,12 @@ describe('NewFloorDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [NewFloorDialogComponent],
       imports: [MatFormFieldModule, MatCardModule, FormsModule, MatDialogModule, MatInputModule, 
-      BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule]
+      BrowserAnimationsModule, HttpClientTestingModule, MatSnackBarModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {}},
+        { provide: MatDialog, useValue: {}},
+        { provide: MAT_DIALOG_DATA, useValue: {}},
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NewFloorDialogComponent);
