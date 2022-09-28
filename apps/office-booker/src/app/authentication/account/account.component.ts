@@ -85,7 +85,7 @@ export class AccountComponent {
   public editName(): void {
     //TODO: Add functionality to edit name
 
-    this.bookingService
+    this.bookingService.updateName(this.currentUser.id, this.user.name);
   }
 
 }

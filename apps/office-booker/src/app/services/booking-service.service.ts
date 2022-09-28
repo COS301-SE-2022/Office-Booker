@@ -243,6 +243,14 @@ export class BookingServiceService {
     return this.http.post<employee>(`${url}`, body);
   }  
 
+  updateName(id: number, name: string){
+    const url = this.baseURL + 'users/' + id;
+    const body = {
+      name: name
+    }
+    return this.http.put<employee>(`${url}`, body);
+  }
+
   createInvite(bookingId: number, email: string){
     const url = this.baseURL + 'bookings/invites/' + bookingId;
     const body = {
