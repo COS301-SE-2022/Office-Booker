@@ -19,6 +19,10 @@ class ratingDto {
     ratingsReceived: number;
 }
 
+class userDto {
+    name: string;
+}
+
 @Controller('users')
 export class ApiUsersApiController {
     constructor(private userService: ApiUsersRepositoryDataAccessService, private mailService: MailService) { }
@@ -81,5 +85,12 @@ export class ApiUsersApiController {
     async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: ratingDto) {
         const { currentRating, ratingsReceived } = ratingDto;
         return await this.userService.updateUserRating(userId, currentRating, ratingsReceived);
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Put("/name/:userId")
+    async changeUserName(@Param('userId') userId: number, @Body() postData: userDto) {
+        const { name } = postData;
+        return await this.userService.changeUserName(userId, name);
     }
 }
