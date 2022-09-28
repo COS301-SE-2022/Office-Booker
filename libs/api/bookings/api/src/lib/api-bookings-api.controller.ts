@@ -25,6 +25,12 @@ class EmailDto {
     email: string;
 }
 
+class VotingDto {
+    userId: number;
+    currentRating:   number;
+    ratingsReceived: number;
+}
+
 @UseGuards(AuthGuard('jwt'))
 @Controller('bookings')
 export class ApiBookingsApiController {
@@ -115,4 +121,14 @@ export class ApiBookingsApiController {
         return this.bookingService.deleteInvite(Number(inviteId));
     }
 
+    @Get('/votes/booking/:bookingId')
+    async getUsersVotedOnBooking(@Param() bookingId: number) {
+        return this.bookingService.getUsersVotedOnBooking(bookingId);
+    }
+
+    @Post('/votes/booking/:bookingId')
+    async createVoteOnBooking(@Param() bookingId: number, @Body() postData: VotingDto) {
+        const { userId, currentRating, ratingsReceived } = postData;
+        return this.bookingService.createVoteOnBooking(bookingId, userId, currentRating, ratingsReceived);
+    }
 }
