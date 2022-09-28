@@ -1,7 +1,7 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
-import { Employee, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiBookingsRepositoryDataAccessService {
@@ -153,7 +153,7 @@ export class ApiBookingsRepositoryDataAccessService {
     }
 
     // get the users who have already voted on a specific booking
-    async getUsersVotedOnBooking(@Param() bookingId: number) {
+    async getUsersVotedOnBooking(bookingId: number) {
         return this.prisma.booking.findUnique({
             where: {
                 id: bookingId,
@@ -168,17 +168,20 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
-    async createVoteOnBooking(@Param() bookingId: number, @Param() userId: number, current: number, ratings: number) {
+    async isUserAllowedToVote(userId: number, bookingId: number) {
         //check if this user has made a vote already
         const users = await this.getUsersVotedOnBooking(bookingId);
-        const notAllowed = users.BookingVotedOn.some((element) => {
+        //console.log(users.BookingVotedOn);
+        console.log("user trying is: " + userId);
+        const allowed = !users.BookingVotedOn.some((element) => {
+            console.log(element.Employee.id);
             return element.Employee.id == userId;
         });
+        console.log(allowed);
+        return false;
+    }
 
-        if(notAllowed) {
-            return false;
-        }
-
+    async createVoteOnBooking(bookingId: number, userId: number, current: number, ratings: number) {
         //make a votedonbookingobject
         await this.prisma.bookingVotedOn.create({
             data: {
