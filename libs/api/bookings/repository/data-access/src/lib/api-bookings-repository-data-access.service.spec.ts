@@ -126,7 +126,7 @@ describe('ApiBookingsRepositoryDataAccessService Integration Test', () => {
 	afterEach(async () => {
 		await service.deleteInvite(createdInviteId);
 		await service.deleteBooking(createdBookingId);
-		await deskService.deleteDesk(createdDeskId);
+		await deskService.deleteDeskById(createdDeskId);
 		if(tempCreatedBooking != null){
 			const res = await service.deleteBooking(tempCreatedBooking)
 			tempCreatedBooking = null;
