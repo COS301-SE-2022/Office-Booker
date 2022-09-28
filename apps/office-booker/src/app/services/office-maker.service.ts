@@ -67,4 +67,8 @@ export class OfficeMakerService {
     return this.http.post<Wall>(`${url}`, body);
   }
 
+  getWallsByRoomId(roomId: number){
+    const url = this.baseURL + 'walls/room/' + roomId;
+    return this.http.get<Wall[]>(`${url}`);
+  }
 }
