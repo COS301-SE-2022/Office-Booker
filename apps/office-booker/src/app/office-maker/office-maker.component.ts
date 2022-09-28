@@ -38,6 +38,7 @@ export class OfficeMakerComponent implements OnInit {
   roomHeight = 200;
   wallWidth = 300;
   desks: Array<Desk> = [];
+  walls: Array<Wall> = [];
   facilities: Array<Facility> = [];
   selectedItemId = "default";
 
@@ -133,10 +134,40 @@ export class OfficeMakerComponent implements OnInit {
       
 
     }
+    this.generateWalls();
+    console.log(this.walls);
     for (let i = 0; i < this.currentRooms.length; i++) {
       if (this.currentRooms[i].id === this.selectedRoom) {
       this.openSuccessSnackBar("Generated " + this.currentRooms[i].name);
       }
+    }
+  }
+
+  generateWalls(){ 
+    const svg = document.getElementById("dropzone");
+
+    const svgns = "http://www.w3.org/2000/svg";
+
+    for (let i=0; i<this.walls.length; i++)
+    {
+        const newWall = document.createElementNS(svgns, "line");
+        newWall.setAttribute("x1", this.walls[i].Pos1X.toString());
+        newWall.setAttribute("y1", this.walls[i].Pos1Y.toString());
+        newWall.setAttribute("x2", this.walls[i].Pos2X.toString());
+        newWall.setAttribute("y2", this.walls[i].Pos2Y.toString());
+        newWall.setAttribute("stroke", "grey");
+        newWall.setAttribute("stroke-width", "2");
+        newWall.setAttribute("id", this.walls[i].id.toString());
+        newWall.classList.add("preMade");
+        newWall.classList.add("wall");
+        
+        newWall.onclick = () => this.selectItem(newWall.id);
+
+        this.changeDetection.detectChanges();
+      
+      svg?.appendChild(newWall);
+      
+
     }
   }
 
@@ -347,6 +378,7 @@ export class OfficeMakerComponent implements OnInit {
     this.selectedRoom = roomId;
 
     this.getDesksByRoomId(roomId); 
+    this.getWallsByRoomId(roomId);
   }
 
   getDesksByRoomId(roomId: number) {
@@ -374,12 +406,31 @@ export class OfficeMakerComponent implements OnInit {
 
   }
 
+  getWallsByRoomId(roomId: number){
+    this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
+      res.forEach(wall => {
+        const newWall = {} as Wall;       
+        newWall.id = wall.id;             
+        newWall.roomId = wall.roomId;
+        newWall.Pos1X = wall.Pos1X;
+        newWall.Pos1Y = wall.Pos1Y;
+        newWall.Pos2X = wall.Pos2X;
+        newWall.Pos2Y = wall.Pos2Y;
+
+        this.walls.push(newWall);
+
+        this.changeDetection.detectChanges();
+      });
+    })
+  }
+
   getRooms(coId: number) {
     this.bookingService.getRoomsByCompanyId(coId).subscribe(res => {
       res.forEach(room => {
         this.currentRooms.push(room);
       })
       this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+      this.getWallsByRoomId(this.currentRooms[0].id);
       this.changeDetection.detectChanges();
     })
   }
