@@ -49,6 +49,7 @@ export class OfficeMakerComponent implements OnInit {
   wallWidth = 300;
   allDesks: Array<Desk> = [];
   desks: Array<Desk> = [];
+  walls: Array<Wall> = [];
   facilities: Array<Facility> = [];
   selectedItemId = "default";
 
@@ -148,7 +149,7 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.setAttribute("height", this.allDesks[i].Height.toString() ); //default 35
         newDesk.setAttribute("fill", "grey");
         newDesk.setAttribute("isMeetingRoom", "false");
-        newDesk.setAttribute("id", this.allDesks[i].id.toString());
+        newDesk.setAttribute("id", "desk-" + this.desks[i].id.toString());
         newDesk.classList.add("preMade");
         newDesk.classList.add("desk");
         // newDesk.style.cursor = "pointer";
@@ -164,10 +165,40 @@ export class OfficeMakerComponent implements OnInit {
       }
 
     }
+    this.generateWalls();
+    console.log(this.walls);
     for (let i = 0; i < this.currentRooms.length; i++) {
       if (this.currentRooms[i].id === this.selectedRoom) {
       this.openSuccessSnackBar("Generated " + this.currentRooms[i].name);
       }
+    }
+  }
+
+  generateWalls(){ 
+    const svg = document.getElementById("dropzone");
+
+    const svgns = "http://www.w3.org/2000/svg";
+
+    for (let i=0; i<this.walls.length; i++)
+    {
+        const newWall = document.createElementNS(svgns, "line");
+        newWall.setAttribute("x1", this.walls[i].Pos1X.toString());
+        newWall.setAttribute("y1", this.walls[i].Pos1Y.toString());
+        newWall.setAttribute("x2", this.walls[i].Pos2X.toString());
+        newWall.setAttribute("y2", this.walls[i].Pos2Y.toString());
+        newWall.setAttribute("stroke", "grey");
+        newWall.setAttribute("stroke-width", "4");
+        newWall.setAttribute("id", "wall-" + this.walls[i].id.toString());
+        newWall.classList.add("preMade");
+        newWall.classList.add("wall");
+        
+        newWall.onclick = () => this.selectItem(newWall.id);
+
+        this.changeDetection.detectChanges();
+      
+      svg?.appendChild(newWall);
+      
+
     }
   }
 
@@ -227,6 +258,17 @@ export class OfficeMakerComponent implements OnInit {
   deleteItem() {
     if(this.selectedItemId != "default"){
       const deleteItem = document.getElementById(this.selectedItemId);
+      if(deleteItem?.classList.contains("preMade")){
+        if(deleteItem.classList.contains("desk")){
+         const deskId = parseInt(this.selectedItemId.replace("desk-", ""));
+         this.makerService.deleteDeskById(deskId).subscribe();
+        }
+        else if(deleteItem.classList.contains("wall")){
+          const wallId = parseInt(this.selectedItemId.replace("wall-", ""));
+          this.makerService.deleteWallById(wallId).subscribe();
+        }
+      }
+      
       deleteItem?.remove();
       this.selectedItemId = "default";
     }
@@ -397,6 +439,8 @@ export class OfficeMakerComponent implements OnInit {
       }
     }
 
+    this.getDesksByRoomId(roomId); 
+    this.getWallsByRoomId(roomId);
   }
 
   getDesksByRoomId(roomId: number) {
@@ -425,13 +469,26 @@ export class OfficeMakerComponent implements OnInit {
 
   }
 
-  getRooms(coId: number,) {
+  getWallsByRoomId(roomId: number){
+    this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
+      res.forEach(wall => {
+        const newWall = {id: wall.id, roomId: wall.roomId, Pos1X: wall.Pos1X, Pos1Y: wall.Pos1Y, Pos2X: wall.Pos2X, Pos2Y: wall.Pos2Y}; 
+
+        this.walls.push(newWall);
+
+        this.changeDetection.detectChanges();
+      });
+    })
+  }
+
+  getRooms(coId: number) {
     this.bookingService.getRoomsByCompanyId(coId).subscribe(res => {
       res.forEach(room => {
         this.currentRooms.push(room);
       })
       this.getAllDesksOnAllFloors();
-      // this.getDesksByRoomId(1); //gets all the desks for the current room
+      this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+      this.getWallsByRoomId(this.currentRooms[0].id);
       this.changeDetection.detectChanges();
     })
   }

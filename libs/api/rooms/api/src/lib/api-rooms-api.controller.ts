@@ -12,17 +12,17 @@ export class ApiRoomsApiController {
 
     @Get()
     async getAll() {
-        return await this.roomService.getRooms();
+        return this.roomService.getRooms();
     }
 
     @Get('/:id')
     async getRoomById(@Param('id') id: string) {
-        return await this.roomService.getRoomById(Number(id));
+        return this.roomService.getRoomById(Number(id));
     }
 
     @Get('/company/:companyId')
     async getRoomsByCompanyId(@Param('companyId') companyId: string) {
-        return await this.roomService.getRoomsByCompanyId(Number(companyId));
+        return this.roomService.getRoomsByCompanyId(Number(companyId));
     }
 
     @Post('/:companyId')

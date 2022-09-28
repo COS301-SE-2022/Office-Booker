@@ -91,6 +91,15 @@ export interface rating{
   ratingsReceived: number,
 }
 
+export interface Wall{
+  id: number,
+  roomId: number,
+  Pos1X: number,
+  Pos1Y: number,
+  Pos2X: number,
+  Pos2Y: number,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -289,4 +298,8 @@ export class BookingServiceService {
     return this.http.put<employee>(`${url}`, body)
   }
 
+  getWallsByRoomId(roomId: number){
+    const url = this.baseURL + 'walls/room/' + roomId;
+    return this.http.get<Wall[]>(`${url}`);
+  }
 }

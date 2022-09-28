@@ -55,16 +55,31 @@ describe('ApiCompaniesRepositoryDataAccessService', () => {
       expect(result).toEqual(company);
     });
   });
+});
 
-  /*beforeEach(async () => {
+describe('ApiCompaniesRepositoryDataAccessService Integration Tests', () => {
+  let service: ApiCompaniesRepositoryDataAccessService;
+  let prisma;
+
+  beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [ApiCompaniesRepositoryDataAccessService, PrismaService],
     }).compile();
-
-    service = module.get(ApiCompaniesRepositoryDataAccessService);
+    service = module.get<ApiCompaniesRepositoryDataAccessService>(ApiCompaniesRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeTruthy();
-  });*/
+  it('should return an array of companies', async () => {
+    const result = await service.getCompanies();
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
+    console.log(result);
+  });
+
+  it('should return a company', async () => {
+    const company = { id: 4, name: 'Tester Inc', domain: ['tester.com'] };
+    const result = await service.getCompanyById(4);
+    expect(result).toEqual(company);
+  });
+
 });

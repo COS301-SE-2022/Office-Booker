@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Desk, Booking, employee, Facility , Room} from '../../services/booking-service.service';
+import { BookingServiceService, Desk, Booking, employee, Facility , Room, Wall} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 import {map, Subscription, timer} from 'rxjs';
 
@@ -27,6 +27,7 @@ export class MapBookingsComponent implements OnDestroy{
 
   //map based variables
   desks: Array<Desk> = [];
+  walls: Array<Wall> = [];
   roomId = 1;
   isOpen = false;
   zoom = 800;
@@ -194,6 +195,7 @@ export class MapBookingsComponent implements OnDestroy{
     this.desks.length = 0;
 
     this.getDesksByRoomId(roomId); 
+    this.getWallsByRoomId(roomId);
   }
 
   changeOpen(itemId: number, itemType: boolean) {
@@ -288,6 +290,24 @@ export class MapBookingsComponent implements OnDestroy{
       });
     })
 
+  }
+
+  getWallsByRoomId(roomId: number){
+    this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
+      res.forEach(wall => {
+        const newWall = {} as Wall;       
+        newWall.id = wall.id;             
+        newWall.roomId = wall.roomId;
+        newWall.Pos1X = wall.Pos1X;
+        newWall.Pos1Y = wall.Pos1Y;
+        newWall.Pos2X = wall.Pos2X;
+        newWall.Pos2Y = wall.Pos2Y;
+
+        this.walls.push(newWall);
+
+        this.changeDetection.detectChanges();
+      });
+    })
   }
 
   getBookingsByDeskId(deskId: number) {
@@ -623,6 +643,7 @@ export class MapBookingsComponent implements OnDestroy{
       })
       
       this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
+      this.getWallsByRoomId(this.currentRooms[0].id);
       this.changeDetection.detectChanges();
     })
     

@@ -16,12 +16,12 @@ export class ApiFacilitiesApiController {
 
     @Get('/desk/:deskId')
     async getFacilitiesForDesk(@Param('deskId') deskId: string) {
-        return await this.facilityService.getFacilitiesForDesk(Number(deskId));
+        return this.facilityService.getFacilitiesForDesk(Number(deskId));
     }
 
     @Put('/desk/:deskId')
     async updateFacilitiesForDesk(@Param('deskId') deskId: string, @Body() updateFacilitiesDto: UpdateFacilitiesDto) {
         const {plugs, monitors, projectors} = updateFacilitiesDto;
-        return await this.facilityService.updateFacilitiesForDesk(Number(deskId), Number(plugs), Number(monitors), Number(projectors));
+        return this.facilityService.updateFacilitiesForDesk(Number(deskId), Number(plugs), Number(monitors), Number(projectors));
     }
 }

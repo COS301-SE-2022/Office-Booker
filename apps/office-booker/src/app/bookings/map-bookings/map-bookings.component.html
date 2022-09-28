@@ -46,7 +46,8 @@
                     [attr.cx]="desk.LocationCol + desk.Width / 2" [attr.cy]="desk.LocationRow + desk.Height / 2"
                     [class.dotBooked]="desk.booking" />
             </g>
-            <g>
+            <g *ngFor="let wall of walls">
+                <line [attr.x1]="wall.Pos1X" [attr.y1]="wall.Pos1Y" [attr.x2]="wall.Pos2X" [attr.y2]="wall.Pos2Y" style="stroke:rgb(0,0,0);stroke-width:2" ></line>
             </g>
         </svg>
         <div class="comparison-container">

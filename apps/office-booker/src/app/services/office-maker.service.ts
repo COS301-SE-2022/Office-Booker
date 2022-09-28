@@ -82,4 +82,18 @@ export class OfficeMakerService {
     return this.http.post<Room>(`${url}`, body);
   }
 
+  getWallsByRoomId(roomId: number){
+    const url = this.baseURL + 'walls/room/' + roomId;
+    return this.http.get<Wall[]>(`${url}`);
+  }
+
+  deleteDeskById(deskId: number){
+    const url = this.baseURL + 'desks/'+ deskId;
+    return this.http.delete(`${url}`);
+  }
+
+  deleteWallById(wallId: number){
+    const url = this.baseURL + 'walls/wall/'+ wallId;
+    return this.http.delete(`${url}`);
+  }
 }
