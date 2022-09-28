@@ -72,6 +72,10 @@ describe('ApiWallsDataAccessService Unit Testing', () => {
 describe('ApiWallsDataAccessService Integration Testing', () => {
   let service: ApiWallsDataAccessService;
   let prisma;
+  let wall1: number;
+  let wall2: number;
+  let wall3: number;
+  let wallId: number;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -80,10 +84,31 @@ describe('ApiWallsDataAccessService Integration Testing', () => {
 
     service = module.get<ApiWallsDataAccessService>(ApiWallsDataAccessService);
     prisma = module.get<PrismaService>(PrismaService);
+
+    wall1 = (await service.createWall(3, 1, 1, 1, 1)).id;
+    wall2 = (await service.createWall(3, 2, 2, 2, 2)).id;
+    wall3 = (await service.createWall(3, 3, 3, 3, 3)).id;
+    wallId = wall1;
+  });
+
+  afterEach(async () => {
+    await service.deleteWall(wall1);
+    await service.deleteWall(wall2);
+    await service.deleteWall(wall3);
   });
 
   it('should be defined', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should get all walls in a room', async () => {
+    const res = await service.getWallsInRoom(3);
+    expect(res.length).toEqual(3);
+  });
+
+  it('should get a wall by id', async () => {
+    const res = await  service.getWallbyId(wallId);
+    expect(res.id).toEqual(wallId);
   });
 });
 
