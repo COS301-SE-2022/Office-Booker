@@ -2,8 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
-import { MailService } from '@office-booker/api/mail';
-import { MailModule } from '@office-booker/api/mail';
+import { MailService, MailModule } from '@office-booker/api/mail';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
@@ -201,3 +200,4 @@ describe('ApiUsersApiController Integration Tests', () => {
     expect(res2).toBe(null);
   })
 });
+

@@ -57,4 +57,5 @@ describe('ApiCompaniesApiController Integration Tests', () => {
     const res = await controller.getCompanyById('4');
     expect(res).toEqual({ id: 4, name: 'Tester Inc', domain: [ 'tester.com' ] });
   });
+
 });

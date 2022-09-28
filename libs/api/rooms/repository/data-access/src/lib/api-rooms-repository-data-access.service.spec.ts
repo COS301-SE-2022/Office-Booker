@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { ApiRoomsRepositoryDataAccessService } from './api-rooms-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
@@ -11,14 +11,14 @@ describe('ApiRoomsRepositoryDataAccessService Unit Tests', () => {
     const module = await Test.createTestingModule({
       providers: [ApiRoomsRepositoryDataAccessService, PrismaService],
     }).compile();
-    service = await module.get<ApiRoomsRepositoryDataAccessService>(ApiRoomsRepositoryDataAccessService);
-    prisma = await module.get<PrismaService>(PrismaService);
+    service =  module.get<ApiRoomsRepositoryDataAccessService>(ApiRoomsRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   describe('getRooms', () => {
     it('should return an array of rooms', async () => {
       prisma.room.findMany = jest.fn().mockReturnValue([{ id: 1, name: 'room 1', desks: null }, { id: 2, name: 'room 2', desks: null }, { id: 3, name: 'room 3', desks: null }]);
-      expect(await (await service.getRooms()).length).toBeGreaterThan(0);
+      expect((await service.getRooms()).length).toBeGreaterThan(0);
       expect(await service.getRooms()).toEqual([{ id: 1, name: 'room 1', desks: null }, { id: 2, name: 'room 2', desks: null }, { id: 3, name: 'room 3', desks: null }]);
     });
   });
@@ -110,3 +110,4 @@ expect.extend({
     }
   }
 });
+

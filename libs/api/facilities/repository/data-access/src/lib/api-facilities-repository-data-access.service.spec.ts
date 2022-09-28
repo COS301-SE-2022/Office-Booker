@@ -12,8 +12,8 @@ describe('ApiFacilitiesRepositoryDataAccessService', () => {
     const module = await Test.createTestingModule({
       providers: [ApiFacilitiesRepositoryDataAccessService, PrismaService],
     }).compile();
-    service = await module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
-    prisma = await module.get<PrismaService>(PrismaService);
+    service = module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   describe('getFacilitiesForDesk', () => {
@@ -23,7 +23,7 @@ describe('ApiFacilitiesRepositoryDataAccessService', () => {
         { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
         { id: 3, Desk: null, deskId: 2, plugs: 5, monitors: 1, projectors: 1 }
       ]);
-      expect(await (await service.getFacilitiesForDesk(2)).length).toBeGreaterThan(0);
+      expect((await service.getFacilitiesForDesk(2)).length).toBeGreaterThan(0);
       expect(await service.getFacilitiesForDesk(2)).toEqual([
         { id: 1, Desk: null, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
         { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
@@ -116,5 +116,4 @@ describe('ApiFacilitiesRepositoryDataAccessService Integration Tests', () => {
   });
 
 });
-
 

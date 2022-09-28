@@ -58,3 +58,4 @@ describe('ApiRoomsApiController Integration Tests', () => {
     expect(res).toEqual({ id: 3, name: 'Test Room', companyId: 4 });
   })
 });
+
