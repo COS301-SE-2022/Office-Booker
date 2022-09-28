@@ -150,4 +150,21 @@ export class ApiBookingsRepositoryDataAccessService {
             },
         });
     }
+
+    // get the users who have already voted on a specific booking
+    async getUsersVotedOnBooking(@Param() bookingId: number) {
+        return this.prisma.booking.findUnique({
+            where: {
+                id: bookingId,
+            },
+            select: {
+                BookingVotedOn: {
+                    select: {
+                        Employee: true,
+                    },
+                },
+            },
+        });
+    }
+
 }
