@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ApiFacilitiesRepositoryDataAccessService } from './api-facilities-repository-data-access.service';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
 import * as crypto from 'crypto';
+import { Prisma } from '@prisma/client';
 
 describe('ApiFacilitiesRepositoryDataAccessService', () => {
   let service: ApiFacilitiesRepositoryDataAccessService;
@@ -11,8 +12,8 @@ describe('ApiFacilitiesRepositoryDataAccessService', () => {
     const module = await Test.createTestingModule({
       providers: [ApiFacilitiesRepositoryDataAccessService, PrismaService],
     }).compile();
-    service = await module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
-    prisma = await module.get<PrismaService>(PrismaService);
+    service = module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   describe('getFacilitiesForDesk', () => {
@@ -22,7 +23,7 @@ describe('ApiFacilitiesRepositoryDataAccessService', () => {
         { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
         { id: 3, Desk: null, deskId: 2, plugs: 5, monitors: 1, projectors: 1 }
       ]);
-      expect(await (await service.getFacilitiesForDesk(2)).length).toBeGreaterThan(0);
+      expect((await service.getFacilitiesForDesk(2)).length).toBeGreaterThan(0);
       expect(await service.getFacilitiesForDesk(2)).toEqual([
         { id: 1, Desk: null, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
         { id: 2, Desk: null, deskId: 2, plugs: 2, monitors: 3, projectors: 0 },
@@ -89,18 +90,30 @@ expect.extend({
   }
 });
 
-/*describe('ApiFacilitiesRepositoryDataAccessService', () => {
+describe('ApiFacilitiesRepositoryDataAccessService Integration Tests', () => {
   let service: ApiFacilitiesRepositoryDataAccessService;
+  let prisma;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [ApiFacilitiesRepositoryDataAccessService, PrismaService],
     }).compile();
-
-    service = module.get(ApiFacilitiesRepositoryDataAccessService);
+    service = module.get<ApiFacilitiesRepositoryDataAccessService>(ApiFacilitiesRepositoryDataAccessService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {
     expect(service).toBeTruthy();
   });
-});*/
+
+  it('should return an array of facilities', async () => {
+    const facilities = await service.getFacilitiesForDesk(2);
+    console.log(facilities);
+    expect(facilities.length).toBeGreaterThan(0);
+    expect(facilities).toEqual([
+      { id: 2, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
+    ]);
+  });
+
+});
+

@@ -15,7 +15,7 @@ on:
         - full
         - lint
         - build
-        - unit
+        - unit + integration
         - e2e
         - all
 
@@ -35,12 +35,12 @@ jobs:
       test: 'affected'
       testtype: 'build'
   
-  test-affected-unit:
+  test-affected-unit-integration:
     uses: ./.github/workflows/nxtest.yml
-    if: ${{ github.event.inputs.testchoice == 'unit' || github.event.inputs.testchoice == 'full'|| github.event.inputs.testchoice == ''}}
+    if: ${{ github.event.inputs.testchoice == 'unit + integration' || github.event.inputs.testchoice == 'full'|| github.event.inputs.testchoice == ''}}
     with:
       test: 'affected'
-      testtype: 'unit'
+      testtype: 'unit + integration'
 
   test-affected-e2e:
     uses: ./.github/workflows/nxtest.yml

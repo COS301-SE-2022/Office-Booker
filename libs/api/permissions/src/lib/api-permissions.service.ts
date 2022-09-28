@@ -11,7 +11,6 @@ export class ApiPermissionsService {
         private roomService: ApiRoomsRepositoryDataAccessService,
         private companyService: ApiCompaniesRepositoryDataAccessService) {}
 
-
     async userAndDesk(@Param() userId: number, @Param() deskId: number) : Promise<boolean> {
         const user = await this.userService.getUserById(userId);
         const desk = await this.deskService.getDeskById(deskId);
