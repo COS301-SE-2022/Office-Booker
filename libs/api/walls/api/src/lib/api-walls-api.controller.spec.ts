@@ -20,7 +20,7 @@ describe('ApiWallsApiController Unit Tests', () => {
       provide: ApiWallsDataAccessService,
       useFactory: () => ({
         getWallsInRoom: jest.fn(() => []),
-        getWallById: jest.fn(() => ({}))
+        getWallById: jest.fn(() => ({})),
       })
     }
     const app: TestingModule = await Test.createTestingModule({
@@ -31,11 +31,7 @@ describe('ApiWallsApiController Unit Tests', () => {
     service = app.get<ApiWallsDataAccessService>(ApiWallsDataAccessService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeTruthy();
-  });
-
-  it("calling getWallsInRoom Method", () => {
+  it("calling getWallsInRoom Method", async () => {
     controller.getWallsInRoom('5');
     expect(service.getWallsInRoom).toHaveBeenCalled();
   });
