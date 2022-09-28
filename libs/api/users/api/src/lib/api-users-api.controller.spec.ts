@@ -86,6 +86,7 @@ describe('ApiUsersApiController Integration Tests', () => {
   let controller: ApiUsersApiController;
   let service: ApiUsersRepositoryDataAccessService;
   let id: number;
+  let idArr: number[];
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -97,6 +98,30 @@ describe('ApiUsersApiController Integration Tests', () => {
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+
+    idArr = [];
+    const res = await controller.getUsersByCompanyId(4);
+    res.forEach(employee => {
+      idArr.push(employee.id);
+    });
+    for (let i = 0; i < idArr.length; i++) {
+      if (idArr[i] != 5 && idArr[i] != 6) {
+        await controller.deleteUser(idArr[i]);
+      }
+    }
+  });
+
+  afterAll(async () => {
+    idArr = [];
+    const res = await controller.getUsersByCompanyId(4);
+    res.forEach(employee => {
+      idArr.push(employee.id);
+    });
+    for (let i = 0; i < idArr.length; i++) {
+      if (idArr[i] != 5 && idArr[i] != 6) {
+        await controller.deleteUser(idArr[i]);
+      }
+    }
   });
 
   it("calling getUsers method", async () => {
@@ -120,7 +145,7 @@ describe('ApiUsersApiController Integration Tests', () => {
 
   it("calling getUsersByCompanyId method", async () => {
     const res = await controller.getUsersByCompanyId(4);
-    expect(res).toContain([
+    expect(res).toEqual([
       {
         id: 5,
         name: 'User 1',
@@ -156,12 +181,21 @@ describe('ApiUsersApiController Integration Tests', () => {
     expect(res.name).toEqual('Test User');
     expect(res.email).toEqual('email');
     expect(res.companyId).toEqual(4);
-    id = res.id
   })
 
   it("calling deleteUser method", async () => {
+    const postData = {
+      name: 'Test User',
+      companyId: 4,
+      email: 'fakemail',
+      admin: false,
+      guest: false
+    }
+    const res = await controller.createUser(postData);
+    id = res.id
+
     await controller.deleteUser(id);
-    const res = await controller.getUserById(id);
-    expect(res).toBe(null);
+    const res2 = await controller.getUserById(id);
+    expect(res2).toBe(null);
   })
 });
