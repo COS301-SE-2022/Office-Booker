@@ -19,6 +19,15 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
+    async getCurrentBookingsForDesk(@Param() deskId: number) {
+        // do we need this method?
+        return this.prisma.booking.findMany({
+            where: {
+                deskId,
+            },
+        });
+    }
+
     // get a specific booking by its ids
     // for instance if a user wants to see a booking he created
     async getBookingById(@Param() bookingId: number) {
