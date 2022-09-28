@@ -1,9 +1,10 @@
 <mat-card class="options-bar">
 
     <mat-form-field>
-        <mat-label>Select a floor</mat-label>
-        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
-            <mat-option label="no floor selected"></mat-option>
+        <mat-label>Floors</mat-label>
+        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)" placeholder="Select a floor">
+            <mat-option disabled [value]="-1">Select a floor</mat-option>
+            <mat-option [value]="0" >Create a new floor</mat-option>
             <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -15,7 +16,7 @@
         </div> 
     </div>
   
-    <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button>
+    <!-- <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button> -->
 
     <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
     <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>

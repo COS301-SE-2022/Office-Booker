@@ -43,7 +43,7 @@ export class OfficeMakerComponent implements OnInit {
   selectedItemId = "default";
 
   currentRooms: Array<Room> = [];
-  selectedRoom = 0;
+  selectedRoom = -1;
 
   numPlugs: number;
   numMonitors: number;

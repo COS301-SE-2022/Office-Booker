@@ -254,9 +254,6 @@
 }
 
 
-.nav-buttons{
-    
-}
 
 .selected {
     /* border: 3px solid rgb(0, 255, 0); */
@@ -265,4 +262,9 @@
     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
     box-shadow: inset 0px 0px 5px #c1c1c1;    
     outline: none;
+}
+
+.nav-buttons{
+    margin: 0.25rem;
+    
 }
