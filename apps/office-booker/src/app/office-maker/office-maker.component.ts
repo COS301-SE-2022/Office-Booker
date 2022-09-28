@@ -45,6 +45,7 @@ export class OfficeMakerComponent implements OnInit {
 
   currentRooms: Array<Room> = [];
   selectedRoom = -1;
+  newFloorName = "";
 
   numPlugs: number;
   numMonitors: number;
@@ -257,11 +258,15 @@ export class OfficeMakerComponent implements OnInit {
     } 
     else if (this.selectedRoom == 0) {
       this.openRoomNameDialog();
-      this.makerService.createRoom("Floor 3", this.currentUser.companyId.toString()).subscribe();
+      
     }
-    
     else {
-      const map = document.querySelectorAll("svg#dropzone");
+      this.saveMapItems();
+     }
+    }
+
+  saveMapItems(){
+    const map = document.querySelectorAll("svg#dropzone");
       map.forEach(node => {
         const officeObjects = node.children;
         Array.from(officeObjects).forEach(officeObj => {
@@ -290,7 +295,8 @@ export class OfficeMakerComponent implements OnInit {
       });
       this.openSuccessSnackBar("Map saved");
     }
-  }
+    
+    
 
   startDraw(){
     // if (document.getElementById("startdraw") != null) {
@@ -434,8 +440,6 @@ export class OfficeMakerComponent implements OnInit {
                 numProjectors: this.facilities.find(d => d.deskId == x)?.projectors,
                 deskId: x
               }
-
-              
               
             });
 
@@ -476,9 +480,16 @@ export class OfficeMakerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        //
+        this.newFloorName = result.newFloorName;
+        this.makerService.createRoom(this.newFloorName, this.currentUser.companyId.toString()).subscribe(result => {
+          this.currentRooms.push(result);
+          this.selectedRoom = result.id;
+          this.saveMapItems();
+      }); 
+      } else {
+        this.newFloorName = "error";
       }
-      
+      this.changeDetection.detectChanges();
       //
     });
     }
