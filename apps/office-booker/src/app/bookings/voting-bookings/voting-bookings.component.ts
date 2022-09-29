@@ -22,7 +22,7 @@ export class VotingBookingsComponent {
 
 
   constructor(private router: Router, private bookingService: BookingServiceService, private changeDetection: ChangeDetectorRef, public snackBar: MatSnackBar) {
-    changeDetection.detach();
+   
   }
 
   ngOnInit() {
