@@ -341,7 +341,6 @@ export class OfficeMakerComponent implements OnInit {
               newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
               this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
               } 
-            }
             else if(officeObj.nodeName == "line"){
               const attrb = officeObj.attributes;
               const newLine = {} as Wall;
@@ -351,6 +350,8 @@ export class OfficeMakerComponent implements OnInit {
               newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
               this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
             }
+          }
+
         })
       });
       this.openSuccessSnackBar("Map saved");
