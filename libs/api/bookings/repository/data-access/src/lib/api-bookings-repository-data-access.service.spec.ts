@@ -11,7 +11,7 @@ describe('ApiBookingsRepositoryDataAccessService Unit Test', () => {
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
-			providers: [ApiBookingsRepositoryDataAccessService, PrismaService],
+			providers: [ApiBookingsRepositoryDataAccessService, PrismaService, ApiUsersRepositoryDataAccessService],
 		}).compile();
 		apiBookingsRepositoryDataAccessService = module.get<ApiBookingsRepositoryDataAccessService>(ApiBookingsRepositoryDataAccessService);
 		prisma = module.get<PrismaService>(PrismaService);

@@ -266,8 +266,8 @@ describe('ApiUsersRepositoryDataAccessService Integration Tests', () => {
       ratingsReceived: 1
     };
     const result = await service.createUser(user);
-    const updatedUser = await service.updateUserRating(result.id, 9 , 2);
-    expect(updatedUser.currentRating).toEqual(9);
+    const updatedUser = await service.updateUserRating(result.id, 9);
+    expect(updatedUser.currentRating).toEqual(14);
     await service.deleteUser(result.id);
   });
 
