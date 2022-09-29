@@ -27,8 +27,7 @@ class EmailDto {
 
 class VotingDto {
     userId: number;
-    currentRating:   number;
-    ratingsReceived: number;
+    newVote: number;
 }
 
 @UseGuards(AuthGuard('jwt'))
@@ -133,9 +132,9 @@ export class ApiBookingsApiController {
 
     @Post('/votes/booking/:bookingId')
     async createVoteOnBooking(@Param('bookingId') bookingId: string, @Body() postData: VotingDto) {
-        const { userId, currentRating, ratingsReceived } = postData;
+        const { userId, newVote } = postData;
         if (await this.bookingService.isUserAllowedToVote(userId, Number(bookingId))) {
-            return this.bookingService.createVoteOnBooking(Number(bookingId), userId, currentRating, ratingsReceived);
+            return this.bookingService.createVoteOnBooking(Number(bookingId), userId, newVote);
         } else {
             throw new BadRequestException("This user has already voted on this booking.");
         }
