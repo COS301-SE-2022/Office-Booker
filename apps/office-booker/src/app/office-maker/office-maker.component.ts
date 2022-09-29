@@ -10,9 +10,6 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { Facility, Wall } from '@prisma/client';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewFloorDialogComponent } from './new-floor-dialog/new-floor-dialog.component';
-import { eventNames } from 'process';
-import { I, P, R } from '@angular/cdk/keycodes';
-import { ConsoleLogger } from '@aws-amplify/core';
 
 
 export interface DialogData {
@@ -164,10 +161,9 @@ export class OfficeMakerComponent implements OnInit {
         newDesk.setAttribute("height", this.allDesks[i].Height.toString() ); //default 35
         newDesk.setAttribute("fill", "grey");
         newDesk.setAttribute("isMeetingRoom", "false");
-        newDesk.setAttribute("id", "desk-" + this.allDesks[i].id.toString());
+        newDesk.setAttribute("id", "existingDesk-" + this.allDesks[i].id.toString());
         newDesk.classList.add("preMade");
         newDesk.classList.add("desk");
-        // newDesk.style.cursor = "pointer";
         newDesk.onclick = () => this.selectItem(newDesk.id);
         newDesk.setAttribute("numPlugs", this.numPlugs.toString());
         newDesk.setAttribute("numMonitors", this.numMonitors.toString());
