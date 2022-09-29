@@ -62,7 +62,6 @@ getCompanies(){
       newComp.domain = comp.domain
       this.companies.push(newComp);
       //this.changeDetection.detectChanges();
-    
     });
   })
 }
