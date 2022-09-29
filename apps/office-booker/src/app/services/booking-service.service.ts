@@ -121,7 +121,7 @@ export class BookingServiceService {
   }
   
   getRoomByID(roomId: number){
-    const url = this.baseURL + 'rooms/'; + roomId;
+    const url = this.baseURL + 'rooms/' + roomId;
     return this.http.get<Room>(`${url}`);
   }
 
