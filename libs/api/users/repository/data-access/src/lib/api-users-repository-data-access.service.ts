@@ -60,14 +60,20 @@ export class ApiUsersRepositoryDataAccessService {
         });
     }
 
-    async updateUserRating(@Param() userID: number, current: number, ratings: number) {
+    async updateUserRating(@Param() userID: number, newVote: number) {
+        //calculate stuff here
+
         return this.prisma.employee.update({
             where: {
                 id: userID,
             },
             data: {
-                currentRating: current,
-                ratingsReceived: ratings,
+                currentRating: {
+                    increment: newVote,
+                },
+                ratingsReceived: {
+                    increment: 1,
+                },
             },
         });
     }

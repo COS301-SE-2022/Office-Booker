@@ -17,17 +17,18 @@ model Company {
 }
 
 model Employee {
-  id              Int       @id @default(autoincrement())
+  id              Int              @id @default(autoincrement())
   name            String
-  email           String    @unique
+  email           String           @unique
   companyId       Int
   admin           Boolean
   guest           Boolean
   currentRating   Int
   ratingsReceived Int
-  company         Company   @relation(fields: [companyId], references: [id])
+  company         Company          @relation(fields: [companyId], references: [id])
   Bookings        Booking[]
   Invite          Invite[]
+  BookingVotedOn  BookingVotedOn[]
 }
 
 model Room {
@@ -54,13 +55,13 @@ model Desk {
 }
 
 model Wall {
-  id          Int  @id @default(autoincrement())
-  roomId      Int
-  Pos1X       Int
-  Pos1Y       Int
-  Pos2X       Int
-  Pos2Y       Int
-  Room        Room @relation(fields: [roomId], references: [id])
+  id     Int  @id @default(autoincrement())
+  roomId Int
+  Pos1X  Int
+  Pos1Y  Int
+  Pos2X  Int
+  Pos2Y  Int
+  Room   Room @relation(fields: [roomId], references: [id])
 }
 
 model Facility {
@@ -83,6 +84,15 @@ model Booking {
   Desk       Desk     @relation(fields: [deskId], references: [id])
   Employee   Employee @relation(fields: [employeeId], references: [id])
   Invite     Invite[]
+  BookingVotedOn BookingVotedOn[]
+}
+
+model BookingVotedOn {
+  id         Int      @id @default(autoincrement())
+  Booking    Booking  @relation(fields: [bookingId], references: [id])
+  Employee   Employee @relation(fields: [employeeId], references: [id])
+  bookingId  Int
+  employeeId Int
 }
 
 model Invite {
@@ -90,6 +100,6 @@ model Invite {
   bookingId       Int
   employeeId      Int
   accepted        Boolean  @default(false)
-  Booking         Booking  @relation(fields: [bookingId], references: [id])
+  Booking         Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   invitedEmployee Employee @relation(fields: [employeeId], references: [id])
 }
