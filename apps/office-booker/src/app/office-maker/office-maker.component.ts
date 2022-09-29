@@ -11,6 +11,8 @@ import { Facility, Wall } from '@prisma/client';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewFloorDialogComponent } from './new-floor-dialog/new-floor-dialog.component';
 import { eventNames } from 'process';
+import { I, P, R } from '@angular/cdk/keycodes';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 
 export interface DialogData {
@@ -119,6 +121,8 @@ export class OfficeMakerComponent implements OnInit {
     {
       this.getDesksByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
     }
+
+    this.getAllFacilities();
   }
 
   getAllWallsOnAllFloors() {
@@ -126,8 +130,13 @@ export class OfficeMakerComponent implements OnInit {
     
     for (let i = 0; i < this.currentRooms.length; i++)
     {
-      console.log(i)
       this.getWallsByRoomId(this.currentRooms[i].id); //gets all the desks for the current room
+    }
+  }
+
+  getAllFacilities() {
+    for (let i=0; i<this.allDesks.length; i++) {
+      this.getFacilitiesForDesk(this.allDesks[i].id);
     }
   }
 
@@ -147,7 +156,6 @@ export class OfficeMakerComponent implements OnInit {
     for (let i=0; i<this.allDesks.length; i++)
     {
       if (this.allDesks[i].roomId == this.selectedRoom){
-      // this.getFacilitiesForDesk(this.allDesks[i].id);
         const newDesk = document.createElementNS(svgns, "rect");
         newDesk.setAttribute("x", this.allDesks[i].LocationCol.toString());
         newDesk.setAttribute("y", this.allDesks[i].LocationRow.toString());
@@ -184,8 +192,6 @@ export class OfficeMakerComponent implements OnInit {
     const svg = document.getElementById("dropzone");
 
     const svgns = "http://www.w3.org/2000/svg";
-
-    console.log(this.allWalls);
 
     for (let i=0; i<this.allWalls.length; i++)
     {
@@ -312,7 +318,6 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   saveMap(){
-    console.log(this.selectedRoom);
     if (this.selectedRoom == -1) {
       this.openFailSnackBar("Please use the room selector in the top left corner");
     } 
@@ -341,7 +346,6 @@ export class OfficeMakerComponent implements OnInit {
               newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
               this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
               } 
-            }
             else if(officeObj.nodeName == "line"){
               const attrb = officeObj.attributes;
               const newLine = {} as Wall;
@@ -351,6 +355,8 @@ export class OfficeMakerComponent implements OnInit {
               newLine.Pos2Y = Number(attrb.getNamedItem('y2')?.value);
               this.makerService.createWall(this.selectedRoom, Math.round(newLine.Pos1X), Math.round(newLine.Pos1Y), Math.round(newLine.Pos2X), Math.round(newLine.Pos2Y)).subscribe();
             }
+          }
+
         })
       });
       this.openSuccessSnackBar("Map saved");
@@ -368,14 +374,13 @@ export class OfficeMakerComponent implements OnInit {
 
   startEdit(itemId: string){
         this.selectedItemId = itemId;
-        this.openDialog(parseInt(itemId));
+        this.openDialog(itemId);
   }
 
   getFacilitiesForDesk(deskId: number) {
     if (deskId != 0) 
     {
       this.bookingService.getFacilitiesByDeskId(deskId).subscribe(res => {
-        this.facilities.push(res);
         this.facilityString = JSON.stringify(res);//converts response to string
         if (JSON.stringify(res) != "[]") {
           //split the parsed string to extract the varaiables we need
@@ -462,7 +467,6 @@ export class OfficeMakerComponent implements OnInit {
   getWallsByRoomId(roomId: number){
     this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
       res.forEach(wall => {
-        console.log(wall);
         const newWall = {id: wall.id, roomId: wall.roomId, Pos1X: wall.Pos1X, Pos1Y: wall.Pos1Y, Pos2X: wall.Pos2X, Pos2Y: wall.Pos2Y}; 
 
         this.allWalls.push(newWall);
@@ -470,6 +474,8 @@ export class OfficeMakerComponent implements OnInit {
         this.changeDetection.detectChanges();
       });
     })
+
+    this.getAllFacilities();
   }
 
   getRooms(coId: number) {
@@ -564,39 +570,86 @@ export class OfficeMakerComponent implements OnInit {
 
 
 
-  openDialog(x: number): void {    
+  openDialog(deskId: string): void {    
     
     // this.desks.find(d => d.id == x)?.numPlugs
     this.changeDetection.detectChanges();
+    const splitId = deskId.split("-", 2);
+    const id = Number(splitId[1]);
+    for (let i=0; i<this.facilities.length; i++) {
+  
+      if (this.facilities[i].deskId == id) {
+        this.numPlugs = this.facilities[i].plugs;
+        this.numMonitors = this.facilities[i].monitors;
+        this.numProjectors = this.facilities[i].projectors;
+        console.log("should be 2: " + this.numPlugs)
+      }
+      else
+      {
+        this.numPlugs = 0;
+        this.numMonitors = 0;
+        this.numProjectors = 0;
+      }
+    }
+
     
       const dialogRef = this.dialog.open(EditDialogComponent, {
         width: '550px',
-        data: { numPlugs: this.facilities.find(d => d.deskId == x)?.plugs,
-                numMonitors: this.facilities.find(d => d.deskId == x)?.monitors,
-                numProjectors: this.facilities.find(d => d.deskId == x)?.projectors,
-                deskId: x
+        data: { numPlugs: this.numPlugs, 
+                numMonitors: this.numMonitors, 
+                numProjectors: this.numProjectors, 
+                deskId: id, 
               }
               
             });
 
 
       dialogRef.afterClosed().subscribe(result => {
+        let success = false;
         if (result){
           this.numPlugs = result.numPlugs;
           this.numMonitors = result.numMonitors;
           this.numProjectors = result.numProjectors;
           this.deskId = result.deskId;
-          this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
-            for (let i=0; i<this.facilities.length; i++) {
-              if (this.facilities[i].deskId == this.deskId) {
-                this.facilities[i].plugs = this.numPlugs;
-                this.facilities[i].monitors = this.numMonitors;
-                this.facilities[i].projectors = this.numProjectors;
-              }
+          for (let i = 0; i<this.facilities.length; i++)
+          {
+            console.log(this.facilities[i])
+            if (this.facilities[i].deskId  == this.deskId)
+            {
+              this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
+                if (res) {
+                      this.facilities[i].plugs = this.numPlugs;
+                      this.facilities[i].monitors = this.numMonitors;
+                      this.facilities[i].projectors = this.numProjectors;
+                    success = true;
+                    console.log(success);
+                    this.openSuccessSnackBar("Successfully updated facilties");
+                  
+                  this.changeDetection.detectChanges();
+                }
+                else {
+                  this.openFailSnackBar("There was an error updating the facilities");
+                }
+              });
+
             }
-            this.changeDetection.detectChanges();
-          });
-        }
+          } 
+          console.log(success);
+          if (success == false) //if this desk does not have a facilities object
+          {
+            console.log("success = false")
+            this.bookingService.createFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
+              if (res) {
+                this.facilities.push(res);
+                this.openSuccessSnackBar("Successfully updated facilties");
+
+              }
+            });
+          }
+          
+          
+        } 
+
         
         //
       });
