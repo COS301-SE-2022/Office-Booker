@@ -21,7 +21,7 @@
                     <mat-card-actions>
                         <mat-slider color="primary" min="1" max="5" step="1" value="3" #matslider></mat-slider>
                         <div class="numbers">{{matslider.value}}</div>
-                        <button class="clicker" [disabled]="false" (click)="getScore(matslider.value, booking.employeeId); openSnackBar(booking.deskId)" mat-raised-button color="primary">Submit Rating</button>
+                        <button class="clicker" [disabled]="false" (click)="getScore(matslider.value, booking.id); openSnackBar(booking.deskId)" mat-raised-button color="primary">Submit Rating</button>
                     </mat-card-actions>
 
                     <p></p>
