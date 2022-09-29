@@ -14,14 +14,14 @@ on:
         required: false
         type: string
 
-env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
 jobs:
   build:
     name: Generate cache
     runs-on: ubuntu-latest
     steps:
+      - name: check env
+        run: env
+    
         #Checking out to the develop branch
       - name: Checkout develop
         uses: actions/checkout@v2
