@@ -198,7 +198,7 @@ export class ApiBookingsRepositoryDataAccessService {
         });
     }
 
-    async createVoteOnBooking(bookingId: number, userId: number, current: number, ratings: number) {
+    async createVoteOnBooking(bookingId: number, userId: number, newVote: number) {
         //make a votedonbookingobject
         await this.prisma.bookingVotedOn.create({
             data: {
@@ -208,6 +208,6 @@ export class ApiBookingsRepositoryDataAccessService {
         });
 
         //update the users rating
-        return this.userService.updateUserRating((await this.getBookingById(bookingId)).employeeId, current, ratings);
+        return this.userService.updateUserRating((await this.getBookingById(bookingId)).employeeId, newVote);
     }
 }
