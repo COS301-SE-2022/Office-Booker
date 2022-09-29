@@ -100,6 +100,6 @@ model Invite {
   bookingId       Int
   employeeId      Int
   accepted        Boolean  @default(false)
-  Booking         Booking  @relation(fields: [bookingId], references: [id])
+  Booking         Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   invitedEmployee Employee @relation(fields: [employeeId], references: [id])
 }
