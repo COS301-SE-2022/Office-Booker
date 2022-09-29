@@ -604,10 +604,10 @@ export class OfficeMakerComponent implements OnInit {
   moveToTheOtherSide(){
 
     this.right = !this.right;
-    if (this.right == true) {
+    if (this.right) {
         document.getElementById('map')?.setAttribute("style", "width: 75% !important; ");
     }
-    else if (this.right == false) {
+    else if (!this.right) {
       document.getElementById('map')?.setAttribute("style", "width: 75% !important; float: right;");
     }
 
