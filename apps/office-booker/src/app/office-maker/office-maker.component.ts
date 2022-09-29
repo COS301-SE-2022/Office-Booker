@@ -96,8 +96,6 @@ export class OfficeMakerComponent implements OnInit {
     })
   }
 
-  
-
   generateDesks(){ 
     const svg = document.getElementById("dropzone");
 
@@ -372,8 +370,6 @@ export class OfficeMakerComponent implements OnInit {
       this.changeDetection.detectChanges();
 
     }
-
-
   });
 }
 }
