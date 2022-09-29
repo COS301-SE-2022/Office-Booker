@@ -248,6 +248,8 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   selectItem(itemId: string) {
+    this.updateSizes();
+
     if (this.editMode == true) {
       this.drawMode = false;
       this.selectedItemId = itemId;
