@@ -42,9 +42,7 @@ export class VotingBookingsComponent {
   makeVote(bookingId: number, scoreToBeAdded: number): boolean { // this function updates the users rating.
     this.bookingService.makeVote(bookingId, this.userNumb, scoreToBeAdded).subscribe(stuff => {
       //This API call will update the user with a new rating score and increase their total ratings received by 1.
-      //console.log(stuff);
       this.userBookings = this.userBookings.filter(booking => booking.id != bookingId);
-      //console.log(this.userBookings);
       this.changeDetection.detectChanges();
     });
     return true;
