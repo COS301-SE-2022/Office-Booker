@@ -248,27 +248,45 @@ export class OfficeMakerComponent implements OnInit {
 
   selectItem(itemId: string) {
     if (this.editMode == true) {
-      // this.getFacilitiesForDesk(parseInt(itemId));
+      this.drawMode == false;
       this.selectedItemId = itemId;
+    
       this.startEdit(itemId);
     }
-    else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
+    // else if (this.selectedItemId != "default" && this.selectedItemId != itemId) {
       const selectedItem =  document.getElementById(this.selectedItemId);
      
       if(selectedItem?.tagName == "rect"){
         selectedItem.setAttribute("style", "stroke-width:0")
+        console.log(selectedItem);
+        if (this.selectItem != null){
+          this.selectedItemHeight = Number(selectedItem?.getAttribute("height"));
+          this.selectedItemWidth = Number(selectedItem?.getAttribute("width"));
+          this.changeDetection.detectChanges();
+
+        }
       }
         else{
           selectedItem?.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+
         }
       
       this.selectedItemId = "default";
       this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5;");
-    } else if (this.selectedItemId == "default") {
+    if (this.selectedItemId == "default") {
       this.selectedItemId = itemId;
       document.getElementById(itemId)?.setAttribute("style", "stroke:rgb(255,255,255);stroke-width:5");
     }
+
+    this.updateSizes();
+  }
+
+  updateSizes()
+  {
+    this.selectedItemHeight = Number(document.getElementById(this.selectedItemId)?.getAttribute("height"));
+    this.selectedItemWidth = Number(document.getElementById(this.selectedItemId)?.getAttribute("width"));
+    this.changeDetection.detectChanges();
   }
 
   deleteItem() {
@@ -366,10 +384,12 @@ export class OfficeMakerComponent implements OnInit {
 
   startDraw(){
     this.drawMode = !this.drawMode;
+    this.editMode = false;
   }
 
   setEdit(){
     this.editMode = !this.editMode;
+    this.drawMode = false;
   }
 
   startEdit(itemId: string){
@@ -545,11 +565,11 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   flip(){
-    const temp = this.width;
-    this.width = this.height
-    this.height = temp;
-    this.flipValueHeight(this.height);
-    this.flipValueWidth(this.width);
+    const temp = this.selectedItemWidth;
+    this.selectedItemWidth = this.selectedItemHeight;
+    this.selectedItemHeight = temp;
+    this.flipValueHeight(this.selectedItemHeight);
+    this.flipValueWidth(this.selectedItemWidth);
   }
 
   flipValueHeight(newHeight: number) {

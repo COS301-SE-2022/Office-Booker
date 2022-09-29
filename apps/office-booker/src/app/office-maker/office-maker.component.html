@@ -1,5 +1,8 @@
 <mat-card class="options-bar">
 
+    <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
+
+
     <mat-form-field>
         <mat-label>Floors</mat-label>
         <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)" placeholder="Select a floor">
@@ -23,11 +26,11 @@
     <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
     <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
 
-    <button class="delete" mat-raised-button (click)="deleteItem()">Delete Item</button>  
             
-    <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button>  
+    <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button> 
+    <button class="delete" mat-raised-button (click)="deleteItem()">Delete Item</button>  
+ 
 
-    <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
 
 
 
@@ -50,7 +53,7 @@
     <mat-card class="size-card">
 
         <h2>Width</h2>
-        <p>{{width}}</p>
+        <p>{{selectedItemWidth}}</p>
         <mat-slider
             thumbLabel = "Width"
             label="Width"
@@ -60,7 +63,7 @@
             color="primary"
             min="30"
             max="500"
-            [value]="width"
+            [value]="selectedItemWidth"
             aria-label="units"
             (change)="onSliderChangeWidth($event)"
             [(ngModel)]="width"
@@ -69,7 +72,7 @@
             <button mat-raised-button color="primary" (click)="flip()" >Swap Values</button>
             <br>
             <h2>Height</h2>
-            <p>{{height}}</p>
+            <p>{{selectedItemHeight}}</p>
             <mat-slider
                 thumbLabel = "Height"
                 label="Height"
@@ -79,7 +82,7 @@
                 color="primary"
                 min="30"
                 max="500"
-                [value]="height"
+                [value]="selectedItemHeight"
 
                 aria-label="units"
                 (change)="onSliderChangeHeight($event)"
