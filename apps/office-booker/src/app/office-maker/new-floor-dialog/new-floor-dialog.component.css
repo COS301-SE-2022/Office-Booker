@@ -1,0 +1,16 @@
+.nameInput{
+    width: fill;
+}
+
+.mat-dialog-header{
+    text-align: center;
+
+}
+
+.mat-form-field{
+    width: 100%;
+  }
+
+  .mat-form{
+    text-align: center;
+  }

@@ -17,44 +17,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { InviteDialogComponent } from '../../bookings/personal-bookings/invite-dialog/invite-dialog.component';
 
 export interface DialogData {
-  numPlugs: number;
-  numMonitors: number;
-  numProjectors: number;
-  deskId: number;
+  newFloorName: string;
 }
 
 @Component({
-  selector: 'office-booker-edit-dialog',
-  templateUrl: './edit-dialog.component.html',
-  styleUrls: ['./edit-dialog.component.css'],
+  selector: 'office-booker-new-floor-dialog',
+  templateUrl: './new-floor-dialog.component.html',
+  styleUrls: ['./new-floor-dialog.component.css'],
 })
-export class EditDialogComponent {
-  numPlugs: number;
-  numMonitors: number;
-  numProjectors: number;
-  deskId: number;
-
-
+export class NewFloorDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog, private bookingService: BookingServiceService,
-    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef) {
-      this.numPlugs = data.numPlugs;
-      this.numMonitors  = data.numMonitors;
-      this.numProjectors = data.numProjectors;
-      this.deskId = data.deskId;
+    public snackBar: MatSnackBar, private changeDetection: ChangeDetectorRef
+  ) {}
 
-      console.log(data);
-    }
   // ngOnInit(): void {}
 
   onNoClick() : void {
     this.dialogRef.close();
-    
-  }
-
-  public editAttributes(): void {
-  //
   }
 }
