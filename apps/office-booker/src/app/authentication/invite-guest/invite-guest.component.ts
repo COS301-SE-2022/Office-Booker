@@ -68,7 +68,9 @@ export class InviteGuestComponent /*implements OnInit*/ {
         else {
           this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
             this.exists = false;
+            alert(this.email + " successfully invited");
             return data;
+            
           });
         }
       });

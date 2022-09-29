@@ -2,13 +2,29 @@
     text-align: center;
 }
 
-.text {
-    text-align: center;
-}
 
-.button{
-}
 
 .content{
     text-align: center;
+    margin: 5rem;
+    display: block;
+    justify-content: center;
+}
+
+.body{
+    margin: 0;
+
+}
+
+.img{
+    display: block;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.button-div{
+    text-align: center;
+    margin: 5rem;
+    display: block;
+    justify-content: center;
 }
