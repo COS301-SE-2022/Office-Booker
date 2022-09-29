@@ -248,7 +248,7 @@ export class OfficeMakerComponent implements OnInit {
 
   selectItem(itemId: string) {
     if (this.editMode == true) {
-      this.drawMode == false;
+      this.drawMode = false;
       this.selectedItemId = itemId;
     
       this.startEdit(itemId);
@@ -523,6 +523,8 @@ export class OfficeMakerComponent implements OnInit {
       
     }
 
+    this.updateSizes();
+
 
     
   }
@@ -533,6 +535,9 @@ export class OfficeMakerComponent implements OnInit {
       document.getElementById(this.selectedItemId)?.setAttribute("height", event.value);
     }
 
+    this.updateSizes();
+
+
   }
 
   onSliderChangeWidth(event: any) {
@@ -540,6 +545,9 @@ export class OfficeMakerComponent implements OnInit {
     {
       document.getElementById(this.selectedItemId)?.setAttribute("width", event.value);
     }
+
+    this.updateSizes();
+
 
   }
 
