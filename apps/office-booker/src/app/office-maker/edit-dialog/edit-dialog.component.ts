@@ -44,11 +44,14 @@ export class EditDialogComponent {
       this.numMonitors  = data.numMonitors;
       this.numProjectors = data.numProjectors;
       this.deskId = data.deskId;
+
+      console.log(data);
     }
   // ngOnInit(): void {}
 
   onNoClick() : void {
     this.dialogRef.close();
+    
   }
 
   public editAttributes(): void {
