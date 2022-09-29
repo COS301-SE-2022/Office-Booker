@@ -308,12 +308,15 @@ export class MapBookingsComponent implements OnDestroy{
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
-        const comparisonDate = new Date();        //to filter out dates before the current time (where end date of booking is before now)
+        const comparisonDateStart = new Date(this.grabbedStartDate);        //to filter out dates before the current time (where end date of booking is before now)
+        const comparisonDateEnd = new Date(this.grabbedEndDate);
         if (booking) {      //if a booking exists at all even one, change the boolean to true
-          const bookingDate = new Date(booking.endsAt);     //used to check against the comparison date
-          bookingDate.setHours(bookingDate.getHours() - 2);   //booking is saved plus two somehow
+          const bookingDateEnd = new Date(booking.endsAt);     //used to check against the comparison date
+          const bookingDateStart = new Date(booking.startsAt);
+          bookingDateEnd.setHours(bookingDateEnd.getHours() - 2);   //booking is saved plus two somehow
+          bookingDateStart.setHours(bookingDateStart.getHours()-2);
 
-          if (bookingDate > comparisonDate) {     //only if the booking ends after the current time
+          if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) {    
             bookingReturn = true;
           }
         }
@@ -323,9 +326,11 @@ export class MapBookingsComponent implements OnDestroy{
           if (this.desks[i].id == deskId) {       //find correct desk using the id of the desk
             this.desks[i].booking = bookingReturn;        //assigns the boolean to the desk of specific id (if there were no bookings the booking is false)
             if (booking) {
-              const bookingDate = new Date(booking.endsAt);       //needed to check if booking exists, and compare to add only correct bookings
-              bookingDate.setHours(bookingDate.getHours() - 2);
-              if (bookingDate > comparisonDate) {
+              const bookingDateEnd = new Date(booking.endsAt);     //used to check against the comparison date
+              const bookingDateStart = new Date(booking.startsAt);
+              bookingDateEnd.setHours(bookingDateEnd.getHours() - 2);   //booking is saved plus two somehow
+              bookingDateStart.setHours(bookingDateStart.getHours()-2);
+              if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) { 
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
                 this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
@@ -335,10 +340,6 @@ export class MapBookingsComponent implements OnDestroy{
 
             }
           }
-        }
-        if(this.isFiltered){
-          const delayFilter = setTimeout(() => {this.filterBookings();}, 1000);
-          delayFilter.unref();
         }
         this.changeDetection.detectChanges();
       });
@@ -402,91 +403,13 @@ export class MapBookingsComponent implements OnDestroy{
 
   filterBookings() {         //filters the bookings based on the selected date
     const validDate = this.validateDate();
-    this.isFiltered = true;
+
     if (validDate) {
-
-      if (this.grabbedStartDate != "" && this.grabbedEndDate == "") {       // if start date is selected but no end date it checks everything after the start date
-        this.desks.forEach(desk => {
-          if (desk.booking) {
-            desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-            desk.ownBooking = false;
-            for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].endsAt > this.grabbedStartDate) {        //if the end date of the booking is after the start date of the filter
-                desk.booking = true;
-                if (desk.bookings[i].employeeId == this.currentUser.id) {
-                  desk.ownBooking = true;
-                }
-              }
-            }
-          }
-          if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
-            for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].endsAt > this.grabbedStartDate) {
-                desk.booking = true;
-                if (desk.bookings[i].employeeId == this.currentUser.id) {
-                  desk.ownBooking = true;
-                }
-              }
-            }
-          }
-          this.changeDetection.detectChanges();
-        })
-      }
-      else if (this.grabbedEndDate != "" && this.grabbedStartDate == "") {        //used when the end date is chosen for a filter but start date is not, checks if bookings prior to a date
-        this.desks.forEach(desk => {
-          if (desk.booking) {
-            desk.booking = false;                 //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-            desk.ownBooking = false;
-            for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].startsAt < this.grabbedEndDate) {            //if the start date of the booking is before the end date of the filter ie it starts before the end date therefore there is a booking
-                desk.booking = true;
-                if (desk.bookings[i].employeeId == this.currentUser.id) {
-                  desk.ownBooking = true;
-                }
-              }
-            }
-            if (!desk.booking) {            //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
-              for (let i = 0; i < desk.bookings.length; i++) {
-                if (desk.bookings[i].startsAt < this.grabbedEndDate) {
-                  desk.booking = true;
-                  if (desk.bookings[i].employeeId == this.currentUser.id) {
-                    desk.ownBooking = true;
-                  }
-                }
-              }
-            }
-          }
-          this.changeDetection.detectChanges();
-        })
-      }
-      else if (this.grabbedStartDate != "" && this.grabbedEndDate != "") {       //used when both start and end are selected
-        this.desks.forEach(desk => {
-          if (desk.booking) {
-            desk.booking = false;         //sets to false so that if a booking exists in the newly filtered time then it gets changed back to true
-            desk.ownBooking = false;
-            for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].startsAt < this.grabbedStartDate && desk.bookings[i].endsAt > this.grabbedEndDate) {     //if start of booking is before start of filter and end of booking is after end of filter
-                desk.booking = true;
-                if (desk.bookings[i].employeeId == this.currentUser.id) {
-                  desk.ownBooking = true;
-                }
-              }
-            }
-          }
-          if (!desk.booking) {             //repeated for when the filter has been used and no bookings were in that range, it needs to recheck again
-            for (let i = 0; i < desk.bookings.length; i++) {
-              if (desk.bookings[i].startsAt < this.grabbedEndDate && desk.bookings[i].endsAt > this.grabbedStartDate) {
-                desk.booking = true;
-                if (desk.bookings[i].employeeId == this.currentUser.id) {
-                  desk.ownBooking = true;
-                }
-              }
-            }
-          }
-          this.changeDetection.detectChanges();
-        })
-      }
-
+      this.desks.forEach(desk => {
+        desk.booking = false;
+        desk.ownBooking = false;
+        this.getBookingsByDeskId(desk.id);
+      })
     }
     else {
       this.openFailSnackBar("Invalid date range selected");
