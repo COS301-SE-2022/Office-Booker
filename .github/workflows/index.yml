@@ -19,6 +19,10 @@ on:
         - e2e
         - all
 
+env:
+  THISISATEST: "hello!"
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 #jobs in the workflow with passed in parameters
 jobs:
   test-affected-lint:
