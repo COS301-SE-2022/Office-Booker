@@ -33,6 +33,7 @@ export class OfficeMakerComponent implements OnInit {
   drawMode = false;
   editMode = false;
   sizeChanger = false;
+  right = true;
   idCounterDesk = 0;
   
   idCounterWall = 0;
@@ -580,6 +581,8 @@ export class OfficeMakerComponent implements OnInit {
     this.flipValueWidth(this.selectedItemWidth);
   }
 
+  
+
   flipValueHeight(newHeight: number) {
     if (this.selectedItemId != "default" )
     {
@@ -594,6 +597,24 @@ export class OfficeMakerComponent implements OnInit {
       document.getElementById(this.selectedItemId)?.setAttribute("width", newWidth.toString());
     }
 
+  }
+
+  moveToTheOtherSide(){
+
+    this.right = !this.right;
+    if (this.right == true) {
+        document.getElementById('map')?.setAttribute("style", "width: 75% !important; ");
+    }
+    else if (this.right == false) {
+      document.getElementById('map')?.setAttribute("style", "width: 75% !important; float: right;");
+    }
+
+  
+
+    this.updateSizes();
+
+
+    
   }
 
 
@@ -665,7 +686,6 @@ export class OfficeMakerComponent implements OnInit {
           console.log(success);
           if (success == false) //if this desk does not have a facilities object
           {
-            console.log("success = false")
             this.bookingService.createFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
               if (res) {
                 this.facilities.push(res);

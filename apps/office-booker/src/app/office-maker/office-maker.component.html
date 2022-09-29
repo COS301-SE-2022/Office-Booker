@@ -27,7 +27,7 @@
     <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
 
             
-    <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button> 
+    <button mat-raised-button color="primary" [class.selected]="sizeChanger" (click)="openSizeChanger()">Sizes</button> 
     <button class="delete" mat-raised-button (click)="deleteItem()">Delete Item</button>  
  
 
@@ -52,6 +52,8 @@
 <div class="size-container" *ngIf="sizeChanger">
     <mat-card class="size-card">
 
+        <button mat-raised-button color="primary" (click)="moveToTheOtherSide()" >Move to other side</button>
+
         <h2>Width</h2>
         <p>{{selectedItemWidth}}</p>
         <mat-slider
@@ -68,9 +70,11 @@
             (change)="onSliderChangeWidth($event)"
             [(ngModel)]="width"
             ></mat-slider>
+
             <br>
             <button mat-raised-button color="primary" (click)="flip()" >Swap Values</button>
             <br>
+
             <h2>Height</h2>
             <p>{{selectedItemHeight}}</p>
             <mat-slider
@@ -92,15 +96,6 @@
             <button mat-raised-button color="primary" (click)="setNewRoomSize()" >Default room size</button>
             
             <br>
-
-<!-- 
-        <label for="quantity">Width</label>
-        <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
-        <br> -->
-
-        <!-- <label for="quantity">Height</label>
-        <input type="number" name="height" min="1" max="500" [(ngModel)]="height">
-        <br>  -->
 
     </mat-card>
 
