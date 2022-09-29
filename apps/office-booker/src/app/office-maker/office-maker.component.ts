@@ -436,8 +436,6 @@ export class OfficeMakerComponent implements OnInit {
       this.changeDetection.detectChanges();
 
     }
-
-
   });
 }
 }
