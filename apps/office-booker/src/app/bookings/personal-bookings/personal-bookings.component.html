@@ -46,17 +46,17 @@
                         </mat-card-header>
                         <mat-card-content>
                             <!-- <div>Seat {{booking.deskId}} </div> -->
-                            <div>{{booking.startsAt | date: 'EEEE dd MMM': 'UTC'}} </div>
+                            <div>{{booking.startsAt | date: 'EEEE dd MMMM': 'UTC'}} </div>
                             <div>{{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}} </div>
                             <!-- <div>Time: {{booking.startsAt | date: 'dd MMM HH:MM': 'UTC'+2}} - {{booking.endsAt | date: 'dd MMM HH:MM': 'UTC'+2}} </div>   -->
                             <!-- <div>End Date: {{booking.endsAt | date: 'dd MMM hh:mm a': 'UTC'+2}} </div>   -->
                         </mat-card-content>
-                        <br>
                         <mat-card-actions>
                             <button class="clicker2" (click)="openDialog(booking.id, booking.Invite)" [disabled]="!booking.isMeetingRoom" [disabled]="booking.isInvited" mat-raised-button color="primary">Invite Others</button>
                             <br>
                             <br>
                             <button class="clicker" (click)="deleteADeskBooking(booking.id); openDeleteSnackBar('You have deleted your booking.');" mat-raised-button color="accent">Cancel Booking</button>
+                            
                         </mat-card-actions>
 
                     </mat-card>

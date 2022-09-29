@@ -27,6 +27,13 @@ export interface Wall {
   Pos2Y: number,
 }
 
+export interface Room {
+  id: number;
+  name: string;
+  companyId: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +63,7 @@ export class OfficeMakerService {
   }
 
   createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number, Pos2Y: number){
+    console.log("wall created");
     const url = this.baseURL + 'walls';
     const body = {
       roomId: roomId,
@@ -65,6 +73,14 @@ export class OfficeMakerService {
       Pos2Y: Pos2Y,
     }
     return this.http.post<Wall>(`${url}`, body);
+  }
+
+  createRoom(name: string, companyId: string){
+    const url = this.baseURL + "rooms/" + companyId;
+    const body = {
+      name: name,
+    }
+    return this.http.post<Room>(`${url}`, body);
   }
 
   getWallsByRoomId(roomId: number){

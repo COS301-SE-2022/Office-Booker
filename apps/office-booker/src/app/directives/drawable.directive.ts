@@ -31,6 +31,7 @@ export class DrawableDirective {
         this.newWall.setAttribute("x2", "1");
         this.newWall.setAttribute("y2", "1");
         this.newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+        this.newWall.classList.add('new');
         
 
         

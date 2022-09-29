@@ -31,7 +31,7 @@ export class MapBookingsComponent implements OnDestroy{
   roomId = 1;
   isOpen = false;
   zoom = 800;
-  mapPosX = 0;
+  mapPosX = 500;
   mapPosY = 0;
 
   //variables for the selected section
@@ -116,16 +116,13 @@ export class MapBookingsComponent implements OnDestroy{
     this.numPlugs = 0;
     this.numMonitors = 0;
     this.numProjectors = 0;
-    // this.desk = { id: 0, name: "", type: "", roomId: 0 };
     this.facilityString = "";
 
-    // changeDetection.detach();
   
   }
 
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
-    // this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
     this.changeDetection.detectChanges();
   
   }
@@ -140,48 +137,51 @@ export class MapBookingsComponent implements OnDestroy{
 
   onChangeFloor(event: { value: any; })
   {
+    
     this.selectedRoom = event.value;
     this.printRooms(event.value);
   }
 
   zoomIn(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.zoom -= 70;
+    this.zoom -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   zoomOut(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.zoom += 70;
+    this.zoom += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panLeft(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosX -= 70;
+    this.mapPosX -= 60;
+    
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panRight(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosX += 70;
+    this.mapPosX += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panUp(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosY += 70;
+    this.mapPosY += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   panDown(){
     const layout = document.getElementsByTagName("svg")[0];
-    this.mapPosY -= 70;
+    this.mapPosY -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
   printRooms(roomId: number){
     this.desks.length = 0;
+    this.walls.length = 0;
 
     this.getDesksByRoomId(roomId); 
     this.getWallsByRoomId(roomId);
@@ -262,14 +262,14 @@ export class MapBookingsComponent implements OnDestroy{
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        // this.timerSubscription.push(timer(0, 6000).pipe(
-        //   map(() => {
-        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-        //   })
-        // ).subscribe()
-        // );
+        this.timerSubscription.push(timer(0, 6000).pipe(
+          map(() => {
+            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+          })
+        ).subscribe()
+        );
 
-        this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
+        // this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
 
 
 
@@ -354,7 +354,6 @@ export class MapBookingsComponent implements OnDestroy{
     this.desks.forEach(desk => {
       if (desk.id == itemId) {
         this.selectedItemBookings = desk.bookings;        //used to grab the correct bookings for the correct selected desk
-        //this.selectedItemBookings = this.selectedItemBookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());    //sorts display bookings in ascending order (earliest first)
       }
     })
 
@@ -378,9 +377,6 @@ export class MapBookingsComponent implements OnDestroy{
       this.openDialog();        //opens the dialog box for booking
       this.changeDetection.detectChanges();
     }
-
-    // this.openDialog();        //opens the dialog box for booking
-    // this.changeDetection.detectChanges();
   }
 
   unselectComparison(itemId: number) {
@@ -674,8 +670,7 @@ export class MapBookingsComponent implements OnDestroy{
     })
   }
 
-  comparisonMode()
-  {
+  comparisonMode(){
     this.comparison = !this.comparison;
     if (this.comparison) {
         this.multiSelectedItemBookingsArr = [];      

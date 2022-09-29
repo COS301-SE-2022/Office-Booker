@@ -1,53 +1,33 @@
 <mat-card class="options-bar">
 
+    <mat-form-field>
+        <mat-label>Floors</mat-label>
+        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)" placeholder="Select a floor">
+            <mat-option disabled [value]="-1">Select a floor</mat-option>
+            <mat-option [value]="0" >Create a new floor</mat-option>
+            <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <div class="generateBlock">
         <div officeBookerDraggable class="office-booker-draggable">
             <svg id="create-object" class="createObject">       
             </svg>
         </div> 
     </div>
-
-        <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button>
+  
+    <!-- <button mat-raised-button color="primary" (click)="generateDesks()">Generate Office</button> -->
 
     <button mat-raised-button color="primary" (click)="createDesk()" >New Desk</button>
     <button mat-raised-button color="primary" (click)="createMeetingRoom()">New Meeting Room</button>
     <button mat-raised-button color="primary" [class.selected]="drawMode" id="startdraw" (click)="startDraw()">Draw Walls</button>
     <button mat-raised-button color="primary" [class.selected]="editMode" id="editMode" (click)="setEdit()">Edit Mode</button>
 
-    <button mat-raised-button color="primary" (click)="deleteItem()">Delete Item</button>  
+    <button class="delete" mat-raised-button (click)="deleteItem()">Delete Item</button>  
             
-    <button mat-raised-button color="primary" (click)="deleteItem()">Desk Size</button>  
-    <button mat-raised-button color="primary" (click)="deleteItem()">Meeting Room Size</button>  
-    
-
-    <!-- <mat-form-field>
-        <mat-label>Create Floor for which Office?</mat-label>
-        <mat-select>Floor 1</mat-select>
-        <mat-select [(value)]="selectedOffice" (selectionChange)="onChangeOffice($event)"> 
-            <mat-option [value]="o.id" *ngFor="let o of currentOffice">{{o.name}}</mat-option>
-     </mat-select>
-    </mat-form-field> -->
-
-    <mat-form-field>
-        <mat-label>Room</mat-label>
-        <mat-select [(value)]="selectedRoom" (selectionChange)="onChangeFloor($event)">
-            <mat-option [value]="r.id" *ngFor="let r of currentRooms">{{r.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="openSizeChanger()">Sizes</button>  
 
     <button mat-raised-button color="primary" (click)="saveMap()">Save</button>
-
-    
-    <!-- <label for="quantity">Desk Width</label>
-    <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
-    <label for="quantity">Desk Height</label>
-    <input type="number" name="height" min="1" max="500" [(ngModel)]="deskHeight">
-    <label for="quantity">Room Width</label>
-    <input type="number" name="width" min="1" max="1000" [(ngModel)]="roomWidth">
-    <label for="quantity">Room Height</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="roomHeight"> -->
-    <!-- <label for="quantity">Wall Width (between 1 and 1000):</label>
-    <input type="number" name="height" min="1" max="1000" [(ngModel)]="wallWidth"> -->
 
 
 
@@ -64,3 +44,62 @@
     <svg id="dropzone" height="100%" width="100%"></svg>
 </div>
 
+
+
+<div class="size-container" *ngIf="sizeChanger">
+    <mat-card class="size-card">
+
+        <h2>Width</h2>
+        <p>{{width}}</p>
+        <mat-slider
+            thumbLabel = "Width"
+            label="Width"
+            [displayWith]="formatLabel"
+            tickInterval="1"
+            step="1"
+            color="primary"
+            min="30"
+            max="500"
+            [value]="width"
+            aria-label="units"
+            (change)="onSliderChangeWidth($event)"
+            [(ngModel)]="width"
+            ></mat-slider>
+            <br>
+            <button mat-raised-button color="primary" (click)="flip()" >Swap Values</button>
+            <br>
+            <h2>Height</h2>
+            <p>{{height}}</p>
+            <mat-slider
+                thumbLabel = "Height"
+                label="Height"
+                [displayWith]="formatLabel"
+                tickInterval="1"
+                step="1"
+                color="primary"
+                min="30"
+                max="500"
+                [value]="height"
+
+                aria-label="units"
+                (change)="onSliderChangeHeight($event)"
+                [(ngModel)]="height"></mat-slider>
+        
+            <button mat-raised-button color="primary" (click)="setNewDeskSize()" >Default desk size</button>
+            <button mat-raised-button color="primary" (click)="setNewRoomSize()" >Default room size</button>
+            
+            <br>
+
+<!-- 
+        <label for="quantity">Width</label>
+        <input type="number" name="width" min="1" max="500" [(ngModel)]="deskWidth">
+        <br> -->
+
+        <!-- <label for="quantity">Height</label>
+        <input type="number" name="height" min="1" max="500" [(ngModel)]="height">
+        <br>  -->
+
+    </mat-card>
+
+
+</div>

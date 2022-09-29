@@ -1,5 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiFacilitiesRepositoryDataAccessService {
@@ -27,4 +28,10 @@ export class ApiFacilitiesRepositoryDataAccessService {
             },
         });
     }
+
+    async createFacilitiesForDesk(facility: Prisma.FacilityCreateInput) {
+            return this.prisma.facility.create({
+                data: facility,
+            });
+        }
 }
