@@ -321,4 +321,18 @@ export class BookingServiceService {
     const url = this.baseURL + 'walls/room/' + roomId;
     return this.http.get<Wall[]>(`${url}`);
   }
+
+  getBookingsAllowedToVote(userId: number) {
+    const url = this.baseURL + 'bookings/canVote/' + userId;
+    return this.http.get<Booking[]>(`${url}`);
+  }
+
+  makeVote(bookingId: number, userMakingVote: number, newVote: number) {
+    const url = this.baseURL + 'bookings/votes/booking/' + bookingId;
+    const body = {
+      userId: userMakingVote,
+      newVote: newVote,
+    };
+    return this.http.post<employee>(`${url}`, body);
+  }
 }
