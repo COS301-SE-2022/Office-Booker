@@ -34,6 +34,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
     private bookingService: BookingServiceService,
     private cognitoService: CognitoService,
     private popupDialogService: PopupDialogService,
+    private mailService: MailService
   ) {
     this.option = {
       title: '',
@@ -97,6 +98,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
           else {
             this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
               this.exists = false;
+              this.mailService.sendUserConfirmation(this.email);
               this.option.title = "You have successfully invited";
               this.option.message = this.email;
               this.popupDialogService.open(this.option);
