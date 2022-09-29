@@ -262,14 +262,14 @@ export class MapBookingsComponent implements OnDestroy{
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        this.timerSubscription.push(timer(0, 6000).pipe(
-          map(() => {
-            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-          })
-        ).subscribe()
-        );
+        // this.timerSubscription.push(timer(0, 6000).pipe(
+        //   map(() => {
+        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+        //   })
+        // ).subscribe()
+        // );
 
-        // this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
+         this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
 
 
 
@@ -342,6 +342,9 @@ export class MapBookingsComponent implements OnDestroy{
         }
         this.changeDetection.detectChanges();
       });
+    })
+    this.desks.forEach(desk => {
+      desk.booking = desk.bookings.length>0;
     })
   }
 
