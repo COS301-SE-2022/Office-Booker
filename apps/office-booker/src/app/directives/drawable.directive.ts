@@ -22,6 +22,7 @@ export class DrawableDirective {
   @HostListener('click', ['$event'])
   onclick(event: any) {
     if (this.draw) {
+
       if (this.officeBookerDrawable) {
         const dropzone = event.target;
         const svgns = "http://www.w3.org/2000/svg";
@@ -30,7 +31,8 @@ export class DrawableDirective {
         this.newWall.setAttribute("y1", "0");
         this.newWall.setAttribute("x2", "1");
         this.newWall.setAttribute("y2", "1");
-        this.newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5");
+        this.newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5;");
+
         this.newWall.classList.add('new');
         
 
@@ -40,10 +42,12 @@ export class DrawableDirective {
         dropzone.appendChild(this.newWall);
         if (this.newWall != null) {
           this.newWall.setAttribute('draggable', true);
+          
           this.newWall.setAttribute('x1', this.roundNum(this.posX));
           this.newWall.setAttribute('y1', this.roundNum(this.posY));
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
+
         }
       } else {
         if (this.newWall != null) {
