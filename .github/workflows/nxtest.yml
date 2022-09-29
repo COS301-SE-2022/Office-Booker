@@ -14,6 +14,10 @@ on:
         required: false
         type: string
 
+env:
+  THISISATEST: "hello!"
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   build:
     name: Generate cache
