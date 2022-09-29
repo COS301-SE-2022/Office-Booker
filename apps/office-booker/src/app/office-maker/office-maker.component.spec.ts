@@ -5,18 +5,15 @@ import { PopupDialogService } from '../shared/popup-dialog/popup-dialog.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
 
 describe('OfficeMakerComponent Unit tests', () => {
   let component: OfficeMakerComponent;
   let fixture: ComponentFixture<OfficeMakerComponent>;
-  let httpMock: HttpTestingController;
-  const baseURL = environment.API_URL + "/api/";
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -31,14 +28,9 @@ describe('OfficeMakerComponent Unit tests', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(OfficeMakerComponent);
-    component = fixture.componentInstance;
-    httpMock = fixture.debugElement.injector.get<HttpTestingController>(HttpTestingController);
+    component = fixture.componentInstance;(HttpTestingController);
     fixture.detectChanges();
   });
-
-  // afterEach(() => {
-  //   httpMock.verify();
-  // });
 
   it('should call getCurrentuser method', () => {
     component.getCurrentUser = jest.fn();
@@ -121,10 +113,6 @@ describe('OfficeMakerComponent Integration tests', () => {
     httpMock = fixture.debugElement.injector.get<HttpTestingController>(HttpTestingController);
     fixture.detectChanges();
   });
-
-  // afterEach(() => {
-  //   httpMock.verify();
-  // });
 
   it('should test getFacilitiesForDesk http call', () => {
     component.getFacilitiesForDesk(3);
