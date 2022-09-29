@@ -385,7 +385,7 @@ export class PersonalBookingsComponent {
   acceptInvite(inviteId: number) {
 
     this.bookingService.acceptInvite(inviteId).subscribe(res => {
-      res;
+      //
     });
     for (let i = 0; i < this.invites.length; i++) {
       if (this.invites[i].id == inviteId) {
@@ -401,7 +401,7 @@ export class PersonalBookingsComponent {
   declineInvite(inviteId: number) {
 
     this.bookingService.declineInvite(inviteId).subscribe(res => {
-      res;
+      //
     });
     for (let i = 0; i < this.invites.length; i++) {
       if (this.invites[i].id == inviteId) {
