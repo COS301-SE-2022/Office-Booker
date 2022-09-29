@@ -70,7 +70,7 @@ export class InviteGuestComponent /*implements OnInit*/ {
             this.exists = false;
             alert(this.email + " successfully invited");
             return data;
-            
+
           });
         }
       });
