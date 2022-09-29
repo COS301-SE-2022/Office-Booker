@@ -66,6 +66,7 @@ describe('OfficeMakerComponent Unit tests', () => {
     component.drawMode = false;
     component.startDraw();
     expect(component.drawMode).toEqual(true);
+    expect(component.editMode).toEqual(false);
   });
 
   it('should call setEdit method', () => {

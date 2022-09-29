@@ -108,7 +108,7 @@ export class InviteDialogComponent {
 
   remove(invite: Invite): void {
     this.bookingService.deleteInvite(invite.id).subscribe(res => {
-      res;
+      //
     });
     
     for (let i =0; i<this.invites.length; i++){
