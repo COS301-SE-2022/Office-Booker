@@ -93,20 +93,8 @@ describe('OfficeMakerComponent Unit tests', () => {
 
   it('should call onChangeFloor method', () => {
     component.selectedRoom = 0;
-    component.printRooms = jest.fn();
     component.onChangeFloor({ value: 5, });
     expect(component.selectedRoom).toEqual(5);
-    expect(component.printRooms).toBeCalledWith(5);
-  });
-
-  it('should call printRooms method', () => {
-    component.getDesksByRoomId = jest.fn();
-    component.getWallsByRoomId = jest.fn();
-    component.printRooms(5);
-    expect(component.selectedRoom).toEqual(5);
-    expect(component.desks.length).toEqual(0);
-    expect(component.getDesksByRoomId).toBeCalledWith(5);
-    expect(component.getWallsByRoomId).toBeCalledWith(5);
   });
 });
 
