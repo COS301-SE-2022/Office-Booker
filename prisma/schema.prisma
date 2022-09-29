@@ -69,7 +69,7 @@ model Facility {
   plugs      Int  @default(0)
   monitors   Int  @default(0)
   projectors Int  @default(0)
-  Desk       Desk @relation(fields: [deskId], references: [id])
+  Desk       Desk @relation(fields: [deskId], references: [id], onDelete: Cascade)
 }
 
 model Booking {
