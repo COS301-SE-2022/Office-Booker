@@ -80,11 +80,11 @@ export class ApiUsersApiController {
         return this.userService.getUserRating(userId);
     }
 
-    @Put("/ratings/:userId")
-    async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: RatingDto) {
-        const { currentRating, ratingsReceived } = ratingDto;
-        return this.userService.updateUserRating(userId, currentRating, ratingsReceived);
-    }
+    // @Put("/ratings/:userId")
+    // async updateRatingsForUser(@Param('userId') userId: number, @Body() ratingDto: RatingDto) {
+    //     const { currentRating, ratingsReceived } = ratingDto;
+    //     return this.userService.updateUserRating(userId, currentRating, ratingsReceived);
+    // }
 
     @UseGuards(AuthGuard('jwt'))
     @Put("/name/:userId")
