@@ -1,10 +1,11 @@
 import { Injectable, Param } from '@nestjs/common';
 import { PrismaService } from '@office-booker/api/shared/services/prisma/data-access';
+import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiBookingsRepositoryDataAccessService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService, private userService: ApiUsersRepositoryDataAccessService) {}
 
     async getAllBookings() {
         return this.prisma.booking.findMany();
@@ -149,5 +150,64 @@ export class ApiBookingsRepositoryDataAccessService {
                 isInvited: true,
             },
         });
+    }
+
+    async getBookingsUserCanVoteOn(userId: number) {
+        const usersCompanyId = (await this.userService.getUserById(userId)).companyId;
+
+        return this.prisma.booking.findMany({
+            where: {
+                BookingVotedOn: {
+                    none: {
+                        employeeId: userId, // do not show bookings the user has already voted on
+                    },
+                },
+                NOT: {
+                    employeeId: userId, // a user cannot vote on their own booking
+                },
+                Desk: {
+                    Room: {
+                        companyId: usersCompanyId, // only show bookings which are in the same company as the user
+                    },
+                },
+            },
+        });
+    }
+
+    // get the users who have already voted on a specific booking
+    async getUsersVotedOnBooking(bookingId: number) {
+        return this.prisma.booking.findUnique({
+            where: {
+                id: bookingId,
+            },
+            select: {
+                BookingVotedOn: {
+                    select: {
+                        Employee: true,
+                    },
+                },
+            },
+        });
+    }
+
+    async isUserAllowedToVote(userId: number, bookingId: number) {
+        const users = await this.getUsersVotedOnBooking(bookingId);
+        return !users.BookingVotedOn.some((element) => {
+            console.log(element.Employee.id);
+            return element.Employee.id == userId;
+        });
+    }
+
+    async createVoteOnBooking(bookingId: number, userId: number, newVote: number) {
+        //make a votedonbookingobject
+        await this.prisma.bookingVotedOn.create({
+            data: {
+                bookingId,
+                employeeId: userId,
+            },
+        });
+
+        //update the users rating
+        return this.userService.updateUserRating((await this.getBookingById(bookingId)).employeeId, newVote);
     }
 }

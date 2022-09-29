@@ -3,28 +3,28 @@
 <nav>
     <ul id="menu" style="border-radius: 3px;">
         <li>
-            <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><i
-                    class="fa fa-sign-in"></i> Login</a>
+            <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><span
+                    class="fa fa-sign-in"></span> Login</a>
         </li>
         <li>
-            <a href="#" routerLink="/bookings" *ngIf="isAuthenticated()"><i class="fa fa-home"></i> Home</a>
+            <a href="#" routerLink="/bookings" *ngIf="isAuthenticated()"><span class="fa fa-home"></span> Home</a>
         </li>
         <li>
-            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class="fa fa-calendar-plus-o"></i> Make Bookings</a>
+            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class="fa fa-calendar-plus-o"></span> Make Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class="fa fa-list-alt"></i> Your Bookings</a>
+            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class="fa fa-list-alt"></span> Your Bookings</a>
         </li>
         <li>
-            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><i class="fa fa-check-circle-o" ></i> Rate Users</a>
+            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span class="fa fa-check-circle-o" ></span> Rate Users</a>
         </li>
         <li>
-            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><i class="fa fa-bars" ></i> Admin Page</a>
+            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><span class="fa fa-bars" ></span> Admin Page</a>
         </li>
         <li>
-            <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><i class="fa fa-building" ></i> Office Maker</a>
+            <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><span class="fa fa-building" ></span> Office Maker</a>
 
             <!--  
             fa-pencil-square-o
@@ -33,23 +33,23 @@
             -->
         </li>
         <li>
-            <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><i
-                    class='fa fa-envelope'></i> Invite Guest</a>
+            <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
+                    class='fa fa-envelope'></span> Invite Guest</a>
         </li>
         <li>
             <li>
-                <a href="#" routerLink="/contact"><i class='fa fa-phone'></i> Contact Us</a>
+                <a href="#" routerLink="/contact"><span class='fa fa-phone'></span> Contact Us</a>
             </li>
             <li>
 
                 <li style="float: right">
-                    <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
+                    <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class='fa fa-sign-out' ng-click="signOut()"></span> Logout</a>
                 </li>
 
                 <li style="float: right">
-                    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><i
-                    class='fa fa-address-card'></i> [{{status}}] {{name}}</a>
+                    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+                    class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
                 </li>
     </ul>
 </nav>

@@ -6,13 +6,6 @@
     left: 50%;
     font-weight: bold;
     text-align: center;
-    /* border: 3px solid #f1f1f1; */
-    /* position: absolute; */
-    /* top: 40%;
-  left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    /* z-index: 2; */
-    /* padding: 20px; */
 }
 
 .mat-card {
@@ -48,12 +41,9 @@
     top: 2rem;
     left: 50%;
     font-weight: bold;
-    /* border: 3px solid #f1f1f1; */
     position: absolute;
     transform: translate(-50%, -50%);
     z-index: 2;
-    width: 500px;
-    padding: 20px;
     text-align: center;
 }
 
@@ -82,10 +72,6 @@ body {
     background: rgb(204, 26, 70);
 }
 
-.clicker2 {
-    /* background : rgb(26, 124, 204); */
-}
-
 .heading {
     text-align: center;
 }
@@ -93,7 +79,3 @@ body {
 .text {
     text-align: center;
 }
-
-/* .button-confirm {
-    background: 
-} */
