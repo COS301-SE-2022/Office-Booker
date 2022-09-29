@@ -34,8 +34,6 @@ export class ApiFacilitiesApiController {
 
     @Post('/')
     async createFacilitiesForDesk(@Body() CreateFacilitiesDto: CreateFacilitiesDto) {
-        console.log("CONTROLLER ")
-
         const {plugs, monitors, projectors, deskId} = CreateFacilitiesDto;
         return this.facilityService.createFacilitiesForDesk({
             plugs: plugs,
