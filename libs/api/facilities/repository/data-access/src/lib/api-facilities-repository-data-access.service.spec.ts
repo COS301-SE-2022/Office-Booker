@@ -107,11 +107,11 @@ describe('ApiFacilitiesRepositoryDataAccessService Integration Tests', () => {
   });
 
   it('should return an array of facilities', async () => {
-    const facilities = await service.getFacilitiesForDesk(2);
+    const facilities = await service.getFacilitiesForDesk(29);
     console.log(facilities);
     expect(facilities.length).toBeGreaterThan(0);
     expect(facilities).toEqual([
-      { id: 2, deskId: 2, plugs: 2, monitors: 1, projectors: 0 },
+      { id: 3, deskId: 29, plugs: 2, monitors: 1, projectors: 0 },
     ]);
   });
 
