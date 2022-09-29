@@ -33,23 +33,23 @@
             -->
         </li>
         <li>
-            <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><i
-                    class='fa fa-envelope'></i> Invite Guest</a>
+            <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
+                    class='fa fa-envelope'></span> Invite Guest</a>
         </li>
         <li>
             <li>
-                <a href="#" routerLink="/contact"><i class='fa fa-phone'></i> Contact Us</a>
+                <a href="#" routerLink="/contact"><span class='fa fa-phone'></span> Contact Us</a>
             </li>
             <li>
 
                 <li style="float: right">
-                    <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><i
-                    class='fa fa-sign-out' ng-click="signOut()"></i> Logout</a>
+                    <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class='fa fa-sign-out' ng-click="signOut()"></span> Logout</a>
                 </li>
 
                 <li style="float: right">
-                    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><i
-                    class='fa fa-address-card'></i> [{{status}}] {{name}}</a>
+                    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+                    class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
                 </li>
     </ul>
 </nav>
