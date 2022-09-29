@@ -28,7 +28,7 @@ describe('OfficeMakerComponent Unit tests', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(OfficeMakerComponent);
-    component = fixture.componentInstance;(HttpTestingController);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
