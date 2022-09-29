@@ -262,14 +262,14 @@ export class MapBookingsComponent implements OnDestroy{
         newDesk.Width = desk.Width;
         newDesk.isMeetingRoom = desk.isMeetingRoom;
 
-        // this.timerSubscription.push(timer(0, 6000).pipe(
-        //   map(() => {
-        //     this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
-        //   })
-        // ).subscribe()
-        // );
+        this.timerSubscription.push(timer(0, 6000).pipe(
+          map(() => {
+            this.getBookingsByDeskId(desk.id);      //makes the call for the bookings for the desk for the above variable
+          })
+        ).subscribe()
+        );
 
-         this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
+         //this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
 
 
 
@@ -307,6 +307,11 @@ export class MapBookingsComponent implements OnDestroy{
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
     this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
 
+        this.desks.forEach(desk => {
+          if(desk.id == deskId){
+            desk.booking = res.length>0;
+          }
+        })
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDateStart = new Date(this.grabbedStartDate);        //to filter out dates before the current time (where end date of booking is before now)
         const comparisonDateEnd = new Date(this.grabbedEndDate);
@@ -344,9 +349,7 @@ export class MapBookingsComponent implements OnDestroy{
         this.changeDetection.detectChanges();
       });
     })
-    this.desks.forEach(desk => {
-      desk.booking = desk.bookings.length>0;
-    })
+
   }
 
   selectToBook(itemId: number, itemType: boolean) {       //used to find the info for the selected desk
