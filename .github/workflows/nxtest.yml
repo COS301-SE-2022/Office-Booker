@@ -14,14 +14,12 @@ on:
         required: false
         type: string
 
+
 jobs:
   build:
     name: Generate cache
     runs-on: ubuntu-latest
     steps:
-      - name: check env
-        run: env
-    
         #Checking out to the develop branch
       - name: Checkout develop
         uses: actions/checkout@v2
@@ -66,6 +64,8 @@ jobs:
       - name: Unit + integration test affected
         if: inputs.testtype == 'unit + integration' && inputs.test == 'affected'
         run: yarn nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: E2E test affected
         if: inputs.testtype == 'e2e' && inputs.test == 'affected'
@@ -79,11 +79,12 @@ jobs:
           yarn nx run-many --target=build --all --skip-nx-cache --parallel
           yarn nx run-many --target=test --all --skip-nx-cache --parallel --coverage
           yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           
       - name: Merge coverage reports
         if: inputs.test == 'all'
         run: node ./tools/scripts/merge-report.js
-
 
       - uses: codecov/codecov-action@v2
         if: inputs.test == 'all' 
