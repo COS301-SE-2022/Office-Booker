@@ -18,7 +18,6 @@ on:
 jobs:
   build:
     name: Generate cache
-    secrets: inherit
     runs-on: ubuntu-latest
     steps:
         #Checking out to the develop branch
