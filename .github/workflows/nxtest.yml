@@ -64,6 +64,8 @@ jobs:
       - name: Unit + integration test affected
         if: inputs.testtype == 'unit + integration' && inputs.test == 'affected'
         run: yarn nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: E2E test affected
         if: inputs.testtype == 'e2e' && inputs.test == 'affected'
