@@ -4,7 +4,6 @@ import { Options } from '@nestjs/common';
 import { throws } from 'assert';
 import { CognitoService } from '../../cognito.service';
 import { BookingServiceService, employee, company } from '../../services/booking-service.service';
-//import { MailService } from '@office-booker/api/mail';
 
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 
