@@ -12,6 +12,7 @@ import { IUser, CognitoService } from '../../cognito.service';
 export class RegistrationComponent {
 
   loading: boolean;
+  showPassword: boolean
   registration: boolean;
   isConfirm: boolean;
   continueReg: boolean;
@@ -45,6 +46,7 @@ export class RegistrationComponent {
   this.companyDomain = '';
   this.option = '';
   this.selected = '';
+  this.showPassword = false;
 }
 
 ngOnInit(){
@@ -154,6 +156,10 @@ public confirmSignUp(): void {
 
   this.loading = false;
   this.router.navigate(['/login'])
+}
+
+public togglePasswordVisibility(): void {
+  this.showPassword = !this.showPassword;
 }
 
 }
