@@ -1,29 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapBookingsComponent } from './map-bookings.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Desk } from '../../services/booking-service.service';
 import { BookingCardComponent } from '../personal-bookings/booking-card/booking-card.component';
 import { MatCardModule } from '@angular/material/card'
 import { FormsModule } from '@angular/forms'
-
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { CognitoService } from '../../cognito.service';
-
 import { OverlayModule } from '@angular/cdk/overlay';
-
 //imports for Popup Dialog
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as exp from 'constants';
+import { environment } from '../../../environments/environment';
 
 
 describe('BookingsComponent Unit Tests', () => {
@@ -32,13 +29,13 @@ describe('BookingsComponent Unit Tests', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule, 
-                MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule
-              , BrowserAnimationsModule],
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule,
+        MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule
+        , BrowserAnimationsModule],
       declarations: [MapBookingsComponent],
       providers: [
         CognitoService,
-        PopupDialogService, 
+        PopupDialogService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -106,5 +103,71 @@ describe('BookingsComponent Unit Tests', () => {
     component.validateDate = jest.fn().mockReturnValue(false);
     component.filterBookings();
     expect(component.openFailSnackBar).toHaveBeenCalled();
+  });
+});
+
+describe('BookingsComponent Integration Tests', () => {
+  let component: MapBookingsComponent;
+  let fixture: ComponentFixture<MapBookingsComponent>;
+  let httpMock: HttpTestingController;
+  const baseURL = environment.API_URL + "/api/";
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MatGridListModule, MatDialogModule, HttpClientTestingModule, MatCardModule, FormsModule,
+        MatCheckboxModule, MatSnackBarModule, OverlayModule, MatMenuModule, MatFormFieldModule, MatSelectModule
+        , BrowserAnimationsModule],
+      declarations: [MapBookingsComponent],
+      providers: [
+        CognitoService,
+        PopupDialogService,
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialog, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
+
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MapBookingsComponent);
+    component = fixture.componentInstance;
+    httpMock = fixture.debugElement.injector.get<HttpTestingController>(HttpTestingController);
+    fixture.detectChanges();
+  });
+
+  it('should test getFacilitiesForDesk http calls', () => {
+    component.getFacilitiesForDesk(3);
+    const url = baseURL + 'facilities/desk/' + 3;
+    const req = httpMock.expectOne(`${url}`);
+    expect(req.request.method).toBe('GET');
+  });
+
+  it('should test getWallsByRoomId http calls', () => {
+    component.getWallsByRoomId(5);
+    const url = baseURL + 'walls/room/' + 5;
+    const req = httpMock.expectOne(`${url}`);
+    expect(req.request.method).toBe('GET');
+  });
+
+  it('should test getBookingsByDeskId http calls', () => {
+    component.getBookingsByDeskId(5);
+    const url = baseURL + 'bookings/desk/' + 5;
+    const req = httpMock.expectOne(`${url}`);
+    expect(req.request.method).toBe('GET');
+  });
+
+  it('should test deleteADeskBooking http calls', () => {
+    component.deleteADeskBooking(1);
+    const url = baseURL + 'bookings/' + 1;
+    const req = httpMock.expectOne(`${url}`);
+    expect(req.request.method).toBe('DELETE');
+  });
+
+  it('should test getRooms http calls', () => {
+    component.getRooms(1);
+    const url = baseURL + 'rooms/company/' + 1;
+    const req = httpMock.expectOne(`${url}`);
+    expect(req.request.method).toBe('GET');
   });
 });
