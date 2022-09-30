@@ -78,7 +78,7 @@ jobs:
           yarn nx run-many --target=test --all --skip-nx-cache --parallel --coverage
           yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
         env:
-          DATABASE: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           
       - name: Merge coverage reports
         if: inputs.test == 'all'
