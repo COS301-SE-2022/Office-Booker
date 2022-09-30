@@ -58,6 +58,7 @@ Demo 4:
 
 [Architectural_document.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9679973/Architectural_document.pdf)
 
+[TestingDoc.pdf](https://github.com/COS301-SE-2022/Office-Booker/files/9680040/TestingDoc.pdf)
 
 ## Technologies Used
 
@@ -68,6 +69,7 @@ Demo 4:
 ![Post](https://user-images.githubusercontent.com/93526910/172848975-40bc58cc-77d6-4b41-9639-01580beeae8d.png)
 
 ![aws](https://user-images.githubusercontent.com/93526910/172848966-30d47cbf-3dd2-491a-ad40-57581c70e34a.png)
+
 
 ## Team
 ### Yinghao Li [LinkedIn](https://www.linkedin.com/in/yinghao-li-4b5339233) - Team Leader, CI
