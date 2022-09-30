@@ -37,6 +37,7 @@ jobs:
   
   test-affected-unit-integration:
     uses: ./.github/workflows/nxtest.yml
+    secrets: inherit
     if: ${{ github.event.inputs.testchoice == 'unit + integration' || github.event.inputs.testchoice == 'full'|| github.event.inputs.testchoice == ''}}
     with:
       test: 'affected'
@@ -52,5 +53,6 @@ jobs:
   test-all:
     uses: ./.github/workflows/nxtest.yml
     if: ${{ github.event.inputs.testchoice == 'all'}}
+    secrets: inherit
     with:
       test: 'all'
