@@ -1,12 +1,14 @@
+* {
+    font-family: 'Maven_Pro';
+}
+
 .items-container {
     width: 40%;
     float: right;
     margin: 2rem;
-        /* border: black solid 1px; */
+    /* border: black solid 1px; */
     border: 3px solid rgb(255, 255, 0, 1);
     background: rgba(255, 255, 255, 0);
-
-
 }
 
 .svg-container {
@@ -18,8 +20,6 @@
     width: 1600px;
     height: 800px;
     float: left;
-
-
 }
 
 .floor-selection-container {
@@ -28,52 +28,44 @@
     display: inline-block;
 }
 
-.creation-container {  
+.creation-container {
     display: inline-block;
     background: rgba(255, 255, 255, 0);
-
 }
-
-
 
 .button-container {
     justify-content: center;
-    width:30%;
+    width: 30%;
     display: inline-block;
     align-items: center;
     /* border: 50px solid purple; */
-
 }
 
 .svg-create-container {
     display: inline-block;
     /* border: 3px solid rgb(125, 0, 0, 1); */
-
 }
 
 .selected {
     /* border: 3px solid rgb(0, 255, 0); */
-    background: rgba(67, 80, 175, 0.665);   
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
-    box-shadow: inset 0px 0px 5px #c1c1c1;    
-    outline: none;
-    cursor: pointer;
-
-}
-
-.selected:hover{
-    background: rgba(67, 80, 175, 0.665);     
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
-    box-shadow: inset 0px 0px 5px #c1c1c1;    
+    background: rgba(67, 80, 175, 0.665);
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
     outline: none;
     cursor: pointer;
 }
 
+.selected:hover {
+    background: rgba(67, 80, 175, 0.665);
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+    cursor: pointer;
+}
 
-
-.options-bar{
+.options-bar {
     float: left;
     width: 1600px;
     margin: 1rem;
@@ -81,15 +73,12 @@
     text-align: center;
     /* border-radius: 40px; */
     /* display: inline; */
-
     border: 1px solid rgb(241, 241, 241);
     border-radius: 4px;
     padding: 0;
     padding-top: 16px;
     padding-bottom: 16px;
     background: rgba(255, 255, 255, 0);
-
-
 }
 
 .generateBlock {
@@ -99,39 +88,34 @@
     margin-left: 1.5rem;
 }
 
-.mat-raised-button{
+.mat-raised-button {
     margin: 0.5rem;
 }
 
-
-.office-booker-draggable{
+.office-booker-draggable {
     height: 50px;
     width: 70px;
     display: inline;
     position: absolute;
-    background-color: rgb(197, 197, 197)  ;
-    border:rgb(0, 0, 0) dashed 3px;
-
+    background-color: rgb(197, 197, 197);
+    border: rgb(0, 0, 0) dashed 3px;
 }
 
-.office-booker-draggable:hover
-{
+.office-booker-draggable:hover {
     background-color: rgba(255, 255, 255, 0);
     border: none;
-   
 }
 
-.createObject{
-    height:fill; 
+.createObject {
+    height: fill;
     width: fill;
-
 }
 
-label{
+label {
     margin: 0.5rem;
 }
 
-mat-form-field{
+mat-form-field {
     margin: 0.5rem;
 }
 
@@ -140,7 +124,6 @@ mat-form-field{
     transition: all 0.1s;
     transform-origin: 5% 5%;
     cursor: pointer;
-    
 }
 
 .desk:hover {
@@ -168,28 +151,24 @@ mat-form-field{
     display: inline-block;
 }
 
-.size-card{
+.size-card {
     width: 20rem;
     height: auto;
-      
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
-  
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
-  
     display: inline-block;
-    color:rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
     margin-right: 1rem;
     /* margin-left: 0.2rem; */
-    
-  }
+}
 
-  mat-slider {
+mat-slider {
     width: fill;
-  }
+}
 
-  .options-bar{
+.options-bar {
     float: left;
     width: 1600px;
     margin: 1rem;
@@ -197,18 +176,15 @@ mat-form-field{
     text-align: center;
     /* border-radius: 40px; */
     /* display: inline; */
-
     border: 1px solid rgb(241, 241, 241);
     border-radius: 4px;
     padding: 0;
     padding-top: 16px;
     padding-bottom: 16px;
     background: rgba(255, 255, 255, 0);
-
-
 }
 
-.delete{
-    background : rgb(204, 26, 70);
+.delete {
+    background: rgb(204, 26, 70);
     color: white;
-  }
+}

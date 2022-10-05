@@ -1,28 +1,29 @@
+* {
+    font-family: 'Maven_Pro';
+}
+
 .heading {
     text-align: center;
 }
 
-
-
-.content{
+.content {
     text-align: center;
     margin: 5rem;
     display: block;
     justify-content: center;
 }
 
-.body{
+.body {
     margin: 0;
-
 }
 
-.img{
+.img {
     display: block;
     vertical-align: middle;
     margin: auto;
 }
 
-.button-div{
+.button-div {
     text-align: center;
     margin: 5rem;
     display: block;

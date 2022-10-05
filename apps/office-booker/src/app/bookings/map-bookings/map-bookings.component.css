@@ -1,8 +1,11 @@
+* {
+    font-family: 'Maven_Pro';
+}
+
 .map-container {
     width: 1600px;
     height: 800px;
     margin: 1rem;
-    
 }
 
 .side-container {
@@ -67,12 +70,8 @@
 .info-to-display-container {
     overflow-y: scroll;
     margin: 0.5rem;
-
     border: black 2px solid;
     border-radius: 50px;
-
-    
-    
     width: 40px;
     /* justify-content: center;  */
     /* display: inline-block; */
@@ -83,7 +82,6 @@
     /*need something to be edited otherwise wont hide scroll bar*/
     width: 0 !important
 }
-
 
 .desk {
     fill: rgb(106, 148, 233);
@@ -97,7 +95,6 @@
     transform: scale(1);
     filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.4));
 }
-
 
 .meetingRoom {
     fill: rgb(126, 126, 126);
@@ -170,7 +167,6 @@
     border-bottom: none;
 }
 
-
 .card-wrapper {
     margin: 0 auto;
     width: 500px;
@@ -199,8 +195,7 @@
     text-align: center;
 }
 
-
-.options-bar{
+.options-bar {
     float: left;
     width: 1600px;
     margin: 1rem;
@@ -208,53 +203,46 @@
     text-align: center;
     /* border-radius: 40px; */
     /* display: inline; */
-
     border: 1px solid rgb(241, 241, 241);
     border-radius: 4px;
     padding: 0;
     padding-top: 16px;
     padding-bottom: 16px;
     background: rgba(255, 255, 255, 0);
-
-
 }
 
-.time{
+.time {
     margin: 0.5rem;
-    border:1.5px solid black;
+    border: 1.5px solid black;
 }
 
-.filter{
+.filter {
     margin: 0.5rem;
 }
 
-
-.mat-form-field{
+.mat-form-field {
     margin-right: 0.5rem;
 }
 
-
-
 .selected {
     /* border: 3px solid rgb(0, 255, 0); */
-    background: rgba(67, 80, 175, 0.665);   
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
-    box-shadow: inset 0px 0px 5px #c1c1c1;    
-    outline: none;
-    cursor: pointer;
-
-}
-
-.selected:hover{
-    background: rgba(67, 80, 175, 0.665);     
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;      
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;           
-    box-shadow: inset 0px 0px 5px #c1c1c1;    
+    background: rgba(67, 80, 175, 0.665);
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
     outline: none;
     cursor: pointer;
 }
-.nav-buttons{
+
+.selected:hover {
+    background: rgba(67, 80, 175, 0.665);
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+    cursor: pointer;
+}
+
+.nav-buttons {
     margin: 0.25rem;
-    
 }

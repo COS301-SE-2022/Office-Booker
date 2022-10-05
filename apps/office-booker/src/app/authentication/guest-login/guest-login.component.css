@@ -1,3 +1,7 @@
+* {
+    font-family: 'Maven_Pro';
+}
+
 .card-wrapper {
     margin: 0 auto;
     width: 500px;
@@ -50,7 +54,6 @@
 * {
     box-sizing: border-box;
 }
-
 
 .btn-block {
     margin-top: 0px;

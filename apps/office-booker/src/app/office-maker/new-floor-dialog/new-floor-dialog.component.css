@@ -1,16 +1,19 @@
-.nameInput{
+* {
+    font-family: 'Maven_Pro';
+}
+
+.nameInput {
     width: fill;
 }
 
-.mat-dialog-header{
+.mat-dialog-header {
     text-align: center;
-
 }
 
-.mat-form-field{
+.mat-form-field {
     width: 100%;
-  }
+}
 
-  .mat-form{
+.mat-form {
     text-align: center;
-  }
+}

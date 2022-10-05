@@ -1,11 +1,13 @@
-.mat-form-field{
+* {
+    font-family: 'Maven_Pro';
+}
+
+.mat-form-field {
     width: 100%;
 }
 
-.accepted{
+.accepted {
     color: rgb(36, 165, 36);
 }
 
-.declined{
-
-}
+.declined {}

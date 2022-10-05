@@ -1,107 +1,95 @@
-
-.mat-card{
-  /* width: 240px; */
-  /* height: 275px; */
-  
-  width: stretch;
-  height: stretch;
-
-  margin: 0.5rem;
-  /* margin-left: 2rem; */
-  
-  background-color: rgba(255, 255, 255, 1);
-  text-align: center;
-
-  border: rgba(140, 140, 140, 0.314) 2.5px solid;
-  border-radius: 6px;
-
-  display: inline-block;
-  color:rgb(0, 0, 0);
-
-  
+* {
+    font-family: 'Maven_Pro';
 }
 
-.mat-button-toggle-group{
-  margin: 1rem;
-  margin-left: 2rem;
-  
+.mat-card {
+    /* width: 240px; */
+    /* height: 275px; */
+    width: stretch;
+    height: stretch;
+    margin: 0.5rem;
+    /* margin-left: 2rem; */
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+    border: rgba(140, 140, 140, 0.314) 2.5px solid;
+    border-radius: 6px;
+    display: inline-block;
+    color: rgb(0, 0, 0);
+}
+
+.mat-button-toggle-group {
+    margin: 1rem;
+    margin-left: 2rem;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-body{
-  overflow: hidden;
-  
-  
+body {
+    overflow: hidden;
 }
 
-.mat-button.toggle{
-  color:rgb(204, 26, 70)
+.mat-button.toggle {
+    color: rgb(204, 26, 70)
 }
 
-.mat-card-header{
-  color: rgb(0, 0, 0);
-  /* text-align: center; */
-  display: inline-block;
+.mat-card-header {
+    color: rgb(0, 0, 0);
+    /* text-align: center; */
+    display: inline-block;
 }
 
-.mat-card-subtitle{
-  color: rgb(0, 0, 0);
-  /* text-align: center; */
+.mat-card-subtitle {
+    color: rgb(0, 0, 0);
+    /* text-align: center; */
 }
 
-.clicker{
-  background : rgb(204, 26, 70);
+.clicker {
+    background: rgb(204, 26, 70);
 }
 
-.clicker2{
-  /* background : rgb(26, 124, 204); */
+.clicker2 {
+    /* background : rgb(26, 124, 204); */
 }
 
-.heading{
-text-align: center;
+.heading {
+    text-align: center;
 }
 
-.text{
-  text-align: center;
+.text {
+    text-align: center;
 }
 
-.pendingInvites{
-  text-align: center;
-  font-size: 30px;
+.pendingInvites {
+    text-align: center;
+    font-size: 30px;
 }
 
-.card-wrapper-left{
-    
-  /* margin:left; */
-  /* margin-right: 0px; */
-  /* width: 500px; */
-  /* width: 50%; */
-  top: 50%;
-  /* display: inline-block; */
-  display: inline;
-  /* left: 50%; */
-  font-weight: bold; 
-
+.card-wrapper-left {
+    /* margin:left; */
+    /* margin-right: 0px; */
+    /* width: 500px; */
+    /* width: 50%; */
+    top: 50%;
+    /* display: inline-block; */
+    display: inline;
+    /* left: 50%; */
+    font-weight: bold;
 }
 
-.card-wrapper-right{
-  margin: right 2rem;  
-  width: 50%;
-
-  float:right;
-  /* width: 500px;  */
-  /* top: 50%; */
-  left: 10%;
-  font-weight: bold; 
-
+.card-wrapper-right {
+    margin: right 2rem;
+    width: 50%;
+    float: right;
+    /* width: 500px;  */
+    /* top: 50%; */
+    left: 10%;
+    font-weight: bold;
 }
 
-.filters{
-}
+.filters {}
 
-.center{
-  text-align: center;
+.center {
+    text-align: center;
 }

@@ -1,3 +1,7 @@
-mat-input{
+* {
+    font-family: 'Maven_Pro';
+}
+
+mat-input {
     width: 25%;
 }
