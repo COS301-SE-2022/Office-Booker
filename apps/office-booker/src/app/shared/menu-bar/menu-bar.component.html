@@ -1,49 +1,74 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="topnav" id="myTopnav">
+    <nav>
+        <ul id="menu" style="border-radius: 3px;">
+            <li>
+                <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><span
+                    class="fa fa-sign-in"></span> Login</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class="fa fa-calendar-plus-o"></span> Make Bookings</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class="fa fa-list-alt"></span> Your Bookings</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class="fa fa-check-circle-o"></span> Rate Users</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><span
+                    class="fa fa-bars"></span> Admin Page</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><span
+                    class="fa fa-building"></span> Office Maker</a>
+            </li>
+            <li>
+                <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
+                    class='fa fa-envelope'></span> Invite Guest</a>
+            </li>
+            <li>
+                <li>
+
+                    <li style="float: right">
+                        <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+                    class='fa fa-sign-out' ng-click="signOut()"></span> Logout</a>
+                    </li>
+
+                    <li style="float: right">
+                        <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+                    class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
+                    </li>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+        </ul>
+    </nav>
+</div> -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<nav>
-    <ul id="menu" style="border-radius: 3px;">
-        <li>
-            <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><span
-                    class="fa fa-sign-in"></span> Login</a>
-        </li>
-        <li>
-            <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
-                    class="fa fa-calendar-plus-o"></span> Make Bookings</a>
-        </li>
-        <li>
-            <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
-                    class="fa fa-list-alt"></span> Your Bookings</a>
-        </li>
-        <li>
-            <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span class="fa fa-check-circle-o" ></span> Rate Users</a>
-        </li>
-        <li>
-            <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><span class="fa fa-bars" ></span> Admin Page</a>
-        </li>
-        <li>
-            <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><span class="fa fa-building" ></span> Office Maker</a>
 
-            <!--  
-            fa-pencil-square-o
-            fa-building
-                
-            -->
-        </li>
-        <li>
-            <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
-                    class='fa fa-envelope'></span> Invite Guest</a>
-        </li>
-        <li>
-            <li>
-
-                <li style="float: right">
-                    <a href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span
-                    class='fa fa-sign-out' ng-click="signOut()"></span> Logout</a>
-                </li>
-
-                <li style="float: right">
-                    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
-                    class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
-                </li>
-    </ul>
-</nav>
+<div class="topnav" id="myTopnav" style="border-radius: 3px;">
+    <a href="#" routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()"><span
+            class="fa fa-sign-in"></span> Login</a>
+    <a href="#" routerLink="/bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+            class="fa fa-calendar-plus-o"></span> Home </a>
+    <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+            class="fa fa-list-alt"></span> Your Bookings</a>
+    <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+            class="fa fa-check-circle-o"></span> Rate Users</a>
+    <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><span
+            class="fa fa-bars"></span> Admin Page</a>
+    <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><span
+            class="fa fa-building"></span> Office Maker</a>
+    <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
+            class='fa fa-envelope'></span> Invite Guest</a>
+    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+            class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
+    <a style="float: right;" href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span class='fa fa-sign-out'
+            ng-click="signOut()"></span> Logout</a>
+    <a href="javascript:void(0);" class="icon" (click)="myFunction()">&#9776;</a>
+</div>

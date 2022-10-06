@@ -21,17 +21,17 @@ export class MenuBarComponent {
 
   constructor(private app: AppComponent,
     private cognitoService: CognitoService, private changeDetection: ChangeDetectorRef,
-    ) {
-      if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
-        this.loggedIn = true;
-      } else this.loggedIn = false;
-    
+  ) {
+    if ((localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"))) {
+      this.loggedIn = true;
+    } else this.loggedIn = false;
+
     this.admin = this.cognitoService.authenticated();
     this.guest = this.cognitoService.guest();
     this.authenticated = this.cognitoService.admin();
     this.email = this.cognitoService.getEmailAddress();
     this.name = this.cognitoService.returnName();
-      
+
   }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class MenuBarComponent {
     this.cognitoService.update();
 
 
-    
+
   }
 
   signOut(): void {
@@ -56,10 +56,20 @@ export class MenuBarComponent {
     this.app.signOut();
   }
 
-  getName() : string {
+  getName(): string {
     return this.name;
   }
-  
+
+  myFunction() {
+    const x = document.getElementById("myTopnav");
+    if (x != null && x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      if (x != null) {
+        x.className = "topnav";
+      }
+    }
+  }
 
   isAuthenticated(): boolean {
     return this.cognitoService.loggedIn();
@@ -74,12 +84,12 @@ export class MenuBarComponent {
     return !(this.cognitoService.guest());
   }
 
-  isStatus() : void { 
+  isStatus(): void {
     if (this.isAdmin() == true)
       this.status = "Admin";
     else if (this.isNotGuest() == false)
       this.status = "Guest";
-    else 
+    else
       this.status = "User";
     return;
   }
@@ -88,12 +98,12 @@ export class MenuBarComponent {
     this.name = this.cognitoService.returnName();
     this.isStatus();
     this.email = this.cognitoService.getEmailAddress();
-    if (this.email != null && this.isAuthenticated() ){
+    if (this.email != null && this.isAuthenticated()) {
       return true;
     }
     return false;
   }
-    
+
 
 
 }
