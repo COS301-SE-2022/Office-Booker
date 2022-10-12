@@ -1,3 +1,7 @@
+/* * {
+    font-family: 'Maven_Pro';
+}
+
 li {
     float: left;
 }
@@ -9,7 +13,6 @@ ul {
     overflow: hidden;
     background-color: rgb(63, 63, 63);
 }
-
 
 li a {
     display: block;
@@ -25,4 +28,109 @@ li a:hover {
 
 .active {
     background-color: rgb(56, 70, 173);
+}
+
+.topnav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .topnav.responsive {
+        position: relative;
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    .topnav.responsive .dropdown {
+        float: none;
+    }
+    .topnav.responsive .dropdown-content {
+        position: relative;
+    }
+    .topnav.responsive .dropdown .dropbtn {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+} */
+
+
+/* Add a black background color to the top navigation */
+
+.topnav {
+    z-index: 9;
+    background-color: #333;
+    overflow: hidden;
+}
+
+
+/* Style the links inside the navigation bar */
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+
+/* Add an active class to highlight the current page */
+
+.active {
+    background-color: rgb(56, 70, 173);
+    color: white;
+}
+
+
+/* Hide the link that should open and close the topnav on small screens */
+
+.topnav .icon {
+    display: none;
+}
+
+
+/* Add a dark background on topnav links and the dropdown button on hover */
+
+.topnav a:hover,
+.dropdown:hover .dropbtn {
+    background-color: rgb(83, 83, 83);
+    color: white;
+}
+
+@media screen and (max-width: 1200px) {
+    .topnav a:not(:first-child),
+    .dropdown .dropbtn {
+        display: none;
+    }
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .topnav.responsive {
+        position: relative;
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+        z-index: 9;
+    }
 }
