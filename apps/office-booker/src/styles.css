@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+* {
+    font-family: 'Maven_Pro', 'Arial Narrow', Arial, sans-serif;
+}
+
 html,
 body {
     height: 100%;

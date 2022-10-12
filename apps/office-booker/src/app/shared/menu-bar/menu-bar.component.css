@@ -64,10 +64,6 @@ li a:hover {
 
 /* Add a black background color to the top navigation */
 
-* {
-    font-family: 'Maven_Pro';
-}
-
 .topnav {
     z-index: 9;
     background-color: #333;
