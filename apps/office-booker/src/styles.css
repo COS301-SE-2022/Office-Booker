@@ -1,23 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { 
+* {
+    font-family: 'Maven_Pro', 'Arial Narrow', Arial, sans-serif;
+}
 
+html,
+body {
+    height: 100%;
+}
+
+body {
     /* background-image: url("./assets/background-image.png") ;    */
-    background-image: url("./assets/background.svg") ;
-
+    background-image: url("./assets/background.svg");
     /* background-color: rgba(202, 202, 202, 0.577); */
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
     background-attachment: fixed;
-
-
-         
-}
-
-* {
-    font-family:'Maven Pro', sans-serif;
 }
 
 .success-snack {
@@ -36,8 +35,12 @@ body {
     color: rgb(247, 105, 100) !important;
 }
 
-.redbutton{
-    background : rgb(204, 26, 70);
+.redbutton {
+    background: rgb(204, 26, 70);
     color: white;
-  }
-  
+}
+
+@font-face {
+    font-family: "Maven_Pro";
+    src: local("Maven_Pro"), url(./assets/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+}
