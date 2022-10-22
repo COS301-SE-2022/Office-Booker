@@ -3,6 +3,7 @@ import { PrismaService } from '@office-booker/api/shared/services/prisma/data-ac
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MailService } from '@office-booker/api/mail';
 
 
 describe('ApiUsersApiController Unit Tests', () => {
