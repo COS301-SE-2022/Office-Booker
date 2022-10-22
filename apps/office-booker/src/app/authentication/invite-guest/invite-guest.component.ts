@@ -4,7 +4,6 @@ import { Options } from '@nestjs/common';
 import { throws } from 'assert';
 import { CognitoService } from '../../cognito.service';
 import { BookingServiceService, employee, company } from '../../services/booking-service.service';
-
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 
 @Component({
@@ -69,7 +68,6 @@ export class InviteGuestComponent /*implements OnInit*/ {
             this.exists = false;
             alert(this.email + " successfully invited");
             return data;
-
           });
         }
       });
