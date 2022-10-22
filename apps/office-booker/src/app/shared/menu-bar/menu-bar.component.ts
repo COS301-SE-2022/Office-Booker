@@ -60,6 +60,16 @@ export class MenuBarComponent {
     return this.name;
   }
   
+  myFunction() {
+    const x = document.getElementById("myTopnav");
+    if (x != null && x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      if (x != null) {
+        x.className = "topnav";
+      }
+    }
+  }
 
   isAuthenticated(): boolean {
     return this.cognitoService.loggedIn();
