@@ -90,7 +90,7 @@ model Booking {
 model BookingVotedOn {
   id         Int      @id @default(autoincrement())
   Booking    Booking  @relation(fields: [bookingId], references: [id])
-  Employee   Employee @relation(fields: [employeeId], references: [id])
+  Employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   bookingId  Int
   employeeId Int
 }
