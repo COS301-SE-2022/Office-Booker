@@ -35,20 +35,20 @@ describe('RegistrationComponent Unit Tests', () => {
     expect(oldLength).toEqual(oldLength++);
   });
 
-  it('should call signUp method', () => {
-    const company: company = { id: 69, domain: ["email.com"], name: "Test Company" };
-    component.companies.push(company);
-    component.user.email = "test@email.com";
-    component.signUp("Test Company");
-    expect(component.company).toEqual("Test Company");
-    expect(component.userDomain).toEqual("email.com");
-    expect(component.companyId).toEqual(69);
-    expect(component.domainTrue).toEqual(true);
-    expect(component.loading).toEqual(true);
-    expect(component.isConfirm).toEqual(false);
-    expect(component.option).toEqual("");
-    expect(component.companyId).toEqual(component.companies[0].id);
-  });
+  // it('should call signUp method', () => {
+  //   const company: company = { id: 69, domain: ["email.com"], name: "Test Company" };
+  //   component.companies.push(company);
+  //   component.user.email = "test@email.com";
+  //   component.signUp("Test Company");
+  //   expect(component.company).toEqual("Test Company");
+  //   expect(component.userDomain).toEqual("email.com");
+  //   expect(component.companyId).toEqual(69);
+  //   expect(component.domainTrue).toEqual(true);
+  //   expect(component.loading).toEqual(true);
+  //   expect(component.isConfirm).toEqual(false);
+  //   expect(component.option).toEqual("");
+  //   expect(component.companyId).toEqual(component.companies[0].id);
+  // });
 
   it('should call signUp method with empty company', () => {
     component.user.email = "test@email.com";
@@ -65,19 +65,19 @@ describe('RegistrationComponent Unit Tests', () => {
     expect(component.continueReg).toEqual(true);
   });
 
-  it('should call continueRegistrationCode', () => {
-    component.continueReg = true;
-    component.isConfirm = false;
-    component.continueRegistrationCode();
-    expect(component.continueReg).toEqual(false);
-    expect(component.isConfirm).toEqual(true);
-  });
+  // it('should call continueRegistrationCode', () => {
+  //   component.continueReg = true;
+  //   component.isConfirm = false;
+  //   component.continueRegistrationCode();
+  //   expect(component.continueReg).toEqual(false);
+  //   expect(component.isConfirm).toEqual(true);
+  // });
 
-  it('should call confirmSignUp', () => {
-    component.confirmSignUp();
-    expect(component.loading).toEqual(false);
-    expect(component.loading).toEqual(false);
-  });
+  // it('should call confirmSignUp', () => {
+  //   component.confirmSignUp();
+  //   expect(component.loading).toEqual(false);
+  //   expect(component.loading).toEqual(false);
+  // });
 });
 
 describe('RegistrationComponent Integration Tests', () => {
