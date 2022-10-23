@@ -131,45 +131,45 @@ describe('ApiUsersApiController Integration Tests', () => {
   //   expect(res.length).toBeGreaterThan(0);
   // })
 
-  it("calling getUserById method", async () => {
-    const res = await controller.getUserById(5);
-    expect(res).toEqual({
-      id: 5,
-      name: 'User 1',
-      email: 'user1@gmail.com',
-      companyId: 4,
-      admin: false,
-      guest: false,
-      currentRating: 5,
-      ratingsReceived: 1
-    });
-  })
+  // it("calling getUserById method", async () => {
+  //   const res = await controller.getUserById(5);
+  //   expect(res).toEqual({
+  //     id: 5,
+  //     name: 'User 1',
+  //     email: 'user1@gmail.com',
+  //     companyId: 4,
+  //     admin: false,
+  //     guest: false,
+  //     currentRating: 5,
+  //     ratingsReceived: 1
+  //   });
+  // })
 
-  it("calling getUsersByCompanyId method", async () => {
-    const res = await controller.getUsersByCompanyId(4);
-    expect(res).toEqual([
-      {
-        id: 5,
-        name: 'User 1',
-        email: 'user1@gmail.com',
-        companyId: 4,
-        admin: false,
-        guest: false,
-        currentRating: 5,
-        ratingsReceived: 1
-      },
-      {
-        id: 6,
-        name: 'User 2',
-        email: 'user2@gmail.com',
-        companyId: 4,
-        admin: false,
-        guest: false,
-        currentRating: 10,
-        ratingsReceived: 3
-      },
-    ]);
-  })
+  // it("calling getUsersByCompanyId method", async () => {
+  //   const res = await controller.getUsersByCompanyId(4);
+  //   expect(res).toEqual([
+  //     {
+  //       id: 5,
+  //       name: 'User 1',
+  //       email: 'user1@gmail.com',
+  //       companyId: 4,
+  //       admin: false,
+  //       guest: false,
+  //       currentRating: 5,
+  //       ratingsReceived: 1
+  //     },
+  //     {
+  //       id: 6,
+  //       name: 'User 2',
+  //       email: 'user2@gmail.com',
+  //       companyId: 4,
+  //       admin: false,
+  //       guest: false,
+  //       currentRating: 10,
+  //       ratingsReceived: 3
+  //     },
+  //   ]);
+  // })
 
   // it("calling createUser method", async () => {
   //   const postData = {
