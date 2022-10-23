@@ -3,8 +3,8 @@ import { PrismaService } from '@office-booker/api/shared/services/prisma/data-ac
 import { ApiUsersRepositoryDataAccessService } from '@office-booker/api/users/repository/data-access';
 import { ApiUsersApiController } from './api-users-api.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MailService } from '@office-booker/api/mail';
-import { MailModule } from '@office-booker/api/mail';
+// import { MailService } from '@office-booker/api/mail';
+// import { MailModule } from '@office-booker/api/mail';
 
 
 describe('ApiUsersApiController Unit Tests', () => {
@@ -24,11 +24,11 @@ describe('ApiUsersApiController Unit Tests', () => {
       })
     }
     const app: TestingModule = await Test.createTestingModule({
-      imports: [MailService, MailModule, ConfigModule.forRoot({
+      imports: [ConfigModule.forRoot({
         isGlobal: true,
       })],
       controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, ConfigService, MailService],
+      providers: [ApiUsersRepositoryDataAccessService, ApiServiceProvider, PrismaService, ConfigService],
     }).compile();
     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
@@ -82,49 +82,49 @@ describe('ApiUsersApiController Unit Tests', () => {
   })
 });
 
-describe('ApiUsersApiController Integration Tests', () => {
-  let controller: ApiUsersApiController;
-  let service: ApiUsersRepositoryDataAccessService;
-  let id: number;
-  let idArr: number[];
+// describe('ApiUsersApiController Integration Tests', () => {
+//   let controller: ApiUsersApiController;
+//   let service: ApiUsersRepositoryDataAccessService;
+//   let id: number;
+//   let idArr: number[];
 
-  beforeAll(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      imports: [ MailService, MailModule, ConfigModule.forRoot({
-        isGlobal: true,
-      })],
-      controllers: [ApiUsersApiController],
-      providers: [ApiUsersRepositoryDataAccessService, PrismaService, ConfigService, MailService],
-    }).compile();
-    controller = app.get<ApiUsersApiController>(ApiUsersApiController);
-    service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
-  });
+//   beforeAll(async () => {
+//     const app: TestingModule = await Test.createTestingModule({
+//       imports: [ MailService, MailModule, ConfigModule.forRoot({
+//         isGlobal: true,
+//       })],
+//       controllers: [ApiUsersApiController],
+//       providers: [ApiUsersRepositoryDataAccessService, PrismaService, ConfigService, MailService],
+//     }).compile();
+//     controller = app.get<ApiUsersApiController>(ApiUsersApiController);
+//     service = app.get<ApiUsersRepositoryDataAccessService>(ApiUsersRepositoryDataAccessService);
+//   });
 
-  beforeEach(async () => {   
-    idArr = [];
-    const res = await controller.getUsersByCompanyId(4);
-    res.forEach(employee => {
-      idArr.push(employee.id);
-    });
-    for (let i = 0; i < idArr.length; i++) {
-      if (idArr[i] != 5 && idArr[i] != 6) {
-        await controller.deleteUser(idArr[i]);
-      }
-    }
-  });
+//   beforeEach(async () => {   
+//     idArr = [];
+//     const res = await controller.getUsersByCompanyId(4);
+//     res.forEach(employee => {
+//       idArr.push(employee.id);
+//     });
+//     for (let i = 0; i < idArr.length; i++) {
+//       if (idArr[i] != 5 && idArr[i] != 6) {
+//         await controller.deleteUser(idArr[i]);
+//       }
+//     }
+//   });
 
-  afterEach(async () => {
-    idArr = [];
-    const res = await controller.getUsersByCompanyId(4);
-    res.forEach(employee => {
-      idArr.push(employee.id);
-    });
-    for (let i = 0; i < idArr.length; i++) {
-      if (idArr[i] != 5 && idArr[i] != 6) {
-        await controller.deleteUser(idArr[i]);
-      }
-    }
-  });
+//   afterEach(async () => {
+//     idArr = [];
+//     const res = await controller.getUsersByCompanyId(4);
+//     res.forEach(employee => {
+//       idArr.push(employee.id);
+//     });
+//     for (let i = 0; i < idArr.length; i++) {
+//       if (idArr[i] != 5 && idArr[i] != 6) {
+//         await controller.deleteUser(idArr[i]);
+//       }
+//     }
+//   });
 
   // it("calling getUsers method", async () => {
   //   const res = await controller.getUsers();
@@ -200,5 +200,5 @@ describe('ApiUsersApiController Integration Tests', () => {
   //   const res2 = await controller.getUserById(id);
   //   expect(res2).toBe(null);
   // })
-});
+// });
 
