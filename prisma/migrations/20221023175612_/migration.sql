@@ -52,9 +52,6 @@ CREATE TABLE "Wall" (
     "Pos1Y" INTEGER NOT NULL,
     "Pos2X" INTEGER NOT NULL,
     "Pos2Y" INTEGER NOT NULL,
-    "LocationCol" INTEGER NOT NULL,
-    "Height" INTEGER NOT NULL,
-    "Width" INTEGER NOT NULL,
 
     CONSTRAINT "Wall_pkey" PRIMARY KEY ("id")
 );
@@ -81,6 +78,15 @@ CREATE TABLE "Booking" (
     "isInvited" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BookingVotedOn" (
+    "id" SERIAL NOT NULL,
+    "bookingId" INTEGER NOT NULL,
+    "employeeId" INTEGER NOT NULL,
+
+    CONSTRAINT "BookingVotedOn_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -112,7 +118,7 @@ ALTER TABLE "Desk" ADD CONSTRAINT "Desk_roomId_fkey" FOREIGN KEY ("roomId") REFE
 ALTER TABLE "Wall" ADD CONSTRAINT "Wall_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Facility" ADD CONSTRAINT "Facility_deskId_fkey" FOREIGN KEY ("deskId") REFERENCES "Desk"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Facility" ADD CONSTRAINT "Facility_deskId_fkey" FOREIGN KEY ("deskId") REFERENCES "Desk"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Booking" ADD CONSTRAINT "Booking_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -121,7 +127,13 @@ ALTER TABLE "Booking" ADD CONSTRAINT "Booking_employeeId_fkey" FOREIGN KEY ("emp
 ALTER TABLE "Booking" ADD CONSTRAINT "Booking_deskId_fkey" FOREIGN KEY ("deskId") REFERENCES "Desk"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "BookingVotedOn" ADD CONSTRAINT "BookingVotedOn_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BookingVotedOn" ADD CONSTRAINT "BookingVotedOn_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Invite" ADD CONSTRAINT "Invite_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Invite" ADD CONSTRAINT "Invite_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE CASCADE ON UPDATE CASCADE;
