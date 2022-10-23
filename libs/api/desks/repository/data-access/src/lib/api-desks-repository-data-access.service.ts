@@ -36,10 +36,27 @@ export class ApiDesksRepositoryDataAccessService {
         });
     }
 
-    async deleteDeskById(@Param() deskId: number){
+    async deleteDeskById(@Param() deskId: number) {
         return this.prisma.desk.delete({
             where: {
                 id: deskId,
+            },
+        });
+    }
+
+    async createDeskWithAttributes(desk: Prisma.DeskCreateInput, plugs: number, monitors: number, projectors: number) {
+        return this.prisma.desk.create({
+            data: {
+                ...desk,
+                facilities: {
+                    create: [
+                        {
+                            plugs: plugs,
+                            monitors: monitors,
+                            projectors: projectors,  
+                        }
+                    ],
+                },
             },
         });
     }

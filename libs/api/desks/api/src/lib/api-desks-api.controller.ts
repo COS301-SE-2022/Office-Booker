@@ -10,13 +10,25 @@ class CreateDeskDto {
     Width: number;
     isMeetingRoom: boolean;
     capacity: number;
+}
 
+class CreateDeskWithAttributesDto {
+    roomId: number;
+    LocationRow: number;
+    LocationCol: number;
+    Height: number;
+    Width: number;
+    isMeetingRoom: boolean;
+    capacity: number;
+    plugs: number;
+    monitors: number;
+    projectors: number;
 }
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('desks')
 export class ApiDesksApiController {
-    constructor(private deskService: ApiDesksRepositoryDataAccessService) {}
+    constructor(private deskService: ApiDesksRepositoryDataAccessService) { }
 
     @Get()
     async getAll() {
@@ -43,8 +55,25 @@ export class ApiDesksApiController {
             Width: Width,
             isMeetingRoom: isMeetingRoom,
             capacity: capacity,
-
         });
+    }
+
+    @Post('/withAttributes')
+    async createDeskWithAttributes(@Body() postData: CreateDeskWithAttributesDto) {
+        const { roomId, LocationRow, LocationCol, Height, Width, isMeetingRoom, capacity, plugs, monitors, projectors } = postData;
+        return this.deskService.createDeskWithAttributes({
+            Room: {
+                connect: {
+                    id: roomId,
+                },
+            },
+            LocationRow: LocationRow,
+            LocationCol: LocationCol,
+            Height: Height,
+            Width: Width,
+            isMeetingRoom: isMeetingRoom,
+            capacity: capacity,
+        }, plugs, monitors, projectors);
     }
 
     @Delete('/:deskId')
