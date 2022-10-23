@@ -24,6 +24,12 @@ Office Booker is a program designed to help employees with booking desk space an
 
 [DEMO 4 Documentation](https://drive.google.com/drive/folders/1dmf1O5uhnUkzKomewg347ZQYnwG1dQ99?usp=sharing)
 
+### Project Day
+
+[VIDEO](https://drive.google.com/drive/folders/1pX_rDuyucQDbYlYmJ0x341krVdaU26fL?usp=sharing)
+
+[POWERPOINT SLIDES](https://drive.google.com/drive/folders/1QO4BOFZstXepmtakwjAkE6Zf4SAc-737?usp=sharing)
+
 ## Technologies Used
 Angular, Nest, PostgreSQL, AWS
 
