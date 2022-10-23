@@ -47,33 +47,14 @@ export class InviteGuestComponent /*implements OnInit*/ {
     this.exists = false;
   }
 
-  /*ngOnInit(): void {}*/
-
   public invite(): void {
 
     if (this.validateEmail(this.email)) {
       this.beenRun = true;
       this.option.title = "This user has already been invited!";
       this.option.message = this.email;
-
       this.cognitoService.getCompany();
       const thisCompany = this.cognitoService.returnCompanyID();
-
-      this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
-        if (res) {
-          this.exists = true;
-        }
-        else {
-          this.bookingService.createUser(this.email, thisCompany, this.email, true).subscribe(data => {
-            this.exists = false;
-            alert(this.email + " successfully invited");
-            return data;
-          });
-        }
-      });
-      //return
-
-
       if (this.email == "") { //if email is empty, show error popup
         this.option.title = "Error";
         this.option.message = "Please enter an email address";
@@ -82,10 +63,8 @@ export class InviteGuestComponent /*implements OnInit*/ {
       else { //if email is not empty, create user
         this.option.title = "This user has already been invited!";
         this.option.message = this.email;
-
         this.cognitoService.getCompany();
         const thisCompany = this.cognitoService.returnCompanyID();
-
         this.bookingService.getEmployeeByEmail(this.email).subscribe(res => {
           if (res) {
             this.exists = true;
@@ -99,20 +78,9 @@ export class InviteGuestComponent /*implements OnInit*/ {
               this.option.title = "You have successfully invited";
               this.option.message = this.email;
               this.popupDialogService.open(this.option);
-              // return data;
             });
           }
         });
-
-        /*if (this.exists == false){
-          this.option.title = "You have successfully invited";
-          this.option.message = this.email;
-        }
-        else if (this.exists == true){
-          this.option.title = "This user has already been invited!";
-          this.option.message = this.email;
-        }*/
-
       }
     } else {
       this.option.title = "Invalid email";
