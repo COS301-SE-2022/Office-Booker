@@ -66,9 +66,9 @@
             class="fa fa-building"></span> Office Maker</a>
     <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
             class='fa fa-envelope'></span> Invite Guest</a>
-    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+    <a style="float: right;" href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+            class='fa fa-sign-out' ng-click="signOut()"></span> Logout</a>
+    <a style="float: right;" href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
             class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
-    <a style="float: right;" href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span class='fa fa-sign-out'
-            ng-click="signOut()"></span> Logout</a>
     <a href="javascript:void(0);" class="icon" (click)="myFunction()">&#9776;</a>
 </div>
