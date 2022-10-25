@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Desk, company, Room, employee} from '../services/booking-service.service';
+import { Desk, company, Room, Employee} from '../services/booking-service.service';
 import { OfficeMakerService} from '../services/office-maker.service';
 import { SVGService } from '../services/svg.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -74,7 +74,7 @@ export class OfficeMakerComponent implements OnInit {
   
   @Input() deleteLine = "default";
 
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
 
 
   constructor(private makerService: OfficeMakerService, 

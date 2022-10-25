@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../../../environments/environment'
-import { Desk, company, Room, employee } from '../../services/booking-service.service'
+import { Desk, company, Room, Employee } from '../../services/booking-service.service'
 import * as exp from 'constants';
 
 describe('RegistrationComponent Unit Tests', () => {

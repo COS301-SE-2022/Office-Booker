@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Desk, Booking, employee, Facility , Room, Wall} from '../../services/booking-service.service';
+import { BookingServiceService, Desk, Booking, Employee, Facility , Room, Wall} from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
 import {map, Subscription, timer} from 'rxjs';
 
@@ -69,7 +69,7 @@ export class MapBookingsComponent implements OnDestroy{
   isFiltered = false;
 
   //user to have user id and rest if necessary
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
   hasBooking = false;
   guestBookings = 0;
 

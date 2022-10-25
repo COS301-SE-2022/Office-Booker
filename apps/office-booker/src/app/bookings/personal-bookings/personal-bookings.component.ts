@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, Employee, Invite, rating } from '../../services/booking-service.service';
 
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonToggle } from '@angular/material/button-toggle';
@@ -34,7 +34,7 @@ export class PersonalBookingsComponent {
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
   invites: Array<Invite> = [];
-  Users: Array<employee> = [];
+  Users: Array<Employee> = [];
   employeeName = "";
   userNumb = -1;
 
@@ -45,7 +45,7 @@ export class PersonalBookingsComponent {
 
   isMeet = false;
 
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
   newRating: rating = { currentRating: -1, ratingsReceived: -1 };
   rating = 0;
   // bookingId = -1;

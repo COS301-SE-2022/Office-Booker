@@ -33,7 +33,7 @@ export interface Booking {
   startsAt: string,
   endsAt: string,
   createdAt: string
-  employee: employee,
+  Employee: Employee,
   employeeName: string,
   isMeetingRoom: boolean,
   isInvited: boolean,
@@ -45,7 +45,7 @@ export interface BookingDto {
   endTime: string
 }
 
-export interface employee {
+export interface Employee {
   id: number,
   email: string,
   name: string,
@@ -66,14 +66,12 @@ export interface Invite {
   bookingId: number,
   email: string,
   id: number,
-  invitedEmployee: employee,
+  invitedEmployee: Employee,
   deskId: number,
   Booking: Booking,
   invitedEmail: string,
   employeeId: number,
   accepted: boolean,
-
-
 }
 
 export interface Facility {
@@ -86,12 +84,12 @@ export interface Facility {
 }
 
 
-export interface rating{
+export interface rating {
   currentRating: number,
   ratingsReceived: number,
 }
 
-export interface Wall{
+export interface Wall {
   id: number,
   roomId: number,
   Pos1X: number,
@@ -115,17 +113,17 @@ export class BookingServiceService {
     return this.http.get<Room[]>(`${url}`);
   }
 
-  getInvitesForBooking(bookingId : number){
+  getInvitesForBooking(bookingId: number) {
     const url = this.baseURL + 'bookings/invites/' + bookingId;
     return this.http.get<Invite[]>(`${url}`);
   }
-  
-  getRoomByID(roomId: number){
+
+  getRoomByID(roomId: number) {
     const url = this.baseURL + 'rooms/' + roomId;
     return this.http.get<Room>(`${url}`);
   }
 
-  getDesksByRoomId( roomId:number) {
+  getDesksByRoomId(roomId: number) {
     const url = this.baseURL + 'desks/room/' + roomId;
     return this.http.get<Desk[]>(`${url}`);
   }
@@ -135,25 +133,25 @@ export class BookingServiceService {
     return this.http.get(`${url}`);
   }
 
-  getFacilitiesByDeskId(deskId: number){
+  getFacilitiesByDeskId(deskId: number) {
     const url = this.baseURL + 'facilities/desk/' + deskId;
     return this.http.get<Facility>(`${url}`);
   }
 
-  createFacilities(deskId: number, plugs: number, monitors: number, projectors: number){
+  createFacilities(deskId: number, plugs: number, monitors: number, projectors: number) {
     const url = this.baseURL + 'facilities/';
     const body = {
-      plugs: plugs, 
-      monitors: monitors, 
+      plugs: plugs,
+      monitors: monitors,
       projectors: projectors,
       deskId: deskId,
     }
     return this.http.post<Facility>(`${url}`, body);
   }
 
-  updateFacilities(deskId: number, plugs: number, monitors: number, projectors: number){
+  updateFacilities(deskId: number, plugs: number, monitors: number, projectors: number) {
     const url = this.baseURL + 'facilities/desk/' + deskId;
-    const body = { 
+    const body = {
       plugs: plugs,
       monitors: monitors,
       projectors: projectors
@@ -161,27 +159,27 @@ export class BookingServiceService {
     return this.http.put<Facility>(`${url}`, body);
   }
 
-  getBookingsByDeskId(deskId: number){
+  getBookingsByDeskId(deskId: number) {
     const url = this.baseURL + 'bookings/desk/' + deskId;
     return this.http.get<Booking[]>(`${url}`);
   }
 
-  getBookingByBookingId(bookingId: number){
+  getBookingByBookingId(bookingId: number) {
     const url = this.baseURL + 'bookings/' + bookingId;
     return this.http.get<Booking>(`${url}`);
   }
 
-  getCurrentBooking(deskId: number){
+  getCurrentBooking(deskId: number) {
     const url = this.baseURL + 'bookings/desk/current/' + deskId;
     return this.http.get(`${url}`);
   }
 
-  deleteBooking(bookingId: number){
+  deleteBooking(bookingId: number) {
     const url = this.baseURL + 'bookings/' + bookingId;
     return this.http.delete(`${url}`);
   }
 
-  createBooking(deskId: number, userId: number, startDate: string, endDate: string){
+  createBooking(deskId: number, userId: number, startDate: string, endDate: string) {
     const url = this.baseURL + 'bookings';
     const body = {
       startsAt: startDate,
@@ -192,56 +190,56 @@ export class BookingServiceService {
     return this.http.post<Booking>(`${url}`, body);
   }
 
-  getAllEmployees(){
+  getAllEmployees() {
     const url = this.baseURL + 'users';
-    return this.http.get<employee[]>(`${url}`);
+    return this.http.get<Employee[]>(`${url}`);
   }
 
   // @Get("/companies/:companyId")
-  getAllEmployeesByCompany(companyId: number){
+  getAllEmployeesByCompany(companyId: number) {
     const url = this.baseURL + 'users/companies/' + companyId;
-    return this.http.get<employee[]>(`${url}`);
+    return this.http.get<Employee[]>(`${url}`);
   }
 
-  getAllBookings(){
+  getAllBookings() {
     const url = this.baseURL + 'bookings';
     return this.http.get<Booking[]>(`${url}`);
   }
 
-  getBookingByEmployee(userId: number){
+  getBookingByEmployee(userId: number) {
     const url = this.baseURL + 'bookings/user/' + userId;
     return this.http.get<Booking[]>(`${url}`);
   }
-  getEmployeeById(userId: number){
+  getEmployeeById(userId: number) {
     const url = this.baseURL + 'users/' + userId;
-    return this.http.get<employee>(`${url}`);
+    return this.http.get<Employee>(`${url}`);
   }
-  
-  getEmployeeByEmail(email: string){
+
+  getEmployeeByEmail(email: string) {
     const url = this.baseURL + 'users/email';
     const body = {
       email: email
     }
-    return this.http.post<employee>(`${url}`, body);
+    return this.http.post<Employee>(`${url}`, body);
   }
 
-  getCompanies(){
+  getCompanies() {
     const url = this.baseURL + 'companies';
     return this.http.get<company[]>(`${url}`);
   }
 
-  getCompanyIdByEmail(email: string){
+  getCompanyIdByEmail(email: string) {
     const url = this.baseURL + 'users/email';
     const body = {
       email: email
     }
-    return this.http.post<employee>(`${url}`, body);
+    return this.http.post<Employee>(`${url}`, body);
   }
 
-  getCompanyByID(ID: number){
+  getCompanyByID(ID: number) {
     const url = this.baseURL + 'companies/' + ID;
     return this.http.get<company>(`${url}`);
-  }  
+  }
 
   createUser(name: string, companyId: number, email: string, guest: boolean) {
     const url = this.baseURL + 'users/';
@@ -250,74 +248,74 @@ export class BookingServiceService {
       companyId: companyId,
       email: email,
       guest: guest
-    } 
-    return this.http.post<employee>(`${url}`, body);
-  }  
+    }
+    return this.http.post<Employee>(`${url}`, body);
+  }
 
-  updateName(id: number, name: string){
+  updateName(id: number, name: string) {
     const url = this.baseURL + 'users/' + id;
     const body = {
       name: name
     }
-    return this.http.put<employee>(`${url}`, body);
+    return this.http.put<Employee>(`${url}`, body);
   }
 
-  createInvite(bookingId: number, email: string){
+  createInvite(bookingId: number, email: string) {
     const url = this.baseURL + 'bookings/invites/' + bookingId;
     const body = {
       email: email
-    } 
+    }
     return this.http.post<Invite>(`${url}`, body);
-  } 
+  }
 
-  deleteInvite(id: number){
+  deleteInvite(id: number) {
     const url = this.baseURL + 'bookings/invites/delete/' + id;
     return this.http.put<Invite[]>(`${url}`, {});
   }
 
-  getInvitesForUser(employeeId: number){
+  getInvitesForUser(employeeId: number) {
     const url = this.baseURL + 'bookings/invites/user/' + employeeId;
     return this.http.get<Invite[]>(`${url}`);
   }
 
-  acceptInvite(id: number){
+  acceptInvite(id: number) {
     const url = this.baseURL + 'bookings/invites/accept/' + id;
     return this.http.put<Invite[]>(`${url}`, {});
   }
 
-  declineInvite(id: number){
+  declineInvite(id: number) {
     const url = this.baseURL + 'bookings/invites/decline/' + id;
     return this.http.put<Invite[]>(`${url}`, {});
   }
 
-  updateRatings(userId: number, currentRating: number, ratingsReceived: number){
+  updateRatings(userId: number, currentRating: number, ratingsReceived: number) {
     const url = this.baseURL + 'users/ratings/' + userId;
     const body = {
-      currentRating: currentRating, 
+      currentRating: currentRating,
       ratingsReceived: ratingsReceived
     }
     return this.http.put<rating>(`${url}`, body);
   }
 
-  getRatings(userId: number){
+  getRatings(userId: number) {
     const url = this.baseURL + 'users/ratings/' + userId;
     return this.http.get<rating>(`${url}`);
   }
 
-  getRoomsByCompanyId(companyId: number){
+  getRoomsByCompanyId(companyId: number) {
     const url = this.baseURL + 'rooms/company/' + companyId;
     return this.http.get<Room[]>(`${url}`);
   }
 
-  updateRooms(id: string, name: string){
+  updateRooms(id: string, name: string) {
     const url = this.baseURL + 'users/name/' + id;
     const body = {
       name: name
     }
-    return this.http.put<employee>(`${url}`, body)
+    return this.http.put<Employee>(`${url}`, body)
   }
 
-  getWallsByRoomId(roomId: number){
+  getWallsByRoomId(roomId: number) {
     const url = this.baseURL + 'walls/room/' + roomId;
     return this.http.get<Wall[]>(`${url}`);
   }
@@ -333,6 +331,6 @@ export class BookingServiceService {
       userId: userMakingVote,
       newVote: newVote,
     };
-    return this.http.post<employee>(`${url}`, body);
+    return this.http.post<Employee>(`${url}`, body);
   }
 }

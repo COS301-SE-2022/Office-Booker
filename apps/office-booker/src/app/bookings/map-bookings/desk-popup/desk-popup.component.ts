@@ -10,11 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { MapBookingsComponent } from '../map-bookings.component';
-import { Booking, BookingServiceService, Desk, employee } from '../../../services/booking-service.service';
+import { Booking, BookingServiceService, Desk, Employee } from '../../../services/booking-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export default interface DialogData {
-  currentUser: employee;
+  currentUser: Employee;
   selectedItemBookings: Array<Booking>;
   selectedItemType: string;
   deskId: number;
