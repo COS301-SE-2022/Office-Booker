@@ -1,14 +1,12 @@
-.mat-card{
+.mat-card {
     width: fill;
     margin: 1rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: rgba(140, 140, 140, 0.314) 2.5px solid;
     border-radius: 6px;
-
     text-align: center;
     position: relative;
-   
     /* border-bottom:black 2px solid; */
     /* padding-top:2rem; */
     /* padding-bottom:2rem; */
@@ -17,24 +15,25 @@
     /* height: 410px; */
     /* justify-content: center;  */
     /* display: inline-block; */
-    
 }
 
-.dialog-message{
+.clicker {
+    background: rgb(204, 26, 70);
+}
+
+.dialog-message {
     position: center;
     text-align: center;
 }
 
-.dialogContent{
+.dialogContent {
     /* overflow: hidden; */
-
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-
-/* overflow-y: scroll; */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    /* overflow-y: scroll; */
     /* margin:1rem; */
-    
-   
     /* border-bottom:black 2px solid; */
     /* padding-top:2rem; */
     /* padding-bottom:2rem; */
@@ -45,8 +44,6 @@
     /* display: inline-block; */
 }
 
-.dialogContent::-webkit-scrollbar{
-
+.dialogContent::-webkit-scrollbar {
     display: none;
 }
-

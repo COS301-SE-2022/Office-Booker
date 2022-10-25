@@ -60,7 +60,7 @@ export class MenuBarComponent {
     return this.name;
   }
   
-  myFunction() {
+  compressNavBar() {
     const x = document.getElementById("myTopnav");
     if (x != null && x.className === "topnav") {
       x.className += " responsive";

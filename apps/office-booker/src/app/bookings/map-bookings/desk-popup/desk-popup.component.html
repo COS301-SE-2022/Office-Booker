@@ -1,18 +1,18 @@
 <div class="header">
     <h1 mat-dialog-title>Bookings for {{this.data.selectedItemType | titlecase}} {{this.data.selectedItemId}}</h1>
 </div>
-  
-  
-  <div mat-dialog-content class="dialogContent">
+
+
+<div mat-dialog-content class="dialogContent">
     <!-- <p class="dialog-message"></p>   -->
     <!-- <mat-card>
       <mat-card-content> -->
-        
-        <mat-card>
-          <mat-card-header>Facilities for {{this.data.hoveredItemName}}</mat-card-header>
-          <p></p>
-          <mat-card-content>
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
+
+    <mat-card>
+        <mat-card-header>Facilities for {{this.data.hoveredItemName}}</mat-card-header>
+        <p></p>
+        <mat-card-content>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
 
                   <g transform="matrix(0.07421875 0 0 0.07421875 6 -0)">
                       <g>
@@ -23,7 +23,7 @@
                   </g>
                   <text class="SVGBadge-number" x="25" y="50" text-anchor="middle">{{this.data.numPlugs}}</text>
               </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
 
                   <g transform="matrix(0.083960645 0 0 0.083960645 6 -0)">
                       <path
@@ -32,7 +32,7 @@
                   </g>
                   <text class="SVGBadge-number" x="25" y="50" text-anchor="middle">{{this.data.numMonitors}}</text>
               </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="50" height="50">
 
                   <g transform="matrix(0.12666667 0 0 0.12666667 6 -0)">
                       <g>
@@ -51,42 +51,35 @@
                   <text class="SVGBadge-number" x="25" y="50"
                       text-anchor="middle">{{this.data.numProjectors}}</text>
               </svg>
-          </mat-card-content>
+        </mat-card-content>
 
-          <mat-card-actions>
-              <span></span>
-
-
-          </mat-card-actions>
-      </mat-card>
+        <mat-card-actions>
+            <span></span>
 
 
-        <hr>
-        <div class="scrollable-section">
-            <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
-                <mat-card-content>
-                    <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
-                    <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
-                    </div>
-                    <mat-card-actions>
-                        <button mat-raised-button color="warn" (click)="deleteBooking(booking.id)" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
-                    </mat-card-actions>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        <br>
-    <!-- </mat-card-content>
-    </mat-card> -->
-  </div>
+        </mat-card-actions>
+    </mat-card>
+    <div class="scrollable-section">
+        <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
+            <mat-card-content>
+                <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
+                <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
+                </div>
+                <mat-card-actions>
+                    <button class="clicker" mat-raised-button color="accent" (click)="deleteBooking(booking.id)" *ngIf="this.data.currentUser.id === booking.employeeId">Cancel Booking</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <br>
+</div>
 
-  
-  
-  
-  
-  <div mat-dialog-actions>
+
+
+
+
+<div mat-dialog-actions>
     <!-- <button mat-button [mat-dialog-close]="data.inviteEmail" cdkFocusInitial>Invite</button> -->
     <button mat-button [mat-dialog-close]>Close</button>
     <button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.selectedItemId" cdkFocusInitial>Book {{this.data.selectedItemType | titlecase}} {{this.data.selectedItemId}}</button>
-  </div>
-  
-  
+</div>
