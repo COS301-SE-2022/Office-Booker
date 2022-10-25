@@ -58,15 +58,15 @@
             class="fa fa-calendar-plus-o"></span> Home </a>
     <a href="#" routerLink="/personal-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
             class="fa fa-list-alt"></span> Your Bookings</a>
-    <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated()"><span
+    <a href="#" routerLink="/voting-bookings" routerLinkActive="active" *ngIf="isAuthenticated() && isNotGuest()"><span
             class="fa fa-check-circle-o"></span> Rate Users</a>
-    <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAdmin()"><span
+    <a href="#" routerLink="/admin-bookings" routerLinkActive="active" *ngIf="isAuthenticated() && isAdmin()"><span
             class="fa fa-bars"></span> Admin Page</a>
-    <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAdmin()"><span
+    <a href="#" routerLink="/office-maker" routerLinkActive="active" *ngIf="isAuthenticated() && isAdmin()"><span
             class="fa fa-building"></span> Office Maker</a>
-    <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isNotGuest()"><span
+    <a href="#" routerLink="/invite-guest" routerLinkActive="active" *ngIf="isAuthenticated() && isNotGuest()"><span
             class='fa fa-envelope'></span> Invite Guest</a>
-    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isEmailAddress()"><span
+    <a href="#" routerLink="/account" routerLinkActive="active" *ngIf="isAuthenticated() && isEmailAddress()"><span
             class='fa fa-address-card'></span> [{{status}}] {{name}}</a>
     <a style="float: right;" href="#" routerLink="/sign-out" routerLinkActive="active" *ngIf="isAuthenticated()"><span class='fa fa-sign-out'
             ng-click="signOut()"></span> Logout</a>
