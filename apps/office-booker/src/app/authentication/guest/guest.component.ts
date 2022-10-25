@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee, company } from '../../services/booking-service.service';
+import { BookingServiceService, Employee, company } from '../../services/booking-service.service';
 
 import { IUser, CognitoService } from '../../cognito.service';
 
@@ -18,7 +18,7 @@ export class GuestComponent /*implements OnInit*/ {
   companyId: number;
   companies: Array<company> = [];
   option: string;
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0};
   constructor(
     private router: Router,
     private cognitoService: CognitoService,

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, HostListener } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { CognitoService } from '../../cognito.service';
-import { BookingServiceService, employee } from '../../services/booking-service.service';
+import { BookingServiceService, Employee } from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-menu-bar',

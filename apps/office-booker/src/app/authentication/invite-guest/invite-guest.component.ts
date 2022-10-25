@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Options } from '@nestjs/common';
 import { throws } from 'assert';
 import { CognitoService } from '../../cognito.service';
-import { BookingServiceService, employee, company } from '../../services/booking-service.service';
+import { BookingServiceService, Employee, company } from '../../services/booking-service.service';
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 
 @Component({

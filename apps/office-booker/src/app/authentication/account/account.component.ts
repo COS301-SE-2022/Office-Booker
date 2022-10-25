@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IUser, CognitoService } from '../../cognito.service';
-import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, Employee, Invite, rating } from '../../services/booking-service.service';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { BookingServiceService, Room, Desk, Booking, employee, Invite, rating } 
 })
 export class AccountComponent {
   user: IUser;
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
   userNumb = -1;
   newRating: rating = { currentRating: -1, ratingsReceived: -1 };
   rating = 0;

@@ -12,7 +12,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatChipsModule } from '@angular/material/chips'; 
-import { Booking, BookingServiceService, Invite, employee } from '../../../services/booking-service.service';
+import { Booking, BookingServiceService, Invite, Employee } from '../../../services/booking-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -34,7 +34,7 @@ export class InviteDialogComponent {
   invites: Invite[];
   bookingId : number;
   defaultBooking: Booking = {} as any;
-  defaultEmployee: employee = {} as any;
+  defaultEmployee: Employee = {} as any;
   // newInvite: Invite = {
   //   id: -1, bookingId: -1, employeeId: -1, accepted: false, email: "null",
   //   deskId: 0,
