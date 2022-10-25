@@ -5,7 +5,7 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ApiBookingsRepositoryDataAccessService {
-    constructor(private prisma: PrismaService, private userService: ApiUsersRepositoryDataAccessService) {}
+    constructor(private prisma: PrismaService, private userService: ApiUsersRepositoryDataAccessService) { }
 
     async getAllBookings() {
         return this.prisma.booking.findMany();
@@ -70,7 +70,7 @@ export class ApiBookingsRepositoryDataAccessService {
     async createInvite(@Param() bookingId: number, @Param() userEmail: string) {
         return this.prisma.invite.create({
             data: {
-                Booking: {  
+                Booking: {
                     connect: {
                         id: bookingId,
                     },
@@ -168,6 +168,13 @@ export class ApiBookingsRepositoryDataAccessService {
                 Desk: {
                     Room: {
                         companyId: usersCompanyId, // only show bookings which are in the same company as the user
+                    },
+                },
+            },
+            include: {
+                Employee: {
+                    select: {
+                        name: true,
                     },
                 },
             },
