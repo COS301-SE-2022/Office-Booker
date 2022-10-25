@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card'
-import { BookingServiceService, Room, Desk, Booking, employee, rating} from '../../services/booking-service.service';
+import { BookingServiceService, Room, Desk, Booking, Employee, rating} from '../../services/booking-service.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { CognitoService } from '../../cognito.service';
@@ -14,11 +14,11 @@ import { CognitoService } from '../../cognito.service';
 export class AdminBookingsComponent{
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
-  Users: Array<employee> = [];
+  Users: Array<Employee> = [];
   Domains: Array<string> = [];
   employeeName = "";
   userNumb = -1;
-  currentUser: employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false, currentRating: 0, ratingsReceived: 0};
+  currentUser: Employee = {id:-1, email:"null", name: "null", companyId:-1, admin: false, guest : false, currentRating: 0, ratingsReceived: 0};
   newRating: rating = {currentRating: -1, ratingsReceived: -1};
   rating = 0;
   isMeet = false;

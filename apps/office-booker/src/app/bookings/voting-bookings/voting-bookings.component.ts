@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BookingServiceService, Desk, Booking, employee, rating } from '../../services/booking-service.service';
-
+import { BookingServiceService, Desk, rating, Employee, Booking } from '../../services/booking-service.service';
 
 @Component({
   selector: 'office-booker-voting-bookings',
@@ -12,10 +11,9 @@ import { BookingServiceService, Desk, Booking, employee, rating } from '../../se
 export class VotingBookingsComponent {
   desks: Array<Desk> = [];
   userBookings: Array<Booking> = [];
-  Users: Array<employee> = [];
   employeeName = "";
   userNumb = -1;
-  currentUser: employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
+  currentUser: Employee = { id: -1, email: "null", name: "null", companyId: -1, admin: false, guest: false, currentRating: 0, ratingsReceived: 0 };
   rateUser: rating = { currentRating: -1, ratingsReceived: -1 };
   clicked = false;
 
@@ -70,7 +68,7 @@ export class VotingBookingsComponent {
           newBooking.startsAt = booking.startsAt;
           newBooking.endsAt = booking.endsAt;
           newBooking.employeeId = booking.employeeId;
-          newBooking.employeeName = this.currentUser.name;
+          newBooking.Employee = booking.Employee;
           this.userBookings.push(newBooking);
           this.changeDetection.detectChanges();
         }

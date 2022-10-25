@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingServiceService, employee, company} from '../../services/booking-service.service';
+import { BookingServiceService, Employee, company} from '../../services/booking-service.service';
 
 import { IUser, CognitoService } from '../../cognito.service';
 
