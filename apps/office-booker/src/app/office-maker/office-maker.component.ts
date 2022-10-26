@@ -52,6 +52,7 @@ export class OfficeMakerComponent implements OnInit {
   desks: Array<Desk> = [];
   walls: Array<Wall> = [];
   facilities: Array<Facility> = [];
+  newFacilities: Array<Facility> = [];
   selectedItemId = "default";
 
   currentRooms: Array<Room> = [];
@@ -142,15 +143,12 @@ export class OfficeMakerComponent implements OnInit {
 
   generateDesks(){ 
     const svg = document.getElementById("dropzone");
-
     let child = svg?.lastElementChild;
     while (child){      //clears svg zone before getting elements (so changing between offices doesnt show previous office layout)
       svg?.removeChild(child);
       child = svg?.lastElementChild;
     }
-
     const svgns = "http://www.w3.org/2000/svg";
-
     for (let i=0; i<this.allDesks.length; i++)
     {
       if (this.allDesks[i].roomId == this.selectedRoom){
@@ -257,7 +255,6 @@ export class OfficeMakerComponent implements OnInit {
      
       if(selectedItem?.tagName == "rect"){
         selectedItem.setAttribute("style", "stroke-width:0")
-        console.log(selectedItem);
         if (this.selectItem != null){
           this.selectedItemHeight = Number(selectedItem?.getAttribute("height"));
           this.selectedItemWidth = Number(selectedItem?.getAttribute("width"));
@@ -355,14 +352,32 @@ export class OfficeMakerComponent implements OnInit {
           if (officeObj.classList.contains("new")){
             if(officeObj.nodeName == "rect"){
               const attrb = officeObj.attributes;
+              const checkId = attrb.getNamedItem('id')?.value;
+              const splitId = checkId?.split("-", 2);
+              let hasFacilitiesToAdd = false;
+              let facilityIndex = -1;
+              if(splitId){
+                const id = Number(splitId[1]);
+                for(let i = 0; i<this.newFacilities.length; i++){
+                  if(this.newFacilities[i].deskId == parseInt(splitId[1])){
+                    hasFacilitiesToAdd=true;
+                    facilityIndex=i;
+                  }
+                }
+              }
               const newRect = {} as Desk;
               newRect.LocationCol = Number(attrb.getNamedItem('x')?.value);
               newRect.LocationRow = Number(attrb.getNamedItem('y')?.value);
               newRect.Width = Number(attrb.getNamedItem('width')?.value);
               newRect.Height = Number(attrb.getNamedItem('height')?.value);
               newRect.isMeetingRoom = attrb.getNamedItem("isMeetingRoom")?.value ==='true';
-              this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
-              } 
+              if(!hasFacilitiesToAdd){
+                this.makerService.createDesk(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10).subscribe();
+                } 
+              else {
+                this.makerService.createDeskWithFacilities(this.selectedRoom, Math.round(newRect.LocationRow), Math.round(newRect.LocationCol), newRect.Height, newRect.Width, newRect.isMeetingRoom, 10, this.newFacilities[facilityIndex].plugs, this.newFacilities[facilityIndex].monitors, this.newFacilities[facilityIndex].projectors).subscribe();
+              }
+              }
             else if(officeObj.nodeName == "line"){
               const attrb = officeObj.attributes;
               const newLine = {} as Wall;
@@ -621,19 +636,34 @@ export class OfficeMakerComponent implements OnInit {
     this.changeDetection.detectChanges();
     const splitId = deskId.split("-", 2);
     const id = Number(splitId[1]);
-    for (let i=0; i<this.facilities.length; i++) {
-  
-      if (this.facilities[i].deskId == id) {
-        this.numPlugs = this.facilities[i].plugs;
-        this.numMonitors = this.facilities[i].monitors;
-        this.numProjectors = this.facilities[i].projectors;
-        console.log("should be 2: " + this.numPlugs)
-      }
-      else
-      {
-        this.numPlugs = 0;
-        this.numMonitors = 0;
-        this.numProjectors = 0;
+    if(splitId[0] == "desk" || splitId[0]=="meetingRoom"){
+      for (let i=0; i<this.newFacilities.length; i++) {
+            if (this.newFacilities[i].deskId == id) {
+              this.numPlugs = this.newFacilities[i].plugs;
+              this.numMonitors = this.newFacilities[i].monitors;
+              this.numProjectors = this.newFacilities[i].projectors;
+            }
+            else
+            {
+              this.numPlugs = 0;
+              this.numMonitors = 0;
+              this.numProjectors = 0;
+            }
+          }
+    }
+    else {
+      for (let i=0; i<this.facilities.length; i++) {
+        if (this.facilities[i].deskId == id) {
+          this.numPlugs = this.facilities[i].plugs;
+          this.numMonitors = this.facilities[i].monitors;
+          this.numProjectors = this.facilities[i].projectors;
+        }
+        else
+        {
+          this.numPlugs = 0;
+          this.numMonitors = 0;
+          this.numProjectors = 0;
+        }
       }
     }
 
@@ -658,7 +688,6 @@ export class OfficeMakerComponent implements OnInit {
           this.deskId = result.deskId;
           for (let i = 0; i<this.facilities.length; i++)
           {
-            console.log(this.facilities[i])
             if (this.facilities[i].deskId  == this.deskId)
             {
               this.bookingService.updateFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
@@ -667,7 +696,6 @@ export class OfficeMakerComponent implements OnInit {
                       this.facilities[i].monitors = this.numMonitors;
                       this.facilities[i].projectors = this.numProjectors;
                     success = true;
-                    console.log(success);
                     this.openSuccessSnackBar("Successfully updated facilties");
                   
                   this.changeDetection.detectChanges();
@@ -679,9 +707,13 @@ export class OfficeMakerComponent implements OnInit {
 
             }
           } 
-          console.log(success);
           if (success == false) //if this desk does not have a facilities object
           {
+            if(splitId[0] == "desk" || splitId[0]=="meetingRoom"){
+              const newFacility = {id: 1, deskId: this.deskId, plugs: this.numPlugs, monitors: this.numMonitors, projectors: this.numProjectors};
+              this.newFacilities.push(newFacility);
+            }
+            else{
             this.bookingService.createFacilities(this.deskId, this.numPlugs, this.numMonitors, this.numProjectors).subscribe(res => {
               if (res) {
                 this.facilities.push(res);
@@ -689,6 +721,7 @@ export class OfficeMakerComponent implements OnInit {
 
               }
             });
+          }
           }
           
           
