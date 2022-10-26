@@ -57,13 +57,29 @@ export class OfficeMakerService {
     return this.http.post<Desk>(`${url}`, body);
   }
 
+  createDeskWithFacilities(roomId: number, LocationRow: number, LocationCol: number, Height: number, Width: number, isMeetingRoom: boolean, capacity: number, plugs: number, monitors:number, projectors: number){
+    const url = this.baseURL + 'desks/withAttributes';
+    const body = {
+      roomId: roomId,
+      LocationRow: LocationRow,
+      LocationCol: LocationCol,
+      Height: Height,
+      Width: Width,
+      isMeetingRoom: isMeetingRoom,
+      capacity: capacity,
+      plugs: plugs,
+      monitors: monitors,
+      projectors: projectors,
+    }
+    return this.http.post<Desk>(`${url}`, body);
+  }
+
   getCompanies(){
     const url = this.baseURL + 'companies';
     return this.http.get<company[]>(`${url}`);
   }
 
   createWall(roomId: number, Pos1X: number, Pos1Y: number, Pos2X: number, Pos2Y: number){
-    console.log("wall created");
     const url = this.baseURL + 'walls';
     const body = {
       roomId: roomId,
