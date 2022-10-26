@@ -1,29 +1,19 @@
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
-import { BookingServiceService, Desk, Booking, Employee, Facility , Room, Wall} from '../../services/booking-service.service';
+import { BookingServiceService, Desk, Booking, Employee, Room, Wall } from '../../services/booking-service.service';
 import { CognitoService } from '../../cognito.service';
-import {map, Subscription, timer} from 'rxjs';
-
+import { map, Subscription, timer } from 'rxjs';
 import { PopupDialogService } from '../../shared/popup-dialog/popup-dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeskPopupComponent } from './desk-popup/desk-popup.component';
-
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { json } from 'stream/consumers';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatFormField } from '@angular/material/form-field';
-import { MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'office-booker-map-bookings',
   templateUrl: './map-bookings.component.html',
   styleUrls: ['./map-bookings.component.css'],
 })
-export class MapBookingsComponent implements OnDestroy{
+export class MapBookingsComponent implements OnDestroy {
 
   //map based variables
   desks: Array<Desk> = [];
@@ -90,6 +80,8 @@ export class MapBookingsComponent implements OnDestroy{
   private timerSubscription: Subscription[] = [];
   comparison = false;
 
+  userBookings: Array<Booking> = [];
+
 
   constructor(private bookingService: BookingServiceService,
     private changeDetection: ChangeDetectorRef,
@@ -97,7 +89,7 @@ export class MapBookingsComponent implements OnDestroy{
     private popupDialogService: PopupDialogService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,) {
-      
+
     this.defaultTimeNow.setHours(this.defaultTimeNow.getHours() - (this.timeZoneOffset / 60));      //used to get current time for current computer
     this.defaultTimeNow.setMinutes(0);      //sets the minutes to 0
     this.defaultTimeNow.setSeconds(0);      //sets the seconds to 0
@@ -118,72 +110,71 @@ export class MapBookingsComponent implements OnDestroy{
     this.numProjectors = 0;
     this.facilityString = "";
 
-  
+
   }
 
   ngOnInit() {
     this.getCurrentUser();          //fetches the logged in user
     this.changeDetection.detectChanges();
-  
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     // unsubscribe timer
 
-      this.timerSubscription.forEach((sub) => sub.unsubscribe());
-    
-    
+    this.timerSubscription.forEach((sub) => sub.unsubscribe());
+
+
   }
 
-  onChangeFloor(event: { value: any; })
-  {
-    
+  onChangeFloor(event: { value: any; }) {
+
     this.selectedRoom = event.value;
     this.printRooms(event.value);
   }
 
-  zoomIn(){
+  zoomIn() {
     const layout = document.getElementsByTagName("svg")[0];
     this.zoom -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  zoomOut(){
+  zoomOut() {
     const layout = document.getElementsByTagName("svg")[0];
     this.zoom += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  panLeft(){
+  panLeft() {
     const layout = document.getElementsByTagName("svg")[0];
     this.mapPosX -= 60;
-    
+
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  panRight(){
+  panRight() {
     const layout = document.getElementsByTagName("svg")[0];
     this.mapPosX += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  panUp(){
+  panUp() {
     const layout = document.getElementsByTagName("svg")[0];
     this.mapPosY += 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  panDown(){
+  panDown() {
     const layout = document.getElementsByTagName("svg")[0];
     this.mapPosY -= 50;
     layout.setAttribute("viewBox", (this.mapPosX) + " " + (this.mapPosY) + " " + (this.zoom) + " " + (this.zoom));
   }
 
-  printRooms(roomId: number){
+  printRooms(roomId: number) {
     this.desks.length = 0;
     this.walls.length = 0;
 
-    this.getDesksByRoomId(roomId); 
+    this.getDesksByRoomId(roomId);
     this.getWallsByRoomId(roomId);
   }
 
@@ -269,7 +260,7 @@ export class MapBookingsComponent implements OnDestroy{
         ).subscribe()
         );
 
-         //this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
+        //this.getBookingsByDeskId(desk.id); // TODO: comment out if you want to use the timer above
 
 
 
@@ -281,11 +272,11 @@ export class MapBookingsComponent implements OnDestroy{
 
   }
 
-  getWallsByRoomId(roomId: number){
+  getWallsByRoomId(roomId: number) {
     this.bookingService.getWallsByRoomId(roomId).subscribe(res => {
       res.forEach(wall => {
-        const newWall = {} as Wall;       
-        newWall.id = wall.id;             
+        const newWall = {} as Wall;
+        newWall.id = wall.id;
         newWall.roomId = wall.roomId;
         newWall.Pos1X = wall.Pos1X;
         newWall.Pos1Y = wall.Pos1Y;
@@ -301,17 +292,17 @@ export class MapBookingsComponent implements OnDestroy{
 
   getBookingsByDeskId(deskId: number) {
 
-     for (let i = 0; i < this.desks.length; i++) {       //loops through the desks array
-        this.desks[i].bookings = []; 
-      }
+    for (let i = 0; i < this.desks.length; i++) {       //loops through the desks array
+      this.desks[i].bookings = [];
+    }
     let bookingReturn = false;        //instantiates a boolean to be false to be used in whether bookings exist on the desk or not
-    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {     
+    this.bookingService.getBookingsByDeskId(deskId).subscribe(res => {
 
-        this.desks.forEach(desk => {
-          if(desk.id == deskId){
-            desk.booking = res.length>0;
-          }
-        })
+      this.desks.forEach(desk => {
+        if (desk.id == deskId) {
+          desk.booking = res.length > 0;
+        }
+      })
       res.forEach(booking => {        //if call returns a booking array, need to go through each booking to add to desk array bookings
         const comparisonDateStart = new Date(this.grabbedStartDate);        //to filter out dates before the current time (where end date of booking is before now)
         const comparisonDateEnd = new Date(this.grabbedEndDate);
@@ -319,13 +310,13 @@ export class MapBookingsComponent implements OnDestroy{
           const bookingDateEnd = new Date(booking.endsAt);     //used to check against the comparison date
           const bookingDateStart = new Date(booking.startsAt);
           bookingDateEnd.setHours(bookingDateEnd.getHours() - 2);   //booking is saved plus two somehow
-          bookingDateStart.setHours(bookingDateStart.getHours()-2);
+          bookingDateStart.setHours(bookingDateStart.getHours() - 2);
 
-          if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) {    
+          if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) {
             bookingReturn = true;
           }
         }
-        
+
         for (let i = 0; i < this.desks.length; i++)      //loop through each desk in the array to make sure you find the correct desk
         {
           if (this.desks[i].id == deskId) {       //find correct desk using the id of the desk
@@ -334,8 +325,8 @@ export class MapBookingsComponent implements OnDestroy{
               const bookingDateEnd = new Date(booking.endsAt);     //used to check against the comparison date
               const bookingDateStart = new Date(booking.startsAt);
               bookingDateEnd.setHours(bookingDateEnd.getHours() - 2);   //booking is saved plus two somehow
-              bookingDateStart.setHours(bookingDateStart.getHours()-2);
-              if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) { 
+              bookingDateStart.setHours(bookingDateStart.getHours() - 2);
+              if ((bookingDateEnd >= comparisonDateStart && bookingDateStart < comparisonDateEnd) || (bookingDateStart < comparisonDateEnd && bookingDateEnd > comparisonDateStart)) {
                 this.desks[i].bookings.push(booking);       //pushes each booking received on to the correct desk bookings array
                 this.desks[i].bookings = this.desks[i].bookings.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());      //sorts bookings by date
                 this.desks[i].bookings[0].isMeetingRoom = this.desks[i].isMeetingRoom;
@@ -456,7 +447,7 @@ export class MapBookingsComponent implements OnDestroy{
   }
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
-    if (this.guestBookings < 1) {
+    if (!this.hasBooking) {
       const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
         return desk.id == deskId;
       });
@@ -477,7 +468,7 @@ export class MapBookingsComponent implements OnDestroy{
       })
 
       if (!bookingClash) {        //if there are no clashes from above
-        if(!ownBookingAnotherDeskClash){
+        if (!ownBookingAnotherDeskClash) {
 
           const startsAt = startDate.toISOString();   //needs to be converted to be passed to the api
           const endsAt = endDate.toISOString();
@@ -494,6 +485,7 @@ export class MapBookingsComponent implements OnDestroy{
               }
             }
             this.openSuccessSnackBar("Booking created");
+            this.hasBooking = true;
             this.changeDetection.detectChanges();
           });
           this.hasBooking = true;
@@ -506,7 +498,7 @@ export class MapBookingsComponent implements OnDestroy{
         this.openFailSnackBar("Booking overlaps with another booking");
       }
     } else {
-      this.openFailSnackBar("Guest can only book one at a time");
+      this.openFailSnackBar("Guest can only book one slot at a time");
 
     }
   }
@@ -542,9 +534,15 @@ export class MapBookingsComponent implements OnDestroy{
     const userData = JSON.stringify(localStorage.getItem("CognitoIdentityServiceProvider.4fq13t0k4n7rrpuvjk6tua951c.LastAuthUser"));
     this.bookingService.getEmployeeByEmail(userData.replace(/['"]+/g, '')).subscribe(res => {
       this.currentUser = res;
-      if (this.currentUser.guest == true) {//If the current user is a guest, check if they already have bookings
-        this.checkUserHasBooking();
-      }
+      this.bookingService.getBookingByEmployee(this.currentUser.id).subscribe(res => {
+        res.forEach(booking => {
+          const currBookingDate = new Date(booking.endsAt);
+          const currDate = new Date();
+          if(currBookingDate > currDate){
+            this.hasBooking = true;
+          }
+        })
+      })
       this.getRooms(this.currentUser.companyId);
       this.changeDetection.detectChanges();
     })
@@ -555,19 +553,19 @@ export class MapBookingsComponent implements OnDestroy{
       res.forEach(room => {
         this.currentRooms.push(room);
       })
-      
+
       this.getDesksByRoomId(this.currentRooms[0].id); //gets all the desks for the current room
       this.getWallsByRoomId(this.currentRooms[0].id);
       this.changeDetection.detectChanges();
     })
-    
+
   }
 
   validateDate() {
     return this.grabbedStartDate < this.grabbedEndDate;
   }
 
-  ownBookingClash(bookingDateStart: Date, bookingDateEnd: Date){
+  ownBookingClash(bookingDateStart: Date, bookingDateEnd: Date) {
     let bookingClash = false;
     this.desks.forEach(desk => {
       desk.bookings.forEach(booking => {
@@ -599,26 +597,26 @@ export class MapBookingsComponent implements OnDestroy{
     })
   }
 
-  comparisonMode(){
+  comparisonMode() {
     this.comparison = !this.comparison;
     if (this.comparison) {
-        this.multiSelectedItemBookingsArr = [];      
-        document.getElementById('svg-map')?.setAttribute("style", "width: 50% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
-        document.getElementById('map-container')?.setAttribute("style", "width: auto ; margin: 1rem;");
+      this.multiSelectedItemBookingsArr = [];
+      document.getElementById('svg-map')?.setAttribute("style", "width: 50% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
+      document.getElementById('map-container')?.setAttribute("style", "width: auto ; margin: 1rem;");
 
-      
+
     }
     if (this.comparison == false) {
       this.multiSelectedItemBookingsArr = [];
       document.getElementById('svg-map')?.setAttribute("style", "width: 100% !important ; border:1px solid black; background-color:rgb(235, 235, 235); border-radius: 2px");
       document.getElementById('map-container')?.setAttribute("style", "width: auto; margin: 1rem;");
 
-      
+
     }
 
     this.multiSelectedItemBookingsArr = [];
 
-    
+
   }
 
   openSuccessSnackBar(message: string) {
@@ -653,10 +651,10 @@ export class MapBookingsComponent implements OnDestroy{
         desks: this.desks,
       }
     });
-    
+
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null){
+      if (result != null) {
         this.bookItem(result);
       }
     });
