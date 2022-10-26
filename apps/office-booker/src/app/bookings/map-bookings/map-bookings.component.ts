@@ -447,7 +447,7 @@ export class MapBookingsComponent implements OnDestroy {
   }
 
   makeADeskBooking(deskId: number, startDate: Date, endDate: Date) {
-    if (!this.hasBooking) {
+    if ((!this.hasBooking && this.currentUser.guest) || !this.currentUser.guest) {
       const currentDesk = this.desks.filter((desk) => {       //grabs the desk matching the correct id
         return desk.id == deskId;
       });
