@@ -117,7 +117,6 @@ export class PersonalBookingsComponent {
 
 
   ngOnInit() {
-    this.getDesksByRoomId(1);
     this.getCurrentUser();
     this.getUsers();
 
@@ -159,52 +158,22 @@ export class PersonalBookingsComponent {
 
   }
 
-
-  getDesksByRoomId(roomId: number) {
-    this.bookingService.getDesksByRoomId(roomId).subscribe(res => {
-      res.forEach(desk => {
-        const newDesk = {} as Desk;
-        newDesk.id = desk.id;
-        newDesk.LocationCol = desk.LocationCol;
-        newDesk.LocationRow = desk.LocationRow;
-        newDesk.roomId = desk.roomId;
-        newDesk.bookings = [];
-        newDesk.isMeetingRoom = desk.isMeetingRoom;
-        this.getBookingsByDeskId(desk.id);
-
-        this.desks.push(newDesk);
-        this.changeDetection.detectChanges();
-      });
-    })
-
-  }
-
-  getBookingsByDeskId(deskId: number) {
-    let bookingReturn = false;
-
-    this.bookingService.getBookingsByDeskId(this.currentUser.id).subscribe(res => {
-      res.forEach(booking => {
-        if (booking) {
-          bookingReturn = true;
-        }
-        for (let i = 0; i < this.desks.length; i++) {
-          if (this.desks[i].id == deskId) {
-            this.desks[i].booking = bookingReturn;
-            this.desks[i].bookings.push(booking);
-          }
-        }
-        this.changeDetection.detectChanges();
-      });
-    })
-  }
-
   getBookings(userId: number) {
     this.userBookings = [];
     this.bookingService.getBookingByEmployee(userId).subscribe(res => {
       res.forEach(booking => {
+
+        const compareDate = new Date();
+        const bookingDate = new Date(booking.endsAt);
+        bookingDate.setHours(bookingDate.getHours() - 2);
+
+        const sameDay = (d1: Date, d2: Date) => {
+          return d1 < d2;
+        };
+        
+        if (sameDay(compareDate, bookingDate)) {     
         const newBooking = {} as Booking;
         newBooking.Invite = new Array<Invite>();
-
         this.getInvitesForBooking(booking.id);
         newBooking.id = booking.id;
         newBooking.deskId = booking.deskId;
@@ -219,7 +188,7 @@ export class PersonalBookingsComponent {
         this.invites = [];
         this.changeDetection.detectChanges();
         this.getMeetingRoom(booking.deskId, booking.id);
-
+        }
 
       });
       this.changeDetection.detectChanges();
@@ -247,8 +216,6 @@ export class PersonalBookingsComponent {
 
 
   }
-
-
 
   isMeetingRoom(deskId: number) : string{
     for (let i = 0; i < this.desks.length; i++) {

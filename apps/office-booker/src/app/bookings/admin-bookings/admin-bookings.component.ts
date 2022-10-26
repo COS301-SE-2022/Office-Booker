@@ -114,6 +114,18 @@ export class AdminBookingsComponent{
     this.userBookings = [];
     this.bookingService.getAllBookings().subscribe(res => {
       res.forEach(booking => {
+
+        
+        const compareDate = new Date();
+        const bookingDate = new Date(booking.endsAt);
+        bookingDate.setHours(bookingDate.getHours() - 2);
+
+        const sameDay = (d1: Date, d2: Date) => {
+          return d1 < d2;
+        };
+        
+        if (sameDay(compareDate, bookingDate)) {  
+
         const newBooking = {} as Booking;
         newBooking.employeeName = userName;
         newBooking.id = booking.id;
@@ -134,7 +146,7 @@ export class AdminBookingsComponent{
 
         this.getMeetingRoom(booking.deskId, booking.id);
         // this.getEmployeeName(1);
-
+        }
 
       });
       this.changeDetection.detectChanges();
