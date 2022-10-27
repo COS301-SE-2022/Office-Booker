@@ -4,7 +4,7 @@
 <div class="center">
     <mat-button-toggle-group class="filters" name="filter" aria-label="filter" (change)="setFilter($event.value)">
         <mat-button-toggle checked="true" value="bookings">Bookings</mat-button-toggle>
-        <mat-button-toggle value="settings">Settings</mat-button-toggle>
+        <mat-button-toggle value="settings">Company Details</mat-button-toggle>
     </mat-button-toggle-group>
 </div>
 
@@ -56,7 +56,7 @@
 
                 <button mat-raised-button color="primary" (click)="setNgIf('domains')">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Email Domains
+          Permitted Email Domains
         </button>
 
                 <button mat-raised-button color="primary" (click)="setNgIf('employees')">
