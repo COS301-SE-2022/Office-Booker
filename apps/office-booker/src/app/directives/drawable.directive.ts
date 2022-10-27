@@ -22,7 +22,6 @@ export class DrawableDirective {
   @HostListener('click', ['$event'])
   onclick(event: any) {
     if (this.draw) {
-
       if (this.officeBookerDrawable) {
         const dropzone = event.target;
         const svgns = "http://www.w3.org/2000/svg";
@@ -66,7 +65,6 @@ export class DrawableDirective {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
     if (this.draw) {
-
       const rect = event.currentTarget.getBoundingClientRect();
       this.posX = event.clientX - rect.left; //x position within the element.
       this.posY  = event.clientY - rect.top;  //y position within the element.
