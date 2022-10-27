@@ -56,6 +56,28 @@
     background : rgb(204, 26, 70);
   }
   
+  .employeeCard{
+      /* width: 240px; */
+      /* height: 275px; */
+      
+      width: stretch;
+      height: stretch;
+    
+      margin: 0.5rem;
+      /* margin-left: 2rem; */
+      
+      background-color: rgba(255, 255, 255, 1);
+      text-align: center;
+    
+      border: rgba(140, 140, 140, 0.314) 2.5px solid;
+      border-radius: 6px;
+    
+      display: inline-block;
+      color:rgb(0, 0, 0);
+    
+      
+    
+  }
   .clicker2{
     /* background : rgb(26, 124, 204); */
   }
