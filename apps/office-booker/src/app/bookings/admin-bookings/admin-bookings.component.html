@@ -73,32 +73,22 @@
 
 
     <div class="card-wrapper" *ngIf="settingsFilter === 'domains'">
-        <div class="card-wrapper-left" *ngFor="let domains of Domains">
-            <mat-card class="example-card">
-                <mat-card-header>Domain: {{domains}}</mat-card-header>
-                <p></p>
+        <mat-card class="example-card">
 
-                <mat-card-subtitle>
+            <p></p>
 
-                </mat-card-subtitle>
+            <mat-card-title>
+                Permitted email domains:
+            </mat-card-title>
 
-                <mat-card-content>
+            <mat-card-content *ngFor="let domains of Domains">
+                {{domains}}
+            </mat-card-content>
 
-                </mat-card-content>
+            <p></p>
 
+        </mat-card>
 
-                <mat-card-actions>
-
-                    <button mat-raised-button color="primary">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Remove
-          </button>
-                </mat-card-actions>
-
-                <p></p>
-
-            </mat-card>
-        </div>
     </div>
 
     <div class="card-wrapper" *ngIf="settingsFilter === 'employees'">
