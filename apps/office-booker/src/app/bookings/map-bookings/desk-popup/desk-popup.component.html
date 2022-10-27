@@ -56,7 +56,7 @@
     <div class="scrollable-section">
         <mat-card class="booking-container" *ngFor="let booking of this.data.selectedItemBookings">
             <mat-card-content>
-                <div *ngIf="booking.isInvited"><b>Invite*</b></div>
+                <div *ngIf="booking.isInvited"><strong>Invite*</strong></div>
                 <div>Date: {{booking.startsAt | date: 'd MMMM': 'UTC'}} </div>
                 <div>Time: {{booking.startsAt | date: 'HH:mm': 'UTC'}} - {{booking.endsAt | date: 'HH:mm': 'UTC'}}
                 </div>
