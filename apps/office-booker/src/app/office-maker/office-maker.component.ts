@@ -176,6 +176,8 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   createDesk() {
+    this.drawMode = false;
+    this.editMode = false;
     const svg = document.getElementById("create-object");
     let child = svg?.lastElementChild;
     while (child) {
@@ -256,6 +258,8 @@ export class OfficeMakerComponent implements OnInit {
   }
 
   createMeetingRoom() {
+    this.drawMode = false;
+    this.editMode = false;
     const svg = document.getElementById("create-object");
     let child = svg?.lastElementChild;
     while (child) {
@@ -345,11 +349,15 @@ export class OfficeMakerComponent implements OnInit {
   startDraw() {
     this.drawMode = !this.drawMode;
     this.editMode = false;
+    this.sizeChanger = false;
+    document.getElementById('map')?.setAttribute("style", "width: auto% !important; ");
   }
 
   setEdit() {
     this.editMode = !this.editMode;
     this.drawMode = false;
+    this.sizeChanger = false;
+    document.getElementById('map')?.setAttribute("style", "width: auto% !important; ");
   }
 
   startEdit(itemId: string) {
@@ -454,6 +462,8 @@ export class OfficeMakerComponent implements OnInit {
 
   openSizeChanger() {
     this.sizeChanger = !this.sizeChanger;
+    this.drawMode = false;
+    this.editMode = false;
     if (this.sizeChanger) {
       document.getElementById('map')?.setAttribute("style", "width: 75% !important; ");
     }
