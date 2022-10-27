@@ -93,6 +93,7 @@
 
     <div class="card-wrapper" *ngIf="settingsFilter === 'employees'">
         <div class="card-wrapper-left" *ngFor="let users of Users">
+        <mat-grid-tile>
             <mat-card class="employee-card">
                 <mat-card-header>Name: {{users.name}}</mat-card-header>
                 <p></p>
@@ -112,7 +113,10 @@
                 <p></p>
 
             </mat-card>
+        </mat-grid-tile>
+
         </div>
+        
 
 
     </div>
