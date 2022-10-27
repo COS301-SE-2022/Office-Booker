@@ -1,10 +1,7 @@
 import { Directive, ElementRef, Input, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
-import { SVGService } from '../services/svg.service';
-
 @Directive({
   selector: '[officeBookerDrawable]'
 })
-
 
 export class DrawableDirective {
   @Input() officeBookerDrawable = false;
@@ -22,7 +19,6 @@ export class DrawableDirective {
   @HostListener('click', ['$event'])
   onclick(event: any) {
     if (this.draw) {
-
       if (this.officeBookerDrawable) {
         const dropzone = event.target;
         const svgns = "http://www.w3.org/2000/svg";
@@ -32,17 +28,11 @@ export class DrawableDirective {
         this.newWall.setAttribute("x2", "1");
         this.newWall.setAttribute("y2", "1");
         this.newWall.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:5;");
-
         this.newWall.classList.add('new');
-        
-
-        
-        //newWall.setAttribute("len", '1')
-        //newWall.setAttribute("transform", "rotate(0)");
+      
         dropzone.appendChild(this.newWall);
         if (this.newWall != null) {
           this.newWall.setAttribute('draggable', true);
-          
           this.newWall.setAttribute('x1', this.roundNum(this.posX));
           this.newWall.setAttribute('y1', this.roundNum(this.posY));
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
@@ -55,7 +45,7 @@ export class DrawableDirective {
           this.newWall.setAttribute('x2', this.roundNum(this.posX));
           this.newWall.setAttribute('y2', this.roundNum(this.posY));
           this.newWall.setAttribute("id", "wall-"+this.idCounterWall.toString());
-          const newWallId = "wall-"+this.idCounterWall.toString();    //needed to pass through the selectitem function, as this.newWall.id is then the latest one
+          const newWallId = "wall-"+this.idCounterWall.toString();//needed to pass through the selectitem function, as this.newWall.id is then the latest one
           this.newWall.onclick = () => this.selectItem(newWallId);
           this.idCounterWall++;
         }
@@ -66,7 +56,6 @@ export class DrawableDirective {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
     if (this.draw) {
-
       const rect = event.currentTarget.getBoundingClientRect();
       this.posX = event.clientX - rect.left; //x position within the element.
       this.posY  = event.clientY - rect.top;  //y position within the element.
