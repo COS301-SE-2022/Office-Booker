@@ -243,9 +243,7 @@ export class OfficeMakerComponent implements OnInit {
       const deleteItem = document.getElementById(this.selectedItemId);
       if (deleteItem?.classList.contains("preMade")) {
         if (deleteItem.classList.contains("desk")) {
-          console.log(this.selectedItemId);
           const deskId = parseInt(this.selectedItemId.replace("existingDesk-", ""));
-          console.log(deskId);
           this.makerService.deleteDeskById(deskId).subscribe();
         }
         else if (deleteItem.classList.contains("wall")) {
