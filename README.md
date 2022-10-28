@@ -55,7 +55,7 @@ Damian is the business analysts and frontend designer of the group. He handles m
 
 Grant handles the UI of the system as well as how it communicates with the backend.
 
-### Brett Du Plessis [LinkedIn](https://www.linkedin.com/in/brettduplessis) - Backend, API
+### Brett Du Plessis [LinkedIn](https://www.linkedin.com/in/brettduplessis) - UI/UX
 <img src="https://user-images.githubusercontent.com/93526910/168096437-eee24d03-5bd3-418c-a086-9b8d05de9011.jpg" width="200" height="300"/>
 
 Brett handled the overall UI/UX of the system, as well as the AWS Cognito functionality.
